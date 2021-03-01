@@ -20,6 +20,7 @@
 
 html {
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 *, *::before, *::after {
@@ -30,7 +31,6 @@ body {
   font-family: 'Open Sans';
   font-style: normal;
   font-size: 24px;
-  font-weight: normal;
   line-height: 1.2;
   color: #F7F7F7;
 }
@@ -67,7 +67,6 @@ body {
 .header__logo-name {
   padding-left: 15px;
   font-family: "Roboto";
-  font-weight: normal;
   font-size: 32px;
   line-height: 60px;
   text-transform: uppercase;
@@ -75,11 +74,12 @@ body {
 
 .header__list {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
 }
 
 .header__item {
-  margin-right: 60px;
+  margin-right: 61px;
 }
 
 .header__item:last-child {
@@ -98,26 +98,74 @@ body {
   opacity: .75;
 }
 
-.header__button {
+.header__sign-in-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 50px;
   width: 120px;
-  top: 24px;
+  font-size: 23px;
   color: inherit;
-  background-color: transparent;
+  text-decoration: none;
   border: 2px solid rgba(205, 99, 38, 1);
   border-radius: 5px;
+  transition-duration: .2s;
+}
+
+.header__sign-in-button:hover,
+.header__sign-in-button:focus,
+.header__sign-in-button:active {
+  background-color: rgba(205, 99, 38, 1);
 }
 
 /* Header styles end */
 
 /* Main styles start */
 
-.hero {
-  height: 100vh;
-  background: url(../img/Hero-bg.jpg) no-repeat;
+.intro {
+  min-height: 780px;
+  background: url(../img/Hero-bg.jpg) no-repeat center;
   background-size: cover;
+  padding-top: 200px;
 
 }
 
+.intro__title {
+  margin-bottom: 50px;
+  font-family: "Open Sans";
+  font-size: 48px;
+  line-height: 72px;
+  color: rgba(205, 99, 38, 1);
+}
+
+.intro__subtitle {
+  margin-bottom: 50px;
+  max-width: 274px;
+  font-family: "Open Sans";
+  font-size: 18px;
+  line-height: 27px;
+  color: rgba(247, 247, 247, 1);
+}
+
+.donate__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 160px;
+  height: 60px;
+  font-family: "Roboto";
+  font-size: 23px;
+  line-height: 27px;
+  text-decoration: none;
+  color: rgba(247, 247, 247, 1);
+  border-radius: 5px;
+  background-color: rgba(205, 99, 38, 1);
+  transition-duration: .1s;
+}
+
+.donate__button:hover {
+  transform: scale(1.1);
+
+}
 
 /* Main styles end */
