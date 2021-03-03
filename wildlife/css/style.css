@@ -27,6 +27,10 @@ html {
 }
 
 body {
+  background-color: #02160B;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   font-family: 'Open Sans';
   font-style: normal;
   font-size: 24px;
@@ -42,14 +46,14 @@ body {
 /* Header styles start */
 
 .header {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
 }
 
 .header__wrapper {
-  padding-top: 19px;
+  padding-top: 20px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -78,7 +82,7 @@ body {
 }
 
 .header__item {
-  margin-right: 61px;
+  margin-right: 62px;
 }
 
 .header__item:last-child {
@@ -89,12 +93,24 @@ body {
   font-size: 23px;
   color: inherit;
   text-decoration: none;
+  transition-duration: .1s;
 }
 
-.header__link:hover, 
-.header__link:focus, 
+.header__link img {
+  transition-duration: .1s;
+}
+
+.header__link:hover {
+  color: #E39128;
+}
+
 .header__link:active {
-  opacity: .75;
+  color: #CD6326;
+}
+
+.header__link img:hover, 
+.header__link img:active {
+  transform: scale(1.2);
 }
 
 .header__sign-in-button {
@@ -111,25 +127,35 @@ body {
   transition-duration: .2s;
 }
 
-.header__sign-in-button:hover,
-.header__sign-in-button:focus,
-.header__sign-in-button:active {
+.header__sign-in-button:hover {
   background-color: #CD6326;
+}
+
+.header__sign-in-button:active {
+  background-color: #8F5613;
+  border: 2px solid #8F5613;
 }
 
 /* Header styles end */
 
 /* Main styles start */
 
-.intro {
+.main {
+  width: 1440px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.survival {
   min-height: 780px;
   background: url(../img/Hero-bg.jpg) no-repeat center;
   background-size: cover;
   padding-top: 200px;
 }
 
-.intro__title {
-  margin-bottom: 50px;
+.survival__title {
+  margin-bottom: 51px;
   font-family: "Open Sans";
   font-size: 48px;
   line-height: 72px;
@@ -137,8 +163,8 @@ body {
   letter-spacing: 2px;
 }
 
-.intro__subtitle {
-  margin-bottom: 50px;
+.survival__subtitle {
+  margin-bottom: 49px;
   max-width: 274px;
   font-family: "Open Sans";
   font-size: 18px;
@@ -163,13 +189,15 @@ body {
 }
 
 .donate__button:hover {
-  transform: scale(1.1);
-  border: 1px solid #CCC;
+  background-color: #E39128;
+}
 
+.donate__button:active {
+  background-color: #8F5613;
 }
 
 .content {
-  padding-top: 120px;
+  padding-top: 121px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
