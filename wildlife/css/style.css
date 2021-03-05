@@ -119,6 +119,7 @@ body {
   align-items: center;
   height: 50px;
   width: 120px;
+  font-family: "Roboto";
   font-size: 23px;
   color: inherit;
   text-decoration: none;
@@ -258,6 +259,9 @@ body {
 
 .vector {
   margin: 6px 30px 0;
+}
+
+.vector svg {
   transition-duration: .1s;
 }
 
@@ -267,6 +271,7 @@ body {
 
 .vector svg:active {
   stroke-width: 2px;
+  stroke-linecap: butt;
   stroke: #CD6326;
 }
 
@@ -393,6 +398,15 @@ body {
   line-height: 60px;
   color: #F7F7F7;
   text-decoration: none;
+  transition-duration: .1s;
+}
+
+.footer__navi-link:hover {
+  text-shadow: 0 0 5px#E39128 ;
+}
+
+.footer__navi-link:active {
+  color: #E39128;
 }
 
 .footer__social-list {
@@ -408,6 +422,7 @@ body {
   display: block;
   height: 40px;
   width: 40px;
+  border-radius: 50%;
   background: url(../img/svg/facebook.svg) no-repeat center;
 }
 
@@ -415,6 +430,7 @@ body {
   display: block;
   height: 40px;
   width: 40px;
+  border-radius: 50%;
   background: url(../img/svg/insta.svg);
 }
 
@@ -422,6 +438,7 @@ body {
   display: block;
   height: 40px;
   width: 40px;
+  border-radius: 50%;
   background: url(../img/svg/pinterest.svg);
 }
 
@@ -429,6 +446,21 @@ body {
   display: block;
   height: 40px;
   width: 40px;
+  border-radius: 50%;
   background: url(../img/svg/telega.svg);
+}
+
+.footer__facebook-link:hover,
+.footer__instagram-link:hover,
+.footer__pinterest-link:hover,
+.footer__telegram-link:hover {
+  transform: scale(1.2);
+}
+
+.footer__facebook-link:active,
+.footer__instagram-link:active,
+.footer__pinterest-link:active,
+.footer__telegram-link:active {
+  box-shadow: 0 0 15px #CD6326;
 }
 /* Footer styles end */
