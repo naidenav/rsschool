@@ -307,7 +307,7 @@ body {
   padding-left: 15px;
   height: 62px;
   width: 540px; 
-  font-family: Roboto;
+  font-family: "Roboto";
   font-size: 23px;
   line-height: 27px;
   color: #666;
@@ -321,7 +321,7 @@ body {
   margin-left: 0;
   height: 62px;
   width: 120px;
-  font-family: Roboto;
+  font-family: "Roboto";
   font-size: 23px;
   line-height: 27px;
   color: #F7F7F7;
@@ -340,5 +340,95 @@ body {
   background-color: #8F5613;
 }
 
-
 /* Main styles end */
+
+/* Footer styles start */
+
+.footer {
+  width: 1440px;
+  background: url(../img/footer.jpg) no-repeat center;
+}
+
+.footer__wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 359px;
+}
+
+.footer__title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  width: 240px;
+}
+
+.footer__logo-name {
+  display: block;
+  height: 60px;
+  width: 155px;
+  font-family: "Roboto";
+  font-size: 32px;
+  line-height: 60px;
+  color: #F7F7F7;
+  text-transform: uppercase;
+}
+
+.footer__navi-list {
+  margin-right: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  width: 478px;
+}
+
+.footer__navi-link {
+  font-family: "Open Sans";
+  font-size: 23px;
+  line-height: 60px;
+  color: #F7F7F7;
+  text-decoration: none;
+}
+
+.footer__social-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  width: 240px;
+}
+
+.footer__facebook-link {
+  display: block;
+  height: 40px;
+  width: 40px;
+  background: url(../img/svg/facebook.svg) no-repeat center;
+}
+
+.footer__instagram-link {
+  display: block;
+  height: 40px;
+  width: 40px;
+  background: url(../img/svg/insta.svg);
+}
+
+.footer__pinterest-link {
+  display: block;
+  height: 40px;
+  width: 40px;
+  background: url(../img/svg/pinterest.svg);
+}
+
+.footer__telegram-link {
+  display: block;
+  height: 40px;
+  width: 40px;
+  background: url(../img/svg/telega.svg);
+}
+/* Footer styles end */
