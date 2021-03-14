@@ -1,5 +1,9 @@
 const piano = document.querySelector('.piano');
 const pianoKeys = document.querySelectorAll('.piano-key');
+const btnContainer = document.querySelector('.btn-container');
+const btnLetters = document.querySelector('.btn-letters');
+const btnNotes = document.querySelector('.btn-notes');
+
 function playAudio(src) {
     const audio = new Audio();
    // const src = `./assets/audio/${data-note}.mp3`;
@@ -15,6 +19,7 @@ let monitorOfEvents = {
 piano.addEventListener('mousedown', (event) => {
     monitorOfEvents.mousedown = true;
     if (event.target.classList.contains('piano-key')) {
+        event.target.classList.add('piano-key-active-pseudo');
         event.target.classList.add('piano-key-active');
         const note = event.target.dataset.note;
         src = `./assets/audio/${note}.mp3`;
@@ -81,4 +86,14 @@ window.addEventListener('keydown', (event) => {
 window.addEventListener('keyup', (event) => {
     document.querySelector(`div[data-key=${event.code}`).classList.remove('piano-key-active');
     delete heldKeys[event.code];
+})
+
+btnContainer.addEventListener('click', (event) => {
+    if (!event.target.classList.contains('btn-active')) {
+        btnLetters.classList.toggle('btn-active');
+        btnNotes.classList.toggle('btn-active');
+        pianoKeys.forEach(item => {
+            item.classList.toggle('piano-key-letter');
+        })
+    }
 })
