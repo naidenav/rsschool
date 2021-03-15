@@ -7,7 +7,6 @@ const btnFullscreen = document.querySelector('.fullscreen');
 
 function playAudio(src) {
     const audio = new Audio();
-   // const src = `./assets/audio/${data-note}.mp3`;
     audio.src = src;
     audio.currentTime = 0;
     audio.play();
@@ -32,6 +31,7 @@ piano.addEventListener('mouseover', (event) => {
     if (monitorOfEvents.mousedown == true) {
         if (event.target.classList.contains('piano-key')) {
             event.target.classList.add('piano-key-active');
+            event.target.classList.add('piano-key-active-pseudo');
             const note = event.target.dataset.note;
             src = `./assets/audio/${note}.mp3`;
             playAudio(src);
@@ -43,31 +43,37 @@ window.addEventListener('mouseup', (event) => {
     monitorOfEvents.mousedown = false;
     if (event.target.classList.contains('piano-key')) {
         event.target.classList.remove('piano-key-active');
+        event.target.classList.remove('piano-key-active-pseudo');
     }
 })
 
 piano.addEventListener('mouseout', (event) => {
     event.target.classList.remove('piano-key-active');
+    event.target.classList.remove('piano-key-active-pseudo');
 })
 
 let heldKeys = {};
 
 window.addEventListener('keydown', (event) => {
-    document.querySelector(`div[data-key=${event.code}`).classList.add('piano-key-active');
     if (heldKeys[event.code] == true) {
         return;
     } 
     for (let item of pianoKeys) {
         if (event.code === item.dataset.key) {
+            item.classList.add('piano-key-active');
             playAudio(`./assets/audio/${item.dataset.note}.mp3`)
+            heldKeys[event.code] = true;
         }
     }
-    heldKeys[event.code] = true;
 })
 
 window.addEventListener('keyup', (event) => {
-    document.querySelector(`div[data-key=${event.code}`).classList.remove('piano-key-active');
-    delete heldKeys[event.code];
+    for (let item of pianoKeys) {
+        if (event.code === item.dataset.key) {
+            item.classList.remove('piano-key-active');
+            delete heldKeys[event.code];
+        }
+    }
 })
 
 btnContainer.addEventListener('click', (event) => {
