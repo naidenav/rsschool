@@ -3,6 +3,7 @@ const pianoKeys = document.querySelectorAll('.piano-key');
 const btnContainer = document.querySelector('.btn-container');
 const btnLetters = document.querySelector('.btn-letters');
 const btnNotes = document.querySelector('.btn-notes');
+const btnFullscreen = document.querySelector('.fullscreen');
 
 function playAudio(src) {
     const audio = new Audio();
@@ -55,30 +56,11 @@ window.addEventListener('keydown', (event) => {
     document.querySelector(`div[data-key=${event.code}`).classList.add('piano-key-active');
     if (heldKeys[event.code] == true) {
         return;
-    } else if (event.code === 'KeyD') {
-        playAudio(`./assets/audio/c.mp3`);
-    } else if (event.code === 'KeyF') {
-        playAudio(`./assets/audio/d.mp3`);
-    } else if (event.code === 'KeyG') {
-        playAudio(`./assets/audio/e.mp3`);
-    } else if (event.code === 'KeyH') {
-        playAudio(`./assets/audio/f.mp3`);
-    } else if (event.code === 'KeyJ') {
-        playAudio(`./assets/audio/g.mp3`);
-    } else if (event.code === 'KeyK') {
-        playAudio(`./assets/audio/a.mp3`);
-    } else if (event.code === 'KeyL') {
-        playAudio(`./assets/audio/b.mp3`);
-    } else if (event.code === 'KeyR') {
-        playAudio(`./assets/audio/c♯.mp3`);
-    } else if (event.code === 'KeyT') {
-        playAudio(`./assets/audio/d♯.mp3`);
-    } else if (event.code === 'KeyU') {
-        playAudio(`./assets/audio/f♯.mp3`);
-    } else if (event.code === 'KeyI') {
-        playAudio(`./assets/audio/g♯.mp3`);
-    } else if (event.code === 'KeyO') {
-        playAudio(`./assets/audio/a♯.mp3`);
+    } 
+    for (let item of pianoKeys) {
+        if (event.code === item.dataset.key) {
+            playAudio(`./assets/audio/${item.dataset.note}.mp3`)
+        }
     }
     heldKeys[event.code] = true;
 })
@@ -95,5 +77,17 @@ btnContainer.addEventListener('click', (event) => {
         pianoKeys.forEach(item => {
             item.classList.toggle('piano-key-letter');
         })
+    }
+})
+
+piano.addEventListener('contextmenu', (event) => {
+    event.preventDefault();
+})
+
+btnFullscreen.addEventListener('click', () => {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+    } else {
+        document.exitFullscreen();
     }
 })
