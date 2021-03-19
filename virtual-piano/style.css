@@ -234,6 +234,11 @@ body {
 .github:hover {
 	color: #fff;
 }
+
+.copyright {
+	color: #a2abb3;
+}
+
 .rss {
 	display: block;
 	position: relative;
