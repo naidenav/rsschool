@@ -1,0 +1,145 @@
+$desktop: 1920px;
+$desktop-min: 1200px;
+$tablet: 640px;
+$mobile: 320px;
+
+@font-face {
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 400;
+     src: local(''),
+          url('../../assets/fonts/roboto-v20-latin-regular.woff2') format('woff2'), 
+          url('../../assets/fonts/roboto-v20-latin-regular.woff') format('woff'); 
+}
+
+@font-face {
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 500;
+     src: local(''),
+          url('../../assets/fonts/roboto-v20-latin-500.woff2') format('woff2'), 
+          url('../../assets/fonts/roboto-v20-latin-500.woff') format('woff'); 
+}
+
+@font-face {
+     font-family: 'Roboto';
+     font-style: normal;
+     font-weight: 900;
+     src: local(''),
+          url('../../assets/fonts/roboto-v20-latin-900.woff2') format('woff2'), 
+          url('../../assets/fonts/roboto-v20-latin-900.woff') format('woff'); 
+}
+
+@mixin flex-column {
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;     
+}
+
+@mixin flex-row {
+     display: flex;
+     flex-direction: row;
+     justify-content: space-between;
+     align-items: center;     
+}
+
+html {
+     box-sizing: border-box;
+}
+   
+*, *::before, *::after {
+     box-sizing: inherit;
+}
+
+body {
+     @include flex-column();
+}
+
+.header {
+     @include flex-column();
+     height: 94px;
+     width: 100%;
+}
+
+.wrapper {
+     @include flex-row();
+     @media screen and (min-width: $desktop) {
+          max-width: 1620px;
+          min-width: 90%;
+     }
+     @media screen and (min-width: $desktop-min) {
+          max-width: 900px;
+          min-width: 90%;
+     }
+     @media screen and (min-width: $tablet) {
+          max-width: 600px;
+          min-width: 90%;
+     }
+     @media screen and (min-width: $mobile) {
+          max-width: 300px;
+          min-width: 90%;
+     }
+}
+
+.header__logo {
+     position: relative;
+     top: -.2em;
+     @include flex-column();
+}
+
+.logo__zoo {
+     font-family: 'Roboto', sans-serif;
+     font-weight: 900;
+     font-size: 36px;
+     line-height: 32px;
+     color: #333333;
+}
+
+.logo__online {
+     font-family: 'Roboto', sans-serif;
+     font-weight: 900;
+     font-size: 18px;
+     line-height: 15px;
+     letter-spacing: 0.08em;
+     color: #333333;
+}
+
+.header__nav-list {
+     padding-left: 0;
+     @include flex-row();
+     width: 572px;
+     list-style: none;
+     @media screen and (max-width: $tablet) {
+          & li:last-child {
+               display: none;
+          }
+          width: 307px;
+     }
+}
+
+.header__nav-link {
+     font-family: 'Roboto', sans-serif;
+     font-weight: normal;
+     font-size: 16px;
+     line-height: 19px;
+     color: #333333;
+     text-decoration: none;
+}
+
+.header__first-link {
+     font-weight: 900;
+     text-decoration: underline;
+}
+
+.main {
+     @include flex-column();
+     width: 100%;
+}
+
+.watch_online {
+     width: 100%;
+     height: 940px;
+     background: url(../../assets/images/bg-watch-online.jpg) no-repeat center center;
+     background-size: cover;
+}
