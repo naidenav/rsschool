@@ -16,7 +16,7 @@ let monitorOfEvents = {
     mousedown: false,
 };
 
-piano.addEventListener('mousedown', (event) => {
+window.addEventListener('mousedown', (event) => {
     monitorOfEvents.mousedown = true;
     if (event.target.classList.contains('piano-key')) {
         event.target.classList.add('piano-key-active-pseudo');
