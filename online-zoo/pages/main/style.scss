@@ -3,8 +3,9 @@ $desktop-min: 1200px;
 $tablet: 640px;
 $mobile: 320px;
 $text-black: #333333;
-$text-whithe: #FFFFFF;
-$btn-blue: #4BD8B5;
+$text-gray: #4f4f4f;
+$text-white: #fff;
+$btn-blue: #4bd8B5;
 
 @font-face {
      font-family: 'Roboto';
@@ -76,6 +77,15 @@ body {
      cursor: default;
 }
 
+.h2{
+     margin-top: 100px;
+     margin-bottom: 0;
+     font-weight: 900;
+     font-size: 48px;
+     line-height: 56px;
+     color: $text-black;
+}
+
 .header {
      @include flex-row(center);
      height: 94px;
@@ -129,9 +139,7 @@ body {
 
 .nav__btn {
      display: none;
-     @media screen and (max-width: $tablet) {
-          position: absolute;
-          right: 80px;
+     @media screen and (max-width: $desktop-min) {
           @include flex-row(center, center);
           outline: none;
           border: none;
@@ -153,19 +161,13 @@ body {
      width: 572px;
      list-style: none;
      @media screen and (max-width: $desktop-min) {
-          & li:last-child {
-               display: none;
-          }
-          width: 307px;
+          display: none;
      };
      li {
           transition-duration: .2s;
      };
      & li:hover {
           transform: scale(1.2);
-     }
-     @media screen and (max-width: $tablet) {
-          display: none;
      }
 }
 
@@ -187,12 +189,9 @@ body {
 }
 
 .theme__switcher {
-     position: relative;
-     display: inline-block;
+     @include flex-row();
      width: 54px;
      height: 30px;
-     left: 0px;
-     top: 0px;
      background: #F2F2F2;
      border-radius: 190px;
      transition-duration: .2s;
@@ -202,18 +201,20 @@ body {
      &:hover {
           background-color: darken(#F2F2F2, 10%);
      }
+     @media screen and (max-width: $desktop-min) {
+          position: absolute;
+          right: 80px;
+     }
 }
 
 .theme__switcher__active {
-     background-color: #4F4F4F;
+     background-color: $text-gray;
 }
 
 .theme__slider {
-     position: absolute;
+     margin-left: 6px;
      width: 20px;
      height: 20px;
-     left: 6px;
-     top: 5px;
      background: #FFFFFF;
      border-radius: 50%;
      box-shadow: 2px 4px 15px rgba(6, 12, 70, 0.15);
@@ -314,7 +315,9 @@ body {
      }
 }
 
-.watch__btn {
+.watch__btn,
+.favorite__btn {
+     padding: 0;
      margin-top: 37px;
      @include flex-row(center);
      height: 55px;
@@ -333,17 +336,21 @@ body {
      }
 }
 
-.watch__btn__content {
+.watch__btn__content,
+.favorite__btn__content {
      @include flex-row();
+     svg {
+          margin-right: 5px;
+     }
 }
 
-.watch__btn__name {
-     margin-left: 5px;
+.watch__btn__name,
+.favorite__btn__name {
      font-weight: 900;
      font-size: 18px;
      line-height: 21px;
      text-transform: uppercase;
-     color: $text-whithe;
+     color: $text-white;
 }
 
 .how-it-works {
@@ -362,16 +369,9 @@ body {
           padding: 0;
           width: 92%;
      }
-}
-
-.how-it-works__title {
-     align-self: flex-start;
-     margin-top: 100px;
-     margin-bottom: 0;
-     font-weight: 900;
-     font-size: 48px;
-     line-height: 56px;
-     color: $text-black;
+     .h2 {
+          align-self:flex-start;
+     }
 }
 
 .how-it-works__story {
@@ -379,7 +379,7 @@ body {
      font-weight: normal;
      font-size: 14px;
      line-height: 16px;
-     color: #4F4F4F;
+     color: $text-gray;
 }
 
 .how-it-works__slider {
@@ -388,26 +388,30 @@ body {
      @include flex-column();
 }
 
-.how-it-works__n-slide {
-     @include flex-row($align-items: flex-end);
+.how-it-works__n-slide,
+.pets-in-zoo__n-slide {
+     @include flex-row(center, flex-end);
      margin-top: 30px;
 }
 
-.how-it-works__n {
+.how-it-works__n,
+.pets-in-zoo__n {
      font-weight: 900;
      font-size: 24px;
      line-height: 28px;
      color: $text-black;
 }
 
-.how-it-works__total-slides {
+.how-it-works__total-slides,
+.pets-in-zoo__total-slides {
      font-weight: 900;
      font-size: 14px;
      line-height: 22px;
      color: #BDBDBD;
 }
 
-.how-it-works__scroll-line {
+.how-it-works__scroll-line,
+.pets-in-zoo__scroll-line {
      margin-top: 10px;
      position: relative;
      height: 10px;
@@ -421,4 +425,84 @@ body {
      height: 10px;
      width: 30px;
      background-color: $text-black;
+}
+
+.pets-in-zoo__scroll-item {
+     position: absolute;
+     left: 0;
+     height: 10px;
+     width: 30px;
+     background-color: $text-black;
+}
+
+.whats-inspiring-us {
+     @include flex-column();
+     width: 100%;
+     background-color: #F2F2F2;
+}
+
+.whats-inspiring-us__wrapper {
+     margin-top: 100px;
+     margin-bottom: 100px;
+     @include flex-row(space-between, flex-start);
+     width: 1200px;
+}
+
+.whats-inspiring-us__item {
+     @include flex-column(flex-start);
+     width: 380px;
+     height: 210px;
+}
+
+.whats-inspiring-us__title {
+     margin-top: 15px;
+     font-weight: 900;
+     font-size: 20px;
+     line-height: 23px;
+     text-align: center;
+     color: $text-black;
+}
+
+.whats-inspiring-us__content {
+     margin-top: 15px;
+     font-weight: normal;
+     font-size: 14px;
+     line-height: 16px;
+     color: $text-gray;
+}
+
+.pets-in-zoo__wrapper {
+     margin-top: 35px;
+     @include flex-row(center, center);
+}
+
+.pets-in-zoo__btn {
+     margin: 0 20px;
+     height: 20px;
+     width: 20px;
+     border-top: 5px solid #828282;
+     border-left: 5px solid #828282;
+     border-radius: 2px;
+}
+
+.btn__left {
+     transform: rotate(315deg);
+}
+
+.btn__right {
+     transform: rotate(135deg);
+}
+
+.pets-in-zoo {
+     @include flex-column();
+}
+
+.pets-in-zoo__slider {
+     @include flex-row();
+     width: 1200px;
+}
+
+.pets-in-zoo__slide {
+     height: 399px;
+     width: 277px;
 }
