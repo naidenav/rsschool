@@ -4,6 +4,7 @@ $tablet: 640px;
 $mobile: 320px;
 $text-black: #333333;
 $text-gray: #4f4f4f;
+$bg-gray: #f2f2f2;
 $text-white: #fff;
 $btn-blue: #4bd8B5;
 
@@ -60,6 +61,7 @@ body {
      @include flex-column();
      font-family: 'Roboto', sans-serif;
      cursor: default;
+     background-color: #fbfbfb;
 }
 
 .h2 {
@@ -114,6 +116,7 @@ body {
      @include flex-row(center);
      height: 94px;
      width: 100%;
+     background-color: #fff;
      &__nav-list {
           padding-left: 0;
           @include flex-row();
@@ -165,14 +168,14 @@ body {
           @include flex-row();
           width: 54px;
           height: 30px;
-          background: #F2F2F2;
+          background: $bg-gray;
           border-radius: 190px;
           transition-duration: .2s;
           & input {
                display: none;
           }
           &:hover {
-               background-color: darken(#F2F2F2, 10%);
+               background-color: darken($bg-gray, 10%);
           }
           @media screen and (max-width: $desktop-min) {
                position: absolute;
@@ -346,6 +349,10 @@ body {
           margin-bottom: 100px;
           @include flex-column();
      };
+     &__n-slide {
+          @include flex-row(center, flex-end);
+          margin-top: 30px;
+     };
      &__scroll-item {
           position: absolute;
           left: 30px;
@@ -356,11 +363,8 @@ body {
 }
 
 .how-it-works,
-.pets-in-zoo {
-     &__n-slide {
-          @include flex-row(center, flex-end);
-          margin-top: 30px;
-     };
+.pets-in-zoo,
+.testimonials {
      &__n {
           font-weight: 900;
           font-size: 24px;
@@ -385,7 +389,7 @@ body {
 .whats-inspiring-us {
      @include flex-column();
      width: 100%;
-     background-color: #F2F2F2;
+     background-color: $bg-gray;
      &__wrapper {
           margin-top: 100px;
           margin-bottom: 100px;
@@ -443,6 +447,10 @@ body {
           height: 399px;
           width: 277px;
      };
+     &__n-slide {
+          @include flex-row(center, flex-end);
+          margin-top: 30px;
+     };
      &__scroll-item {
           position: absolute;
           left: 0;
@@ -456,7 +464,7 @@ body {
      padding-bottom: 100px;
      @include flex-column();
      width: 100%;
-     background-color: #f2f2f2;
+     background-color: $bg-gray;
      &__wrapper {
           @include flex-column();
           max-width: 1200px;
@@ -496,4 +504,216 @@ body {
      &__arrow {
           margin: 63px;
      };
+}
+
+.testimonials {
+     padding-bottom: 100px;
+     @include flex-column();
+     &__wrapper {
+          margin-top: 50px;
+          @include flex-row(center, center);
+     };
+     &__btn {
+          margin: 0 20px;
+          height: 20px;
+          width: 20px;
+          border-top: 5px solid #828282;
+          border-left: 5px solid #828282;
+          border-radius: 2px;
+     };
+     .btn_left {
+          transform: rotate(315deg);
+     };
+     .btn_right {
+          transform: rotate(135deg);
+     };
+     &__slider {
+          @include flex-row();
+          height: 310px;
+          width: 1200px;
+     };
+     &__feedback {
+          @include flex-column();
+          height: 100%;
+          width: 48.7%;
+          background-color: #fff;
+          box-shadow: 2px 4px 15px rgba(6, 12, 70, 0.10);
+     };
+     .user-avatar {
+          margin-top: 47px;
+          @include flex-column(center, center);
+          height: 68px;
+          width: 68px;
+          border: 1px solid #bdbdbd;
+          border-radius: 50%;
+     };
+     .feedback-name {
+          margin-top: 17px;
+          font-weight: 900;
+          font-size: 20px;
+          line-height: 23px;
+          text-align: center;
+          color: $text-black;
+          text-transform: capitalize;
+     };
+     .feedback-content {
+          margin-top: 17px;
+          width: 75%;
+          font-weight: normal;
+          font-size: 14px;
+          line-height: 16px;
+          color: $text-gray;
+     };
+     &__n-slide {
+          @include flex-row(center, flex-end);
+          margin-top: 50px;
+     };
+     &__scroll-item {
+          position: absolute;
+          left: 30px;
+          height: 10px;
+          width: 30px;
+          background-color: $text-black;
+     };
+}
+
+.map {
+     @include flex-column();
+     width: 100%;
+     padding-bottom: 100px;
+     background-color: $bg-gray;
+     &__wrapper {
+          margin-top: 60px;
+          position: relative;
+          width: 1200px;
+          .panda-marker {
+               position: absolute;
+               top: 89.73px;
+               left: 890px;
+               width: 66px;
+               height: 92px;
+               path {
+                    transition-duration: .3s;
+               };
+               &:hover {
+                    cursor: pointer;
+                    svg path {
+                         fill: #56D84B; 
+                    }
+               };
+               svg path:hover {
+                    cursor: pointer;
+                    & {
+                         fill: #56D84B;
+                    }
+               };
+               div {
+                    position: absolute;
+                    top: 14%;
+                    left: 21%;
+                    height: 44%;
+                    width: 61.333%;
+                    background: url(../../assets/icons/panda-icon.jpg) no-repeat center center;
+                    background-size: cover;
+                    border-radius: 50%;
+               }
+          };
+          .eagle-marker {
+               position: absolute;
+               top: 74.15px;
+               left: 120px;
+               width: 66px;
+               height: 92px;
+               path {
+                    transition-duration: .3s;
+               };
+               &:hover {
+                    cursor: pointer;
+                    svg path {
+                         fill: #56D84B; 
+                    }
+               };
+               svg path:hover {
+                    cursor: pointer;
+                    & {
+                         fill: #56D84B;
+                    }
+               };
+               div {
+                    position: absolute;
+                    top: 14%;
+                    left: 21%;
+                    height: 44%;
+                    width: 61.333%;
+                    background: url(../../assets/icons/eagle-icon.jpg) no-repeat center center;
+                    background-size: cover;
+                    border-radius: 50%;
+               }
+          };
+          .gorilla-marker {
+               position: absolute;
+               top: 188.6px;
+               left: 570px;
+               width: 66px;
+               height: 92px;
+               path {
+                    transition-duration: .3s;
+               };
+               &:hover {
+                    cursor: pointer;
+                    svg path {
+                         fill: #56D84B; 
+                    }
+               };
+               svg path:hover {
+                    cursor: pointer;
+                    & {
+                         fill: #56D84B;
+                    }
+               };
+               div {
+                    position: absolute;
+                    top: 14%;
+                    left: 21%;
+                    height: 44%;
+                    width: 61.333%;
+                    background: url(../../assets/icons/gorilla-icon.jpg) no-repeat center center;
+                    background-size: cover;
+                    border-radius: 50%;
+               }
+          };   
+          .alligator-marker {
+               position: absolute;
+               top: 101.63px;
+               left: 244px;
+               width: 66px;
+               height: 92px;
+               path {
+                    transition-duration: .3s;
+               };
+               &:hover {
+                    cursor: pointer;
+                    svg path {
+                         fill: #56D84B; 
+                    }
+               };
+               svg path:hover {
+                    cursor: pointer;
+                    & {
+                         fill: #56D84B;
+                    }
+               };
+               div {
+                    position: absolute;
+                    top: 14%;
+                    left: 21%;
+                    height: 44%;
+                    width: 61.333%;
+                    background: url(../../assets/icons/alligator-icon.jpg) no-repeat center center;
+                    background-size: cover;
+                    border-radius: 50%;
+               }
+          };
+     };
+
 }

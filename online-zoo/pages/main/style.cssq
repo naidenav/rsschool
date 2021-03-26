@@ -688,7 +688,7 @@ body {
 .map__wrapper .panda-marker {
   position: absolute;
   top: 89.73px;
-  left: 890px;
+  left: 878.02px;
   width: 66px;
   height: 92px;
 }
@@ -720,7 +720,7 @@ body {
 .map__wrapper .eagle-marker {
   position: absolute;
   top: 74.15px;
-  left: 120px;
+  left: 108.01px;
   width: 66px;
   height: 92px;
 }
@@ -752,7 +752,7 @@ body {
 .map__wrapper .gorilla-marker {
   position: absolute;
   top: 188.6px;
-  left: 570px;
+  left: 558.35px;
   width: 66px;
   height: 92px;
 }
@@ -784,7 +784,7 @@ body {
 .map__wrapper .alligator-marker {
   position: absolute;
   top: 101.63px;
-  left: 245px;
+  left: 231.58px;
   width: 66px;
   height: 92px;
 }
@@ -814,4 +814,4 @@ body {
   border-radius: 50%;
 }
 
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=style.cssq.map */
