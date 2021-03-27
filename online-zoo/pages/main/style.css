@@ -25,6 +25,7 @@ html {
 }
 
 body {
+  overflow: auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -41,6 +42,10 @@ body {
   font-size: 48px;
   line-height: 56px;
   color: #333333;
+}
+
+.weight-500 {
+  font-weight: 500;
 }
 
 .wrapper {
@@ -96,16 +101,7 @@ body {
   color: #333333;
 }
 
-.header {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  height: 94px;
-  width: 100%;
-  background-color: #fff;
-}
-.header__nav-list {
+.nav-list {
   padding-left: 0;
   display: flex;
   flex-direction: row;
@@ -114,18 +110,7 @@ body {
   width: 572px;
   list-style: none;
 }
-@media screen and (max-width: 1200px) {
-  .header__nav-list {
-    display: none;
-  }
-}
-.header__nav-list li {
-  transition-duration: 0.2s;
-}
-.header__nav-list li:hover {
-  transform: scale(1.2);
-}
-.header__nav-link {
+.nav-list__link {
   font-weight: normal;
   font-size: 16px;
   line-height: 19px;
@@ -133,12 +118,33 @@ body {
   text-decoration: none;
   transition-duration: 0.2s;
 }
-.header__nav-link:active {
+.nav-list__link:active {
   color: #999999;
 }
-.header__first-link {
+.nav-list .first-link {
   font-weight: 900;
   text-decoration: underline;
+}
+@media screen and (max-width: 1200px) {
+  .nav-list {
+    display: none;
+  }
+}
+.nav-list li {
+  transition-duration: 0.2s;
+}
+.nav-list li:hover {
+  transform: scale(1.2);
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 94px;
+  width: 100%;
+  background-color: #fff;
 }
 .header__nav-btn {
   display: none;
@@ -284,7 +290,8 @@ body {
     line-height: 56px;
   }
 }
-.watch-online .social-net {
+
+.social-net {
   position: absolute;
   left: 0;
   top: 750px;
@@ -295,13 +302,13 @@ body {
   height: 107px;
   width: 20;
 }
-.watch-online .social-net__link {
+.social-net__link {
   transition-duration: 0.2s;
 }
-.watch-online .social-net__link svg:hover {
+.social-net__link svg:hover {
   transform: scale(1.2);
 }
-.watch-online .social-net__link:active path {
+.social-net__link:active path {
   fill: #b2b2b2;
 }
 
@@ -701,23 +708,69 @@ body {
 .map__wrapper .panda-marker:hover svg path {
   fill: #56D84B;
 }
+.map__wrapper .panda-marker:hover .panda-info {
+  transform: translateY(0);
+  visibility: visible;
+  opacity: 100%;
+}
 .map__wrapper .panda-marker svg path:hover {
   cursor: pointer;
 }
 .map__wrapper .panda-marker svg path:hover {
   fill: #56D84B;
 }
-.map__wrapper .panda-marker div {
+.map__wrapper .panda-marker .panda-icon {
+  z-index: 100;
   position: absolute;
   top: 14%;
   left: 21%;
   height: 44%;
   width: 61.333%;
-  background: url(../../assets/icons/panda-icon.jpg) no-repeat center center;
+  background: url(../../assets/icons/eagle-icon.jpg) no-repeat center center;
   background-size: cover;
   border-radius: 50%;
 }
+.map__wrapper .panda-marker .panda-info {
+  z-index: 105;
+  transform: translateY(50px);
+  opacity: 0;
+  visibility: hidden;
+  transition-duration: 0.3s;
+  position: absolute;
+  top: 80px;
+  right: 0;
+  padding: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 435px;
+  height: 150px;
+  background-color: #fefefe;
+  box-shadow: 2px 4px 15px rgba(6, 12, 70, 0.1);
+  border-radius: 8px;
+}
+.map__wrapper .panda-marker .panda-info__icon {
+  margin-right: 20px;
+  height: 65px;
+  width: 65px;
+  background: url(../../assets/icons/eagle-info-icon.svg) no-repeat center;
+  background-size: cover;
+}
+.map__wrapper .panda-marker .panda-info__title {
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 21px;
+  color: #333333;
+}
+.map__wrapper .panda-marker .panda-info__content {
+  margin-top: 5px;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+}
 .map__wrapper .eagle-marker {
+  z-index: 100;
   position: absolute;
   top: 74.15px;
   left: 120px;
@@ -733,13 +786,19 @@ body {
 .map__wrapper .eagle-marker:hover svg path {
   fill: #56D84B;
 }
+.map__wrapper .eagle-marker:hover .eagle-info {
+  transform: translateY(0);
+  visibility: visible;
+  opacity: 100%;
+}
 .map__wrapper .eagle-marker svg path:hover {
   cursor: pointer;
 }
 .map__wrapper .eagle-marker svg path:hover {
   fill: #56D84B;
 }
-.map__wrapper .eagle-marker div {
+.map__wrapper .eagle-marker .eagle-icon {
+  z-index: 100;
   position: absolute;
   top: 14%;
   left: 21%;
@@ -748,6 +807,44 @@ body {
   background: url(../../assets/icons/eagle-icon.jpg) no-repeat center center;
   background-size: cover;
   border-radius: 50%;
+}
+.map__wrapper .eagle-marker .eagle-info {
+  z-index: 105;
+  transform: translateY(50px);
+  opacity: 0;
+  visibility: hidden;
+  transition-duration: 0.3s;
+  position: absolute;
+  top: 80px;
+  padding: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 435px;
+  height: 150px;
+  background-color: #fefefe;
+  box-shadow: 2px 4px 15px rgba(6, 12, 70, 0.1);
+  border-radius: 8px;
+}
+.map__wrapper .eagle-marker .eagle-info__icon {
+  margin-right: 20px;
+  height: 65px;
+  width: 65px;
+  background: url(../../assets/icons/eagle-info-icon.svg) no-repeat center;
+  background-size: cover;
+}
+.map__wrapper .eagle-marker .eagle-info__title {
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 21px;
+  color: #333333;
+}
+.map__wrapper .eagle-marker .eagle-info__content {
+  margin-top: 5px;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
 }
 .map__wrapper .gorilla-marker {
   position: absolute;
@@ -784,7 +881,7 @@ body {
 .map__wrapper .alligator-marker {
   position: absolute;
   top: 101.63px;
-  left: 245px;
+  left: 244px;
   width: 66px;
   height: 92px;
 }
@@ -812,6 +909,34 @@ body {
   background: url(../../assets/icons/alligator-icon.jpg) no-repeat center center;
   background-size: cover;
   border-radius: 50%;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  background-color: #333333;
+}
+.footer .nav-list__link {
+  color: #f2f2f2;
+}
+.footer .contacts-us-and-centre {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+.footer .contacts-us-and-centre .social-net {
+  position: unset;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 20px;
+  width: 125px;
 }
 
 /*# sourceMappingURL=style.css.map */
