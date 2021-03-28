@@ -492,15 +492,15 @@
                     <form class="contact-us__form">
                         <input type="text" class="contact-us__input" placeholder="Name">
                         <input type="text" class="contact-us__input" placeholder="Email">
-                        <fieldset class="conact-us__message">
-                            <legend>Please enter your message</legend>
-                            <textarea class="conact-us__textarea" maxlength="280"></textarea>
+                        <fieldset class="contact-us__message">
+                            <legend class="contact-us__legend">Please enter your message</legend>
+                            <textarea class="contact-us__textarea" maxlength="280"></textarea>
                         </fieldset>
-                        <input type="checkbox" class="contact-us__checkbox" name="i-agree">
-                        <label for="i-agree">I agree to the processing of Personal Data</label>
+                        
+                        <label class="contact-us__label" for="i-agree"><input type="checkbox" class="contact-us__checkbox" name="i-agree"><div class="checkbox"></div> I agree to the processing of Personal Data</label>
                         <button type="submit" class="contact-us__send">
                             Send
-                            <div class="send-arrow"></div>
+                            <div class="send-arrow"><img src="../../assets/icons/send-arrow.svg"></div>
                         </button>
                     </form>
                 </div>
@@ -617,10 +617,13 @@
                             </svg>
                         </a>                    
                     </div>
+                    <button class="watch-btn">
+                        <p class="watch-btn__name">donate for volunteers</p>
+                    </button>
                 </div>
             </div>
             <div class="footer__copyright">
-
+                <p class="copyright-text">©Noora Sagnayeva<br>©RSSchool and ©Yem Digital - 2021</p>
             </div>
         </div>
     </footer>
