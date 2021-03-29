@@ -51,10 +51,13 @@ $btn-blue: #4bd8B5;
 
 html {
      box-sizing: border-box;
+     scroll-behavior: smooth;
+     transition-duration: .2s;
 }
    
 *, *::before, *::after {
      box-sizing: inherit;
+     transition-duration: inherit;
 }
 
 body {
@@ -65,7 +68,16 @@ body {
      background-color: #fbfbfb;
 }
 
-.h2 {
+.visually-hidden {
+     position: absolute;
+     clip: rect(0,0,0,0);
+     width: 1px;
+     height: 1px;
+     margin: -1px;
+     overflow: hidden;
+}
+
+.h3 {
      margin-top: 100px;
      margin-bottom: 0;
      font-weight: 900;
@@ -88,6 +100,7 @@ body {
      position: relative;
      top: -.2em;
      @include flex-column();
+     text-decoration: none;
      &__zoo {
           font-weight: 900;
           font-size: 36px;
@@ -115,7 +128,6 @@ body {
           line-height: 19px;
           color: $text-black;
           text-decoration: none;
-          transition-duration: .2s;
           &:active {
                color: lighten($text-black, 40%);
           }
@@ -124,8 +136,18 @@ body {
           }
      }
      .first-link {
+          cursor: unset;
           font-weight: 900;
           text-decoration: underline;
+          &:active {
+               color: inherit;
+          }
+          &:hover {
+               transform: none;
+          }
+     }
+     .first-link:hover {
+          transform: none;
      }
      @media screen and (max-width: $desktop-min) {
           display: none;
@@ -144,9 +166,6 @@ body {
                outline: none;
                border: none;
                background: none;
-               & svg line {
-                    transition-duration: .2s;
-               }
                &:hover {
                     & line {
                          stroke: $btn-blue;
@@ -160,7 +179,6 @@ body {
           height: 30px;
           background: $bg-gray;
           border-radius: 190px;
-          transition-duration: .2s;
           & input {
                display: none;
           }
@@ -196,29 +214,30 @@ body {
 }
 
 .watch-online {
+     overflow: hidden;
      @include flex-column();
      min-width: 100%;
      height: 940px;
      background: url(../../assets/images/bg-landing-1920.jpg) no-repeat center center;
      background-size: cover;
-     @media screen and (max-width:1920px) {
+/*     @media screen and (max-width:1918px) {
           background: url(../../assets/images/bg-landing-1200.jpg) no-repeat center center;
           background-size: cover;
      }
-     @media screen and (max-width: 1200px) {
+     @media screen and (max-width: $desktop-min) {
           background: url(../../assets/images/bg-landing-640.jpg) no-repeat center center;
           background-size: cover;
      }
-     @media screen and (max-width: 640px) {
+     @media screen and (min-width: $tablet) {
           background: url(../../assets/images/bg-landing-320.jpg) no-repeat center center;
           background-size: cover;
-     }
+     }*/
      &__wrapper {
           margin: 0 auto;
           display: flex;
           flex-direction: column;
           width: 1200px;
-          h1 {
+          h2 {
                margin-top: 206px;
                display: block;
                width: 793px;
@@ -227,16 +246,16 @@ body {
                line-height: 104px;
                color: #FEFEFE;
           }
-          @media screen and (max-width: $desktop) {
+/*          @media screen and (max-width: $desktop) {
                width: 100%;
                margin: 0 auto;
-               h1 {
+               h2 {
                     margin-top: 128px;
                }
           }
           @media screen and (max-width: $desktop-min) {
                width: 100%;
-               h1 {
+               h2 {
                     margin-top: 122px;
                     width: 600px;
                     font-weight: 900;
@@ -246,13 +265,71 @@ body {
           }
           @media screen and (max-width: $tablet) {
                width: 100%;
-               h1 {
+               h2 {
                     margin-top: 92px;
                     width: 100%;
                     font-weight: 900;
                     font-size: 48px;
                     line-height: 56px;
                }
+          }*/
+     }
+     &__slider {
+          position: absolute;
+          left: 690px;
+          top:406px;
+          @include flex-column();
+          width: 1124px;
+     }
+     &__carousel {
+          @include flex-row(flex-end, center);
+          width: 100%;
+          background: url(../../assets/icons/line.svg) no-repeat center left;
+     }
+     &__slide {
+          position: relative;
+          margin-left: 46px;
+          overflow: hidden;
+          @include flex-column(flex-end, center);
+          width: 140px;
+          height: 203px;
+          border-radius: 5px;
+          & img {
+               height: 100%;
+          }
+          &:hover {
+               transform: scale(1.1);
+          }
+     }
+     &__content {
+          transform: translateY(100%);
+          z-index: 105;
+          position: absolute;
+          left: 10%;
+          width: 80%;
+     }
+     &__text {
+          font-weight: normal;
+          font-size: 14px;
+          line-height: 16px;
+          color: white;
+     }
+     .slide-active {
+          width: 245px;
+          height: 352px;          
+          .watch-online__content {
+               transform: translateY(0);
+          }
+     }
+     .scroll {
+          align-self: flex-end;
+          margin-right: 558px;
+          &__n {
+               color: #fefefe;
+          }
+          &__scroll-item {
+               left: 30px;
+               background-color: #fefefe;
           }
      }
 }
@@ -265,7 +342,6 @@ body {
      height: 107px;
      width: 20;
      &__link {
-          transition-duration: .2s;
           & svg:hover {
                transform: scale(1.2);
           }
@@ -287,7 +363,6 @@ body {
      outline: none;
      border-radius: 3px;
      background-color: $btn-blue;
-     transition-duration: .2s;
      &:hover {
           transform: scale(1.1);
      }
@@ -340,22 +415,21 @@ body {
           margin-bottom: 100px;
           @include flex-column();
      }
+     .scroll {
+          &__scroll-item {
+               position: absolute;
+               left: 0;
+               height: 10px;
+               width: 60px;
+          }
+     }
+}
+
+.scroll {
      &__n-slide {
           @include flex-row(center, flex-end);
           margin-top: 30px;
      }
-     &__scroll-item {
-          position: absolute;
-          left: 30px;
-          height: 10px;
-          width: 30px;
-          background-color: $text-black;
-     }
-}
-
-.how-it-works,
-.pets-in-zoo,
-.testimonials {
      &__n {
           font-weight: 900;
           font-size: 24px;
@@ -374,6 +448,19 @@ body {
           height: 10px;
           width: 245px;
           background: url(../../assets/icons/how_it_work__slider_line.svg) no-repeat center;
+     }
+     &__scroll-item {
+          position: absolute;
+          left: 0;
+          height: 10px;
+          width: 30px;
+          background-color: $text-black;
+          &:hover {
+               background-color: $btn-blue;
+          }
+          &:active {
+               background-color: darken($btn-blue, 15%);
+          }
      }
 }
 
@@ -412,42 +499,58 @@ body {
 .pets-in-zoo {
      padding-bottom: 100px;
      @include flex-column();
+     & img {
+          height: 100%;
+     }
      &__wrapper {
           margin-top: 35px;
           @include flex-row(center, center);
-     }
-     &__btn {
-          margin: 0 20px;
-          height: 20px;
-          width: 20px;
-          border-top: 5px solid #828282;
-          border-left: 5px solid #828282;
-          border-radius: 2px;
-     }
-     .btn_left {
-          transform: rotate(315deg);
-     }
-     .btn_right {
-          transform: rotate(135deg);
      }
      &__slider {
           @include flex-row();
           width: 1200px;
      }
      &__slide {
+          @include flex-column(center, center);
+          overflow: hidden;
           height: 399px;
           width: 277px;
+          border-radius: 5px;
      }
-     &__n-slide {
-          @include flex-row(center, flex-end);
-          margin-top: 30px;
+     .scroll {
+          &__scroll-item {
+               position: absolute;
+               left: 0;
+               height: 10px;
+               width: 30px;
+          }
      }
-     &__scroll-item {
-          position: absolute;
-          left: 0;
-          height: 10px;
-          width: 30px;
-          background-color: $text-black;
+}
+
+.slider-btn {
+     margin: 0 20px;
+     height: 20px;
+     width: 20px;
+     border-top: 5px solid #828282;
+     border-left: 5px solid #828282;
+     border-radius: 2px;
+}
+.btn_left {
+     transform: rotate(315deg);
+     &:hover {
+          transform: scale(1.4) rotate(315deg);
+     }
+     &:active {
+          border-color: $btn-blue;
+     }
+}
+.btn_right {
+     transform: rotate(135deg);
+     &:hover {
+          transform: scale(1.4) rotate(135deg);
+     }
+     &:active {
+          border-color: $btn-blue;
      }
 }
 
@@ -504,20 +607,6 @@ body {
           margin-top: 50px;
           @include flex-row(center, center);
      }
-     &__btn {
-          margin: 0 20px;
-          height: 20px;
-          width: 20px;
-          border-top: 5px solid #828282;
-          border-left: 5px solid #828282;
-          border-radius: 2px;
-     }
-     .btn_left {
-          transform: rotate(315deg);
-     }
-     .btn_right {
-          transform: rotate(135deg);
-     }
      &__slider {
           @include flex-row();
           height: 310px;
@@ -555,16 +644,17 @@ body {
           line-height: 16px;
           color: $text-gray;
      }
-     &__n-slide {
-          @include flex-row(center, flex-end);
-          margin-top: 50px;
-     }
-     &__scroll-item {
-          position: absolute;
-          left: 30px;
-          height: 10px;
-          width: 30px;
-          background-color: $text-black;
+     .scroll {
+          &__n-slide {
+               @include flex-row(center, flex-end);
+               margin-top: 50px;
+          }
+          &__scroll-item {
+               position: absolute;
+               left: 30px;
+               height: 10px;
+               width: 30px;
+          }
      }
 }
 
@@ -583,9 +673,6 @@ body {
                left: 890px;
                width: 66px;
                height: 92px;
-               path {
-                    transition-duration: .3s;
-               }
                &:hover {
                     cursor: pointer;
                     svg path {
@@ -610,7 +697,7 @@ body {
                     left: 21%;
                     height: 44%;
                     width: 61.333%;
-                    background: url(../../assets/icons/eagle-icon.jpg) no-repeat center center;
+                    background: url(../../assets/images/panda.jpg) no-repeat center center;
                     background-size: cover;
                     border-radius: 50%;
                }
@@ -619,7 +706,6 @@ body {
                     transform: translateY(50px);
                     opacity: 0;
                     visibility: hidden;
-                    transition-duration: .3s;
                     position: absolute;
                     top: 80px;
                     right: 0;
@@ -634,7 +720,7 @@ body {
                          margin-right: 20px;
                          height: 65px;
                          width: 65px;
-                         background: url(../../assets/icons/eagle-info-icon.svg) no-repeat center;
+                         background: url(../../assets/images/panda.jpg) no-repeat center;
                          background-size: cover;
                     }
                     &__text {
@@ -661,9 +747,6 @@ body {
                left: 120px;
                width: 66px;
                height: 92px;
-               path {
-                    transition-duration: .3s;
-               }
                &:hover {
                     cursor: pointer;
                     svg path {
@@ -688,7 +771,7 @@ body {
                     left: 21%;
                     height: 44%;
                     width: 61.333%;
-                    background: url(../../assets/icons/eagle-icon.jpg) no-repeat center center;
+                    background: url(../../assets/images/eagle.jpg) no-repeat center center;
                     background-size: cover;
                     border-radius: 50%;
                }
@@ -697,7 +780,6 @@ body {
                     transform: translateY(50px);
                     opacity: 0;
                     visibility: hidden;
-                    transition-duration: .3s;
                     position: absolute;
                     top: 80px;
                     padding: 40px;
@@ -737,9 +819,6 @@ body {
                left: 570px;
                width: 66px;
                height: 92px;
-               path {
-                    transition-duration: .3s;
-               }
                &:hover {
                     cursor: pointer;
                     svg path {
@@ -758,7 +837,7 @@ body {
                     left: 21%;
                     height: 44%;
                     width: 61.333%;
-                    background: url(../../assets/icons/gorilla-icon.jpg) no-repeat center center;
+                    background: url(../../assets/images/gorilla.jpg) no-repeat center center;
                     background-size: cover;
                     border-radius: 50%;
                }
@@ -769,9 +848,6 @@ body {
                left: 244px;
                width: 66px;
                height: 92px;
-               path {
-                    transition-duration: .3s;
-               }
                &:hover {
                     cursor: pointer;
                     svg path {
@@ -790,7 +866,7 @@ body {
                     left: 21%;
                     height: 44%;
                     width: 61.333%;
-                    background: url(../../assets/icons/alligator-icon.jpg) no-repeat center center;
+                    background: url(../../assets/images/alligator.jpg) no-repeat center center;
                     background-size: cover;
                     border-radius: 50%;
                }
@@ -856,6 +932,10 @@ body {
                font-size: 14px;
                line-height: 20px;
                color: #fefefe;
+               & a {
+                    text-decoration: inherit;
+                    color: inherit;
+               }
           }
           .social-net {
                position: unset;
@@ -944,7 +1024,6 @@ body {
                border: none;
                border-radius: 5px;
                background-color: transparent;
-               transition-duration: .2s;
                &:hover {
                     background-color: #4f4f4f;
                }

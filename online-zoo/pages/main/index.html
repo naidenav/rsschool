@@ -12,15 +12,16 @@
 <body>
 
     <header class="header">
+        <h1 class="visually-hidden">Online Zoo</h1>
         <div class="wrapper">
-            <div class="logo">
+            <a href="index.html" class="logo">
                 <span class="logo__zoo">zoo</span>
                 <span class="logo__online">online</span>
-            </div>
+            </a>
             <nav class="nav">
                 <ul class="nav-list">
                     <li>
-                        <a href="#" class="nav-list__link first-link">About</a>
+                        <a href="index.html" class="nav-list__link first-link">About</a>
                     </li>
                     <li>
                         <a href="#" class="nav-list__link">Zoos</a>
@@ -29,10 +30,14 @@
                         <a href="#" class="nav-list__link">Map</a>
                     </li>
                     <li>
-                        <a href="#" class="nav-list__link">Contact Us</a>
+                        <a href="#contact-us" class="nav-list__link">Contact Us</a>
                     </li>
                     <li>
-                        <a href="#" class="nav-list__link">Design</a>
+                        <a
+                          class="nav-list__link"
+                          href="https://www.figma.com/file/HKt5Nlx0jghQtJp6jW9q8F/zooApp"
+                          target="_blank"
+                          rel="noopener noreferrer">Design</a>
                     </li>
                 </ul>
             </nav>
@@ -60,7 +65,7 @@
         <section class="watch-online">
             <div class="wrapper">
                 <div class="watch-online__wrapper">
-                    <h1>Watch your favorite animal online</h1>
+                    <h2 class="h2">Watch your favorite animal online</h2>
                     <button class="watch-btn">
                         <div class="watch-btn__content">
                             <svg
@@ -76,8 +81,56 @@
                         </div>
                     </button>
                 </div>
+                <div class="watch-online__slider">
+                    <div class="watch-online__carousel">
+                        <div class="watch-online__slide">  
+                            <img src="../../assets/images/eagle.jpg" alt="eagle">
+                            <div class="watch-online__content">                            
+                                <p class="watch-online__text">Panda’s name is Bei Bei. He 
+                                    is 2 years old. Bei Bei is from China. He loves bamboos.</p>
+                            </div>  
+                        </div>
+                        <div class="watch-online__slide slide-active"> 
+                            <img src="../../assets/images/panda.jpg" alt="panda">
+                            <div class="watch-online__content">                            
+                                <p class="watch-online__text">Panda’s name is Bei Bei. He 
+                                    is 2 years old. Bei Bei is from China. He loves bamboos.</p>
+                            </div>  
+                        </div>
+                        <div class="watch-online__slide">   
+                            <img src="../../assets/images/gorilla.jpg" alt="gorilla">
+                            <div class="watch-online__content">                            
+                                <p class="watch-online__text">Panda’s name is Bei Bei. He 
+                                    is 2 years old. Bei Bei is from China. He loves bamboos.</p>
+                            </div> 
+                        </div>
+                        <div class="watch-online__slide">  
+                            <img src="../../assets/images/alligator.jpg" alt="alligator">
+                            <div class="watch-online__content">                            
+                                <p class="watch-online__text">Panda’s name is Bei Bei. He 
+                                    is 2 years old. Bei Bei is from China. He loves bamboos.</p>
+                            </div>  
+                        </div>
+                        <div class="watch-online__slide">
+                            <img src="../../assets/images/fox.jpg" alt="fox">
+                            <div class="watch-online__content">                            
+                                <p class="watch-online__text">Panda’s name is Bei Bei. He 
+                                    is 2 years old. Bei Bei is from China. He loves bamboos.</p>
+                            </div>    
+                        </div>
+                    </div>
+                    <div class="scroll">
+                        <div class="scroll__n-slide">
+                            <p class="scroll__n">02/</p>
+                            <p class="scroll__total-slides">08</p>
+                        </div>
+                        <div class="scroll__scroll-line">
+                            <div class="scroll__scroll-item"></div>
+                        </div>
+                    </div>
+                </div>
                 <div class="social-net">
-                    <a href="#" class="social-net__link">
+                    <a class="social-net__link" href="https://www.instagram.com/" target="_blank" rel="noopener noreferer">
                         <svg
                           width="20"
                           height="20"
@@ -104,7 +157,7 @@
                             fill="#FEFEFE"/>
                         </svg>
                     </a>
-                    <a href="#" class="social-net__link">
+                    <a class="social-net__link" href="https://twitter.com/" target="_blank" rel="noopener noreferer">
                         <svg
                           width="20"
                           height="17"
@@ -129,7 +182,7 @@
                             fill="#FEFEFE"/>
                         </svg>
                     </a>
-                    <a href="#" class="social-net__link">
+                    <a class="social-net__link" href="https://www.youtube.com/" target="_blank" rel="noopener noreferer">
                         <svg
                           width="20"
                           height="14"
@@ -150,7 +203,7 @@
                             fill="#FEFEFE"/>
                         </svg>
                     </a>
-                    <a href="#" class="social-net__link">
+                    <a class="social-net__link" href="https://vk.com/" target="_blank" rel="noopener noreferer">
                         <svg
                           width="20"
                           height="12"
@@ -190,9 +243,9 @@
 
         <section class="how-it-works">
             <div class="how-it-works__wrapper">
-                <h2 class="h2">
+                <h3 class="h3">
                     How it works?
-                </h2>
+                </h3>
                 <p class="how-it-works__story">
                     As a voice for wildlife, we are devastated by the impact 
                     of the 2020 Australian bushfires on precious species and 
@@ -212,12 +265,14 @@
                       src="../../assets/images/how-it-works-img2.jpg"
                       alt="deer"
                       width="100%">
-                    <div class="how-it-works__n-slide">
-                        <p class="how-it-works__n">02/</p>
-                        <p class="how-it-works__total-slides">08</p>
-                    </div>
-                    <div class="how-it-works__scroll-line">
-                        <div class="how-it-works__scroll-item"></div>
+                    <div class="scroll">
+                        <div class="scroll__n-slide">
+                            <p class="scroll__n">01/</p>
+                            <p class="scroll__total-slides">04</p>
+                        </div>
+                        <div class="scroll__scroll-line">
+                            <div class="scroll__scroll-item"></div>
+                        </div>
                     </div>
                     <button class="watch-btn">
                         <div class="watch-btn__content">
@@ -270,9 +325,9 @@
         </section>
 
         <section class="pets-in-zoo">
-            <h2 class="h2">Pets in Zoo</h2>
+            <h3 class="h3">Pets in Zoo</h3>
             <div class="pets-in-zoo__wrapper">
-                <div class="pets-in-zoo__btn btn_left"></div>
+                <div class="slider-btn btn_left"></div>
                 <div class="pets-in-zoo__slider">
                     <div class="pets-in-zoo__slide">
                         <img src="../../assets/images/panda.jpg" alt="panda">
@@ -281,20 +336,22 @@
                         <img src="../../assets/images/eagle.jpg" alt="eagle">
                     </div>
                     <div class="pets-in-zoo__slide">
-                        <img src="../../assets/images/gorilla.jpg" alt="gorilla">
+                        <img src="../../assets/images/gorilla-2.jpg" alt="gorilla">
                     </div>
                     <div class="pets-in-zoo__slide">
                         <img src="../../assets/images/alligator.jpg" alt="alligator">
                     </div>
                 </div>
-                <div class="pets-in-zoo__btn btn_right"></div>
+                <div class="slider-btn btn_right"></div>
             </div>
-            <div class="pets-in-zoo__n-slide">
-                <p class="pets-in-zoo__n">01/</p>
-                <p class="pets-in-zoo__total-slides">08</p>
-            </div>
-            <div class="pets-in-zoo__scroll-line">
-                <div class="pets-in-zoo__scroll-item"></div>
+            <div class="scroll">
+                <div class="scroll__n-slide">
+                    <p class="scroll__n">01/</p>
+                    <p class="scroll__total-slides">08</p>
+                </div>
+                <div class="scroll__scroll-line">
+                    <div class="scroll__scroll-item"></div>
+                </div>
             </div>
             <button class="watch-btn">
                     <p class="watch-btn__name">Choose your favorite</p>
@@ -303,7 +360,7 @@
 
         <section class="pay-and-feed">
             <div class="pay-and-feed__wrapper">
-                <h2 class="h2">Pay and feed</h2>
+                <h3 class="h3">Pay and feed</h3>
                 <p class="pay-and-feed__subtitle">The opportunity to easily and naturally 
                     (but as often as possible) donate to the needs of animals that you like.</p>
                 <div class="pay-and-feed__schema">
@@ -336,9 +393,9 @@
         </section>
 
         <section class="testimonials">
-            <h2 class="h2">Testimonials</h2>
+            <h3 class="h3">Testimonials</h3>
             <div class="testimonials__wrapper">
-                <div class="testimonials__btn btn_left"></div>
+                <div class="slider-btn btn_left"></div>
                 <div class="testimonials__slider">
                     <div class="testimonials__feedback">
                         <div class="user-avatar">
@@ -359,14 +416,16 @@
                             on precious species and their habitat.</p>
                     </div>
                 </div>
-                <div class="testimonials__btn btn_right"></div>
+                <div class="slider-btn btn_right"></div>
             </div>
-            <div class="testimonials__n-slide">
-                <p class="testimonials__n">02/</p>
-                <p class="testimonials__total-slides">08</p>
-            </div>
-            <div class="testimonials__scroll-line">
-                <div class="testimonials__scroll-item"></div>
+            <div class="scroll">
+                <div class="scroll__n-slide">
+                    <p class="scroll__n">02/</p>
+                    <p class="scroll__total-slides">08</p>
+                </div>
+                <div class="scroll__scroll-line">
+                    <div class="scroll__scroll-item"></div>
+                </div>
             </div>
             <button class="watch-btn">
                     <p class="watch-btn__name">Leave feedback</p>
@@ -374,7 +433,7 @@
         </section>
 
         <section class="map">
-            <h2 class="h2">Map</h2>
+            <h3 class="h3">Map</h3>
             <div class="map__wrapper">
                 <img src="../../assets/images/map.svg" alt="map">
                 <div class="panda-marker">
@@ -467,13 +526,13 @@
     <footer class="footer">
         <div class="footer__wrapper">
             <nav class="footer__nav">
-                <div class="logo">
+                <a href="index.html" class="logo">
                     <span class="logo__zoo">zoo</span>
                     <span class="logo__online">online</span>
-                </div>
+                </a>
                 <ul class="nav-list">
                     <li>
-                        <a href="#" class="nav-list__link">About</a>
+                        <a href="index.html" class="nav-list__link">About</a>
                     </li>
                     <li>
                         <a href="#" class="nav-list__link">Zoos</a>
@@ -488,28 +547,30 @@
             </nav>
             <div class="contacts-us-and-centre">
                 <div class="contact-us">
+                    <a name="contact-us"></a>
                     <p class="contact-us__title">Contact us</p>
                     <form class="contact-us__form">
-                        <input type="text" class="contact-us__input" placeholder="Name">
-                        <input type="text" class="contact-us__input" placeholder="Email">
+                        <input type="text" class="contact-us__input" placeholder="Name" required>
+                        <input type="text" class="contact-us__input" placeholder="Email" required>
                         <fieldset class="contact-us__message">
                             <legend class="contact-us__legend">Please enter your message</legend>
-                            <textarea class="contact-us__textarea" maxlength="280"></textarea>
+                            <textarea class="contact-us__textarea" maxlength="280" required></textarea>
                         </fieldset>
                         
-                        <label class="contact-us__label" for="i-agree"><input type="checkbox" class="contact-us__checkbox" name="i-agree"><div class="checkbox"></div> I agree to the processing of Personal Data</label>
+                        <label class="contact-us__label" for="i-agree"><input type="checkbox" class="contact-us__checkbox" name="i-agree" required><div class="checkbox"></div> I agree to the processing of Personal Data</label>
                         <button type="submit" class="contact-us__send">
                             Send
                             <div class="send-arrow"><img src="../../assets/icons/send-arrow.svg"></div>
                         </button>
                     </form>
                 </div>
-                <div class="centre">
+                <address class="centre">
                     <p class="centre__title">ZOO Online Centre</p>
                     <p class="centre__address">132, Address District, Street Open<br>Daily 10:00 am - 5:00 pm</p>
-                    <p class="centre__address">T(702) 163-3433<br>zoo.online@gmail.com</p>
+                    <p class="centre__address"><a href="tel:7021633433">T(702) 163-3433</a><br>
+                    <a href="mailto:zoo.online@gmail.com">zoo.online@gmail.com</a></p>
                     <div class="social-net">
-                        <a href="#" class="social-net__link">
+                        <a class="social-net__link" href="https://www.instagram.com/" target="_blank" rel="noopener noreferer">
                             <svg
                               width="20"
                               height="20"
@@ -536,7 +597,7 @@
                                 fill="#FEFEFE"/>
                             </svg>
                         </a>
-                        <a href="#" class="social-net__link">
+                        <a class="social-net__link" href="https://twitter.com/" target="_blank" rel="noopener noreferer">
                             <svg
                               width="20"
                               height="17"
@@ -561,7 +622,7 @@
                                 fill="#FEFEFE"/>
                             </svg>
                         </a>
-                        <a href="#" class="social-net__link">
+                        <a class="social-net__link" href="https://www.youtube.com/" target="_blank" rel="noopener noreferer">
                             <svg
                               width="20"
                               height="14"
@@ -582,7 +643,7 @@
                                 fill="#FEFEFE"/>
                             </svg>
                         </a>
-                        <a href="#" class="social-net__link">
+                        <a class="social-net__link" href="https://vk.com/" target="_blank" rel="noopener noreferer">
                             <svg
                               width="20"
                               height="12"
@@ -617,10 +678,10 @@
                             </svg>
                         </a>                    
                     </div>
-                    <button class="watch-btn">
-                        <p class="watch-btn__name">donate for volunteers</p>
-                    </button>
-                </div>
+                </address>
+                <button class="watch-btn">
+                    <p class="watch-btn__name">donate for volunteers</p>
+                </button>
             </div>
             <div class="footer__copyright">
                 <p class="copyright-text">©Noora Sagnayeva<br>©RSSchool and ©Yem Digital - 2021</p>
