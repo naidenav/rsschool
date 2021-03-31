@@ -87,7 +87,7 @@ body {
 }
 
 .h3 {
-     margin-top: 100px;
+     margin-top: 60px;
      margin-bottom: 0;
      font-weight: 900;
      font-size: 48px;
@@ -219,8 +219,176 @@ body {
 }
 
 .main {
-     @include flex-column();
+     @include flex-row(flex-start, flex-start);
      width: 100%;
+}
+
+.sidebar {
+     position: sticky;
+     top: 30px;
+     bottom: 30px;
+     margin-top: 60px;
+     margin-bottom: 60px;
+     margin-right: 150px;
+     @include flex-column();
+     height: 600px;
+     width: 210px;
+     &__slider {
+          @include flex-column(space-between, center);
+          width: 210px;
+          flex-grow: 1;
+     }
+     &__slide {
+          @include flex-column(center, center);
+          &:hover {
+               transform: scale(1.1);
+          }
+     }
+     .slide-image {
+          overflow: hidden;
+          width: 108px;
+          height: 108px;
+          border-radius: 50%;
+          img {
+               width: 100%;
+               height: 100%;
+          }
+     }
+     .gradient {
+          @include flex-column(center, center);
+          width: 108px;
+          height: 108px;
+          border-radius: 50%;
+          background-image: linear-gradient(to right, rgba(7,238,224,1),rgba(223,73,109,1));
+     }
+     .slide-active {
+          &:hover {
+               transform: none;
+          }
+          .gradient {
+               width: 157px;
+               height: 157px;
+          }
+          .slide-image {
+               transform: scale(1.4);
+               border: 5px solid white;
+          }
+     }
+     .sidebar__btn {
+          margin: 10px 0;
+          height: 20px;
+          width: 20px;
+          border-top: 5px solid #828282;
+          border-left: 5px solid #828282;
+          border-radius: 2px;
+     }
+     .btn_left {
+          transform: rotate(45deg);
+          &:hover {
+               transform: scale(1.4) rotate(45deg);
+          }
+          &:active {
+               border-color: $btn-blue;
+          }
+     }
+     .btn_right {
+          transform: rotate(225deg);
+          &:hover {
+               transform: scale(1.4) rotate(225deg);
+          }
+          &:active {
+               border-color: $btn-blue;
+          }
+     }
+}
+
+
+
+.the-beijing-zoo {
+     margin-bottom: 100px;
+     @include flex-column(flex-start, flex-start);
+     width: 100%;
+     &__content {
+          margin-top: 40px;
+          @include flex-row(flex-start, flex-start);
+          width: 100%;
+     }
+     &__video {
+          margin-right: 30px;
+          @include flex-column(flex-start, center);
+     }
+     .plug {
+          z-index: 2;
+          position: absolute;
+          top:0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: transparent;
+     }
+     iframe {
+          z-index: 1;
+          width: 100%;
+          height: 100%;
+     }
+     .main-video {
+          position: relative;
+          width: 790px;
+          height: 442px;
+     }
+     .playlist {
+          margin-top: 30px;
+          @include flex-row();
+          width: 100%;
+     }
+     .next-video {
+          position: relative;
+          width: 246px;
+          height: 141px;
+     } 
+     .scroll {
+          margin-top: 30px;
+          @include flex-row();
+          width: 37px;
+          height: 11px;
+          .dot {
+               height: 8px;
+               width: 8px;
+               background-color: #c4c4c4;
+               border-radius: 50%;
+          }
+          .dot-active {
+               height: 11px;
+               width: 11px;
+               background-color: $btn-blue;
+          }
+     }
+     &__description {
+
+     }
+     &__info {
+          @include flex-column(flex-start, flex-start);
+          width: 380px;
+          height: 210px;
+     }
+     &__title {
+          font-weight: 900;
+          font-size: 20px;
+          line-height: 23px;
+          color: $text-black;
+     }
+     &__text {
+          margin-top: 6px;
+          margin-bottom: 13px;
+          font-weight: normal;
+          font-size: 14px;
+          line-height: 16px;
+          color: #4f4f4f;
+     }
+     .watch-btn {
+          width: 195px;
+          height: 55px;
+     }
 }
 
 .slide-content {
@@ -245,7 +413,6 @@ body {
           @include flex-row(space-between, center);
      }
 }
-
 
 .social-net {
      position: absolute;
@@ -298,82 +465,8 @@ body {
      }
 }
 
-.scroll {
-     margin-top: 30px;
-     &__n-slide {
-          @include flex-row(center, flex-end);
-     }
-     &__n {
-          font-weight: 900;
-          font-size: 24px;
-          line-height: 28px;
-          color: $text-black;
-     }
-     &__total-slides {
-          font-weight: 900;
-          font-size: 14px;
-          line-height: 22px;
-          color: #BDBDBD;
-     }
-}
 
-input[type=range] {
-     height: 0;
-     -webkit-appearance: none;
-     margin: 10px 0;
-     width: 245px;
-}
 
-input[type=range]::-webkit-slider-runnable-track {
-     width: 100%;
-     height: 5px;
-     cursor: pointer;
-     animate: 0.2s;
-     background: rgba(189, 189, 189, 0.57);
-}
-
-input[type=range]::-webkit-slider-thumb {
-     height: 10px;
-     width: 30px;
-     background: $text-black;
-     cursor: pointer;
-     -webkit-appearance: none;
-     margin-top: -2.5px;
-     transition-duration: .1s;
-     &:hover {
-          background-color: $btn-blue;
-     }
-     &:active {
-          background-color: darken($btn-blue, 15%);
-     }
-}
-
-.slider-btn {
-     margin: 0 20px;
-     height: 20px;
-     width: 20px;
-     border-top: 5px solid #828282;
-     border-left: 5px solid #828282;
-     border-radius: 2px;
-}
-.btn_left {
-     transform: rotate(315deg);
-     &:hover {
-          transform: scale(1.4) rotate(315deg);
-     }
-     &:active {
-          border-color: $btn-blue;
-     }
-}
-.btn_right {
-     transform: rotate(135deg);
-     &:hover {
-          transform: scale(1.4) rotate(135deg);
-     }
-     &:active {
-          border-color: $btn-blue;
-     }
-}
 
 
 
