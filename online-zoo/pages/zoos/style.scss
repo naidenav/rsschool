@@ -281,7 +281,7 @@ body {
           border-left: 5px solid #828282;
           border-radius: 2px;
      }
-     .btn_left {
+     .btn_up {
           transform: rotate(45deg);
           &:hover {
                transform: scale(1.4) rotate(45deg);
@@ -290,7 +290,7 @@ body {
                border-color: $btn-blue;
           }
      }
-     .btn_right {
+     .btn_down {
           transform: rotate(225deg);
           &:hover {
                transform: scale(1.4) rotate(225deg);
@@ -381,7 +381,7 @@ body {
           font-weight: normal;
           font-size: 14px;
           line-height: 16px;
-          color: #4f4f4f;
+          color: $text-gray;
      }
      .watch-btn {
           width: 195px;

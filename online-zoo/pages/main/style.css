@@ -121,15 +121,15 @@ body {
 .nav-list__link:hover {
   transform: scale(1.2);
 }
-.nav-list .first-link {
+.nav-list .current-page {
   cursor: unset;
   font-weight: 900;
   text-decoration: underline;
 }
-.nav-list .first-link:active {
+.nav-list .current-page:active {
   color: inherit;
 }
-.nav-list .first-link:hover {
+.nav-list .current-page:hover {
   transform: none;
 }
 .nav-list .first-link:hover {
@@ -431,6 +431,7 @@ body {
   outline: none;
   border-radius: 3px;
   background-color: #4bd8B5;
+  text-decoration: none;
 }
 .watch-btn:hover {
   transform: scale(1.1);
@@ -852,207 +853,99 @@ input[type=range]::-moz-range-thumb:active {
 }
 .map__wrapper .panda-marker {
   position: absolute;
-  top: 89.73px;
-  left: 890px;
-  width: 66px;
-  height: 92px;
-}
-.map__wrapper .panda-marker:hover {
-  cursor: pointer;
-}
-.map__wrapper .panda-marker:hover svg path {
-  fill: #56D84B;
-}
-.map__wrapper .panda-marker:hover .panda-info {
-  transform: translateY(0);
-  visibility: visible;
-  opacity: 100%;
-}
-.map__wrapper .panda-marker svg path:hover {
-  cursor: pointer;
-}
-.map__wrapper .panda-marker svg path:hover {
-  fill: #56D84B;
-}
-.map__wrapper .panda-marker .panda-icon {
-  z-index: 100;
-  position: absolute;
-  top: 14%;
-  left: 13%;
-  height: 44%;
-  width: 61.333%;
-  background: url(../../assets/images/panda.jpg) no-repeat center center;
-  background-size: cover;
-  border-radius: 50%;
-}
-.map__wrapper .panda-marker .panda-info {
-  z-index: 105;
-  transform: translateY(50px);
-  opacity: 0;
-  visibility: hidden;
-  position: absolute;
-  top: 80px;
-  right: 0;
-  padding: 40px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 435px;
-  height: 150px;
-  background-color: #fefefe;
-  box-shadow: 2px 4px 15px rgba(6, 12, 70, 0.1);
-  border-radius: 8px;
-}
-.map__wrapper .panda-marker .panda-info__icon {
-  margin-right: 20px;
-  height: 65px;
-  width: 65px;
-  background: url(../../assets/images/panda.jpg) no-repeat center;
-  background-size: cover;
-}
-.map__wrapper .panda-marker .panda-info__title {
-  font-weight: 900;
-  font-size: 18px;
-  line-height: 21px;
-  color: #333333;
-}
-.map__wrapper .panda-marker .panda-info__content {
-  margin-top: 5px;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 16px;
+  top: 105px;
+  left: 910px;
 }
 .map__wrapper .eagle-marker {
-  z-index: 100;
   position: absolute;
-  top: 74.15px;
-  left: 120px;
-  width: 66px;
-  height: 92px;
-}
-.map__wrapper .eagle-marker:hover {
-  cursor: pointer;
-}
-.map__wrapper .eagle-marker:hover svg path {
-  fill: #56D84B;
-}
-.map__wrapper .eagle-marker:hover .eagle-info {
-  transform: translateY(0);
-  visibility: visible;
-  opacity: 100%;
-}
-.map__wrapper .eagle-marker svg path:hover {
-  cursor: pointer;
-}
-.map__wrapper .eagle-marker svg path:hover {
-  fill: #56D84B;
-}
-.map__wrapper .eagle-marker .eagle-icon {
-  z-index: 100;
-  position: absolute;
-  top: 14%;
-  left: 13%;
-  height: 44%;
-  width: 61.333%;
-  background: url(../../assets/images/eagle.jpg) no-repeat center center;
-  background-size: cover;
-  border-radius: 50%;
-}
-.map__wrapper .eagle-marker .eagle-info {
-  z-index: 105;
-  transform: translateY(50px);
-  opacity: 0;
-  visibility: hidden;
-  position: absolute;
-  top: 80px;
-  padding: 40px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 435px;
-  height: 150px;
-  background-color: #fefefe;
-  box-shadow: 2px 4px 15px rgba(6, 12, 70, 0.1);
-  border-radius: 8px;
-}
-.map__wrapper .eagle-marker .eagle-info__icon {
-  margin-right: 20px;
-  height: 65px;
-  width: 65px;
-  background: url(../../assets/icons/eagle-info-icon.svg) no-repeat center;
-  background-size: cover;
-}
-.map__wrapper .eagle-marker .eagle-info__title {
-  font-weight: 900;
-  font-size: 18px;
-  line-height: 21px;
-  color: #333333;
-}
-.map__wrapper .eagle-marker .eagle-info__content {
-  margin-top: 5px;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 16px;
+  top: 90px;
+  left: 135px;
 }
 .map__wrapper .gorilla-marker {
   position: absolute;
-  top: 188.6px;
-  left: 570px;
-  width: 66px;
-  height: 92px;
-}
-.map__wrapper .gorilla-marker:hover {
-  cursor: pointer;
-}
-.map__wrapper .gorilla-marker:hover svg path {
-  fill: #56D84B;
-}
-.map__wrapper .gorilla-marker svg path:hover {
-  cursor: pointer;
-}
-.map__wrapper .gorilla-marker svg path:hover {
-  fill: #56D84B;
-}
-.map__wrapper .gorilla-marker div {
-  position: absolute;
-  top: 14%;
-  left: 13%;
-  height: 44%;
-  width: 61.333%;
-  background: url(../../assets/images/gorilla.jpg) no-repeat center center;
-  background-size: cover;
-  border-radius: 50%;
+  top: 198.6px;
+  left: 575px;
 }
 .map__wrapper .alligator-marker {
   position: absolute;
-  top: 101.63px;
-  left: 244px;
+  top: 112px;
+  left: 249px;
+}
+.map__wrapper .marker {
   width: 66px;
   height: 92px;
 }
-.map__wrapper .alligator-marker:hover {
+.map__wrapper .marker:hover {
   cursor: pointer;
 }
-.map__wrapper .alligator-marker:hover svg path {
+.map__wrapper .marker:hover svg path {
   fill: #56D84B;
 }
-.map__wrapper .alligator-marker svg path:hover {
+.map__wrapper .marker:hover .marker-info {
+  transform: translateY(0);
+  visibility: visible;
+  opacity: 100%;
+}
+.map__wrapper .marker svg path:hover {
   cursor: pointer;
 }
-.map__wrapper .alligator-marker svg path:hover {
+.map__wrapper .marker svg path:hover {
   fill: #56D84B;
 }
-.map__wrapper .alligator-marker div {
+.map__wrapper .marker img {
+  height: 100%;
+  width: 100%;
+}
+.map__wrapper .marker-icon {
+  z-index: 100;
+  overflow: hidden;
   position: absolute;
   top: 14%;
   left: 13%;
   height: 44%;
   width: 61.333%;
-  background: url(../../assets/images/alligator.jpg) no-repeat center center;
-  background-size: cover;
   border-radius: 50%;
+}
+.map__wrapper .marker-info {
+  z-index: 105;
+  transform: translateY(50px);
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  top: 80px;
+  left: -220%;
+  padding: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 435px;
+  height: 150px;
+  background-color: #fefefe;
+  box-shadow: 2px 4px 15px rgba(6, 12, 70, 0.1);
+  border-radius: 8px;
+}
+.map__wrapper .marker-info__icon {
+  overflow: hidden;
+  margin-right: 20px;
+  height: 65px;
+  width: 65px;
+  border-radius: 50%;
+}
+.map__wrapper .marker-info__text {
+  width: 250px;
+}
+.map__wrapper .marker-info__title {
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 21px;
+  color: #333333;
+}
+.map__wrapper .marker-info__content {
+  margin-top: 5px;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
 }
 
 .footer {
