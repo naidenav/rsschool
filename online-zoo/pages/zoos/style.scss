@@ -264,6 +264,9 @@ body {
           &:hover {
                transform: none;
           }
+          a:hover {
+               cursor: default;
+          }
           .gradient {
                width: 157px;
                height: 157px;
@@ -355,6 +358,9 @@ body {
                width: 8px;
                background-color: #c4c4c4;
                border-radius: 50%;
+               &:hover {
+                    transform: scale(1.2);
+               }
           }
           .dot-active {
                height: 11px;

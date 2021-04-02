@@ -268,6 +268,9 @@ body {
 .sidebar .slide-active:hover {
   transform: none;
 }
+.sidebar .slide-active a:hover {
+  cursor: default;
+}
 .sidebar .slide-active .gradient {
   width: 157px;
   height: 157px;
@@ -372,6 +375,9 @@ body {
   width: 8px;
   background-color: #c4c4c4;
   border-radius: 50%;
+}
+.the-beijing-zoo .scroll .dot:hover {
+  transform: scale(1.2);
 }
 .the-beijing-zoo .scroll .dot-active {
   height: 11px;

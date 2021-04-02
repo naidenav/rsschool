@@ -247,9 +247,10 @@ body {
      .carousel {
           @include flex-row(space-between, center);
           height: 100%;
-          width: 1075px;
+          width: 1100px;
           &__slide {
                @include flex-column(center, center);
+               width: 12.5%;
                &:hover {
                     transform: scale(1.1);
                }
@@ -286,7 +287,6 @@ body {
           }
      }
      &__btn {
-          margin: 10px 0;
           height: 20px;
           width: 20px;
           border-top: 5px solid #828282;
@@ -448,26 +448,27 @@ input[type=range]::-moz-range-thumb {
      }
      &__wrapper {
           position: relative;
+          @include flex-column();
           width: 1200px;
           .panda-marker {
                position: absolute;
-               top: 105px;
-               left: 910px;
+               top: 98px;
+               left: 905px;
           }
           .eagle-marker {
                position: absolute;
-               top: 90px;
-               left: 135px;
+               top: 81px;
+               left: 130px;
           }
           .gorilla-marker {
                position: absolute;
-               top: 198.6px;
-               left: 575px;
+               top: 192px;
+               left: 572px;
           }
           .alligator-marker {
                position: absolute;
-               top: 112px;
-               left: 249px;
+               top: 105px;
+               left: 246px;
           }
           .marker {
                width: 66px;
@@ -476,11 +477,6 @@ input[type=range]::-moz-range-thumb {
                     cursor: pointer;
                     svg path {
                          fill: #56D84B; 
-                    }
-                    .marker-info {
-                         transform: translateY(0);
-                         visibility: visible; 
-                         opacity: 100%;                      
                     }
                }
                svg path:hover {
@@ -493,54 +489,27 @@ input[type=range]::-moz-range-thumb {
                     height: 100%;
                     width: 100%;
                }
+          }.marker-active {
+               svg path {
+                    fill: #EB5757;
+               }
+               &:hover {
+                    cursor: default;
+                    svg path {
+                         cursor: default;
+                         fill: darken(#EB5757, 10%);
+                    }
+               }
           }
           .marker-icon {
                z-index: 100;
                overflow: hidden;
                position: absolute;
                top: 14%;
-               left: 13%;
+               left: 20.5%;
                height: 44%;
                width: 61.333%;
                border-radius: 50%;
-          }
-          .marker-info {
-               z-index: 105;
-               transform: translateY(50px);
-               opacity: 0;
-               visibility: hidden;
-               position: absolute;
-               top: 80px;
-               left: -220%;
-               padding: 40px;
-               @include flex-row(center, center);
-               width: 435px;
-               height: 150px;
-               background-color: #fefefe;
-               box-shadow: 2px 4px 15px rgba(6, 12, 70, 0.10);
-               border-radius: 8px;
-               &__icon {
-                    overflow: hidden;
-                    margin-right: 20px;
-                    height: 65px;
-                    width: 65px;
-                    border-radius: 50%;
-               }
-               &__text {
-                    width: 250px;
-               }
-               &__title {
-                    font-weight: 900;
-                    font-size: 18px;
-                    line-height: 21px;
-                    color: #333333;
-               }
-               &__content {
-                    margin-top: 5px;
-                    font-weight: normal;
-                    font-size: 14px;
-                    line-height: 16px;
-               }
           }
      }
 }
