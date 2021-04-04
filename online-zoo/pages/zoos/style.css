@@ -641,18 +641,7 @@ body {
   border: none;
   background-color: transparent;
 }
-.footer .contact-us .checkbox {
-  margin-right: 6px;
-  width: 13px;
-  height: 13px;
-  color: #bdbdbd;
-  background-color: transparent;
-  border: 1px solid #bdbdbd;
-}
-.footer .contact-us__checkbox {
-  display: none;
-}
-.footer .contact-us__label {
+.footer .contact-us .check {
   margin-top: 25px;
   display: flex;
   flex-direction: row;
@@ -662,6 +651,20 @@ body {
   font-size: 12px;
   line-height: 14px;
   color: #bdbdbd;
+}
+.footer .contact-us .check__input {
+  -webkit-appearance: none;
+}
+.footer .contact-us .check__box {
+  margin-right: 6px;
+  width: 13px;
+  height: 13px;
+  color: #bdbdbd;
+  background-color: transparent;
+  border: 1px solid #bdbdbd;
+}
+.footer .contact-us .check__box:hover {
+  background-color: rgba(255, 255, 255, 0.3);
 }
 .footer .contact-us__send {
   padding: 10px;

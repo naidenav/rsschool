@@ -593,25 +593,32 @@ body {
                border: none;
                background-color: transparent;
           }
-          .checkbox {
-               margin-right: 6px;
-               width: 13px;
-               height: 13px;
-               color: #bdbdbd;
-               background-color: transparent;
-               border: 1px solid #bdbdbd;
-          }
-          &__checkbox {
-               display: none;
-          }
-          &__label {
+          .check {
                margin-top: 25px;
                @include flex-row(flex-starn, center);
                font-weight: normal;
                font-size: 12px;
                line-height: 14px;
                color: #bdbdbd;
+               &__input {
+                    -webkit-appearance: none;
+               }
+               &__box {
+                    margin-right: 6px;
+                    width: 13px;
+                    height: 13px;
+                    color: #bdbdbd;
+                    background-color: transparent;
+                    border: 1px solid #bdbdbd;
+                    &:hover {
+                         background-color: rgba(255,255,255,.3);
+                    }
+               }
           }
+          .check__input:checked + .check__box {
+               background: url(../../assets/icons/check.svg) no-repeat center;
+               background-size: cover;
+          } 
           &__send {
                padding: 10px;
                margin-top: 10px;
