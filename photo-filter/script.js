@@ -1,12 +1,13 @@
-const inputRange = document.querySelectorAll("input[type=range]");
+const inputRange = document.querySelectorAll('input[type=range]');
 const initialRange = [];
 inputRange.forEach(item => initialRange.push(item.value));
-const reset = document.querySelector(".btn-reset");
-const next = document.querySelector(".btn-next");
-const load = document.querySelector(".btn-load");
-const save = document.querySelector(".btn-save");
-const image = document.querySelector(".main-image");
-const fileInput = document.querySelector("input[type=file]");
+const reset = document.querySelector('.btn-reset');
+const next = document.querySelector('.btn-next');
+const load = document.querySelector('.btn-load');
+const save = document.querySelector('.btn-save');
+const image = document.querySelector('.main-image');
+const fileInput = document.querySelector('input[type=file]');
+const canvas = document.querySelector('canvas');
 
 function rangeHandler() {
   const sizing = this.dataset.sizing || '';
@@ -14,9 +15,9 @@ function rangeHandler() {
   this.nextElementSibling.value = this.value;
 }
 
-inputRange.forEach(input => input.addEventListener("input", rangeHandler));
+inputRange.forEach(input => input.addEventListener('input', rangeHandler));
 
-reset.addEventListener("click", function() {
+reset.addEventListener('click', function() {
   inputRange.forEach(function(item,index) {
     const sizing = item.dataset.sizing || '';
     document.documentElement.style.setProperty(`--${item.name}`, initialRange[index] + sizing);
@@ -57,7 +58,7 @@ function pasteImage(imageSrc) {
   }
 }
 
-next.addEventListener("click", getSrc);
+next.addEventListener('click', getSrc);
 
 function getFile() {
   const file = fileInput.files[0];
@@ -68,6 +69,39 @@ function getFile() {
     image.src = reader.result;
   }
   reader.readAsDataURL(file);
+  fileInput.value = null;
 }
 
-load.addEventListener("change", getFile);
+load.addEventListener('change', getFile);
+
+function drawImg() {
+  const img = new Image();
+  img.src = image.src;
+  img.setAttribute('crossOrigin', 'anonymous');
+  img.onload = () => {
+    canvas.width = img.width;
+    canvas.height = img.height;
+    const ctx = canvas.getContext('2d');
+    let canvasFilters = '';
+    inputRange.forEach((item, index) => {
+      if (item.value !== initialRange[index]) {
+        const sizing = item.dataset.sizing || '';
+        if (item.name == 'blur') {
+          canvasFilters += item.name + '(' + item.value * 5 + sizing + ')' + ' '
+        } else {
+        canvasFilters += item.name + '(' + item.value + sizing + ')' + ' ';
+        }
+      }
+    });
+    ctx.filter = canvasFilters;
+    ctx.drawImage(img, 0, 0);
+    const link = document.createElement('a');
+    link.download = 'image.png';
+    link.href = canvas.toDataURL();console.log(canvas.toDataURL());
+    link.click();
+    link.delete;
+  }
+}
+
+
+save.addEventListener('click', drawImg);
