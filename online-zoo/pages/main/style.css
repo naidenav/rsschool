@@ -414,11 +414,11 @@ body {
   height: 107px;
   width: 20;
 }
-.social-net__link svg:hover {
+.social-net__link:hover {
   transform: scale(1.2);
 }
-.social-net__link:active path {
-  fill: #b2b2b2;
+.social-net__link:active {
+  filter: brightness(70%);
 }
 
 .watch-btn {
@@ -620,6 +620,9 @@ input[type=range]::-moz-range-thumb:active {
   align-items: center;
   width: 380px;
   height: 210px;
+}
+.whats-inspiring-us__img {
+  filter: drop-shadow(2px 4px 15px rgba(6, 12, 70, 0.15));
 }
 .whats-inspiring-us__title {
   margin-top: 15px;
@@ -851,6 +854,7 @@ input[type=range]::-moz-range-thumb:active {
   margin-top: 37px;
 }
 .map__wrapper {
+  z-index: 1;
   margin-top: 60px;
   position: relative;
   width: 1200px;
@@ -859,6 +863,11 @@ input[type=range]::-moz-range-thumb:active {
   position: absolute;
   top: 98px;
   left: 900px;
+}
+.map__wrapper .alligator-marker {
+  position: absolute;
+  top: 105px;
+  left: 245px;
 }
 .map__wrapper .eagle-marker {
   position: absolute;
@@ -870,38 +879,28 @@ input[type=range]::-moz-range-thumb:active {
   top: 190px;
   left: 572px;
 }
-.map__wrapper .alligator-marker {
-  position: absolute;
-  top: 105px;
-  left: 245px;
-}
 .map__wrapper .marker {
+  z-index: 2;
   width: 66px;
   height: 92px;
 }
+.map__wrapper .marker .marker-img {
+  filter: drop-shadow(6px 3px 10px rgba(50, 50, 50, 0.2));
+}
 .map__wrapper .marker:hover {
   cursor: pointer;
-}
-.map__wrapper .marker:hover svg path {
-  fill: #56D84B;
+  filter: hue-rotate(-40deg);
 }
 .map__wrapper .marker:hover .marker-info {
   transform: translateY(0);
   visibility: visible;
   opacity: 100%;
 }
-.map__wrapper .marker svg path:hover {
-  cursor: pointer;
-}
-.map__wrapper .marker svg path:hover {
-  fill: #56D84B;
-}
 .map__wrapper .marker img {
   height: 100%;
   width: 100%;
 }
 .map__wrapper .marker-icon {
-  z-index: 100;
   overflow: hidden;
   position: absolute;
   top: 14%;
@@ -911,7 +910,7 @@ input[type=range]::-moz-range-thumb:active {
   border-radius: 50%;
 }
 .map__wrapper .marker-info {
-  z-index: 105;
+  z-index: 3;
   transform: translateY(50px);
   opacity: 0;
   visibility: hidden;
@@ -1116,6 +1115,10 @@ input[type=range]::-moz-range-thumb:active {
 }
 .footer .contact-us .check__box:hover {
   background-color: rgba(255, 255, 255, 0.3);
+}
+.footer .contact-us .check__input:checked + .check__box {
+  background: url(../../assets/icons/check.svg) no-repeat center;
+  background-size: cover;
 }
 .footer .contact-us__send {
   padding: 10px;

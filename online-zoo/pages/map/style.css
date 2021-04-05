@@ -329,11 +329,11 @@ body {
   height: 107px;
   width: 20;
 }
-.social-net__link svg:hover {
+.social-net__link:hover {
   transform: scale(1.2);
 }
-.social-net__link:active path {
-  fill: #b2b2b2;
+.social-net__link:active {
+  filter: brightness(70%);
 }
 
 .watch-btn {
@@ -494,34 +494,27 @@ input[type=range]::-moz-range-thumb:active {
   left: 246px;
 }
 .map__wrapper .marker {
+  z-index: 2;
   width: 66px;
   height: 92px;
 }
+.map__wrapper .marker .marker-img {
+  filter: drop-shadow(6px 3px 10px rgba(50, 50, 50, 0.2));
+}
 .map__wrapper .marker:hover {
   cursor: pointer;
-}
-.map__wrapper .marker:hover svg path {
-  fill: #56D84B;
-}
-.map__wrapper .marker svg path:hover {
-  cursor: pointer;
-}
-.map__wrapper .marker svg path:hover {
-  fill: #56D84B;
+  filter: hue-rotate(-40deg);
 }
 .map__wrapper .marker img {
   height: 100%;
   width: 100%;
 }
-.map__wrapper .marker-active svg path {
-  fill: #EB5757;
+.map__wrapper .marker-active .marker-img {
+  filter: drop-shadow(6px 3px 10px rgba(50, 50, 50, 0.2)) hue-rotate(198deg) saturate(350%);
 }
 .map__wrapper .marker-active:hover {
-  cursor: default;
-}
-.map__wrapper .marker-active:hover svg path {
-  cursor: default;
-  fill: #e62929;
+  cursor: pointer;
+  filter: brightness(80%);
 }
 .map__wrapper .marker-icon {
   z-index: 100;

@@ -426,13 +426,11 @@ body {
      height: 107px;
      width: 20;
      &__link {
-          & svg:hover {
+          &:hover {
                transform: scale(1.2);
           }
           &:active {
-               & path {
-                    fill: darken(#FEFEFE, 30%)
-               }
+               filter: brightness(70%);
           }
      }
 }

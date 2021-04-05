@@ -396,13 +396,11 @@ body {
      height: 107px;
      width: 20;
      &__link {
-          & svg:hover {
+          &:hover {
                transform: scale(1.2);
           }
           &:active {
-               & path {
-                    fill: darken(#FEFEFE, 30%)
-               }
+               filter: brightness(70%);
           }
      }
 }
@@ -571,6 +569,9 @@ input[type=range]::-moz-range-thumb {
           @include flex-column(flex-start);
           width: 380px;
           height: 210px;
+     }
+     &__img {
+          filter: drop-shadow(2px 4px 15px rgba(6, 12, 70, 0.15));
      }
      &__title {
           margin-top: 15px;
@@ -760,6 +761,7 @@ input[type=range]::-moz-range-thumb {
           margin-top: 37px;
      }
      &__wrapper {
+          z-index: 1;
           margin-top: 60px;
           position: relative;
           width: 1200px;
@@ -767,6 +769,11 @@ input[type=range]::-moz-range-thumb {
                position: absolute;
                top: 98px;
                left: 900px;
+          }
+          .alligator-marker {
+               position: absolute;
+               top: 105px;
+               left: 245px;
           }
           .eagle-marker {
                position: absolute;
@@ -778,29 +785,20 @@ input[type=range]::-moz-range-thumb {
                top: 190px;
                left: 572px;
           }
-          .alligator-marker {
-               position: absolute;
-               top: 105px;
-               left: 245px;
-          }
           .marker {
+               z-index: 2;
                width: 66px;
                height: 92px;
+               .marker-img {
+                    filter: drop-shadow(6px 3px 10px rgba(50,50,50,.2));
+               }
                &:hover {
                     cursor: pointer;
-                    svg path {
-                         fill: #56D84B; 
-                    }
+                    filter: hue-rotate(-40deg);     
                     .marker-info {
                          transform: translateY(0);
                          visibility: visible; 
                          opacity: 100%;                      
-                    }
-               }
-               svg path:hover {
-                    cursor: pointer;
-                    & {
-                         fill: #56D84B;
                     }
                }
                img {
@@ -809,7 +807,6 @@ input[type=range]::-moz-range-thumb {
                }
           }
           .marker-icon {
-               z-index: 100;
                overflow: hidden;
                position: absolute;
                top: 14%;
@@ -819,7 +816,7 @@ input[type=range]::-moz-range-thumb {
                border-radius: 50%;
           }
           .marker-info {
-               z-index: 105;
+               z-index: 3;
                transform: translateY(50px);
                opacity: 0;
                visibility: hidden;

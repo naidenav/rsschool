@@ -322,13 +322,11 @@ body {
      height: 107px;
      width: 20;
      &__link {
-          & svg:hover {
+          &:hover {
                transform: scale(1.2);
           }
           &:active {
-               & path {
-                    fill: darken(#FEFEFE, 30%)
-               }
+               filter: brightness(70%);
           }
      }
 }
@@ -471,34 +469,28 @@ input[type=range]::-moz-range-thumb {
                left: 246px;
           }
           .marker {
+               z-index: 2;
                width: 66px;
                height: 92px;
+               .marker-img {
+                    filter: drop-shadow(6px 3px 10px rgba(50,50,50,.2));
+               }
                &:hover {
                     cursor: pointer;
-                    svg path {
-                         fill: #56D84B; 
-                    }
-               }
-               svg path:hover {
-                    cursor: pointer;
-                    & {
-                         fill: #56D84B;
-                    }
+                    filter: hue-rotate(-40deg);     
                }
                img {
                     height: 100%;
                     width: 100%;
                }
-          }.marker-active {
-               svg path {
-                    fill: #EB5757;
+          }
+          .marker-active {
+               .marker-img {
+                    filter: drop-shadow(6px 3px 10px rgba(50,50,50,.2)) hue-rotate(198deg) saturate(350%);
                }
                &:hover {
-                    cursor: default;
-                    svg path {
-                         cursor: default;
-                         fill: darken(#EB5757, 10%);
-                    }
+                    cursor: pointer;
+                    filter: brightness(80%);     
                }
           }
           .marker-icon {

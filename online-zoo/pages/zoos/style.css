@@ -456,11 +456,11 @@ body {
   height: 107px;
   width: 20;
 }
-.social-net__link svg:hover {
+.social-net__link:hover {
   transform: scale(1.2);
 }
-.social-net__link:active path {
-  fill: #b2b2b2;
+.social-net__link:active {
+  filter: brightness(70%);
 }
 
 .watch-btn {
@@ -665,6 +665,10 @@ body {
 }
 .footer .contact-us .check__box:hover {
   background-color: rgba(255, 255, 255, 0.3);
+}
+.footer .contact-us .check__input:checked + .check__box {
+  background: url(../../assets/icons/check.svg) no-repeat center;
+  background-size: cover;
 }
 .footer .contact-us__send {
   padding: 10px;
