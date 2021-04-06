@@ -348,7 +348,7 @@ body {
   border: none;
   outline: none;
   border-radius: 3px;
-  background-color: #4bd8B5;
+  background: linear-gradient(106.89deg, #4BD8B5 -14.32%, #49D6DF 100.68%);
   text-decoration: none;
 }
 .watch-btn:hover {
@@ -376,7 +376,8 @@ body {
 }
 
 .scroll {
-  margin-top: 30px;
+  margin-top: 33px;
+  margin-left: -27px;
 }
 .scroll__n-slide {
   display: flex;
@@ -455,7 +456,7 @@ input[type=range]::-moz-range-thumb:active {
 }
 
 .map {
-  margin-top: 80px;
+  margin-top: 77px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -598,7 +599,7 @@ input[type=range]::-moz-range-thumb:active {
   color: #fefefe;
 }
 .footer .centre__address {
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   font-weight: normal;
   font-size: 14px;
   line-height: 20px;
@@ -735,7 +736,7 @@ input[type=range]::-moz-range-thumb:active {
 .footer__copyright .copyright-text {
   font-weight: normal;
   font-size: 12px;
-  line-height: 14px;
+  line-height: 18px;
   color: #bdbdbd;
 }
 

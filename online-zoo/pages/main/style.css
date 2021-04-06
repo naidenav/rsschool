@@ -497,7 +497,7 @@ body {
   color: #4f4f4f;
 }
 .how-it-works__slider {
-  margin-top: 35px;
+  margin-top: 30px;
   margin-bottom: 100px;
   display: flex;
   flex-direction: column;
@@ -774,7 +774,7 @@ input[type=range]::-moz-range-thumb:active {
   margin: 63px;
 }
 .pay-and-feed .watch-btn {
-  margin-top: 40px;
+  margin-top: 35px;
 }
 
 .testimonials {
@@ -838,7 +838,10 @@ input[type=range]::-moz-range-thumb:active {
   color: #4f4f4f;
 }
 .testimonials .scroll {
-  margin-top: 50px;
+  margin-top: 55px;
+}
+.testimonials .watch-btn {
+  margin-top: 25px;
 }
 
 .map {
@@ -851,7 +854,7 @@ input[type=range]::-moz-range-thumb:active {
   background-color: #f2f2f2;
 }
 .map .watch-btn {
-  margin-top: 37px;
+  margin-top: 35px;
 }
 .map__wrapper {
   z-index: 1;
@@ -1022,7 +1025,7 @@ input[type=range]::-moz-range-thumb:active {
   color: #fefefe;
 }
 .footer .centre__address {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   font-weight: normal;
   font-size: 14px;
   line-height: 20px;
@@ -1159,7 +1162,7 @@ input[type=range]::-moz-range-thumb:active {
 .footer__copyright .copyright-text {
   font-weight: normal;
   font-size: 12px;
-  line-height: 14px;
+  line-height: 18px;
   color: #bdbdbd;
 }
 

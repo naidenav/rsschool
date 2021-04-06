@@ -365,7 +365,8 @@ body {
 }
 
 .scroll {
-     margin-top: 30px;
+     margin-top: 33px;
+     margin-left: -27px;
      &__n-slide {
           @include flex-row(center, flex-end);
      }
@@ -438,7 +439,7 @@ input[type=range]::-moz-range-thumb {
 }
 
 .map {
-     margin-top: 80px;
+     margin-top: 77px;
      @include flex-column();
      width: 100%;
      .watch-btn {
@@ -560,7 +561,7 @@ input[type=range]::-moz-range-thumb {
                color: #fefefe;
           }
           &__address {
-               margin-bottom: 20px;
+               margin-bottom: 16px;
                font-weight: normal;
                font-size: 14px;
                line-height: 20px;
@@ -684,7 +685,7 @@ input[type=range]::-moz-range-thumb {
           .copyright-text {
                font-weight: normal;
                font-size: 12px;
-               line-height: 14px;
+               line-height: 18px;
                color: #bdbdbd;
           }
      }
