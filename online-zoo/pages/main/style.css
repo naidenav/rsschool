@@ -433,7 +433,7 @@ body {
   border: none;
   outline: none;
   border-radius: 3px;
-  background-color: #4bd8B5;
+  background: linear-gradient(106.89deg, #4BD8B5 -14.32%, #49D6DF 100.68%);
   text-decoration: none;
 }
 .watch-btn:hover {
