@@ -117,8 +117,7 @@ output {
   top: 24px;
   background-color: #454c53;
   border: 1px solid #454c53;
-  text-align: left;
-  padding-left: 10px;
+  text-align: center;
   line-height: 40px;
   border-radius: 2px;
   transition: 0.3s;
@@ -133,7 +132,7 @@ label:active output {
   justify-content: center;
 }
 .btn-container > * {
-  margin-right: 10px;
+  margin-right: 20px;
 }
 .btn-container > *:last-child {
   margin-right: 0;
@@ -143,9 +142,10 @@ label:active output {
   min-width: 120px;
   height: 40px;
   padding: 0 10px;
-  background-color: #454c53;
-  border: 0;
+  background-color: #24292e;
+  border: 1px solid #454c53;
   border-radius: 2px;
+  box-shadow: 4px 4px 10px #24292e;
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
   font-weight: 300;
@@ -202,8 +202,11 @@ label:active output {
   max-height: 408px;
   max-width: 40%;
   padding: 20px;
-  border: 1px solid #a2abb3;
-  border-radius: 5px;
+  background-color: #24292e;
+  border: 1px solid #454c53;
+  border-radius: 2px;
+  transition-duration: .2s;
+  box-shadow: 4px 4px 10px #24292e;
 }
 .filters {
   width: 100%;
@@ -232,6 +235,11 @@ label:active output {
   width: 100%;
   height: 408px;
   max-width: 830px;
+  background-color: #24292e;
+  border: 1px solid #454c53;
+  border-radius: 2px;
+  transition-duration: .2s;
+  box-shadow: 4px 4px 10px #24292e;
 }
 .main-image {
   height: 100%;

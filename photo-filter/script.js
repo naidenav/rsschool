@@ -8,6 +8,7 @@ const save = document.querySelector('.btn-save');
 const image = document.querySelector('.main-image');
 const fileInput = document.querySelector('input[type=file]');
 const canvas = document.querySelector('canvas');
+const fullscreen = document.querySelector('.fullscreen');
 
 function rangeHandler() {
   const sizing = this.dataset.sizing || '';
@@ -74,7 +75,7 @@ function getFile() {
 
 load.addEventListener('change', getFile);
 
-function drawImg() {
+function saveImg() {
   const img = new Image();
   img.src = image.src;
   img.setAttribute('crossOrigin', 'anonymous');
@@ -103,5 +104,5 @@ function drawImg() {
   }
 }
 
+save.addEventListener('click', saveImg);
 
-save.addEventListener('click', drawImg);
