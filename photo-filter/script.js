@@ -106,3 +106,12 @@ function saveImg() {
 
 save.addEventListener('click', saveImg);
 
+function fullscreenEnable() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen();
+  } else {
+    document.exitFullscreen();
+  }
+}
+
+fullscreen.addEventListener('click', fullscreenEnable);
