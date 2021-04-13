@@ -268,15 +268,17 @@ body {
           background-size: cover;
      }
      &__wrapper {
+          position: relative;
           margin: 0 auto;
+          padding-bottom: 50px;
           display: flex;
           flex-direction: column;
           width: 100%;
           .watch-btn {
-               margin-top: 37px;
+               margin-top: 15px;
           }
           h2 {
-               margin-top: 206px;
+               margin-top: 92px;
                display: block;
                width: 100%;
                font-weight: 900;
@@ -284,60 +286,13 @@ body {
                line-height: 56px;
                color: #FEFEFE;
           }
-          @media screen and (min-width: $tablet) {
-               h2 {
-                    margin-top: 92px;
-                    width: 100%;
-                    font-weight: 900;
-                    font-size: 64px;
-                    line-height: 75px;
-               }
-          }
-          @media screen and (min-width: $desktop-min) {
-               h2 {
-                    margin-top: 122px;
-                    width: 600px;
-                    font-weight: 900;
-                    font-size: 64px;
-                    line-height: 75px;
-               }
-          }
-          @media screen and (min-width: $desktop) {
-               width: 1200px;
-               margin: 0 auto;
-               h2 {
-                    margin-top: 206px;
-                    display: block;
-                    width: 793px;
-                    font-weight: 900;
-                    font-size: 89px;
-                    line-height: 104px;
-                    color: #FEFEFE;
-               }
-          }
      }
      &__slider {
           position: absolute;
           left: 0;
           top:427px;
           @include flex-column();
-          width: 1500px;
-          @media screen and (min-width: $tablet) {
-               left: 30px;
-               top: 427px;
-               width: 1600px;
-          }
-          @media screen and (min-width: $desktop-min) {
-               left: 330px;
-               top: 453px;
-               width: 1680px;
-
-          }
-          @media screen and (min-width: $desktop) {
-               left: 690px;
-               top:427px;
-               width: 1680px;
-          }  
+          width: 1000px;
      }
      &__carousel {
           @include flex-row(flex-end, center);
@@ -346,16 +301,25 @@ body {
      }
      &__slide {
           position: relative;
-          margin-left: 46px;
+          margin-left: 9px;
           overflow: hidden;
           @include flex-column(flex-end, center);
-          width: 140px;
-          height: 203px;
+          width: 113px;
+          height: 164px;
           border-radius: 5px;
           .slide-content {
                visibility: hidden;
                opacity: 0;
+               padding: 0 8px 10px 8px;
+               &__text {
+                    font-size: 12px;
+                    line-height: 14px;
+               }
                &__buttons {
+                    img {
+                         height: 20px;
+                    }
+                    margin-top: 0;
                     @include flex-column(flex-start, flex-start);
                     a {
                          margin-top: 5px;
@@ -375,17 +339,17 @@ body {
           }
      }
      .slide-active {
-          margin-top: -20px;
-          width: 245px;
-          height: 352px;   
+          width: 140px;
+          height: 202px;   
           .slide-content {
                visibility: visible;
                top: 0;
                opacity: 100%;
                &__buttons {
-                    @include flex-row(space-between, center);
+                    margin-top: 0;
+                    @include flex-column(flex-start, flex-start);
                     a {
-                         margin-top: 0;
+                         margin-top: 5px;
                     }
                }
           }
@@ -407,6 +371,129 @@ body {
      input[type=range]::-moz-range-thumb {
           background: white;
      }
+     @media screen and (min-width: $tablet) {
+          padding-bottom: 100px;
+          .watch-btn {
+               margin-top: 30px;
+          }
+          h2 {
+               margin-top: 122px;
+               width: 100%;
+               font-weight: 900;
+               font-size: 64px;
+               line-height: 75px;
+          }
+          &__slider {
+               margin-top: 25px;
+               left: 340px;
+               top: 427px;
+               width: 1950px;
+          }
+          &__slide {
+               margin-top: -20px;
+               margin-left: 46px;
+               width: 180px;
+               height: 261px;
+               .slide-content {
+                    &__buttons {
+                         img {
+                              height: unset;
+                         }
+                         margin-top: 5px;
+                         @include flex-column(flex-start, flex-start);
+                         a {
+                              margin-top: 5px;
+                         }
+                    }
+               }
+               & img {
+                    height: 100%;
+               }
+               &:hover {
+                    transform: scale(1.1);
+                    .slide-content {
+                         top: 0;
+                         visibility: visible;
+                         opacity: 100%;
+                    }
+               }
+          }
+          .slide-active {
+               width: 245px;
+               height: 352px;   
+               .slide-content {
+                    visibility: visible;
+                    top: 0;
+                    opacity: 100%;
+                    padding: 0 10% 15% 10%;
+                    &__text {
+                         width: 90%;
+                    }
+                    &__buttons {
+                         margin-top: 15px;
+                         @include flex-row(flex-start, center);
+                         a {
+                              margin-top: 0;
+                              margin-right: 8px;
+                         }
+                    }
+               }
+               &:hover {
+                    transform: none;
+               }
+          }
+          .scroll {
+               align-self: flex-end;
+               margin-top: 20px;
+               margin-right: 1116px;
+               &__n {
+                    color: #fefefe;
+               }
+          }
+          input[type=range]::-webkit-slider-thumb {
+               background: white;
+          }
+          input[type=range]::-moz-range-thumb {
+               background: white;
+          }
+     }
+     @media screen and (min-width: $desktop-min) {
+          padding-bottom: 68px;
+          .watch-btn {
+               margin-top: 37px;
+          }
+          h2 {
+               margin-top: 128px;
+               width: 900px;
+               font-weight: 900;
+               font-size: 89px;
+               line-height: 104px;
+          }
+          &__slider {
+               @media screen and (min-width: $desktop) {
+                    left: 690px;
+                    top:427px;
+                    width: 1680px;
+               } 
+          }
+     }
+     @media screen and (min-width: $desktop) {
+          padding-bottom: 113px;
+          width: 1200px;
+          margin: 0 auto;
+          h2 {
+               margin-top: 206px;
+               display: block;
+               width: 793px;
+          }
+          &__slider {
+               @media screen and (min-width: $desktop) {
+                    left: 690px;
+                    top:427px;
+                    width: 1680px;
+               } 
+          }
+     }
 }
 
 .slide-content {
@@ -415,12 +502,13 @@ body {
      z-index: 105;
      position: absolute;
      top: 100%;
-     padding: 0 10% 15% 10%;
-     @include flex-column(flex-end, center);
+     padding: 0 5% 15% 5%;
+     @include flex-column(flex-end, flex-start);
      height: 100%;
      width: 100%;
      background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.9)); 
      &__text {
+          width: 100%;
           font-weight: normal;
           font-size: 14px;
           line-height: 16px;
@@ -438,7 +526,7 @@ body {
      display: none;
      position: absolute;
      left: 0;
-     top: 750px;
+     top: 715px;
      height: 107px;
      width: 20;
      &__link {
@@ -451,6 +539,12 @@ body {
      }
      @media screen and (min-width: $tablet) {
           @include flex-column(space-between);
+     }
+     @media screen and (min-width: $desktop-min) {
+          top: 740px;
+     }
+     @media screen and (min-width: $desktop) {
+          top: 717px;
      }
 }
 
@@ -716,10 +810,6 @@ input[type=range]::-moz-range-thumb {
           height: 300px;
           width: 210px;
           border-radius: 5px;
-          .slide-content {
-               padding-right: 20%;
-               padding-bottom: 15%;
-          }
           &:hover {
                .slide-content {
                     top: 0;
@@ -985,8 +1075,8 @@ input[type=range]::-moz-range-thumb {
           width: 93.75%;
           .panda-marker {
                position: absolute;
-               bottom: 60%;
-               left: 78.5%;
+               bottom: 62%;
+               left: 77.5%;
           }
           .alligator-marker {
                position: absolute;
@@ -996,7 +1086,7 @@ input[type=range]::-moz-range-thumb {
           .eagle-marker {
                position: absolute;
                bottom: 65%;
-               left: 14%;
+               left: 13.5%;
           }
           .gorilla-marker {
                position: absolute;
@@ -1080,12 +1170,14 @@ input[type=range]::-moz-range-thumb {
                     visibility: visible;
                }
           }
-     }
-     @media screen and (min-width: $tablet) {
-     }
-     @media screen and (min-width: $desktop-min) {
-     }
-     @media screen and (min-width: $desktop) {
+          @media screen and (min-width: $tablet) {
+          }
+          @media screen and (min-width: $desktop-min) {
+               width: 900px;
+          }
+          @media screen and (min-width: $desktop) {
+               width: 1200px;
+          }
      }
 }
 
@@ -1099,6 +1191,9 @@ input[type=range]::-moz-range-thumb {
           width: 93.75%;
           @include flex-column(flex-start, flex-start);
      }
+     .logo {
+          margin-top: -8px;
+     }
      .logo > * {
           color: #fefefe;
      }
@@ -1109,6 +1204,7 @@ input[type=range]::-moz-range-thumb {
      }
      .nav-list {
           @include flex-column(flex-start, flex-start);
+          width: 100%;
           &__link {
                margin-right: 73px;
                color: #f2f2f2
