@@ -102,7 +102,33 @@ body {
 .wrapper {
      position: relative;
      @include flex-row();
-     width: 1620px;
+     width: 93.75%;
+     @media screen and (min-width: $tablet) {
+          h2 {
+               margin-top: 92px;
+               width: 100%;
+               font-weight: 900;
+               font-size: 48px;
+               line-height: 56px;
+          }
+     }
+     @media screen and (min-width: $desktop-min) {
+          width: 75%;
+          h2 {
+               margin-top: 122px;
+               width: 600px;
+               font-weight: 900;
+               font-size: 64px;
+               line-height: 75px;
+          }
+     }
+     @media screen and (min-width: $desktop) {
+          width: 1620px;
+          margin: 0 auto;
+          h2 {
+               margin-top: 128px;
+          }
+     }     
 }
 
 .logo {
@@ -227,46 +253,47 @@ body {
      @include flex-column();
      min-width: 100%;
      height: 940px;
-     background: url(../../assets/images/bg-landing-1920.jpg) no-repeat center center;
+     background: url(../../assets/images/bg-landing-320.jpg) no-repeat center center;
      background-size: cover;
-/*     @media screen and (max-width:1918px) {
-          background: url(../../assets/images/bg-landing-1200.jpg) no-repeat center center;
-          background-size: cover;
-     }
-     @media screen and (max-width: $desktop-min) {
+     @media screen and (min-width: $tablet) {
           background: url(../../assets/images/bg-landing-640.jpg) no-repeat center center;
           background-size: cover;
      }
-     @media screen and (min-width: $tablet) {
-          background: url(../../assets/images/bg-landing-320.jpg) no-repeat center center;
+     @media screen and (min-width: $desktop-min) {
+          background: url(../../assets/images/bg-landing-1200.jpg) no-repeat center center;
           background-size: cover;
-     }*/
+     }
+     @media screen and (min-width: $desktop) {
+          background: url(../../assets/images/bg-landing-1920.jpg) no-repeat center center;
+          background-size: cover;
+     }
      &__wrapper {
           margin: 0 auto;
           display: flex;
           flex-direction: column;
-          width: 1200px;
+          width: 100%;
           .watch-btn {
                margin-top: 37px;
           }
           h2 {
                margin-top: 206px;
                display: block;
-               width: 793px;
+               width: 100%;
                font-weight: 900;
-               font-size: 89px;
-               line-height: 104px;
+               font-size: 48px;
+               line-height: 56px;
                color: #FEFEFE;
           }
-/*          @media screen and (max-width: $desktop) {
-               width: 100%;
-               margin: 0 auto;
+          @media screen and (min-width: $tablet) {
                h2 {
-                    margin-top: 128px;
+                    margin-top: 92px;
+                    width: 100%;
+                    font-weight: 900;
+                    font-size: 64px;
+                    line-height: 75px;
                }
           }
-          @media screen and (max-width: $desktop-min) {
-               width: 100%;
+          @media screen and (min-width: $desktop-min) {
                h2 {
                     margin-top: 122px;
                     width: 600px;
@@ -275,23 +302,43 @@ body {
                     line-height: 75px;
                }
           }
-          @media screen and (max-width: $tablet) {
-               width: 100%;
+          @media screen and (min-width: $desktop) {
+               width: 1200px;
+               margin: 0 auto;
                h2 {
-                    margin-top: 92px;
-                    width: 100%;
+                    margin-top: 206px;
+                    display: block;
+                    width: 793px;
                     font-weight: 900;
-                    font-size: 48px;
-                    line-height: 56px;
+                    font-size: 89px;
+                    line-height: 104px;
+                    color: #FEFEFE;
                }
-          }*/
+          }
      }
      &__slider {
           position: absolute;
-          left: 690px;
+          left: 0;
           top:427px;
           @include flex-column();
-          width: 1680px;
+          width: 1500px;
+          @media screen and (min-width: $tablet) {
+               left: 30px;
+               top: 427px;
+               width: 1600px;
+          }
+          @media screen and (min-width: $desktop-min) {
+               left: 330px;
+               top: 453px;
+               width: 1680px;
+
+          }
+          @media screen and (min-width: $desktop) {
+               left: 690px;
+               top:427px;
+               width: 1680px;
+          }
+          
      }
      &__carousel {
           @include flex-row(flex-end, center);
@@ -389,10 +436,10 @@ body {
 
 
 .social-net {
+     display: none;
      position: absolute;
      left: 0;
      top: 750px;
-     @include flex-column(space-between);
      height: 107px;
      width: 20;
      &__link {
@@ -402,6 +449,9 @@ body {
           &:active {
                filter: brightness(70%);
           }
+     }
+     @media screen and (min-width: $tablet) {
+          @include flex-column(space-between);
      }
 }
 
@@ -443,15 +493,7 @@ body {
      width: 100%;
      &__wrapper {
           @include flex-column;
-          max-width: 790px;
-          @media screen and (max-width: $desktop-min) {
-               padding: 0 4%;
-               max-width: 790px;
-          }
-          @media screen and (max-width: $tablet) {
-               padding: 0;
-               width: 92%;
-          }
+          width: 93.75%;
           .h3 {
                align-self:flex-start;
           }
@@ -464,12 +506,13 @@ body {
           color: $text-gray;
      }
      &__slider {
+          width: 100%;
           margin-top: 30px;
           margin-bottom: 100px;
           @include flex-column();
      }
      &__slide {
-          width: 790px;
+          width: 100%;
           height: 323px;
           border-radius: 5px;
           overflow: hidden;
@@ -479,6 +522,21 @@ body {
      }
      input[type=range]::-moz-range-thumb {
           width: 60px;
+     }
+     @media screen and (min-width: $tablet) {
+          &__wrapper {
+               width: 93.75%;
+          }
+     }
+     @media screen and (min-width: $desktop-min) {
+          &__wrapper {
+               width: 750px;
+          }
+     }
+     @media screen and (min-width: $desktop) {
+          &__wrapper {
+               width: 790px;
+          }
      }
 }
 
@@ -560,15 +618,48 @@ input[type=range]::-moz-range-thumb {
      width: 100%;
      background-color: $bg-gray;
      &__wrapper {
-          margin-top: 100px;
-          margin-bottom: 100px;
-          @include flex-row(space-between, flex-start);
-          width: 1200px;
+          margin-top: 35px;
+          margin-bottom: 35px;
+          @include flex-column(flex-start, center);
+          width: 93.75%;
+          @media screen and (min-width: $tablet) {
+               margin-top: 75px;
+               margin-bottom: 75px;
+               @include flex-column(flex-start, center);
+          }
+          @media screen and (min-width: $desktop-min) {
+               margin-top: 75px;
+               margin-bottom: 75px;
+               @include flex-row(space-between, flex-start);
+               width: 900px;
+          }
+          @media screen and (min-width: $desktop) {
+               margin-top: 75px;
+               margin-bottom: 75px;
+               @include flex-row(space-between, flex-start);
+               width: 1200px;
+          }
      }
      &__item {
+          margin: 15px 0;
           @include flex-column(flex-start);
-          width: 380px;
+          width: 100%;
           height: 210px;
+          @media screen and (min-width: $tablet) {
+               margin: 25px 0;
+               width: 47.67%;
+               height: 210px;
+          }
+          @media screen and (min-width: $desktop-min) {
+               margin: 25px 0;
+               width: 31.67%;
+               height: 210px;
+          }
+          @media screen and (min-width: $desktop) {
+               margin: 25px 0;
+               width: 31.67%;
+               height: 210px;
+          }
      }
      &__img {
           filter: drop-shadow(2px 4px 15px rgba(6, 12, 70, 0.15));
@@ -593,25 +684,35 @@ input[type=range]::-moz-range-thumb {
 }
 
 .pets-in-zoo {
+     width: 100%;
      padding-bottom: 100px;
      @include flex-column();
+     .slider-btn {
+          display: none;
+     }
      & img {
           height: 100%;
      }
      &__wrapper {
+          overflow: hidden;
           margin-top: 35px;
           @include flex-row(center, center);
+          width: 93.75%;
+     }
+     .slider-wrapper {
+          overflow: hidden;
+          width: 100%;
      }
      &__slider {
           @include flex-row();
-          width: 1200px;
+          width: 900px;
      }
      &__slide {
           position: relative;
           @include flex-column(center, center);
           overflow: hidden;
-          height: 399px;
-          width: 277px;
+          height: 300px;
+          width: 210px;
           border-radius: 5px;
           .slide-content {
                padding-right: 20%;
@@ -623,6 +724,37 @@ input[type=range]::-moz-range-thumb {
                     visibility: visible;
                     opacity: 100%;
                }
+          }
+     }
+     @media screen and (min-width: $tablet) {
+          &__wrapper {
+               width: 93.75%;
+          }
+     }
+     @media screen and (min-width: $desktop-min) {
+          &__wrapper {
+               width: 100%;
+          }
+          .slider-btn {
+               display: block;
+          }
+          .slider-wrapper {
+               width: 900px;
+          }
+     }
+     @media screen and (min-width: $desktop) {
+          &__wrapper {
+               width: 1620px;
+          }
+          .slider-wrapper {
+               width: 1200px;
+          }
+          &__slider {
+               width: 1200px;
+          }
+          &__slide {
+               height: 399px;
+               width: 277px;
           }
      }
 }
@@ -664,6 +796,7 @@ input[type=range]::-moz-range-thumb {
           max-width: 1200px;
      }
      &__subtitle {
+          display: none;
           margin-top: 30px;
           font-weight: normal;
           font-size: 14px;
@@ -674,7 +807,7 @@ input[type=range]::-moz-range-thumb {
      &__schema {
           margin-top: 92px;
           margin-bottom: 23px;
-          @include flex-row(center, center);
+          @include flex-column(flex-start, center);
      }
      &__stage {
           @include flex-column(center, center);
@@ -696,10 +829,41 @@ input[type=range]::-moz-range-thumb {
           color: $text-gray;
      }
      &__arrow {
-          margin: 63px;
+          img {
+               transform: rotate(180deg);
+          }
+          overflow: hidden;
+          margin: 30px;
+          width: 40px;
+          transform: rotate(-90deg);
      }
      .watch-btn {
           margin-top: 35px;
+     }
+     @media screen and (min-width: $tablet) {
+          &__subtitle {
+               display: block;
+               width: 90%;
+          }
+     }
+     @media screen and (min-width: $desktop-min) {
+          &__schema {
+               margin-top: 92px;
+               margin-bottom: 23px;
+               @include flex-row(center, center);
+          }
+          &__arrow {
+               margin: 17px;
+               width: 48px;
+               transform: rotate(-180deg);
+          }
+     }
+     @media screen and (min-width: $desktop) {
+          &__arrow {
+               margin: 63px;
+               width: 107px;
+               transform: rotate(-180deg);
+          }
      }
 }
 
@@ -764,29 +928,32 @@ input[type=range]::-moz-range-thumb {
           margin-top: 35px;
      }
      &__wrapper {
+          img {
+               width: 100%;
+          }
           z-index: 1;
           margin-top: 60px;
           position: relative;
-          width: 1200px;
+          width: 93.75%;
           .panda-marker {
                position: absolute;
-               top: 98px;
-               left: 900px;
+               bottom: 60%;
+               left: 78.5%;
           }
           .alligator-marker {
                position: absolute;
-               top: 105px;
-               left: 245px;
+               bottom: 60%;
+               left: 23.2%;
           }
           .eagle-marker {
                position: absolute;
-               top: 80px;
-               left: 122px;
+               bottom: 65%;
+               left: 14%;
           }
           .gorilla-marker {
                position: absolute;
-               top: 190px;
-               left: 572px;
+               bottom: 43%;
+               left: 50.5%;
           }
           .marker {
                z-index: 2;
@@ -804,22 +971,24 @@ input[type=range]::-moz-range-thumb {
                          opacity: 100%;                      
                     }
                }
-               img {
+               & > img {
+                    margin-left: -50%;
                     height: 100%;
                     width: 100%;
                }
           }
           .marker-icon {
+               z-index: 3;
                overflow: hidden;
                position: absolute;
                top: 14%;
-               left: 20.5%;
+               left: -31%;
                height: 44%;
                width: 61.333%;
                border-radius: 50%;
           }
           .marker-info {
-               z-index: 3;
+               z-index: 4;
                transform: translateY(50px);
                opacity: 0;
                visibility: hidden;
