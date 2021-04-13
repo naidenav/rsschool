@@ -70,7 +70,7 @@ html {
 }
 
 body {
-     overflow: auto;
+     overflow-x: hidden;
      @include flex-column();
      font-family: 'Roboto', sans-serif;
      cursor: default;
@@ -337,8 +337,7 @@ body {
                left: 690px;
                top:427px;
                width: 1680px;
-          }
-          
+          }  
      }
      &__carousel {
           @include flex-row(flex-end, center);
@@ -700,10 +699,13 @@ input[type=range]::-moz-range-thumb {
           width: 93.75%;
      }
      .slider-wrapper {
+          position: relative;
           overflow: hidden;
           width: 100%;
      }
      &__slider {
+          position: relative;
+          overflow: hidden;
           @include flex-row();
           width: 900px;
      }
@@ -873,18 +875,22 @@ input[type=range]::-moz-range-thumb {
      &__wrapper {
           margin-top: 60px;
           @include flex-row(center, center);
+          width: 93.75%;
      }
      &__slider {
           @include flex-row();
-          height: 310px;
-          width: 1200px;
+          height: 363px;
+          width: 100%;
      }
      &__feedback {
           @include flex-column();
           height: 100%;
-          width: 48.7%;
+          width: 100%;
           background-color: #fff;
           box-shadow: 2px 4px 15px rgba(6, 12, 70, 0.10);
+          &:nth-child(2) {
+               display: none;
+          }
      }
      .user-avatar {
           margin-top: 47px;
@@ -916,6 +922,48 @@ input[type=range]::-moz-range-thumb {
      }
      .watch-btn {
           margin-top: 25px;
+     }
+     .slider-btn {
+          display: none;
+     }
+     @media screen and (min-width: $tablet) {
+          &__wrapper {
+               margin-top: 46px;
+          }
+          &__slider {
+               @include flex-row();
+               height: 310px;
+          }
+     }
+     @media screen and (min-width: $desktop-min) {
+          .slider-btn {
+               display: block;
+          }
+          &__wrapper {
+               margin-top: 60px;
+          }
+          &__slider {
+               @include flex-row();
+               width: 75%;
+          }
+          &__feedback {
+               @include flex-column();
+               width: 48.8%;
+               &:nth-child(2) {
+                    display: flex;
+               }
+          }
+
+     }
+     @media screen and (min-width: $desktop) {
+          &__wrapper {
+               width: 1620px;
+          }
+          &__slider {
+               @include flex-row();
+               height: 310px;
+               width: 1200px;
+          }
      }
 }
 
@@ -965,11 +1013,12 @@ input[type=range]::-moz-range-thumb {
                &:hover {
                     cursor: pointer;
                     filter: hue-rotate(-40deg);     
-                    .marker-info {
-                         transform: translateY(0);
-                         visibility: visible; 
-                         opacity: 100%;                      
-                    }
+                    
+               }
+               &:hover + .marker-info {
+                    transform: translateY(0);
+                    visibility: visible; 
+                    opacity: 100%;                      
                }
                & > img {
                     margin-left: -50%;
@@ -992,9 +1041,10 @@ input[type=range]::-moz-range-thumb {
                transform: translateY(50px);
                opacity: 0;
                visibility: hidden;
-               position: absolute;
-               top: 80px;
-               left: -220%;
+               position: fixed;
+               bottom: 10%;
+               left: 50%;
+               margin-left: -218px;
                padding: 40px;
                @include flex-row(center, center);
                width: 435px;
@@ -1024,9 +1074,19 @@ input[type=range]::-moz-range-thumb {
                     font-size: 14px;
                     line-height: 16px;
                }
+               &:hover {
+                    transform: translateY(0);
+                    opacity: 100;
+                    visibility: visible;
+               }
           }
      }
-
+     @media screen and (min-width: $tablet) {
+     }
+     @media screen and (min-width: $desktop-min) {
+     }
+     @media screen and (min-width: $desktop) {
+     }
 }
 
 .footer {
@@ -1036,30 +1096,27 @@ input[type=range]::-moz-range-thumb {
      &__wrapper {
           margin-top: 100px;
           position: relative;
-          width: 1620px;
-          @include flex-column();
+          width: 93.75%;
+          @include flex-column(flex-start, flex-start);
      }
      .logo > * {
           color: #fefefe;
      }
      &__nav {
           margin-top: 5px;
-          @include flex-row();
+          @include flex-column(flex-start, flex-start);
           width: 100%;
      }
      .nav-list {
-          @include flex-row(flex-start, center);
-          width: 49%;
+          @include flex-column(flex-start, flex-start);
           &__link {
                margin-right: 73px;
                color: #f2f2f2
           }
      }
      .watch-btn {
-          margin: 0;
-          position: absolute;
-          top: 0;
-          right: 0;
+          margin-top: 46px;
+          align-self: center;
           width: 279px;
           &__name {
                font-weight: 500;
@@ -1068,12 +1125,13 @@ input[type=range]::-moz-range-thumb {
      .contacts-us-and-centre {
           margin-top: 60px;
           padding-bottom: 50px;
-          @include flex-row(space-between, flex-start);
+          @include flex-column(flex-start, flex-start);
           width: 100%;
           border-bottom: 1px solid #bdbdbd;
      }
      .centre {
-          width: 49%;
+          margin-top: 54px;
+          width: 100%;
           &__title {
                margin-bottom: 35px;
                font-weight: 900;
@@ -1101,6 +1159,7 @@ input[type=range]::-moz-range-thumb {
           }
      }
      .contact-us {
+          width: 100%;
           &__title {
                font-weight: 900;
                font-size: 20px;
@@ -1110,7 +1169,7 @@ input[type=range]::-moz-range-thumb {
           &__form {
                margin-top: 33px;
                @include flex-column(flex-start, flex-start);
-               width: 385px;
+               width: 100%;
           }
           &__input {
                display: flex;
@@ -1209,6 +1268,78 @@ input[type=range]::-moz-range-thumb {
                font-size: 12px;
                line-height: 18px;
                color: #bdbdbd;
+          }
+     }
+     @media screen and (min-width: $tablet) {
+          .watch-btn {
+               margin-top: 0;
+               position: absolute;
+               top: 0;
+               right: 0;
+          }
+          .contact-us {
+               &__form {
+                    width: 385px;
+               }
+          }
+     }
+     @media screen and (min-width: $desktop-min) {
+          &__wrapper {
+               width: 75%;
+          }
+          .watch-btn {
+               margin-top: 40px;
+               position: unset;
+               top: unset;
+               right: unset;
+          }
+          &__nav {
+               margin-top: 5px;
+               @include flex-row();
+               width: 100%;
+          }
+          .nav-list {
+               @include flex-row(flex-start, center);
+               width: 49%;
+          }
+          .contacts-us-and-centre {
+               margin-top: 60px;
+               padding-bottom: 50px;
+               @include flex-row(space-between, flex-start);
+               width: 100%;
+               border-bottom: 1px solid #bdbdbd;
+          }
+          .contact-us {
+               width: 49%;
+          }
+          .centre {
+               margin-top: 0;
+               width: 49%;
+          }
+     }
+     @media screen and (min-width: $desktop) {
+          &__wrapper {
+               margin-top: 100px;
+               position: relative;
+               width: 1620px;
+          }
+          .watch-btn {
+               margin: 0;
+               position: absolute;
+               top: 0;
+               right: 0;
+          }
+          &__nav {
+               margin-top: 5px;
+               @include flex-row();
+               width: 100%;
+          }
+          .contacts-us-and-centre {
+               margin-top: 60px;
+               padding-bottom: 50px;
+               @include flex-row(space-between, flex-start);
+               width: 100%;
+               border-bottom: 1px solid #bdbdbd;
           }
      }
 }
