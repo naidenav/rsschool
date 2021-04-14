@@ -87,12 +87,21 @@ body {
 }
 
 .h3 {
-     margin-top: 100px;
+     margin-top: 50px;
      margin-bottom: 0;
      font-weight: 900;
-     font-size: 48px;
-     line-height: 56px;
+     font-size: 36px;
+     line-height: 42px;
      color: $text-black;
+     @media screen and (min-width: $tablet) {
+          margin-top: 100px;
+          font-size: 48px;
+          line-height: 56px;
+     }
+     @media screen and (min-width: $desktop-min) {
+     }
+     @media screen and (min-width: $desktop) {
+     } 
 }
 
 .weight-500 {
@@ -252,21 +261,9 @@ body {
      overflow: hidden;
      @include flex-column();
      min-width: 100%;
-     height: 940px;
+     height: 669px;
      background: url(../../assets/images/bg-landing-320.jpg) no-repeat center center;
      background-size: cover;
-     @media screen and (min-width: $tablet) {
-          background: url(../../assets/images/bg-landing-640.jpg) no-repeat center center;
-          background-size: cover;
-     }
-     @media screen and (min-width: $desktop-min) {
-          background: url(../../assets/images/bg-landing-1200.jpg) no-repeat center center;
-          background-size: cover;
-     }
-     @media screen and (min-width: $desktop) {
-          background: url(../../assets/images/bg-landing-1920.jpg) no-repeat center center;
-          background-size: cover;
-     }
      &__wrapper {
           position: relative;
           margin: 0 auto;
@@ -289,10 +286,10 @@ body {
      }
      &__slider {
           position: absolute;
-          left: 0;
-          top:427px;
+          left: -5px;
+          top: 365px;
           @include flex-column();
-          width: 1000px;
+          width: 1015px;
      }
      &__carousel {
           @include flex-row(flex-end, center);
@@ -359,20 +356,32 @@ body {
      }
      .scroll {
           align-self: flex-end;
-          margin-top: 20px;
-          margin-right: 1116px;
+          margin-top: 15px;
+          margin-right: 732px;
+          &__n-slide {
+               margin-bottom: -10px;
+          }
           &__n {
                color: #fefefe;
           }
      }
+     input[type=range] {
+          margin: 0;
+          width: 140px;
+     }
      input[type=range]::-webkit-slider-thumb {
+          width: 17.5px;
           background: white;
      }
      input[type=range]::-moz-range-thumb {
+          width: 17.5px;
           background: white;
      }
      @media screen and (min-width: $tablet) {
+          background: url(../../assets/images/bg-landing-1200.jpg) no-repeat center center;
           padding-bottom: 100px;
+          min-width: 100%;
+          height: 934px;
           .watch-btn {
                margin-top: 30px;
           }
@@ -384,14 +393,14 @@ body {
                line-height: 75px;
           }
           &__slider {
-               margin-top: 25px;
-               left: 340px;
+               margin-top: 0px;
+               left: 30px;
                top: 427px;
-               width: 1950px;
+               width: 1786px;
           }
           &__slide {
                margin-top: -20px;
-               margin-left: 46px;
+               margin-left: 30px;
                width: 180px;
                height: 261px;
                .slide-content {
@@ -444,20 +453,29 @@ body {
           }
           .scroll {
                align-self: flex-end;
-               margin-top: 20px;
-               margin-right: 1116px;
+               margin-top: 30px;
+               margin-right: 1260px;
+               &__n-slide {
+                    margin-bottom: 0;
+               }
                &__n {
                     color: #fefefe;
                }
           }
+          input[type=range] {
+               width: 245px;
+          }
           input[type=range]::-webkit-slider-thumb {
+               width: 35px;
                background: white;
           }
           input[type=range]::-moz-range-thumb {
+               width: 35px;
                background: white;
           }
      }
      @media screen and (min-width: $desktop-min) {
+          background: url(../../assets/images/bg-landing-1200.jpg) no-repeat center center;
           padding-bottom: 68px;
           .watch-btn {
                margin-top: 37px;
@@ -478,6 +496,7 @@ body {
           }
      }
      @media screen and (min-width: $desktop) {
+          background: url(../../assets/images/bg-landing-1920.jpg) no-repeat center center;
           padding-bottom: 113px;
           width: 1200px;
           margin: 0 auto;
@@ -492,6 +511,14 @@ body {
                     top:427px;
                     width: 1680px;
                } 
+          }
+          .scroll {
+               align-self: flex-end;
+               margin-top: 20px;
+               margin-right: 1116px;
+               &__n {
+                    color: #fefefe;
+               }
           }
      }
 }
@@ -539,6 +566,7 @@ body {
      }
      @media screen and (min-width: $tablet) {
           @include flex-column(space-between);
+          top: 730px;
      }
      @media screen and (min-width: $desktop-min) {
           top: 740px;
@@ -550,7 +578,7 @@ body {
 
 .watch-btn {
      padding: 0;
-     margin-top: 30px;
+     margin-top: 15px;
      @include flex-row(center);
      height: 55px;
      width: 245px;
@@ -579,6 +607,13 @@ body {
           text-transform: uppercase;
           color: $text-white;
      }
+     @media screen and (min-width: $tablet) {
+          margin-top: 30px;
+     }
+     @media screen and (min-width: $desktop-min) {
+     }
+     @media screen and (min-width: $desktop) {
+     }
 }
 
 .how-it-works {
@@ -592,7 +627,7 @@ body {
           }
      }
      &__story {
-          margin-top: 30px;
+          margin-top: 20px;
           font-weight: normal;
           font-size: 14px;
           line-height: 16px;
@@ -601,14 +636,22 @@ body {
      &__slider {
           width: 100%;
           margin-top: 30px;
-          margin-bottom: 100px;
+          margin-bottom: 50px;
           @include flex-column();
      }
      &__slide {
+          position: relative;
           width: 100%;
           height: 323px;
           border-radius: 5px;
           overflow: hidden;
+          img {
+               height: 100%;
+               width: auto;
+          }
+     }
+     .scroll {
+          margin-top: 22px;
      }
      input[type=range]::-webkit-slider-thumb {
           width: 60px;
@@ -619,6 +662,20 @@ body {
      @media screen and (min-width: $tablet) {
           &__wrapper {
                width: 93.75%;
+          }
+          &__story {
+               margin-top: 30px
+          }
+          &__slider {
+               margin-top: 30px;
+               margin-bottom: 70px;
+          }
+          &__slide {
+               width: 100%;
+               height: 323px;
+          }
+          .scroll {
+               margin-top: 30px;
           }
      }
      @media screen and (min-width: $desktop-min) {
@@ -715,44 +772,11 @@ input[type=range]::-moz-range-thumb {
           margin-bottom: 35px;
           @include flex-column(flex-start, center);
           width: 93.75%;
-          @media screen and (min-width: $tablet) {
-               margin-top: 75px;
-               margin-bottom: 75px;
-               @include flex-column(flex-start, center);
-          }
-          @media screen and (min-width: $desktop-min) {
-               margin-top: 75px;
-               margin-bottom: 75px;
-               @include flex-row(space-between, flex-start);
-               width: 900px;
-          }
-          @media screen and (min-width: $desktop) {
-               margin-top: 75px;
-               margin-bottom: 75px;
-               @include flex-row(space-between, flex-start);
-               width: 1200px;
-          }
      }
      &__item {
           margin: 15px 0;
           @include flex-column(flex-start);
           width: 100%;
-          height: 210px;
-          @media screen and (min-width: $tablet) {
-               margin: 25px 0;
-               width: 47.67%;
-               height: 210px;
-          }
-          @media screen and (min-width: $desktop-min) {
-               margin: 25px 0;
-               width: 31.67%;
-               height: 210px;
-          }
-          @media screen and (min-width: $desktop) {
-               margin: 25px 0;
-               width: 31.67%;
-               height: 210px;
-          }
      }
      &__img {
           filter: drop-shadow(2px 4px 15px rgba(6, 12, 70, 0.15));
@@ -774,11 +798,48 @@ input[type=range]::-moz-range-thumb {
           color: $text-gray;
           text-shadow: 2px 4px 15px rgba(6, 12, 70, 0.15);
      }
+     @media screen and (min-width: $tablet) {
+          &__wrapper {
+               margin-top: 75px;
+               margin-bottom: 75px;
+               @include flex-column(flex-start, center);
+          }
+          &__item {
+               margin: 25px 0;
+               width: 47.67%;
+          }
+     }
+     @media screen and (min-width: $desktop-min) {
+          &__wrapper {
+               margin-top: 75px;
+               margin-bottom: 75px;
+               @include flex-row(space-between, flex-start);
+               width: 900px;
+          }
+          &__item {
+               margin: 25px 0;
+               width: 31.67%;
+               height: 210px;
+          }
+     }
+     @media screen and (min-width: $desktop) {
+          &__wrapper {
+               margin-top: 75px;
+               margin-bottom: 75px;
+               @include flex-row(space-between, flex-start);
+               width: 1200px;
+          }
+          &__item {
+               margin: 25px 0;
+               width: 31.67%;
+               height: 210px;
+          }
+     }
 }
 
 .pets-in-zoo {
      width: 100%;
-     padding-bottom: 100px;
+     padding-bottom: 50px;
      @include flex-column();
      .slider-btn {
           display: none;
@@ -786,9 +847,12 @@ input[type=range]::-moz-range-thumb {
      & img {
           height: 100%;
      }
+     .h3 {
+          margin-top: 100px;
+     }
      &__wrapper {
           overflow: hidden;
-          margin-top: 35px;
+          margin-top: 30px;
           @include flex-row(center, center);
           width: 93.75%;
      }
@@ -818,9 +882,19 @@ input[type=range]::-moz-range-thumb {
                }
           }
      }
+     .scroll {
+          margin-top: 33px;
+     }
+     .watch-btn {
+          margin-top: 22px;
+     }
      @media screen and (min-width: $tablet) {
+          padding-bottom: 100px;
           &__wrapper {
                width: 93.75%;
+          }
+          .watch-btn {
+               margin-top: 35px;
           }
      }
      @media screen and (min-width: $desktop-min) {
@@ -879,7 +953,7 @@ input[type=range]::-moz-range-thumb {
 }
 
 .pay-and-feed {
-     padding-bottom: 100px;
+     padding-bottom: 50px;
      @include flex-column();
      width: 100%;
      background-color: $bg-gray;
@@ -897,7 +971,7 @@ input[type=range]::-moz-range-thumb {
           color: $text-gray;
      }
      &__schema {
-          margin-top: 92px;
+          margin-top: 30px;
           margin-bottom: 23px;
           @include flex-column(flex-start, center);
      }
@@ -925,17 +999,21 @@ input[type=range]::-moz-range-thumb {
                transform: rotate(180deg);
           }
           overflow: hidden;
-          margin: 30px;
+          margin: 42px;
           width: 40px;
           transform: rotate(-90deg);
      }
      .watch-btn {
-          margin-top: 35px;
+          margin-top: 15px;
      }
      @media screen and (min-width: $tablet) {
+          padding-bottom: 100px;
           &__subtitle {
                display: block;
                width: 90%;
+          }
+          .watch-btn {
+               margin-top: 30px;
           }
      }
      @media screen and (min-width: $desktop-min) {
@@ -960,10 +1038,10 @@ input[type=range]::-moz-range-thumb {
 }
 
 .testimonials {
-     padding-bottom: 100px;
+     padding-bottom: 50px;
      @include flex-column();
      &__wrapper {
-          margin-top: 60px;
+          margin-top: 40px;
           @include flex-row(center, center);
           width: 93.75%;
      }
@@ -991,38 +1069,80 @@ input[type=range]::-moz-range-thumb {
           border-radius: 50%;
      }
      .feedback-name {
-          margin-top: 17px;
+          margin-top: 47px;
           font-weight: 900;
-          font-size: 20px;
-          line-height: 23px;
+          font-size: 16px;
+          line-height: 19px;
           text-align: center;
           color: $text-black;
           text-transform: capitalize;
      }
      .feedback-content {
-          margin-top: 17px;
-          width: 75%;
+          margin-top: 19px;
+          width: 90%;
           font-weight: normal;
           font-size: 14px;
           line-height: 16px;
           color: $text-gray;
      }
      .scroll {
-          margin-top: 55px;
+          margin-top: 40px;
      }
      .watch-btn {
-          margin-top: 25px;
+          margin-top: 15px;
      }
      .slider-btn {
           display: none;
      }
      @media screen and (min-width: $tablet) {
+          padding-bottom: 100px;
           &__wrapper {
                margin-top: 46px;
           }
           &__slider {
                @include flex-row();
                height: 310px;
+          }
+          &__feedback {
+               @include flex-column();
+               height: 100%;
+               width: 100%;
+               background-color: #fff;
+               box-shadow: 2px 4px 15px rgba(6, 12, 70, 0.10);
+               &:nth-child(2) {
+                    display: none;
+               }
+          }
+          .user-avatar {
+               margin-top: 47px;
+               @include flex-column(center, center);
+               height: 68px;
+               width: 68px;
+               border: 1px solid #bdbdbd;
+               border-radius: 50%;
+          }
+          .feedback-name {
+               margin-top: 17px;
+               font-weight: 900;
+               font-size: 20px;
+               line-height: 23px;
+               text-align: center;
+               color: $text-black;
+               text-transform: capitalize;
+          }
+          .feedback-content {
+               margin-top: 17px;
+               width: 75%;
+               font-weight: normal;
+               font-size: 14px;
+               line-height: 16px;
+               color: $text-gray;
+          }
+          .scroll {
+               margin-top: 55px;
+          }
+          .watch-btn {
+               margin-top: 25px;
           }
      }
      @media screen and (min-width: $desktop-min) {
@@ -1060,17 +1180,20 @@ input[type=range]::-moz-range-thumb {
 .map {
      @include flex-column();
      width: 100%;
-     padding-bottom: 100px;
+     padding-bottom: 60px;
      background-color: $bg-gray;
      .watch-btn {
-          margin-top: 35px;
+          margin-top: 40px;
      }
      &__wrapper {
+          .map-img {
+               transform: scaleY(1.2);
+          }
           img {
                width: 100%;
           }
           z-index: 1;
-          margin-top: 60px;
+          margin-top: 42px;
           position: relative;
           width: 93.75%;
           .panda-marker {
@@ -1095,8 +1218,8 @@ input[type=range]::-moz-range-thumb {
           }
           .marker {
                z-index: 2;
-               width: 66px;
-               height: 92px;
+               width: 34px;
+               height: 47px;
                .marker-img {
                     filter: drop-shadow(6px 3px 10px rgba(50,50,50,.2));
                }
@@ -1133,15 +1256,64 @@ input[type=range]::-moz-range-thumb {
                visibility: hidden;
                position: fixed;
                bottom: 10%;
+               left: 13%;
+               padding: 15px;
+               @include flex-row(center, center);
+               width: 74%;
+               background-color: #fefefe;
+               box-shadow: 2px 4px 15px rgba(6, 12, 70, 0.10);
+               border-radius: 8px;
+               &__icon {
+                    overflow: hidden;
+                    margin-right: 10px;
+                    align-self: flex-start;
+                    height: 40px;
+                    width: 40px;
+                    border-radius: 50%;
+               }
+               &__text {
+                    width: 65%;
+               }
+               &__title {
+                    font-weight: 900;
+                    font-size: 14px;
+                    line-height: 16px;
+                    color: #333333;
+               }
+               &__content {
+                    margin-top: 5px;
+                    font-weight: normal;
+                    font-size: 11px;
+                    line-height: 13px;
+               }
+               &:hover {
+                    transform: translateY(0);
+                    opacity: 100;
+                    visibility: visible;
+               }
+          }
+     }
+     @media screen and (min-width: $tablet) {
+          padding-bottom: 80px;
+          &__wrapper {
+               margin-top: 70px;
+          }
+          .marker {
+               width: 66px;
+               height: 92px;
+          }
+          .marker-info {
+               transform: translateY(50px);
+               opacity: 0;
+               visibility: hidden;
+               position: fixed;
+               bottom: 10%;
                left: 50%;
                margin-left: -218px;
                padding: 40px;
                @include flex-row(center, center);
                width: 435px;
                height: 150px;
-               background-color: #fefefe;
-               box-shadow: 2px 4px 15px rgba(6, 12, 70, 0.10);
-               border-radius: 8px;
                &__icon {
                     overflow: hidden;
                     margin-right: 20px;
@@ -1170,12 +1342,17 @@ input[type=range]::-moz-range-thumb {
                     visibility: visible;
                }
           }
-          @media screen and (min-width: $tablet) {
+          .watch-btn {
+               margin-top: 55px;
           }
-          @media screen and (min-width: $desktop-min) {
+     }
+     @media screen and (min-width: $desktop-min) {
+          &__wrapper {
                width: 900px;
           }
-          @media screen and (min-width: $desktop) {
+     }
+     @media screen and (min-width: $desktop) {
+          &__wrapper {
                width: 1200px;
           }
      }
@@ -1186,13 +1363,14 @@ input[type=range]::-moz-range-thumb {
      width: 100%;
      background-color: $text-black;
      &__wrapper {
-          margin-top: 100px;
+          margin-top: 50px;
           position: relative;
           width: 93.75%;
           @include flex-column(flex-start, flex-start);
      }
      .logo {
           margin-top: -8px;
+          margin-bottom: 38px;
      }
      .logo > * {
           color: #fefefe;
@@ -1206,21 +1384,21 @@ input[type=range]::-moz-range-thumb {
           @include flex-column(flex-start, flex-start);
           width: 100%;
           &__link {
-               margin-right: 73px;
+               line-height: 19px;
+               margin: 2.5px 73px 2.5px 0;
                color: #f2f2f2
           }
      }
      .watch-btn {
-          margin-top: 46px;
-          align-self: center;
+          margin: 46px auto 0;
           width: 279px;
           &__name {
                font-weight: 500;
           }
      }
      .contacts-us-and-centre {
-          margin-top: 60px;
-          padding-bottom: 50px;
+          margin-top: 23px;
+          padding-bottom: 80px;
           @include flex-column(flex-start, flex-start);
           width: 100%;
           border-bottom: 1px solid #bdbdbd;
@@ -1272,6 +1450,8 @@ input[type=range]::-moz-range-thumb {
                margin-bottom: 20px;
                width: 100%;
                height: 26px;
+               font-size: 14px;
+               line-height: 16px;
                color: #E0E0E0;
                border: none;
                border-bottom: 1px solid #BDBDBD;
@@ -1330,8 +1510,7 @@ input[type=range]::-moz-range-thumb {
                background-size: cover;
           } 
           &__send {
-               padding: 10px;
-               margin-top: 10px;
+               margin-top: 20px;
                @include flex-row(flex-start, center);
                align-self: flex-end;
                font-weight: 500;
@@ -1350,7 +1529,7 @@ input[type=range]::-moz-range-thumb {
                }
           }
           .send-arrow {
-               margin: 0 10px 0 24px;
+               margin-left: 24px;
                width: 48px;
           }
      }
@@ -1358,7 +1537,7 @@ input[type=range]::-moz-range-thumb {
           @include flex-row();
           width: 100%;
           margin-top: 28px;
-          margin-bottom: 72px;
+          margin-bottom: 28px;
           .copyright-text {
                font-weight: normal;
                font-size: 12px;
@@ -1367,21 +1546,48 @@ input[type=range]::-moz-range-thumb {
           }
      }
      @media screen and (min-width: $tablet) {
+          &__wrapper {
+               margin-top: 100px;
+          }
+          .logo {
+               margin-bottom: 25px;
+          }
           .watch-btn {
                margin-top: 0;
                position: absolute;
                top: 0;
                right: 0;
           }
+          .centre {
+               margin-top: 75px;
+          }
           .contact-us {
                &__form {
                     width: 385px;
+               }
+               .check {
+                    margin-top: 15px;
+               }
+          }
+          &__copyright {
+               @include flex-row();
+               width: 100%;
+               margin-top: 28px;
+               margin-bottom: 40px;
+               .copyright-text {
+                    font-weight: normal;
+                    font-size: 12px;
+                    line-height: 18px;
+                    color: #bdbdbd;
                }
           }
      }
      @media screen and (min-width: $desktop-min) {
           &__wrapper {
                width: 75%;
+          }
+          .logo {
+               margin-bottom: 0;
           }
           .watch-btn {
                margin-top: 40px;
