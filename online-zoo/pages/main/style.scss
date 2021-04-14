@@ -162,7 +162,7 @@ body {
 
 .nav-list {
      padding-left: 0;
-     @include flex-row();
+     display: none;
      width: 572px;
      list-style: none;
      &__link {
@@ -193,8 +193,8 @@ body {
      .first-link:hover {
           transform: none;
      }
-     @media screen and (max-width: $desktop-min) {
-          display: none;
+     @media screen and (min-width: $desktop-min) {
+          @include flex-row();
      } 
 }
 
@@ -204,34 +204,33 @@ body {
      width: 100%;
      background-color: #fff;
      &__nav-btn {
-          display: none;
-          @media screen and (max-width: $desktop-min) {
-               @include flex-row(center, center);
-               outline: none;
-               border: none;
-               background: none;
-               &:hover {
-                    & line {
-                         stroke: $btn-blue;
-                    }
+          @include flex-row(center, center);
+          outline: none;
+          border: none;
+          background: none;
+          &:hover {
+               & line {
+                    stroke: $btn-blue;
                }
           }
      }
      .theme-switcher {
+          position: absolute;
+          right: 80px;
           @include flex-row();
           width: 54px;
           height: 30px;
           background: $bg-gray;
           border-radius: 190px;
           & input {
-               display: none;
+               -webkit-appearance: none;
+               position: fixed;
           }
           &:hover {
                background-color: darken($bg-gray, 10%);
           }
-          @media screen and (max-width: $desktop-min) {
-               position: absolute;
-               right: 80px;
+          @media screen and (min-width: $desktop-min) {
+               position: unset;
           }
           &_active {
                background-color: $text-gray;
@@ -248,6 +247,11 @@ body {
                transform: translateX(22px);
                background-color: #1B1B1B;
                box-shadow: none;
+          }
+     }
+     @media screen and (min-width: $desktop-min) {
+          &__nav-btn {
+               display: none;
           }
      }
 }
@@ -379,8 +383,8 @@ body {
      }
      @media screen and (min-width: $tablet) {
           background: url(../../assets/images/bg-landing-1200.jpg) no-repeat center center;
+          background-size: cover;
           padding-bottom: 100px;
-          min-width: 100%;
           height: 934px;
           .watch-btn {
                margin-top: 30px;
@@ -476,7 +480,9 @@ body {
      }
      @media screen and (min-width: $desktop-min) {
           background: url(../../assets/images/bg-landing-1200.jpg) no-repeat center center;
+          background-size: cover;
           padding-bottom: 68px;
+          height: 926px;
           .watch-btn {
                margin-top: 37px;
           }
@@ -488,29 +494,40 @@ body {
                line-height: 104px;
           }
           &__slider {
-               @media screen and (min-width: $desktop) {
-                    left: 690px;
-                    top:427px;
-                    width: 1680px;
-               } 
+               left: 393px;
+               top: 454px;
+               width: 1786px;
           }
      }
      @media screen and (min-width: $desktop) {
           background: url(../../assets/images/bg-landing-1920.jpg) no-repeat center center;
+          background-size: cover;
           padding-bottom: 113px;
-          width: 1200px;
+          height: 940px;          
           margin: 0 auto;
+          &__wrapper {
+               width: 1200px;
+          }
           h2 {
                margin-top: 206px;
                display: block;
                width: 793px;
           }
           &__slider {
-               @media screen and (min-width: $desktop) {
-                    left: 690px;
-                    top:427px;
-                    width: 1680px;
-               } 
+               left: 690px;
+               top:427px;
+               width: 1680px;
+          }
+          &__slide {
+               margin-top: 10px;
+               margin-left: 46px;
+               width: 140px;
+               height: 203px;
+          }
+          .slide-active {
+               margin-top: -20px;
+               width: 245px;
+               height: 352px;   
           }
           .scroll {
                align-self: flex-end;
@@ -569,7 +586,7 @@ body {
           top: 730px;
      }
      @media screen and (min-width: $desktop-min) {
-          top: 740px;
+          top: 750px;
      }
      @media screen and (min-width: $desktop) {
           top: 717px;
@@ -682,10 +699,29 @@ body {
           &__wrapper {
                width: 750px;
           }
+          &__slider {
+               margin-top: 15px;
+               margin-bottom: 100px;
+          }
+          &__slide {
+               img {
+                    width: 100%;
+               }
+          }
+          .scroll {
+               margin-top: 30px;
+          }
+          .watch-btn {
+               margin-top: 28px;
+          }
      }
      @media screen and (min-width: $desktop) {
           &__wrapper {
                width: 790px;
+          }
+          &__slider {
+               margin-top: 30px;
+               margin-bottom: 100px;
           }
      }
 }
@@ -907,9 +943,13 @@ input[type=range]::-moz-range-thumb {
           .slider-wrapper {
                width: 900px;
           }
+          .watch-btn {
+               margin-top: 30px;
+          }
      }
      @media screen and (min-width: $desktop) {
           &__wrapper {
+               margin-top: 38px;
                width: 1620px;
           }
           .slider-wrapper {
@@ -921,6 +961,9 @@ input[type=range]::-moz-range-thumb {
           &__slide {
                height: 399px;
                width: 277px;
+          }
+          .watch-btn {
+               margin-top: 25px;
           }
      }
 }
@@ -1018,7 +1061,7 @@ input[type=range]::-moz-range-thumb {
      }
      @media screen and (min-width: $desktop-min) {
           &__schema {
-               margin-top: 92px;
+               margin-top: 50px;
                margin-bottom: 23px;
                @include flex-row(center, center);
           }
@@ -1027,12 +1070,21 @@ input[type=range]::-moz-range-thumb {
                width: 48px;
                transform: rotate(-180deg);
           }
+          .watch-btn {
+               margin-top: 26px;
+          }
      }
      @media screen and (min-width: $desktop) {
+          &__schema {
+               margin-top: 93px;
+          }
           &__arrow {
                margin: 63px;
                width: 107px;
                transform: rotate(-180deg);
+          }
+          .watch-btn {
+               margin-top: 36px;
           }
      }
 }
@@ -1150,6 +1202,7 @@ input[type=range]::-moz-range-thumb {
                display: block;
           }
           &__wrapper {
+               width: 100%;
                margin-top: 60px;
           }
           &__slider {
@@ -1163,6 +1216,9 @@ input[type=range]::-moz-range-thumb {
                     display: flex;
                }
           }
+          .scroll {
+               margin-top: 50px;
+          }
 
      }
      @media screen and (min-width: $desktop) {
@@ -1173,6 +1229,9 @@ input[type=range]::-moz-range-thumb {
                @include flex-row();
                height: 310px;
                width: 1200px;
+          }
+          .watch-btn {
+               margin-top: 28px;
           }
      }
 }
@@ -1347,13 +1406,28 @@ input[type=range]::-moz-range-thumb {
           }
      }
      @media screen and (min-width: $desktop-min) {
+          padding-bottom: 100px;
           &__wrapper {
-               width: 900px;
+               width: 75%;
+               margin-top: 90px;
+          }
+          .map-img {
+               transform: scaleY(1.15);
+          }
+          .watch-btn {
+               margin-top: 66px;
           }
      }
      @media screen and (min-width: $desktop) {
           &__wrapper {
                width: 1200px;
+               margin-top: 60px;
+          }
+          .map-img {
+               transform: scaleY(1.0);
+          }
+          .watch-btn {
+               margin-top: 35px;
           }
      }
 }
@@ -1591,6 +1665,7 @@ input[type=range]::-moz-range-thumb {
           }
           .watch-btn {
                margin-top: 40px;
+               margin-left: 0;
                position: unset;
                top: unset;
                right: unset;
@@ -1606,17 +1681,36 @@ input[type=range]::-moz-range-thumb {
           }
           .contacts-us-and-centre {
                margin-top: 60px;
-               padding-bottom: 50px;
+               padding-bottom: 68px;
                @include flex-row(space-between, flex-start);
                width: 100%;
                border-bottom: 1px solid #bdbdbd;
           }
-          .contact-us {
-               width: 49%;
-          }
           .centre {
                margin-top: 0;
                width: 49%;
+          }
+          .contact-us {
+               width: 49%;
+               &__form {
+                    margin-top: 43px;
+                    width: 385px;
+               }
+               .check {
+                    margin-top: 15px;
+               }
+          }
+          &__copyright {
+               @include flex-row();
+               width: 100%;
+               margin-top: 28px;
+               margin-bottom: 40px;
+               .copyright-text {
+                    font-weight: normal;
+                    font-size: 12px;
+                    line-height: 18px;
+                    color: #bdbdbd;
+               }
           }
      }
      @media screen and (min-width: $desktop) {
@@ -1637,11 +1731,23 @@ input[type=range]::-moz-range-thumb {
                width: 100%;
           }
           .contacts-us-and-centre {
-               margin-top: 60px;
-               padding-bottom: 50px;
+               margin-top: 68px;
+               padding-bottom: 55px;
                @include flex-row(space-between, flex-start);
                width: 100%;
                border-bottom: 1px solid #bdbdbd;
+          }
+          .contact-us {
+               width: 49%;
+               &__form {
+                    margin-top: 32px;
+               }
+               .check {
+                    margin-top: 25px;
+               }
+          }
+          &__copyright {
+               margin-bottom: 70px;
           }
      }
 }
