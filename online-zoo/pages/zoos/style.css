@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
@@ -71,11 +72,13 @@ body {
 }
 
 .h3 {
-  margin-top: 50px;
+  margin-top: 35px;
   margin-bottom: 0;
+  margin-left: 5px;
   font-weight: 900;
-  font-size: 36px;
-  line-height: 42px;
+  font-size: 24px;
+  line-height: 28px;
+  text-align: center;
   color: #333333;
 }
 
@@ -84,6 +87,13 @@ body {
     margin-top: 60px;
     font-size: 48px;
     line-height: 56px;
+    text-align: left;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .h3 {
+    margin-left: 3px;
   }
 }
 
@@ -349,9 +359,9 @@ body {
   position: -webkit-sticky;
   position: sticky;
   top: 30px;
-  margin-top: 60px;
-  margin-bottom: 60px;
-  margin-right: 150px;
+  margin-top: 33px;
+  margin-bottom: 33px;
+  margin-right: 20px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -365,8 +375,8 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  height: 600px;
-  width: 210px;
+  height: 265px;
+  width: 75px;
 }
 
 .sidebar__slider {
@@ -383,7 +393,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 210px;
+  width: 75px;
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
@@ -412,8 +422,8 @@ body {
 
 .sidebar .slide-image {
   overflow: hidden;
-  width: 108px;
-  height: 108px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
 }
 
@@ -436,8 +446,8 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 108px;
-  height: 108px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background-image: -webkit-gradient(linear, left top, right top, from(#07eee0), to(#df496d));
   background-image: linear-gradient(to right, #07eee0, #df496d);
@@ -453,18 +463,18 @@ body {
 }
 
 .sidebar .slide-active .gradient {
-  width: 157px;
-  height: 157px;
+  width: 65px;
+  height: 65px;
 }
 
 .sidebar .slide-active .slide-image {
-  -webkit-transform: scale(1.4);
-          transform: scale(1.4);
-  border: 5px solid white;
+  -webkit-transform: scale(1.5);
+          transform: scale(1.5);
+  border: 2px solid white;
 }
 
 .sidebar .sidebar__btn {
-  margin: 10px 0;
+  margin: 5px 0;
   height: 20px;
   width: 20px;
   border-top: 5px solid #828282;
@@ -500,8 +510,147 @@ body {
   border-color: #4bd8B5;
 }
 
+@media screen and (min-width: 640px) {
+  .sidebar {
+    top: 30px;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    margin-right: 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    height: 415px;
+    width: 103px;
+  }
+  .sidebar__slider {
+    width: 103px;
+  }
+  .sidebar .slide-image {
+    width: 70px;
+    height: 70px;
+  }
+  .sidebar .gradient {
+    width: 70px;
+    height: 70px;
+  }
+  .sidebar .slide-active .gradient {
+    width: 90px;
+    height: 90px;
+  }
+  .sidebar .slide-active .slide-image {
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+    border: 2px solid white;
+  }
+  .sidebar .sidebar__btn {
+    margin: 10px 0;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .sidebar {
+    top: 30px;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    margin-right: 50px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    height: 520px;
+    width: 151px;
+  }
+  .sidebar__slider {
+    width: 151px;
+  }
+  .sidebar .slide-image {
+    width: 96px;
+    height: 96px;
+  }
+  .sidebar .gradient {
+    width: 96px;
+    height: 96px;
+  }
+  .sidebar .slide-active .gradient {
+    width: 120px;
+    height: 120px;
+  }
+  .sidebar .slide-active .slide-image {
+    -webkit-transform: scale(1.17);
+            transform: scale(1.17);
+    border: 3px solid white;
+  }
+  .sidebar .sidebar__btn {
+    margin: 10px 0;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  .sidebar {
+    top: 30px;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    margin-right: 150px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    height: 600px;
+    width: 210px;
+  }
+  .sidebar__slider {
+    width: 210px;
+  }
+  .sidebar .slide-image {
+    width: 108px;
+    height: 108px;
+  }
+  .sidebar .gradient {
+    width: 108px;
+    height: 108px;
+  }
+  .sidebar .slide-active .gradient {
+    width: 157px;
+    height: 157px;
+  }
+  .sidebar .slide-active .slide-image {
+    -webkit-transform: scale(1.4);
+            transform: scale(1.4);
+    border: 5px solid white;
+  }
+}
+
 .the-beijing-zoo {
-  margin-bottom: 100px;
+  margin-bottom: 60px;
+  margin-right: 20px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -519,14 +668,15 @@ body {
 }
 
 .the-beijing-zoo__content {
-  margin-top: 40px;
+  margin-top: 20px;
+  margin-right: 10px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
+  -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
@@ -551,6 +701,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  width: 100%;
 }
 
 .the-beijing-zoo .plug {
@@ -563,20 +714,28 @@ body {
   background: transparent;
 }
 
-.the-beijing-zoo iframe {
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-}
-
 .the-beijing-zoo .main-video {
   position: relative;
-  width: 790px;
-  height: 442px;
+  padding-bottom: 56.25%;
+  /* задаёт высоту контейнера для 16:9 (если 4:3 — поставьте 75%) */
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 3px;
+}
+
+.the-beijing-zoo iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-width: 0;
+  outline-width: 0;
 }
 
 .the-beijing-zoo .playlist {
-  margin-top: 30px;
+  margin-top: 10px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -595,12 +754,19 @@ body {
 
 .the-beijing-zoo .next-video {
   position: relative;
-  width: 246px;
-  height: 141px;
+  padding-bottom: 27%;
+  width: 48%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 3px;
+}
+
+.the-beijing-zoo .next-video:nth-child(3) {
+  display: none;
 }
 
 .the-beijing-zoo .scroll {
-  margin-top: 30px;
+  margin-top: 22px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -637,6 +803,7 @@ body {
 }
 
 .the-beijing-zoo__description {
+  margin-top: 30px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -650,6 +817,7 @@ body {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
+  width: 100%;
 }
 
 .the-beijing-zoo__info {
@@ -666,28 +834,305 @@ body {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
-  width: 380px;
+  width: 100%;
 }
 
 .the-beijing-zoo__title {
   font-weight: 900;
-  font-size: 20px;
-  line-height: 23px;
+  font-size: 14px;
+  line-height: 16px;
   color: #333333;
 }
 
 .the-beijing-zoo__text {
-  margin-top: 6px;
-  margin-bottom: 13px;
+  margin-top: 7px;
+  margin-bottom: 16px;
   font-weight: normal;
-  font-size: 14px;
-  line-height: 16px;
+  font-size: 12px;
+  line-height: 14px;
   color: #4f4f4f;
 }
 
 .the-beijing-zoo .watch-btn {
-  width: 195px;
+  margin-top: 0;
+  width: 185px;
   height: 55px;
+}
+
+@media screen and (min-width: 640px) {
+  .the-beijing-zoo {
+    margin-bottom: 78px;
+  }
+  .the-beijing-zoo__content {
+    margin-top: 35px;
+  }
+  .the-beijing-zoo .playlist {
+    margin-top: 15px;
+  }
+  .the-beijing-zoo .next-video {
+    position: relative;
+    padding-bottom: 18%;
+    width: 31%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 3px;
+  }
+  .the-beijing-zoo .next-video:nth-child(3) {
+    display: block;
+  }
+  .the-beijing-zoo .scroll {
+    margin-top: 30px;
+  }
+  .the-beijing-zoo__title {
+    font-size: 20px;
+    line-height: 23px;
+  }
+  .the-beijing-zoo__text {
+    margin-top: 6px;
+    margin-bottom: 14px;
+    font-size: 14px;
+    line-height: 16px;
+  }
+  .the-beijing-zoo__description {
+    margin-top: 50px;
+  }
+  .the-beijing-zoo .watch-btn {
+    margin-top: 14px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .the-beijing-zoo {
+    margin-bottom: 100px;
+  }
+  .the-beijing-zoo__content {
+    margin-top: 40px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    width: 100%;
+  }
+  .the-beijing-zoo__video {
+    margin-right: 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    width: 122%;
+  }
+  .the-beijing-zoo .playlist {
+    margin-top: 27px;
+  }
+  .the-beijing-zoo__description {
+    margin-top: 0;
+  }
+  .the-beijing-zoo__text {
+    margin-top: 7px;
+    margin-bottom: 15px;
+  }
+  .the-beijing-zoo__info {
+    width: 260px;
+  }
+  .the-beijing-zoo .watch-btn {
+    margin-top: 5px;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  .the-beijing-zoo {
+    margin-bottom: 95px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    width: 100%;
+  }
+  .the-beijing-zoo__content {
+    margin-top: 40px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    width: 100%;
+  }
+  .the-beijing-zoo__video {
+    margin-right: 30px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    width: 790px;
+  }
+  .the-beijing-zoo .plug {
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: transparent;
+  }
+  .the-beijing-zoo iframe {
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+  }
+  .the-beijing-zoo .main-video {
+    position: relative;
+    width: 790px;
+    height: 442px;
+  }
+  .the-beijing-zoo .playlist {
+    margin-top: 30px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    width: 100%;
+  }
+  .the-beijing-zoo .next-video {
+    position: relative;
+    width: 246px;
+    height: 141px;
+  }
+  .the-beijing-zoo .scroll {
+    margin-top: 30px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    width: 37px;
+    height: 11px;
+  }
+  .the-beijing-zoo .scroll .dot {
+    height: 8px;
+    width: 8px;
+    background-color: #c4c4c4;
+    border-radius: 50%;
+  }
+  .the-beijing-zoo .scroll .dot:hover {
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+  .the-beijing-zoo .scroll .dot-active {
+    height: 11px;
+    width: 11px;
+    background-color: #4bd8B5;
+  }
+  .the-beijing-zoo__description {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+  }
+  .the-beijing-zoo__info {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    width: 380px;
+  }
+  .the-beijing-zoo__title {
+    font-weight: 900;
+    font-size: 20px;
+    line-height: 23px;
+    color: #333333;
+  }
+  .the-beijing-zoo__text {
+    margin-top: 6px;
+    margin-bottom: 13px;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    color: #4f4f4f;
+  }
+  .the-beijing-zoo .watch-btn {
+    margin-top: 20px;
+    width: 195px;
+    height: 55px;
+  }
 }
 
 .social-net {
@@ -1019,7 +1464,7 @@ body {
 }
 
 .footer .contact-us .check {
-  margin-top: 25px;
+  margin-top: 20px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1129,7 +1574,7 @@ body {
 
 @media screen and (min-width: 640px) {
   .footer__wrapper {
-    margin-top: 100px;
+    margin-top: 96px;
   }
   .footer .logo {
     margin-bottom: 25px;
@@ -1140,6 +1585,9 @@ body {
     top: 0;
     right: 0;
   }
+  .footer .contacts-us-and-centre {
+    padding-bottom: 77px;
+  }
   .footer .centre {
     margin-top: 75px;
   }
@@ -1147,7 +1595,7 @@ body {
     width: 385px;
   }
   .footer .contact-us .check {
-    margin-top: 15px;
+    margin-top: 18px;
   }
   .footer__copyright {
     margin-bottom: 40px;
@@ -1156,6 +1604,7 @@ body {
 
 @media screen and (min-width: 1200px) {
   .footer__wrapper {
+    margin-top: 100px;
     width: 75%;
   }
   .footer .logo {

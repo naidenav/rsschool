@@ -87,16 +87,22 @@ body {
 }
 
 .h3 {
-     margin-top: 50px;
+     margin-top: 35px;
      margin-bottom: 0;
+     margin-left: 5px;
      font-weight: 900;
-     font-size: 36px;
-     line-height: 42px;
+     font-size: 24px;
+     line-height: 28px;
+     text-align: center;
      color: $text-black;
      @media screen and (min-width: $tablet) {
           margin-top: 60px;
           font-size: 48px;
           line-height: 56px;
+          text-align: left;
+     }
+     @media screen and (min-width: $desktop-min) {
+          margin-left: 3px;
      }
 }
 
@@ -242,15 +248,15 @@ body {
 .sidebar {
      position: sticky;
      top: 30px;
-     margin-top: 60px;
-     margin-bottom: 60px;
-     margin-right: 150px;
+     margin-top: 33px;
+     margin-bottom: 33px;
+     margin-right: 20px;
      @include flex-column();
-     height: 600px;
-     width: 210px;
+     height: 265px;
+     width: 75px;
      &__slider {
           @include flex-column(space-between, center);
-          width: 210px;
+          width: 75px;
           flex-grow: 1;
      }
      &__slide {
@@ -261,8 +267,8 @@ body {
      }
      .slide-image {
           overflow: hidden;
-          width: 108px;
-          height: 108px;
+          width: 40px;
+          height: 40px;
           border-radius: 50%;
           img {
                width: 100%;
@@ -271,8 +277,8 @@ body {
      }
      .gradient {
           @include flex-column(center, center);
-          width: 108px;
-          height: 108px;
+          width: 40px;
+          height: 40px;
           border-radius: 50%;
           background-image: linear-gradient(to right, rgba(7,238,224,1),rgba(223,73,109,1));
      }
@@ -284,16 +290,16 @@ body {
                cursor: default;
           }
           .gradient {
-               width: 157px;
-               height: 157px;
+               width: 65px;
+               height: 65px;
           }
           .slide-image {
-               transform: scale(1.4);
-               border: 5px solid white;
+               transform: scale(1.5);
+               border: 2px solid white;
           }
      }
      .sidebar__btn {
-          margin: 10px 0;
+          margin: 5px 0;
           height: 20px;
           width: 20px;
           border-top: 5px solid #828282;
@@ -318,22 +324,121 @@ body {
                border-color: $btn-blue;
           }
      }
+     @media screen and (min-width: $tablet) {
+          top: 30px;
+          margin-top: 60px;
+          margin-bottom: 60px;
+          margin-right: 20px;
+          @include flex-column();
+          height: 415px;
+          width: 103px;
+          &__slider {
+               width: 103px;
+          }
+          .slide-image {
+               width: 70px;
+               height: 70px;
+          }
+          .gradient {
+               width: 70px;
+               height: 70px;
+          }
+          .slide-active {
+               .gradient {
+                    width: 90px;
+                    height: 90px;
+               }
+               .slide-image {
+                    transform: scale(1.2);
+                    border: 2px solid white;
+               }
+          }
+          .sidebar__btn {
+               margin: 10px 0;
+          }
+     }
+     @media screen and (min-width: $desktop-min) {
+          top: 30px;
+          margin-top: 60px;
+          margin-bottom: 60px;
+          margin-right: 50px;
+          @include flex-column();
+          height: 520px;
+          width: 151px;
+          &__slider {
+               width: 151px;
+          }
+          .slide-image {
+               width: 96px;
+               height: 96px;
+          }
+          .gradient {
+               width: 96px;
+               height: 96px;
+          }
+          .slide-active {
+               .gradient {
+                    width: 120px;
+                    height: 120px;
+               }
+               .slide-image {
+                    transform: scale(1.17);
+                    border: 3px solid white;
+               }
+          }
+          .sidebar__btn {
+               margin: 10px 0;
+          }
+     }
+     @media screen and (min-width: $desktop) {
+          top: 30px;
+          margin-top: 60px;
+          margin-bottom: 60px;
+          margin-right: 150px;
+          @include flex-column();
+          height: 600px;
+          width: 210px;
+          &__slider {
+               width: 210px;
+          }
+          .slide-image {
+               width: 108px;
+               height: 108px;
+          }
+          .gradient {
+               width: 108px;
+               height: 108px;
+          }
+          .slide-active {
+               .gradient {
+                    width: 157px;
+                    height: 157px;
+               }
+               .slide-image {
+                    transform: scale(1.4);
+                    border: 5px solid white;
+               }
+          }
+     } 
 }
 
 
 
 .the-beijing-zoo {
-     margin-bottom: 100px;
+     margin-bottom: 60px;
+     margin-right: 20px;
      @include flex-column(flex-start, flex-start);
      width: 100%;
      &__content {
-          margin-top: 40px;
-          @include flex-row(flex-start, flex-start);
+          margin-top: 20px;
+          margin-right: 10px;
+          @include flex-column(flex-start, flex-start);
           width: 100%;
      }
      &__video {
           margin-right: 30px;
           @include flex-column(flex-start, center);
+          width: 100%;
      }
      .plug {
           z-index: 2;
@@ -344,28 +449,41 @@ body {
           bottom: 0;
           background: transparent;
      }
-     iframe {
-          z-index: 1;
-          width: 100%;
-          height: 100%;
-     }
      .main-video {
           position: relative;
-          width: 790px;
-          height: 442px;
+          padding-bottom: 56.25%; /* задаёт высоту контейнера для 16:9 (если 4:3 — поставьте 75%) */
+          width: 100%;
+          height: 0;
+          overflow: hidden;
+          border-radius: 3px;
+     }
+     iframe {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          border-width: 0;
+          outline-width: 0;
      }
      .playlist {
-          margin-top: 30px;
+          margin-top: 10px;
           @include flex-row();
           width: 100%;
      }
      .next-video {
           position: relative;
-          width: 246px;
-          height: 141px;
+          padding-bottom: 27%;
+          width: 48%;
+          height: 0;
+          overflow: hidden;
+          border-radius: 3px;
      } 
+     .next-video:nth-child(3) {
+          display: none;
+     }
      .scroll {
-          margin-top: 30px;
+          margin-top: 22px;
           @include flex-row();
           width: 37px;
           height: 11px;
@@ -385,29 +503,190 @@ body {
           }
      }
      &__description {
+          margin-top: 30px;
           @include flex-column(flex-start, flex-start);
+          width: 100%;
      }
      &__info {
           @include flex-column(flex-start, flex-start);
-          width: 380px;
+          width: 100%;
      }
      &__title {
           font-weight: 900;
-          font-size: 20px;
-          line-height: 23px;
+          font-size: 14px;
+          line-height: 16px;
           color: $text-black;
      }
      &__text {
-          margin-top: 6px;
-          margin-bottom: 13px;
+          margin-top: 7px;
+          margin-bottom: 16px;
           font-weight: normal;
-          font-size: 14px;
-          line-height: 16px;
+          font-size: 12px;
+          line-height: 14px;
           color: $text-gray;
      }
      .watch-btn {
-          width: 195px;
+          margin-top: 0;
+          width: 185px;
           height: 55px;
+     }
+     @media screen and (min-width: $tablet) {
+          margin-bottom: 78px;
+          &__content {
+               margin-top: 35px;
+          }
+          .playlist {
+               margin-top: 15px;
+          }
+          .next-video {
+               position: relative;
+               padding-bottom: 18%;
+               width: 31%;
+               height: 0;
+               overflow: hidden;
+               border-radius: 3px;
+          } 
+          .next-video:nth-child(3) {
+               display: block;
+          }
+          .scroll {
+               margin-top: 30px;
+          }
+          &__title {
+               font-size: 20px;
+               line-height: 23px;
+          }
+          &__text {
+               margin-top: 6px;
+               margin-bottom: 14px;
+               font-size: 14px;
+               line-height: 16px;
+          }
+          &__description {
+               margin-top: 50px;
+          }
+          .watch-btn {
+               margin-top: 14px;
+          }
+     }
+     @media screen and (min-width: $desktop-min) {
+          margin-bottom: 100px;
+          &__content {
+               margin-top: 40px;
+               @include flex-row(flex-start, flex-start);
+               width: 100%;
+          }
+          &__video {
+               margin-right: 20px;
+               @include flex-column(flex-start, center);
+               width: 122%;
+          }
+          .playlist {
+               margin-top: 27px;
+          }
+          &__description {
+               margin-top: 0;
+          }
+          &__text {
+               margin-top: 7px;
+               margin-bottom: 15px;
+          }
+          &__info {
+               width: 260px;
+          }
+          .watch-btn {
+               margin-top: 5px;
+          }
+     }
+     @media screen and (min-width: $desktop) {
+          margin-bottom: 95px;
+          @include flex-column(flex-start, flex-start);
+          width: 100%;
+          &__content {
+               margin-top: 40px;
+               @include flex-row(flex-start, flex-start);
+               width: 100%;
+          }
+          &__video {
+               margin-right: 30px;
+               @include flex-column(flex-start, center);
+               width: 790px;
+          }
+          .plug {
+               z-index: 2;
+               position: absolute;
+               top:0;
+               left: 0;
+               right: 0;
+               bottom: 0;
+               background: transparent;
+          }
+          iframe {
+               z-index: 1;
+               width: 100%;
+               height: 100%;
+          }
+          .main-video {
+               position: relative;
+               width: 790px;
+               height: 442px;
+          }
+          .playlist {
+               margin-top: 30px;
+               @include flex-row();
+               width: 100%;
+          }
+          .next-video {
+               position: relative;
+               width: 246px;
+               height: 141px;
+          } 
+          .scroll {
+               margin-top: 30px;
+               @include flex-row();
+               width: 37px;
+               height: 11px;
+               .dot {
+                    height: 8px;
+                    width: 8px;
+                    background-color: #c4c4c4;
+                    border-radius: 50%;
+                    &:hover {
+                         transform: scale(1.2);
+                    }
+               }
+               .dot-active {
+                    height: 11px;
+                    width: 11px;
+                    background-color: $btn-blue;
+               }
+          }
+          &__description {
+               @include flex-column(flex-start, flex-start);
+          }
+          &__info {
+               @include flex-column(flex-start, flex-start);
+               width: 380px;
+          }
+          &__title {
+               font-weight: 900;
+               font-size: 20px;
+               line-height: 23px;
+               color: $text-black;
+          }
+          &__text {
+               margin-top: 6px;
+               margin-bottom: 13px;
+               font-weight: normal;
+               font-size: 14px;
+               line-height: 16px;
+               color: $text-gray;
+          }
+          .watch-btn {
+               margin-top: 20px;
+               width: 195px;
+               height: 55px;
+          }
      }
 }
 
@@ -586,7 +865,7 @@ body {
                background-color: transparent;
           }
           .check {
-               margin-top: 25px;
+               margin-top: 20px;
                @include flex-row(flex-starn, center);
                font-weight: normal;
                font-size: 12px;
@@ -649,7 +928,7 @@ body {
      }
      @media screen and (min-width: $tablet) {
           &__wrapper {
-               margin-top: 100px;
+               margin-top: 96px;
           }
           .logo {
                margin-bottom: 25px;
@@ -660,6 +939,9 @@ body {
                top: 0;
                right: 0;
           }
+          .contacts-us-and-centre {
+               padding-bottom: 77px;
+          }
           .centre {
                margin-top: 75px;
           }
@@ -668,7 +950,7 @@ body {
                     width: 385px;
                }
                .check {
-                    margin-top: 15px;
+                    margin-top: 18px;
                }
           }
           &__copyright {
@@ -677,6 +959,7 @@ body {
      }
      @media screen and (min-width: $desktop-min) {
           &__wrapper {
+               margin-top: 100px;
                width: 75%;
           }
           .logo {
