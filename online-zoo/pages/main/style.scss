@@ -98,10 +98,6 @@ body {
           font-size: 48px;
           line-height: 56px;
      }
-     @media screen and (min-width: $desktop-min) {
-     }
-     @media screen and (min-width: $desktop) {
-     } 
 }
 
 .weight-500 {
@@ -756,14 +752,12 @@ input[type=range]::-webkit-slider-runnable-track {
      width: 100%;
      height: 5px;
      cursor: pointer;
-     animate: 0.2s;
      background: rgba(189, 189, 189, 0.57);
 }
 input[type=range]::-moz-range-track {
      width: 100%;
      height: 5px;
      cursor: pointer;
-     animate: 0.2s;
      background: rgba(189, 189, 189, 0.57);
 }
 input[type=range]::-webkit-slider-thumb {
@@ -1644,16 +1638,7 @@ input[type=range]::-moz-range-thumb {
                }
           }
           &__copyright {
-               @include flex-row();
-               width: 100%;
-               margin-top: 28px;
                margin-bottom: 40px;
-               .copyright-text {
-                    font-weight: normal;
-                    font-size: 12px;
-                    line-height: 18px;
-                    color: #bdbdbd;
-               }
           }
      }
      @media screen and (min-width: $desktop-min) {
@@ -1671,9 +1656,7 @@ input[type=range]::-moz-range-thumb {
                right: unset;
           }
           &__nav {
-               margin-top: 5px;
                @include flex-row();
-               width: 100%;
           }
           .nav-list {
                @include flex-row(flex-start, center);
@@ -1683,8 +1666,6 @@ input[type=range]::-moz-range-thumb {
                margin-top: 60px;
                padding-bottom: 68px;
                @include flex-row(space-between, flex-start);
-               width: 100%;
-               border-bottom: 1px solid #bdbdbd;
           }
           .centre {
                margin-top: 0;
@@ -1701,22 +1682,12 @@ input[type=range]::-moz-range-thumb {
                }
           }
           &__copyright {
-               @include flex-row();
-               width: 100%;
-               margin-top: 28px;
                margin-bottom: 40px;
-               .copyright-text {
-                    font-weight: normal;
-                    font-size: 12px;
-                    line-height: 18px;
-                    color: #bdbdbd;
-               }
           }
      }
      @media screen and (min-width: $desktop) {
           &__wrapper {
                margin-top: 100px;
-               position: relative;
                width: 1620px;
           }
           .watch-btn {
@@ -1725,17 +1696,10 @@ input[type=range]::-moz-range-thumb {
                top: 0;
                right: 0;
           }
-          &__nav {
-               margin-top: 5px;
-               @include flex-row();
-               width: 100%;
-          }
           .contacts-us-and-centre {
                margin-top: 68px;
                padding-bottom: 55px;
                @include flex-row(space-between, flex-start);
-               width: 100%;
-               border-bottom: 1px solid #bdbdbd;
           }
           .contact-us {
                width: 49%;

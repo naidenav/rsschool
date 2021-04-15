@@ -87,12 +87,17 @@ body {
 }
 
 .h3 {
-     margin-top: 60px;
+     margin-top: 50px;
      margin-bottom: 0;
      font-weight: 900;
-     font-size: 48px;
-     line-height: 56px;
+     font-size: 36px;
+     line-height: 42px;
      color: $text-black;
+     @media screen and (min-width: $tablet) {
+          margin-top: 60px;
+          font-size: 48px;
+          line-height: 56px;
+     }
 }
 
 .weight-500 {
@@ -102,7 +107,14 @@ body {
 .wrapper {
      position: relative;
      @include flex-row();
-     width: 1620px;
+     width: 93.75%;
+     @media screen and (min-width: $desktop-min) {
+          width: 75%;
+     }
+     @media screen and (min-width: $desktop) {
+          width: 1620px;
+          margin: 0 auto;
+     }     
 }
 
 .logo {
@@ -127,7 +139,7 @@ body {
 
 .nav-list {
      padding-left: 0;
-     @include flex-row();
+     display: none;
      width: 572px;
      list-style: none;
      &__link {
@@ -158,8 +170,8 @@ body {
      .first-link:hover {
           transform: none;
      }
-     @media screen and (max-width: $desktop-min) {
-          display: none;
+     @media screen and (min-width: $desktop-min) {
+          @include flex-row();
      } 
 }
 
@@ -170,34 +182,33 @@ body {
      background-color: #fff;
      box-shadow: 0px 4px 8px rgba(44,101,77,.1);
      &__nav-btn {
-          display: none;
-          @media screen and (max-width: $desktop-min) {
-               @include flex-row(center, center);
-               outline: none;
-               border: none;
-               background: none;
-               &:hover {
-                    & line {
-                         stroke: $btn-blue;
-                    }
+          @include flex-row(center, center);
+          outline: none;
+          border: none;
+          background: none;
+          &:hover {
+               & line {
+                    stroke: $btn-blue;
                }
           }
      }
      .theme-switcher {
+          position: absolute;
+          right: 80px;
           @include flex-row();
           width: 54px;
           height: 30px;
           background: $bg-gray;
           border-radius: 190px;
           & input {
-               display: none;
+               -webkit-appearance: none;
+               position: fixed;
           }
           &:hover {
                background-color: darken($bg-gray, 10%);
           }
-          @media screen and (max-width: $desktop-min) {
-               position: absolute;
-               right: 80px;
+          @media screen and (min-width: $desktop-min) {
+               position: unset;
           }
           &_active {
                background-color: $text-gray;
@@ -214,6 +225,11 @@ body {
                transform: translateX(22px);
                background-color: #1B1B1B;
                box-shadow: none;
+          }
+     }
+     @media screen and (min-width: $desktop-min) {
+          &__nav-btn {
+               display: none;
           }
      }
 }
@@ -395,14 +411,12 @@ input[type=range]::-webkit-slider-runnable-track {
      width: 100%;
      height: 5px;
      cursor: pointer;
-     animate: 0.2s;
      background: rgba(189, 189, 189, 0.57);
 }
 input[type=range]::-moz-range-track {
      width: 100%;
      height: 5px;
      cursor: pointer;
-     animate: 0.2s;
      background: rgba(189, 189, 189, 0.57);
 }
 input[type=range]::-webkit-slider-thumb {
@@ -512,46 +526,49 @@ input[type=range]::-moz-range-thumb {
      width: 100%;
      background-color: $text-black;
      &__wrapper {
-          margin-top: 100px;
+          margin-top: 50px;
           position: relative;
-          width: 1620px;
-          @include flex-column();
+          width: 93.75%;
+          @include flex-column(flex-start, flex-start);
+     }
+     .logo {
+          margin-top: -8px;
+          margin-bottom: 38px;
      }
      .logo > * {
           color: #fefefe;
      }
      &__nav {
           margin-top: 5px;
-          @include flex-row();
+          @include flex-column(flex-start, flex-start);
           width: 100%;
      }
      .nav-list {
-          @include flex-row(flex-start, center);
-          width: 49%;
+          @include flex-column(flex-start, flex-start);
+          width: 100%;
           &__link {
-               margin-right: 73px;
+               line-height: 19px;
+               margin: 2.5px 73px 2.5px 0;
                color: #f2f2f2
           }
      }
      .watch-btn {
-          margin: 0;
-          position: absolute;
-          top: 0;
-          right: 0;
+          margin: 46px auto 0;
           width: 279px;
           &__name {
                font-weight: 500;
           }
      }
      .contacts-us-and-centre {
-          margin-top: 60px;
-          padding-bottom: 50px;
-          @include flex-row(space-between, flex-start);
+          margin-top: 23px;
+          padding-bottom: 80px;
+          @include flex-column(flex-start, flex-start);
           width: 100%;
           border-bottom: 1px solid #bdbdbd;
      }
      .centre {
-          width: 49%;
+          margin-top: 54px;
+          width: 100%;
           &__title {
                margin-bottom: 35px;
                font-weight: 900;
@@ -561,7 +578,7 @@ input[type=range]::-moz-range-thumb {
                color: #fefefe;
           }
           &__address {
-               margin-bottom: 16px;
+               margin-bottom: 15px;
                font-weight: normal;
                font-size: 14px;
                line-height: 20px;
@@ -579,6 +596,7 @@ input[type=range]::-moz-range-thumb {
           }
      }
      .contact-us {
+          width: 100%;
           &__title {
                font-weight: 900;
                font-size: 20px;
@@ -588,13 +606,15 @@ input[type=range]::-moz-range-thumb {
           &__form {
                margin-top: 33px;
                @include flex-column(flex-start, flex-start);
-               width: 385px;
+               width: 100%;
           }
           &__input {
                display: flex;
                margin-bottom: 20px;
                width: 100%;
                height: 26px;
+               font-size: 14px;
+               line-height: 16px;
                color: #E0E0E0;
                border: none;
                border-bottom: 1px solid #BDBDBD;
@@ -653,8 +673,7 @@ input[type=range]::-moz-range-thumb {
                background-size: cover;
           } 
           &__send {
-               padding: 10px;
-               margin-top: 10px;
+               margin-top: 20px;
                @include flex-row(flex-start, center);
                align-self: flex-end;
                font-weight: 500;
@@ -666,14 +685,14 @@ input[type=range]::-moz-range-thumb {
                border-radius: 5px;
                background-color: transparent;
                &:hover {
-                    background-color: $text-gray;
+                    background-color: #4f4f4f;
                }
                &:active {
                     background-color: #828282;
                }
           }
           .send-arrow {
-               margin: 0 10px 0 24px;
+               margin-left: 24px;
                width: 48px;
           }
      }
@@ -681,12 +700,113 @@ input[type=range]::-moz-range-thumb {
           @include flex-row();
           width: 100%;
           margin-top: 28px;
-          margin-bottom: 72px;
+          margin-bottom: 28px;
           .copyright-text {
                font-weight: normal;
                font-size: 12px;
                line-height: 18px;
                color: #bdbdbd;
+          }
+     }
+     @media screen and (min-width: $tablet) {
+          &__wrapper {
+               margin-top: 100px;
+          }
+          .logo {
+               margin-bottom: 25px;
+          }
+          .watch-btn {
+               margin-top: 0;
+               position: absolute;
+               top: 0;
+               right: 0;
+          }
+          .centre {
+               margin-top: 75px;
+          }
+          .contact-us {
+               &__form {
+                    width: 385px;
+               }
+               .check {
+                    margin-top: 15px;
+               }
+          }
+          &__copyright {
+               margin-bottom: 40px;
+          }
+     }
+     @media screen and (min-width: $desktop-min) {
+          &__wrapper {
+               width: 75%;
+          }
+          .logo {
+               margin-bottom: 0;
+          }
+          .watch-btn {
+               margin-top: 40px;
+               margin-left: 0;
+               position: unset;
+               top: unset;
+               right: unset;
+          }
+          &__nav {
+               @include flex-row();
+          }
+          .nav-list {
+               @include flex-row(flex-start, center);
+               width: 49%;
+          }
+          .contacts-us-and-centre {
+               margin-top: 60px;
+               padding-bottom: 68px;
+               @include flex-row(space-between, flex-start);
+          }
+          .centre {
+               margin-top: 0;
+               width: 49%;
+          }
+          .contact-us {
+               width: 49%;
+               &__form {
+                    margin-top: 43px;
+                    width: 385px;
+               }
+               .check {
+                    margin-top: 15px;
+               }
+          }
+          &__copyright {
+               margin-bottom: 40px;
+          }
+     }
+     @media screen and (min-width: $desktop) {
+          &__wrapper {
+               margin-top: 100px;
+               width: 1620px;
+          }
+          .watch-btn {
+               margin: 0;
+               position: absolute;
+               top: 0;
+               right: 0;
+          }
+          .contacts-us-and-centre {
+               margin-top: 68px;
+               padding-bottom: 55px;
+               @include flex-row(space-between, flex-start);
+          }
+          .contact-us {
+               width: 49%;
+               &__form {
+                    margin-top: 32px;
+               }
+               .check {
+                    margin-top: 25px;
+               }
+          }
+          &__copyright {
+               margin-bottom: 70px;
           }
      }
 }
