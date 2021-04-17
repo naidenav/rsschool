@@ -144,22 +144,44 @@ body {
 }
 
 .nav-list {
-     padding-left: 0;
-     display: none;
-     width: 572px;
+     transform: translateY(-30px);
+     visibility: hidden;
+     opacity: 0;
+     transition-duration: .5s;
+     position: absolute;
+     right: 0;
+     top: 82px;
+     @include flex-column(flex-start, flex-end);
+     width: 100%;
      list-style: none;
+     background-color: rgb(255,255,255);
+     box-shadow: 0px 4px 8px rgba(44,101,77,.1);
+     & li {
+          width: 100%;
+          &:hover {
+               background-color: rgb(243, 205, 235);
+          }
+          &:nth-child(2):hover {
+               background-color: unset;
+          }
+     }
      &__link {
-          display: block;
+          padding: 0 30px;
+          @include flex-row(flex-start, center);
+          width: 100%;
+          height: 60px;
           font-weight: normal;
           font-size: 16px;
           line-height: 19px;
+          text-align: right;
           color: $text-black;
           text-decoration: none;
+          transition-duration: .2s;
           &:active {
                color: lighten($text-black, 40%);
           }
           &:hover {
-               transform: scale(1.2);
+               transform: translateX(10px);
           }
      }
      .current-page {
@@ -171,23 +193,63 @@ body {
           }
           &:hover {
                transform: none;
+               background-color: none;
+          }
+          
+     }
+     @media screen and (min-width: $tablet) {
+          width: 30%;
+          top: 95px;
+          &__link {
+               @include flex-row(flex-end, center);
+               &:hover {
+                    transform: translateX(-10px);
+               }     
           }
      }
-     .first-link:hover {
-          transform: none;
-     }
      @media screen and (min-width: $desktop-min) {
+          visibility: unset;
+          opacity: unset;
+          transform: unset;
+          position: unset;
+          top: unset;
+          left: unset;
           @include flex-row();
+          background-color: unset;
+          width: 572px;
+          box-shadow: unset;
+          &__link {
+               padding: 0;
+               height: unset;
+               &:hover {
+                    transform: scale(1.2);
+               }
+          }
+          & li {
+               width: unset;
+               &:hover {
+                    background-color: unset;
+               }
+          }
      } 
 }
 
+.nav-list_active {
+     transform: translateY(0);
+     opacity: 100%;
+     visibility: visible;
+}
+
 .header {
+     z-index: 200;
+     position: fixed;
      @include flex-row(center);
      height: 94px;
      width: 100%;
      background-color: #fff;
      box-shadow: 0px 4px 8px rgba(44,101,77,.1);
      &__nav-btn {
+          margin-top: 16px;
           @include flex-row(center, center);
           outline: none;
           border: none;
@@ -196,6 +258,18 @@ body {
                & line {
                     stroke: $btn-blue;
                }
+          }
+     }
+     .nav-btn_active {
+          margin-top: 7px;
+          line:nth-child(1) {
+               transform: translateX(8px) rotate(45deg);
+          }
+          line:nth-child(2) {
+               transform: translateY(22px) rotate(-45deg);
+          }
+          line:nth-child(3) {
+               display: none;
           }
      }
      .theme-switcher {
@@ -234,6 +308,7 @@ body {
           }
      }
      @media screen and (min-width: $desktop-min) {
+          position: static;
           &__nav-btn {
                display: none;
           }
@@ -241,13 +316,17 @@ body {
 }
 
 .main {
+     margin-top: 94px;
      @include flex-row(flex-start, flex-start);
      width: 100%;
+     @media screen and (min-width: $desktop-min) {
+          margin-top: 0;
+     }
 }
 
 .sidebar {
      position: sticky;
-     top: 30px;
+     top: 124px;
      margin-top: 33px;
      margin-bottom: 33px;
      margin-right: 20px;
@@ -325,11 +404,9 @@ body {
           }
      }
      @media screen and (min-width: $tablet) {
-          top: 30px;
           margin-top: 60px;
           margin-bottom: 60px;
           margin-right: 20px;
-          @include flex-column();
           height: 415px;
           width: 103px;
           &__slider {
@@ -359,10 +436,7 @@ body {
      }
      @media screen and (min-width: $desktop-min) {
           top: 30px;
-          margin-top: 60px;
-          margin-bottom: 60px;
           margin-right: 50px;
-          @include flex-column();
           height: 520px;
           width: 151px;
           &__slider {
@@ -391,11 +465,7 @@ body {
           }
      }
      @media screen and (min-width: $desktop) {
-          top: 30px;
-          margin-top: 60px;
-          margin-bottom: 60px;
           margin-right: 150px;
-          @include flex-column();
           height: 600px;
           width: 210px;
           &__slider {
@@ -761,13 +831,24 @@ body {
           @include flex-column(flex-start, flex-start);
           width: 100%;
      }
-     .nav-list {
+     &__nav-list {
           @include flex-column(flex-start, flex-start);
           width: 100%;
-          &__link {
-               line-height: 19px;
+          list-style: none;
+          .nav-link {
                margin: 2.5px 73px 2.5px 0;
-               color: #f2f2f2
+               display: block;
+               font-weight: normal;
+               font-size: 16px;
+               line-height: 19px;
+               color: #f2f2f2;
+               text-decoration: none;
+               &:active {
+                    color: lighten($text-black, 40%);
+               }
+               &:hover {
+                    transform: scale(1.2);
+               }
           }
      }
      .watch-btn {
@@ -975,7 +1056,7 @@ body {
           &__nav {
                @include flex-row();
           }
-          .nav-list {
+          &__nav-list {
                @include flex-row(flex-start, center);
                width: 49%;
           }
