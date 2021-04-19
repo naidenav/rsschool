@@ -69,12 +69,36 @@ html {
      transition-duration: inherit;
 }
 
+.light-mode {
+     --text-white: #fefefe;
+     --bg-main: #fbfbfb;
+     --bg-header: #fff;
+     --bg-white: #f2f2f2;
+     --text-black: #333;
+     --text-gray: #4f4f4f;
+     --bg-menu: #fff;
+     --bg-menu-link-hover: rgb(243, 205, 235);
+}
+
+.dark-mode {
+     --text-white: #3c3c3c;
+     --bg-main: #4f4f4f;
+     --bg-header: #333;
+     --bg-white: #4f4f4f;
+     --text-black: #fefefe;
+     --text-gray: #f2f2f2;
+     --bg-menu: #414141;
+     --bg-menu-link-hover: #2b2b2b;
+     .map-img {
+          filter: invert(100);
+     }
+}
+
 body {
      overflow: auto;
      @include flex-column();
      font-family: 'Roboto', sans-serif;
      cursor: default;
-     background-color: #fbfbfb;
 }
 
 .visually-hidden {
@@ -94,7 +118,7 @@ body {
      font-size: 24px;
      line-height: 28px;
      text-align: center;
-     color: $text-black;
+     color: var(--text-black);
      @media screen and (min-width: $tablet) {
           margin-top: 60px;
           font-size: 48px;
@@ -132,14 +156,14 @@ body {
           font-weight: 900;
           font-size: 36px;
           line-height: 32px;
-          color: $text-black;
+          color: var(--text-black);
      }
      &__online {
           font-weight: 900;
           font-size: 18px;
           line-height: 15px;
           letter-spacing: 0.08em;
-          color: $text-black;
+          color: var(--text-black);
      }
 }
 
@@ -154,12 +178,12 @@ body {
      @include flex-column(flex-start, flex-end);
      width: 100%;
      list-style: none;
-     background-color: rgb(255,255,255);
+     background-color: var(--bg-menu);
      box-shadow: 0px 4px 8px rgba(44,101,77,.1);
      & li {
           width: 100%;
           &:hover {
-               background-color: rgb(243, 205, 235);
+               background-color: var(--bg-menu-link-hover);
           }
           &:nth-child(2):hover {
                background-color: unset;
@@ -174,11 +198,11 @@ body {
           font-size: 16px;
           line-height: 19px;
           text-align: right;
-          color: $text-black;
+          color: var(--text-black);
           text-decoration: none;
           transition-duration: .2s;
           &:active {
-               color: lighten($text-black, 40%);
+               color: lighten($text-gray, 40%);
           }
           &:hover {
                transform: translateX(10px);
@@ -246,14 +270,19 @@ body {
      @include flex-row(center);
      height: 94px;
      width: 100%;
-     background-color: #fff;
+     background-color: var(--bg-header);
      box-shadow: 0px 4px 8px rgba(44,101,77,.1);
      &__nav-btn {
+          -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+          -webkit-tap-highlight-color: transparent;
           margin-top: 16px;
           @include flex-row(center, center);
           outline: none;
           border: none;
           background: none;
+          line {
+               stroke: var(--text-black);
+          }
           &:hover {
                & line {
                     stroke: $btn-blue;
@@ -278,8 +307,9 @@ body {
           @include flex-row();
           width: 54px;
           height: 30px;
-          background: $bg-gray;
+          background: var(--bg-white);
           border-radius: 190px;
+          transition-duration: .5s;
           & input {
                -webkit-appearance: none;
                position: fixed;
@@ -301,10 +331,14 @@ body {
                border-radius: 50%;
                box-shadow: 2px 4px 15px rgba(6, 12, 70, 0.15);
           }
-          &__slider_active {
-               transform: translateX(22px);
-               background-color: #1B1B1B;
-               box-shadow: none;
+     }
+     .slider_checked {
+          background-color: #1b1b1b;
+          transform: translateX(22px);
+     }
+     .switcher_checked {
+          &:hover {
+               background-color: lighten($text-gray, 10%);
           }
      }
      @media screen and (min-width: $desktop-min) {
@@ -319,6 +353,7 @@ body {
      margin-top: 94px;
      @include flex-row(flex-start, flex-start);
      width: 100%;
+     background-color: var(--bg-main);
      @media screen and (min-width: $desktop-min) {
           margin-top: 0;
      }
@@ -374,7 +409,7 @@ body {
           }
           .slide-image {
                transform: scale(1.5);
-               border: 2px solid white;
+               border: 2px solid var(--text-white);
           }
      }
      .sidebar__btn {
@@ -427,7 +462,7 @@ body {
                }
                .slide-image {
                     transform: scale(1.2);
-                    border: 2px solid white;
+                    border: 2px solid var(--text-white);
                }
           }
           .sidebar__btn {
@@ -457,7 +492,7 @@ body {
                }
                .slide-image {
                     transform: scale(1.17);
-                    border: 3px solid white;
+                    border: 3px solid var(--text-white);
                }
           }
           .sidebar__btn {
@@ -486,13 +521,11 @@ body {
                }
                .slide-image {
                     transform: scale(1.4);
-                    border: 5px solid white;
+                    border: 5px solid var(--text-white);
                }
           }
      } 
 }
-
-
 
 .the-beijing-zoo {
      margin-bottom: 60px;
@@ -585,7 +618,7 @@ body {
           font-weight: 900;
           font-size: 14px;
           line-height: 16px;
-          color: $text-black;
+          color: var(--text-black);
      }
      &__text {
           margin-top: 7px;
@@ -593,7 +626,7 @@ body {
           font-weight: normal;
           font-size: 12px;
           line-height: 14px;
-          color: $text-gray;
+          color: var(--text-gray);
      }
      .watch-btn {
           margin-top: 0;
@@ -742,7 +775,6 @@ body {
                font-weight: 900;
                font-size: 20px;
                line-height: 23px;
-               color: $text-black;
           }
           &__text {
                margin-top: 6px;
@@ -750,7 +782,6 @@ body {
                font-weight: normal;
                font-size: 14px;
                line-height: 16px;
-               color: $text-gray;
           }
           .watch-btn {
                margin-top: 20px;
@@ -791,7 +822,7 @@ body {
           transform: scale(1.1);
      }
      &:active {
-          background-color: darken($btn-blue, 15%);
+          filter: brightness(85%);
           outline: none;
      }
      &__content {

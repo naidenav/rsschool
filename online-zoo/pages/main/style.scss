@@ -7,6 +7,8 @@ $text-gray: #4f4f4f;
 $bg-gray: #f2f2f2;
 $text-white: #fff;
 $btn-blue: #4bd8B5;
+$bg-btn: linear-gradient(106.89deg, #4BD8B5 -14.32%, #49D6DF 100.68%);
+
 
 @font-face {
      font-family: 'Roboto';
@@ -69,12 +71,38 @@ html {
      transition-duration: inherit;
 }
 
+.light-mode {
+     --text-white: #fefefe;
+     --bg-main: #fbfbfb;
+     --bg-header: #fff;
+     --bg-white: #f2f2f2;
+     --text-black: #333;
+     --text-gray: #4f4f4f;
+     --bg-menu: #fff;
+     --bg-menu-link-hover: rgb(243, 205, 235);
+     --bg-feedback: #fff;
+}
+
+.dark-mode {
+     --text-white: #3c3c3c;
+     --bg-main: #333;
+     --bg-header: #333;
+     --bg-white: #4f4f4f;
+     --text-black: #fefefe;
+     --text-gray: #f2f2f2;
+     --bg-menu: #414141;
+     --bg-menu-link-hover: #2b2b2b;
+     --bg-feedback: #3c3c3c;
+     .map-img {
+          filter: invert(100);
+     }
+}
+
 body {
      overflow-x: hidden;
      @include flex-column();
      font-family: 'Roboto', sans-serif;
      cursor: default;
-     background-color: #fbfbfb;
 }
 
 .visually-hidden {
@@ -92,7 +120,7 @@ body {
      font-weight: 900;
      font-size: 36px;
      line-height: 42px;
-     color: $text-black;
+     color: var(--text-black);
      @media screen and (min-width: $tablet) {
           margin-top: 100px;
           font-size: 48px;
@@ -102,6 +130,7 @@ body {
 
 .weight-500 {
      font-weight: 500;
+     color: var(--text-black);
 }
 
 .wrapper {
@@ -146,14 +175,14 @@ body {
           font-weight: 900;
           font-size: 36px;
           line-height: 32px;
-          color: $text-black;
+          color: var(--text-black);
      }
      &__online {
           font-weight: 900;
           font-size: 18px;
           line-height: 15px;
           letter-spacing: 0.08em;
-          color: $text-black;
+          color: var(--text-black);
      }
 }
 
@@ -168,12 +197,12 @@ body {
      @include flex-column(flex-start, flex-end);
      width: 100%;
      list-style: none;
-     background-color: rgb(255,255,255);
+     background-color: var(--bg-menu);
      box-shadow: 0px 4px 8px rgba(44,101,77,.1);
      & li {
           width: 100%;
           &:hover {
-               background-color: rgb(243, 205, 235);
+               background-color: var(--bg-menu-link-hover);
           }
           &:nth-child(1):hover {
                background-color: unset;
@@ -188,11 +217,11 @@ body {
           font-size: 16px;
           line-height: 19px;
           text-align: right;
-          color: $text-black;
+          color: var(--text-black);
           text-decoration: none;
           transition-duration: .2s;
           &:active {
-               color: lighten($text-black, 40%);
+               color: lighten($text-gray, 40%);
           }
           &:hover {
                transform: translateX(10px);
@@ -259,14 +288,19 @@ body {
      @include flex-row(center);
      height: 94px;
      width: 100%;
-     background-color: #fff;
+     background-color: var(--bg-header);
      box-shadow: 0px 4px 8px rgba(44,101,77,.1);
      &__nav-btn {
+          -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+          -webkit-tap-highlight-color: transparent;
           margin-top: 16px;
           @include flex-row(center, center);
           outline: none;
           border: none;
           background: none;
+          line {
+               stroke: var(--text-black);
+          }
           &:hover {
                & line {
                     stroke: $btn-blue;
@@ -291,8 +325,9 @@ body {
           @include flex-row();
           width: 54px;
           height: 30px;
-          background: $bg-gray;
+          background: var(--bg-white);
           border-radius: 190px;
+          transition-duration: .5s;
           & input {
                -webkit-appearance: none;
                position: fixed;
@@ -303,21 +338,22 @@ body {
           @media screen and (min-width: $desktop-min) {
                position: unset;
           }
-          &_active {
-               background-color: $text-gray;
-          }
           &__slider {
                margin-left: 6px;
                width: 20px;
                height: 20px;
-               background: #FFFFFF;
+               background-color: #FFFFFF;
                border-radius: 50%;
                box-shadow: 2px 4px 15px rgba(6, 12, 70, 0.15);
           }
-          &__slider_active {
-               transform: translateX(22px);
-               background-color: #1B1B1B;
-               box-shadow: none;
+     }
+     .slider_checked {
+          background-color: #1b1b1b;
+          transform: translateX(22px);
+     }
+     .switcher_checked {
+          &:hover {
+               background-color: lighten($text-gray, 10%);
           }
      }
      @media screen and (min-width: $desktop-min) {
@@ -332,6 +368,7 @@ body {
      margin-top: 94px;
      @include flex-column();
      width: 100%;
+     background-color: var(--bg-main);
      @media screen and (min-width: $desktop-min) {
           margin-top: 0;
      }}
@@ -360,7 +397,7 @@ body {
                font-weight: 900;
                font-size: 48px;
                line-height: 56px;
-               color: #FEFEFE;
+               color: #fefefe;
           }
      }
      &__slider {
@@ -450,11 +487,11 @@ body {
      }
      input[type=range]::-webkit-slider-thumb {
           width: 17.5px;
-          background: white;
+          background: #fefefe;
      }
      input[type=range]::-moz-range-thumb {
           width: 17.5px;
-          background: white;
+          background: #fefefe;
      }
      @media screen and (min-width: $tablet) {
           background: url(../../assets/images/bg-landing-1200.jpg) no-repeat center center;
@@ -537,20 +574,15 @@ body {
                &__n-slide {
                     margin-bottom: 0;
                }
-               &__n {
-                    color: #fefefe;
-               }
           }
           input[type=range] {
                width: 245px;
           }
           input[type=range]::-webkit-slider-thumb {
                width: 35px;
-               background: white;
           }
           input[type=range]::-moz-range-thumb {
                width: 35px;
-               background: white;
           }
      }
      @media screen and (min-width: $desktop-min) {
@@ -608,9 +640,6 @@ body {
                align-self: flex-end;
                margin-top: 20px;
                margin-right: 1116px;
-               &__n {
-                    color: #fefefe;
-               }
           }
      }
 }
@@ -683,7 +712,7 @@ body {
           transform: scale(1.1);
      }
      &:active {
-          background-color: darken($btn-blue, 15%);
+          filter: brightness(85%);
           outline: none;
      }
      &__content {
@@ -697,7 +726,7 @@ body {
           font-size: 18px;
           line-height: 21px;
           text-transform: uppercase;
-          color: $text-white;
+          color: white;
      }
      @media screen and (min-width: $tablet) {
           margin-top: 30px;
@@ -723,7 +752,7 @@ body {
           font-weight: normal;
           font-size: 14px;
           line-height: 16px;
-          color: $text-gray;
+          color: var(--text-gray);
      }
      &__slider {
           width: 100%;
@@ -810,7 +839,7 @@ body {
           font-weight: 900;
           font-size: 24px;
           line-height: 28px;
-          color: $text-black;
+          color: var(--text-black);
      }
      &__total-slides {
           font-weight: 900;
@@ -842,7 +871,7 @@ input[type=range]::-moz-range-track {
 input[type=range]::-webkit-slider-thumb {
      height: 10px;
      width: 30px;
-     background: $text-black;
+     background: var(--text-black);
      cursor: pointer;
      -webkit-appearance: none;
      margin-top: -2.5px;
@@ -875,7 +904,7 @@ input[type=range]::-moz-range-thumb {
 .whats-inspiring-us {
      @include flex-column();
      width: 100%;
-     background-color: $bg-gray;
+     background-color: var(--bg-white);
      &__wrapper {
           margin-top: 35px;
           margin-bottom: 35px;
@@ -896,7 +925,7 @@ input[type=range]::-moz-range-thumb {
           font-size: 20px;
           line-height: 23px;
           text-align: center;
-          color: $text-black;
+          color: var(--text-black);
           text-shadow: 2px 4px 15px rgba(6, 12, 70, 0.15);
      }
      &__content {
@@ -904,7 +933,7 @@ input[type=range]::-moz-range-thumb {
           font-weight: normal;
           font-size: 14px;
           line-height: 16px;
-          color: $text-gray;
+          color: var(--text-gray);
           text-shadow: 2px 4px 15px rgba(6, 12, 70, 0.15);
      }
      @media screen and (min-width: $tablet) {
@@ -1072,7 +1101,7 @@ input[type=range]::-moz-range-thumb {
      padding-bottom: 50px;
      @include flex-column();
      width: 100%;
-     background-color: $bg-gray;
+     background-color: var(--bg-white);
      &__wrapper {
           @include flex-column();
           max-width: 1200px;
@@ -1084,7 +1113,7 @@ input[type=range]::-moz-range-thumb {
           font-size: 14px;
           line-height: 16px;
           text-align: center;
-          color: $text-gray;
+          color: var(--text-gray);
      }
      &__schema {
           margin-top: 30px;
@@ -1108,7 +1137,7 @@ input[type=range]::-moz-range-thumb {
           font-size: 20px;
           line-height: 23px;
           text-align: center;
-          color: $text-gray;
+          color: var(--text-gray);
      }
      &__arrow {
           img {
@@ -1179,7 +1208,7 @@ input[type=range]::-moz-range-thumb {
           @include flex-column();
           height: 100%;
           width: 100%;
-          background-color: #fff;
+          background-color: var(--bg-feedback);
           box-shadow: 2px 4px 15px rgba(6, 12, 70, 0.10);
           &:nth-child(2) {
                display: none;
@@ -1199,7 +1228,7 @@ input[type=range]::-moz-range-thumb {
           font-size: 16px;
           line-height: 19px;
           text-align: center;
-          color: $text-black;
+          color: var(--text-black);
           text-transform: capitalize;
      }
      .feedback-content {
@@ -1208,7 +1237,7 @@ input[type=range]::-moz-range-thumb {
           font-weight: normal;
           font-size: 14px;
           line-height: 16px;
-          color: $text-gray;
+          color: var(--text-gray);
      }
      .scroll {
           margin-top: 40px;
@@ -1232,7 +1261,6 @@ input[type=range]::-moz-range-thumb {
                @include flex-column();
                height: 100%;
                width: 100%;
-               background-color: #fff;
                box-shadow: 2px 4px 15px rgba(6, 12, 70, 0.10);
                &:nth-child(2) {
                     display: none;
@@ -1251,17 +1279,12 @@ input[type=range]::-moz-range-thumb {
                font-weight: 900;
                font-size: 20px;
                line-height: 23px;
-               text-align: center;
-               color: $text-black;
-               text-transform: capitalize;
           }
           .feedback-content {
                margin-top: 17px;
                width: 75%;
-               font-weight: normal;
                font-size: 14px;
                line-height: 16px;
-               color: $text-gray;
           }
           .scroll {
                margin-top: 55px;
@@ -1313,7 +1336,7 @@ input[type=range]::-moz-range-thumb {
      @include flex-column();
      width: 100%;
      padding-bottom: 60px;
-     background-color: $bg-gray;
+     background-color: var(--bg-white);
      .watch-btn {
           margin-top: 40px;
      }
@@ -1330,17 +1353,17 @@ input[type=range]::-moz-range-thumb {
           width: 93.75%;
           .panda-marker {
                position: absolute;
-               bottom: 62%;
+               bottom: 63%;
                left: 77.5%;
           }
           .alligator-marker {
                position: absolute;
-               bottom: 60%;
+               bottom: 61%;
                left: 23.2%;
           }
           .eagle-marker {
                position: absolute;
-               bottom: 65%;
+               bottom: 67%;
                left: 13.5%;
           }
           .gorilla-marker {
@@ -1392,7 +1415,7 @@ input[type=range]::-moz-range-thumb {
                padding: 15px;
                @include flex-row(center, center);
                width: 74%;
-               background-color: #fefefe;
+               background-color: var(--text-white);
                box-shadow: 2px 4px 15px rgba(6, 12, 70, 0.10);
                border-radius: 8px;
                &__icon {
@@ -1410,13 +1433,14 @@ input[type=range]::-moz-range-thumb {
                     font-weight: 900;
                     font-size: 14px;
                     line-height: 16px;
-                    color: #333333;
+                    color: var(--text-black);
                }
                &__content {
                     margin-top: 5px;
                     font-weight: normal;
                     font-size: 11px;
                     line-height: 13px;
+                    color: var(--text-gray);
                }
                &:hover {
                     transform: translateY(0);
@@ -1460,11 +1484,9 @@ input[type=range]::-moz-range-thumb {
                     font-weight: 900;
                     font-size: 18px;
                     line-height: 21px;
-                    color: #333333;
                }
                &__content {
                     margin-top: 5px;
-                    font-weight: normal;
                     font-size: 14px;
                     line-height: 16px;
                }

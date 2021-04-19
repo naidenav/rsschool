@@ -42,6 +42,33 @@ html {
           transition-duration: inherit;
 }
 
+.light-mode {
+  --text-white: #fefefe;
+  --bg-main: #fbfbfb;
+  --bg-header: #fff;
+  --bg-white: #f2f2f2;
+  --text-black: #333;
+  --text-gray: #4f4f4f;
+  --bg-menu: #fff;
+  --bg-menu-link-hover: rgb(243, 205, 235);
+}
+
+.dark-mode {
+  --text-white: #3c3c3c;
+  --bg-main: #4f4f4f;
+  --bg-header: #333;
+  --bg-white: #4f4f4f;
+  --text-black: #fefefe;
+  --text-gray: #f2f2f2;
+  --bg-menu: #414141;
+  --bg-menu-link-hover: #2b2b2b;
+}
+
+.dark-mode .map-img {
+  -webkit-filter: invert(100);
+          filter: invert(100);
+}
+
 body {
   overflow: auto;
   display: -webkit-box;
@@ -59,7 +86,6 @@ body {
           align-items: center;
   font-family: 'Roboto', sans-serif;
   cursor: default;
-  background-color: #fbfbfb;
 }
 
 .visually-hidden {
@@ -79,7 +105,7 @@ body {
   font-size: 24px;
   line-height: 28px;
   text-align: center;
-  color: #333333;
+  color: var(--text-black);
 }
 
 @media screen and (min-width: 640px) {
@@ -155,7 +181,7 @@ body {
   font-weight: 900;
   font-size: 36px;
   line-height: 32px;
-  color: #333333;
+  color: var(--text-black);
 }
 
 .logo__online {
@@ -163,7 +189,7 @@ body {
   font-size: 18px;
   line-height: 15px;
   letter-spacing: 0.08em;
-  color: #333333;
+  color: var(--text-black);
 }
 
 .nav-list {
@@ -191,7 +217,7 @@ body {
           align-items: flex-end;
   width: 100%;
   list-style: none;
-  background-color: white;
+  background-color: var(--bg-menu);
   -webkit-box-shadow: 0px 4px 8px rgba(44, 101, 77, 0.1);
           box-shadow: 0px 4px 8px rgba(44, 101, 77, 0.1);
 }
@@ -201,7 +227,7 @@ body {
 }
 
 .nav-list li:hover {
-  background-color: #f3cdeb;
+  background-color: var(--bg-menu-link-hover);
 }
 
 .nav-list li:nth-child(2):hover {
@@ -229,14 +255,14 @@ body {
   font-size: 16px;
   line-height: 19px;
   text-align: right;
-  color: #333333;
+  color: var(--text-black);
   text-decoration: none;
   -webkit-transition-duration: .2s;
           transition-duration: .2s;
 }
 
 .nav-list__link:active {
-  color: #999999;
+  color: #b5b5b5;
 }
 
 .nav-list__link:hover {
@@ -354,12 +380,14 @@ body {
           align-items: center;
   height: 94px;
   width: 100%;
-  background-color: #fff;
+  background-color: var(--bg-header);
   -webkit-box-shadow: 0px 4px 8px rgba(44, 101, 77, 0.1);
           box-shadow: 0px 4px 8px rgba(44, 101, 77, 0.1);
 }
 
 .header__nav-btn {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  -webkit-tap-highlight-color: transparent;
   margin-top: 16px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -377,6 +405,10 @@ body {
   outline: none;
   border: none;
   background: none;
+}
+
+.header__nav-btn line {
+  stroke: var(--text-black);
 }
 
 .header__nav-btn:hover line {
@@ -419,8 +451,10 @@ body {
           align-items: center;
   width: 54px;
   height: 30px;
-  background: #f2f2f2;
+  background: var(--bg-white);
   border-radius: 190px;
+  -webkit-transition-duration: .5s;
+          transition-duration: .5s;
 }
 
 .header .theme-switcher input {
@@ -452,12 +486,14 @@ body {
           box-shadow: 2px 4px 15px rgba(6, 12, 70, 0.15);
 }
 
-.header .theme-switcher__slider_active {
+.header .slider_checked {
+  background-color: #1b1b1b;
   -webkit-transform: translateX(22px);
           transform: translateX(22px);
-  background-color: #1B1B1B;
-  -webkit-box-shadow: none;
-          box-shadow: none;
+}
+
+.header .switcher_checked:hover {
+  background-color: dimgray;
 }
 
 @media screen and (min-width: 1200px) {
@@ -485,6 +521,7 @@ body {
       -ms-flex-align: start;
           align-items: flex-start;
   width: 100%;
+  background-color: var(--bg-main);
 }
 
 @media screen and (min-width: 1200px) {
@@ -608,7 +645,7 @@ body {
 .sidebar .slide-active .slide-image {
   -webkit-transform: scale(1.5);
           transform: scale(1.5);
-  border: 2px solid white;
+  border: 2px solid var(--text-white);
 }
 
 .sidebar .sidebar__btn {
@@ -674,7 +711,7 @@ body {
   .sidebar .slide-active .slide-image {
     -webkit-transform: scale(1.2);
             transform: scale(1.2);
-    border: 2px solid white;
+    border: 2px solid var(--text-white);
   }
   .sidebar .sidebar__btn {
     margin: 10px 0;
@@ -706,7 +743,7 @@ body {
   .sidebar .slide-active .slide-image {
     -webkit-transform: scale(1.17);
             transform: scale(1.17);
-    border: 3px solid white;
+    border: 3px solid var(--text-white);
   }
   .sidebar .sidebar__btn {
     margin: 10px 0;
@@ -737,7 +774,7 @@ body {
   .sidebar .slide-active .slide-image {
     -webkit-transform: scale(1.4);
             transform: scale(1.4);
-    border: 5px solid white;
+    border: 5px solid var(--text-white);
   }
 }
 
@@ -934,7 +971,7 @@ body {
   font-weight: 900;
   font-size: 14px;
   line-height: 16px;
-  color: #333333;
+  color: var(--text-black);
 }
 
 .the-beijing-zoo__text {
@@ -943,7 +980,7 @@ body {
   font-weight: normal;
   font-size: 12px;
   line-height: 14px;
-  color: #4f4f4f;
+  color: var(--text-gray);
 }
 
 .the-beijing-zoo .watch-btn {
@@ -1211,7 +1248,6 @@ body {
     font-weight: 900;
     font-size: 20px;
     line-height: 23px;
-    color: #333333;
   }
   .the-beijing-zoo__text {
     margin-top: 6px;
@@ -1219,7 +1255,6 @@ body {
     font-weight: normal;
     font-size: 14px;
     line-height: 16px;
-    color: #4f4f4f;
   }
   .the-beijing-zoo .watch-btn {
     margin-top: 20px;
@@ -1289,7 +1324,8 @@ body {
 }
 
 .watch-btn:active {
-  background-color: #26b08e;
+  -webkit-filter: brightness(85%);
+          filter: brightness(85%);
   outline: none;
 }
 
