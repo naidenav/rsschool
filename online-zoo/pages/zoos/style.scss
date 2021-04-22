@@ -303,7 +303,7 @@ body {
      }
      .theme-switcher {
           position: absolute;
-          right: 80px;
+          right: 66px;
           @include flex-row();
           width: 54px;
           height: 30px;
@@ -316,6 +316,9 @@ body {
           }
           &:hover {
                background-color: darken($bg-gray, 10%);
+          }
+          @media screen and (min-width: $tablet) {
+               right: 80px;
           }
           @media screen and (min-width: $desktop-min) {
                position: unset;

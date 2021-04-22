@@ -321,7 +321,7 @@ body {
      }
      .theme-switcher {
           position: absolute;
-          right: 80px;
+          right: 66px;
           @include flex-row();
           width: 54px;
           height: 30px;
@@ -334,6 +334,9 @@ body {
           }
           &:hover {
                background-color: darken($bg-gray, 10%);
+          }
+          @media screen and (min-width: $tablet) {
+               right: 80px;
           }
           @media screen and (min-width: $desktop-min) {
                position: unset;
@@ -1154,9 +1157,14 @@ input[type=range]::-moz-range-thumb {
      @media screen and (min-width: $tablet) {
           padding-bottom: 100px;
           &__subtitle {
+               margin-top: 20px;
                display: block;
                width: 90%;
           }
+          &__schema {
+               margin-top: 40px;
+          }
+     
           .watch-btn {
                margin-top: 30px;
           }
@@ -1166,6 +1174,11 @@ input[type=range]::-moz-range-thumb {
                margin-top: 50px;
                margin-bottom: 23px;
                @include flex-row(center, center);
+          }
+          &__subtitle {
+               margin-top: 30px;
+               display: block;
+               width: 90%;
           }
           &__arrow {
                margin: 17px;
@@ -1831,4 +1844,122 @@ input[type=range]::-moz-range-thumb {
                margin-bottom: 70px;
           }
      }
+}
+
+.popup {
+     position: absolute;
+     top: 0;
+     left: 0;
+     @include flex-row(flex-start, flex-start);
+     width: 100%;
+     background-color: #f9f9f9;
+     &__picture {
+          overflow: hidden;
+          display: none;
+     }
+
+     &__form {
+          @include flex-column();
+          width: 100%;
+          input {
+               width: 100%;
+               border: none;
+               background-color: transparent;
+          }
+          select {
+               border: none;
+               background-color: transparent;
+          }
+     }
+
+     &__title {
+          margin-top: 104px;
+          font-weight: 700;
+          font-size: 20px;
+          line-height: 23px;
+          text-transform: uppercase;
+     }
+
+     &__inputs-wrapper {
+          margin-top: 35px;
+          @include flex-column();
+          width: 87.5%;
+     }
+
+     &__header {
+          @include flex-column();
+          width: 100%;
+     }
+
+     &__fieldset {
+          padding-left: 25px;
+          padding-right: 25px;
+          margin-top: 20px;
+          @include flex-row();
+          width: 100%;
+          height: 56px;
+          border: 1px solid #828282;
+          border-radius: 5px;
+     }
+
+     &__legend {
+          margin-left: -15px;
+          padding: 0 15px;
+          font-weight: 500;
+          font-size: 12px;
+          line-height: 16px;
+          color: #828282;
+     }
+
+     &__select-an-animal {
+          width: 100%;
+     }
+
+     &__body {
+          @include flex-column();
+          width: 100%;
+     }
+
+     &__about-you {
+          margin-top: 30px;
+          @include flex-column(flex-start, flex-start);
+          width: 100%;
+     }
+
+     &__about-you-title {
+          font-weight: 700;
+          font-size: 18px;
+          line-height: 21px;
+          color: #828282;
+     }
+
+     &__select-a-code {
+     }
+
+     &__checkout {
+          margin-top: 30px;
+          @include flex-column(flex-start, flex-start);
+          width: 100%;
+     }
+
+     &__select-a-month {
+     }
+
+     &__select-a-year {
+     }
+
+     &__you-agree {
+          margin-top: 30px;
+          width: 87.5%;
+          font-weight: 500;
+          font-size: 12px;
+          line-height: 15px;
+          color: #828282;
+          text-align: center;
+     }
+
+     .watch-btn {
+          margin-top: 30px;
+     }
+
 }
