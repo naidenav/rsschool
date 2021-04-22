@@ -293,7 +293,7 @@ body {
      &__nav-btn {
           -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
           -webkit-tap-highlight-color: transparent;
-          margin-top: 16px;
+          margin-top: 20px;
           @include flex-row(center, center);
           outline: none;
           border: none;
@@ -1162,11 +1162,11 @@ input[type=range]::-moz-range-thumb {
                width: 90%;
           }
           &__schema {
-               margin-top: 40px;
+               margin-top: 45px;
           }
      
           .watch-btn {
-               margin-top: 30px;
+               margin-top: 26px;
           }
      }
      @media screen and (min-width: $desktop-min) {
@@ -1184,9 +1184,6 @@ input[type=range]::-moz-range-thumb {
                margin: 17px;
                width: 48px;
                transform: rotate(-180deg);
-          }
-          .watch-btn {
-               margin-top: 26px;
           }
      }
      @media screen and (min-width: $desktop) {
