@@ -48,7 +48,6 @@ function getSrc() {
   pasteImage(src)
   +numberOfImage++;
   next.disabled = true;
-  setTimeout(function() { next.disabled = false }, 1000);
 }
 
 function pasteImage(imageSrc) {
@@ -56,6 +55,7 @@ function pasteImage(imageSrc) {
   img.src = imageSrc;
   img.onload = () => {
     image.src = imageSrc;
+    next.disabled = false;
   }
 }
 
@@ -82,13 +82,18 @@ function saveImg() {
   img.onload = () => {
     canvas.width = img.width;
     canvas.height = img.height;
+    if (img.naturalHeight > img.naturalWidth) {
+      k = img.naturalHeight / image.height;
+    } else {
+      k = img.naturalWidth / image.width;
+    }
     const ctx = canvas.getContext('2d');
     let canvasFilters = '';
     inputRange.forEach((item, index) => {
       if (item.value !== initialRange[index]) {
         const sizing = item.dataset.sizing || '';
         if (item.name == 'blur') {
-          canvasFilters += item.name + '(' + item.value * 5 + sizing + ')' + ' '
+          canvasFilters += item.name + '(' + item.value * k + sizing + ')' + ' '
         } else {
         canvasFilters += item.name + '(' + item.value + sizing + ')' + ' ';
         }
