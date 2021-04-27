@@ -1618,8 +1618,16 @@ input[type=range]::-moz-range-thumb:active {
 }
 
 .pets-in-zoo__slider {
+  -webkit-animation: .5s ease-in-out;
+          animation: .5s ease-in-out;
   position: relative;
   overflow: hidden;
+  display: none;
+  width: 900px;
+}
+
+.pets-in-zoo .active,
+.pets-in-zoo .next {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1633,7 +1641,6 @@ input[type=range]::-moz-range-thumb:active {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 900px;
 }
 
 .pets-in-zoo__slide {

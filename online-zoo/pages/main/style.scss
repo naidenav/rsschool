@@ -1050,10 +1050,15 @@ input[type=range]::-moz-range-thumb {
           width: 100%;
      }
      &__slider {
+          animation: .5s ease-in-out;
           position: relative;
           overflow: hidden;
-          @include flex-row();
+          display: none;
           width: 900px;
+     }
+     .active,
+     .next {
+          @include flex-row();
      }
      &__slide {
           position: relative;

@@ -58,14 +58,14 @@ function changeRange() {
 
   if (watchRangeValue < rangeWatchOnline.value) {
     document.querySelector(".watch-online__carousel").style.transform = `translateX(-${(rangeWatchOnline.value - 2) * shift}px)`;
-    // if (this.value > 2) {
-    //   slidesWatchOnline[this.value - 3].classList.add("hide-slide");
-    // }
+    if (this.value > 2) {
+      slidesWatchOnline[this.value - 3].classList.add("hide-slide");
+    }
   } else {
     document.querySelector(".watch-online__carousel").style.transform = `translateX(${(2 - rangeWatchOnline.value) * shift}px)`;
-    // if (this.value > 1) {
-    //   slidesWatchOnline[this.value - 2].classList.remove("hide-slide");
-    // }
+    if (this.value > 1) {
+      slidesWatchOnline[this.value - 2].classList.remove("hide-slide");
+    }
   }
   countWatchOnline.innerHTML = `0${rangeWatchOnline.value}/`;
   watchRangeValue = rangeWatchOnline.value;
@@ -83,57 +83,141 @@ carousel.addEventListener("click", function(e) {
 
 // Слайдер блока How It Works 
 
-const rangeHowItWorks = document.querySelector(".how-it-works [type=range]");
-const slidesHowItWorks = document.querySelectorAll(".how-it-works__slide");
-const countHowItWorks = document.querySelector(".how-it-works .scroll__n");
-let currentItem = 0;
-let isEnable = true;
+{
 
-function changeCurrentItem(n) {
-  currentItem = (n + slidesHowItWorks.length) % slidesHowItWorks.length;
-}
+  const rangeHowItWorks = document.querySelector(".how-it-works [type=range]");
+  const slidesHowItWorks = document.querySelectorAll(".how-it-works__slide");
+  const countHowItWorks = document.querySelector(".how-it-works .scroll__n");
+  let currentItem = 0;
+  let isEnable = true;
 
-function hideSlide(direction) {
-  isEnable = false
-  const current = currentItem
-  slidesHowItWorks[currentItem].classList.add(direction);
-  slidesHowItWorks[current].addEventListener("animationend", () => {
-    slidesHowItWorks[current].classList.remove("active", direction);
-  })
-}
-
-function showSlide(direction) {
-  slidesHowItWorks[currentItem].classList.add("next", direction);
-  slidesHowItWorks[currentItem].addEventListener("animationend", () => {
-    slidesHowItWorks[currentItem].classList.remove("next", direction);
-    slidesHowItWorks[currentItem].classList.add("active");
-    isEnable = true;
-  })
-}
-
-function nextSlide(n) {
-  hideSlide("to-left");
-  changeCurrentItem(n);
-  showSlide("from-right");
-}
-
-function previousSlide(n) {
-  hideSlide("to-right");
-  changeCurrentItem(n);
-  showSlide("from-left");
-}
-
-rangeHowItWorks.addEventListener("change", function() {
-  if (isEnable === true) {
-    if (this.value > currentItem + 1) {
-      nextSlide(this.value - 1);
-    }
-    if (this.value < currentItem + 1) {
-      previousSlide(this.value - 1);
-    }
+  function changeCurrentItem(n) {
+    currentItem = (n + slidesHowItWorks.length) % slidesHowItWorks.length;
   }
-})
 
-rangeHowItWorks.addEventListener("input", () => {
-  countHowItWorks.innerHTML = `0${rangeHowItWorks.value}/`;
-})
+  function nextSlide(n) {
+    hideSlide("to-left");
+    changeCurrentItem(n);
+    showSlide("from-right");
+  }
+  
+  function previousSlide(n) {
+    hideSlide("to-right");
+    changeCurrentItem(n);
+    showSlide("from-left");
+  }
+
+  function hideSlide(direction) {
+    isEnable = false
+    const current = currentItem
+    slidesHowItWorks[currentItem].classList.add(direction);
+    slidesHowItWorks[current].addEventListener("animationend", () => {
+      slidesHowItWorks[current].classList.remove("active", direction);
+    })
+  }
+
+  function showSlide(direction) {
+    slidesHowItWorks[currentItem].classList.add("next", direction);
+    slidesHowItWorks[currentItem].addEventListener("animationend", () => {
+      slidesHowItWorks[currentItem].classList.remove("next", direction);
+      slidesHowItWorks[currentItem].classList.add("active");
+      isEnable = true;
+    })
+  }
+
+  rangeHowItWorks.addEventListener("change", function() {
+    if (isEnable === true) {
+      if (this.value > currentItem + 1) {
+        nextSlide(this.value - 1);
+      }
+      if (this.value < currentItem + 1) {
+        previousSlide(this.value - 1);
+      }
+    }
+  })
+
+  rangeHowItWorks.addEventListener("input", () => {
+    countHowItWorks.innerHTML = `0${rangeHowItWorks.value}/`;
+  })
+
+}
+
+// Слайдер блока Pets in zoo
+
+{
+
+  const rangePetsInZoo = document.querySelector(".pets-in-zoo [type=range]");
+  const slidesPetsInZoo = document.querySelectorAll(".pets-in-zoo__slider");
+  const countPetsInZoo = document.querySelector(".pets-in-zoo .scroll__n");
+console.log(document.querySelector(".pets-in-zoo .btn_left"))
+  let currentItem = 0;
+  let isEnable = true;
+
+  function changeCurrentItem(n) {
+    currentItem = (n + slidesPetsInZoo.length) % slidesPetsInZoo.length;
+  }
+
+  function nextSlide(n) {
+    hideSlide("to-left");
+    changeCurrentItem(n);
+    showSlide("from-right");
+  }
+  
+  function previousSlide(n) {
+    hideSlide("to-right");
+    changeCurrentItem(n);
+    showSlide("from-left");
+  }
+
+  function hideSlide(direction) {
+    isEnable = false
+    const current = currentItem
+    slidesPetsInZoo[currentItem].classList.add(direction);
+    slidesPetsInZoo[current].addEventListener("animationend", () => {
+      slidesPetsInZoo[current].classList.remove("active", direction);
+    })
+  }
+
+  function showSlide(direction) {
+    slidesPetsInZoo[currentItem].classList.add("next", direction);
+    slidesPetsInZoo[currentItem].addEventListener("animationend", () => {
+      slidesPetsInZoo[currentItem].classList.remove("next", direction);
+      slidesPetsInZoo[currentItem].classList.add("active");
+      isEnable = true;
+    })
+  }
+
+
+
+  rangePetsInZoo.addEventListener("change", function() {
+    if (isEnable === true) {
+      if (this.value > currentItem + 1) {
+        nextSlide(this.value - 1);
+      }
+      if (this.value < currentItem + 1) {
+        previousSlide(this.value - 1);
+      }
+    }
+  })
+
+  rangePetsInZoo.addEventListener("input", () => {
+    countPetsInZoo.innerHTML = `0${rangePetsInZoo.value}/`;
+  })
+
+  document.querySelector(".pets-in-zoo .btn_left").addEventListener("click", function() {
+    if (isEnable === true) {
+      previousSlide(currentItem - 1);
+      rangePetsInZoo.value = currentItem + 1;
+      countPetsInZoo.innerHTML = `0${currentItem + 1}/`;
+    }
+  })
+
+  document.querySelector(".pets-in-zoo .btn_right").addEventListener("click", function() {
+    if (isEnable === true) {
+      nextSlide(currentItem + 1);
+      rangePetsInZoo.value = currentItem + 1;
+      countPetsInZoo.innerHTML = `0${currentItem + 1}/`;
+    }
+  })
+
+}
