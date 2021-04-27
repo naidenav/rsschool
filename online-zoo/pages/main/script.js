@@ -3,9 +3,6 @@ const menu = document.querySelector(".nav-list");
 const themeSwitcher = document.querySelector(".theme-switcher");
 const themeSlider = document.querySelector(".theme-switcher__slider");
 const body = document.querySelector("body");
-const slidesWatchOnline = document.querySelectorAll(".watch-online__slide");
-const rangeWatchOnline = document.querySelector("[type=range]");
-const carousel = document.querySelector(".watch-online__carousel");
 
 if (localStorage.getItem("theme") === "dark") {
   body.classList.add("dark-mode");
@@ -35,8 +32,13 @@ navBtn.addEventListener("click", () => {
   navBtn.classList.toggle("nav-btn_active");  
 })
 
+// Слайдер блока Watch Online
+
+const slidesWatchOnline = document.querySelectorAll(".watch-online__slide");
+const rangeWatchOnline = document.querySelector("[type=range]");
+const carousel = document.querySelector(".watch-online__carousel");
+const countWatchOnline = document.querySelector(".watch-online .scroll__n");
 let watchRangeValue = 2;
-let order = 0;
 
 function changeRange() {
   if (!slidesWatchOnline[rangeWatchOnline.value - 1].classList.contains("slide-active")) {
@@ -65,7 +67,7 @@ function changeRange() {
     //   slidesWatchOnline[this.value - 2].classList.remove("hide-slide");
     // }
   }
-
+  countWatchOnline.innerHTML = `0${rangeWatchOnline.value}/`;
   watchRangeValue = rangeWatchOnline.value;
 }
 
@@ -79,3 +81,59 @@ carousel.addEventListener("click", function(e) {
   changeRange();
 })
 
+// Слайдер блока How It Works 
+
+const rangeHowItWorks = document.querySelector(".how-it-works [type=range]");
+const slidesHowItWorks = document.querySelectorAll(".how-it-works__slide");
+const countHowItWorks = document.querySelector(".how-it-works .scroll__n");
+let currentItem = 0;
+let isEnable = true;
+
+function changeCurrentItem(n) {
+  currentItem = (n + slidesHowItWorks.length) % slidesHowItWorks.length;
+}
+
+function hideSlide(direction) {
+  isEnable = false
+  const current = currentItem
+  slidesHowItWorks[currentItem].classList.add(direction);
+  slidesHowItWorks[current].addEventListener("animationend", () => {
+    slidesHowItWorks[current].classList.remove("active", direction);
+  })
+}
+
+function showSlide(direction) {
+  slidesHowItWorks[currentItem].classList.add("next", direction);
+  slidesHowItWorks[currentItem].addEventListener("animationend", () => {
+    slidesHowItWorks[currentItem].classList.remove("next", direction);
+    slidesHowItWorks[currentItem].classList.add("active");
+    isEnable = true;
+  })
+}
+
+function nextSlide(n) {
+  hideSlide("to-left");
+  changeCurrentItem(n);
+  showSlide("from-right");
+}
+
+function previousSlide(n) {
+  hideSlide("to-right");
+  changeCurrentItem(n);
+  showSlide("from-left");
+}
+
+rangeHowItWorks.addEventListener("change", function() {
+  if (isEnable === true) {
+    if (this.value > currentItem + 1) {
+      nextSlide(this.value - 1);
+    }
+    if (this.value < currentItem + 1) {
+      previousSlide(this.value - 1);
+    }
+  }
+})
+
+rangeHowItWorks.addEventListener("input", () => {
+  countHowItWorks.innerHTML = `0${rangeHowItWorks.value}/`;
+})

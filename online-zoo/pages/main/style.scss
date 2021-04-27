@@ -796,17 +796,26 @@ body {
           margin-bottom: 50px;
           @include flex-column();
      }
+     &__slider-wrapper {
+          overflow: hidden;
+          position: relative;
+          height: 323px;
+          width: 100%;
+     }
      &__slide {
           position: relative;
+          display: none;
           width: 100%;
           height: 323px;
           border-radius: 5px;
           overflow: hidden;
+          animation: .5s ease-in-out;
           img {
-               height: 100%;
-               width: auto;
+               object-fit: cover;
+               min-width: 650px;
           }
      }
+
      .scroll {
           margin-top: 22px;
      }
@@ -833,6 +842,11 @@ body {
           }
           .scroll {
                margin-top: 30px;
+          }
+     }
+     @media screen and (min-width: 790px) {
+          &__wrapper {
+               width: 790px;
           }
      }
      @media screen and (min-width: $desktop-min) {
@@ -1372,6 +1386,53 @@ input[type=range]::-moz-range-thumb {
           .watch-btn {
                margin-top: 28px;
           }
+     }
+}
+
+.active,
+.next {
+     display: block;
+}
+
+.next {
+     position: absolute;
+     top: 0;
+     width: 100%;
+}
+
+.to-right {
+     animation-name: right;
+}
+
+.to-left {
+     animation-name: left;
+}
+
+.from-right {
+     animation-name: right;
+     animation-direction: reverse;
+}
+
+.from-left {
+     animation-name: left;
+     animation-direction: reverse;
+}
+
+@keyframes right {
+     from {
+          left:0;
+     }
+     to {
+          left: 100%
+     }
+}
+
+@keyframes left {
+     from {
+          left:0;
+     }
+     to {
+          left: -100%
      }
 }
 
