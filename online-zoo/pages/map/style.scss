@@ -715,6 +715,7 @@ input[type=range]::-moz-range-thumb {
                z-index: 2;
                width: 34px;
                height: 47px;
+               transition-duration: 0s;
                .marker-img {
                     filter: drop-shadow(6px 3px 10px rgba(50,50,50,.2));
                }

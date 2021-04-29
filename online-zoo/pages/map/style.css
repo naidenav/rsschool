@@ -1080,6 +1080,8 @@ input[type=range]::-moz-range-thumb:active {
   z-index: 2;
   width: 34px;
   height: 47px;
+  -webkit-transition-duration: 0s;
+          transition-duration: 0s;
 }
 
 .map__wrapper .marker .marker-img {

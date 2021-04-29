@@ -40,44 +40,47 @@ navBtn.addEventListener("click", () => {
   const range = document.querySelector("[type=range]");
   const slides = document.querySelectorAll(".carousel__slide");
   const countSlides = document.querySelector(".scroll__n");
+  const marker = document.querySelectorAll(".marker");
+  const map = document.querySelector(".map__wrapper");
 
+  let currentMarker = "Panda";
   let currentItem = 1;
   let firstVisible = 0;
   let lastVisible = 2;
 
-  if (window.screen.width < 640) {
+  if (document.documentElement.clientWidth < 640) {
     lastVisible = 2;
-  } else if (window.screen.width < 1200) {
+  } else if (document.documentElement.clientWidth < 1200) {
     lastVisible = 3;
-  } else if (window.screen.width < 1920) {
+  } else if (document.documentElement.clientWidth < 1920) {
     lastVisible = 4;
   }
 
   function changeFirstVisible(n) {
-    if (window.screen.width < 640) {
+    if (document.documentElement.clientWidth < 640) {
       firstVisible = n - 2;
-    } else if (window.screen.width < 1200) {
+    } else if (document.documentElement.clientWidth < 1200) {
       firstVisible = n - 3;
-    } else if (window.screen.width < 1920) {
+    } else if (document.documentElement.clientWidth < 1920) {
       firstVisible = n - 4;
     }
   }
 
   function changeLastVisible(n) {
-    if (window.screen.width < 640) {
+    if (document.documentElement.clientWidth < 640) {
       lastVisible = n + 2;
-    } else if (window.screen.width < 1200) {
+    } else if (document.documentElement.clientWidth < 1200) {
       lastVisible = n + 3;
-    } else if (window.screen.width < 1920) {
+    } else if (document.documentElement.clientWidth < 1920) {
       lastVisible = n + 4;
     }
   }
 
   let shift;
 
-  if (window.screen.width < 640) {
+  if (document.documentElement.clientWidth < 640) {
     shift = 82.5;
-  } else if (window.screen.width < 1200) {
+  } else if (document.documentElement.clientWidth < 1200) {
     shift = 130;
   } else {
     shift = 137;
@@ -118,6 +121,19 @@ navBtn.addEventListener("click", () => {
     slides[currentItem].classList.add("slide-active");
   }
 
+  function shiftCarousel() {
+    let x;
+    if (window.screen.width < 1920) {
+      if (range.value - 1 < firstVisible) {
+        x = range.value - 1;
+        shiftCarouselToRight(x);
+      } else if (range.value - 1 > lastVisible) {
+        x = range.value - 1 - lastVisible + firstVisible;
+        shiftCarouselToLeft(x);
+      }
+    }
+  }
+
   function shiftCarouselToRight(x) {
     carousel.style.transform = `translate(${-shift * x}px)`;
     changeLastVisible(range.value - 1);
@@ -130,50 +146,38 @@ navBtn.addEventListener("click", () => {
     lastVisible = range.value - 1;
   }
 
-  range.addEventListener("input", function() {
-    let x;
-    if (window.screen.width < 1920) {
-      if (this.value - 1 < firstVisible) {
-        x = this.value - 1;
-        shiftCarouselToRight(x);
-      } else if (this.value - 1 > lastVisible) {
-        x = this.value - 1 - lastVisible + firstVisible;
-        shiftCarouselToLeft(x);
+  function changeMarker(title) {
+    for (let i = 0; i < marker.length; i++) {
+      if (marker[i].title === currentMarker) {
+        marker[i].classList.remove("marker-active");
+      }
+      if (marker[i].title === title) {
+        marker[i].classList.add("marker-active");
       }
     }
+    currentMarker = title;
+  }
+
+  range.addEventListener("input", function() {
+    shiftCarousel();
     shiftSlide(this.value - 1);
+    changeMarker(slides[range.value - 1].title);
     countSlides.innerHTML = `0${range.value}/`;
   })
 
   document.querySelector(".btn_left").addEventListener("click", function() {
     shiftSlide(currentItem - 1);
     range.value = currentItem + 1;
-    let x;
-    if (window.screen.width < 1920) {
-      if (range.value - 1 < firstVisible) {
-        x = range.value - 1;
-        shiftCarouselToRight(x);
-      } else if (range.value - 1 > lastVisible) {
-        x = range.value - 1 - lastVisible + firstVisible;
-        shiftCarouselToLeft(x);
-      }
-    }
+
+    changeMarker(slides[range.value - 1].title);
     countSlides.innerHTML = `0${currentItem + 1}/`;
  })
 
   document.querySelector(".btn_right").addEventListener("click", function() {
     shiftSlide(currentItem + 1);
     range.value = currentItem + 1;
-    let x;
-    if (window.screen.width < 1920) {
-      if (range.value - 1 < firstVisible) {
-        x = range.value - 1;
-        shiftCarouselToRight(x);
-      } else if (range.value - 1 > lastVisible) {
-        x = range.value - 1 - lastVisible + firstVisible;
-        shiftCarouselToLeft(x);
-      }
-    }
+    shiftCarousel();
+    changeMarker(slides[range.value - 1].title);
     countSlides.innerHTML = `0${currentItem + 1}/`;
   })
 
@@ -183,7 +187,21 @@ navBtn.addEventListener("click", () => {
       range.value = nodes.indexOf(e.target.parentElement.parentElement.parentElement) + 1;
     }
     shiftSlide(range.value - 1);
+    changeMarker(slides[range.value - 1].title);
     countSlides.innerHTML = `0${range.value}/`;
+  })
+
+  map.addEventListener("click", function(e) {
+    nodes = Array.prototype.slice.call(marker);
+    if (e.target.classList.contains("marker-img")) {
+      range.value = nodes.indexOf(e.target.parentElement) + 1;
+    } else if (e.target.classList.contains("marker-icon-img")) {
+      range.value = nodes.indexOf(e.target.parentElement.parentElement) + 1;
+    }
+    shiftCarousel();
+    shiftSlide(range.value - 1);
+    changeMarker(slides[range.value - 1].title);
+    countSlides.innerHTML = `0${range.value}/`;  
   })
 
 }
