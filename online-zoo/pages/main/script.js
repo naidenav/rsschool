@@ -225,3 +225,29 @@ console.log(document.querySelector(".pets-in-zoo .btn_left"))
   })
 
 }
+
+// Popup
+
+const donateBtn = document.querySelector(".pay-and-feed .watch-btn");
+const donateBtnFooter = document.querySelector(".footer .watch-btn");
+const cover = document.querySelector(".cover");
+
+function openPopup() {
+  document.body.classList.add("notScrollable");
+  cover.classList.remove("cover_hidden");
+}
+
+function closePopup() {
+  document.body.classList.remove("notScrollable");
+  cover.classList.add("cover_hidden");
+}
+
+donateBtn.addEventListener("click", openPopup);
+
+donateBtnFooter.addEventListener("click", openPopup);
+
+cover.addEventListener("click", (e) => {
+  if (e.target.classList.contains("cover")) {
+    closePopup();
+  }
+});

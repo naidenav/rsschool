@@ -1942,6 +1942,25 @@ input[type=range]::-moz-range-thumb {
      }
 }
 
+.cover {
+     overflow-y: scroll;
+     z-index: 1000;
+     position: fixed;
+     top: 0;
+     left: 0;
+     height: 100vh;
+     width: 100vw;
+     background-color: rgba(255,255,255,.7);
+}
+
+.cover_hidden {
+     display: none;
+}
+
+.notScrollable {
+     overflow: hidden;
+}
+
 .popup {
      position: absolute;
      top: 0;
@@ -1954,12 +1973,11 @@ input[type=range]::-moz-range-thumb {
           overflow: hidden;
           display: none;
      }
-
      &__form {
           @include flex-column();
           width: 100%;
           input {
-               margin-top: -3px;
+               margin-top: 13px;
                width: 100%;
                border: none;
                background-color: transparent;
@@ -1969,7 +1987,7 @@ input[type=range]::-moz-range-thumb {
                color: #313131;
           }
           select {
-               margin-top: -3px;
+               margin-top: 13px;
                border: none;
                background-color: transparent;
                -webkit-appearance: none;
@@ -2068,6 +2086,7 @@ input[type=range]::-moz-range-thumb {
      }
 
      &__select-a-code {
+          margin-right: 40px;
           width: 45px;
      }
 
@@ -2113,16 +2132,7 @@ input[type=range]::-moz-range-thumb {
                     height: 100%;
                }
           }
-     
-          &__form {
-               input {
-                    margin-top: -3px;
-               }
-               select {
-                    margin-top: -3px;
-               }
-          }
-     
+          
           &__title {
                margin-top: 104px;
                font-size: 24px;
@@ -2182,12 +2192,13 @@ input[type=range]::-moz-range-thumb {
      }
      @media screen and (min-width: $desktop-min) {
           position: absolute;
-          top: 0;
-          left: 0;
+          top: 20px;
+          left: calc(50vw - 600px);
           @include flex-row(flex-start, flex-start);
-          width: 100%;
+          width: 1200px;
           height: 795px;
           background-color: #f9f9f9;
+          box-shadow: 0 0 15px rgba(0,0,0,.2);
           &__picture {
                overflow: hidden;
                @include flex-column(flex-start, flex-start);
@@ -2196,15 +2207,6 @@ input[type=range]::-moz-range-thumb {
                height: 795px;
                img {
                     object-fit: cover;
-               }
-          }
-     
-          &__form {
-               input {
-                    margin-top: -3px;
-               }
-               select {
-                    margin-top: -3px;
                }
           }
      
@@ -2223,6 +2225,10 @@ input[type=range]::-moz-range-thumb {
                width: 100%;
                fieldset {
                     width: 46.2%
+               }
+               select,
+               input {
+                    margin-top: -3px;
                }
           }
      
@@ -2272,7 +2278,10 @@ input[type=range]::-moz-range-thumb {
      
           .watch-btn {
                margin-top: 35px;
-          }     
+          }   
+          @media screen and (min-height: 840px) {
+               top: calc(50vh - 398px);
+          }       
      }
      @media screen and (min-width: $desktop) {
      }  

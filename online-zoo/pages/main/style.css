@@ -3083,6 +3083,25 @@ input[type=range]::-moz-range-thumb:active {
   }
 }
 
+.cover {
+  overflow-y: scroll;
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.cover_hidden {
+  display: none;
+}
+
+.notScrollable {
+  overflow: hidden;
+}
+
 .popup {
   position: absolute;
   top: 0;
@@ -3128,7 +3147,7 @@ input[type=range]::-moz-range-thumb:active {
 }
 
 .popup__form input {
-  margin-top: -3px;
+  margin-top: 13px;
   width: 100%;
   border: none;
   background-color: transparent;
@@ -3139,7 +3158,7 @@ input[type=range]::-moz-range-thumb:active {
 }
 
 .popup__form select {
-  margin-top: -3px;
+  margin-top: 13px;
   border: none;
   background-color: transparent;
   -webkit-appearance: none;
@@ -3297,6 +3316,7 @@ input[type=range]::-moz-range-thumb:active {
 }
 
 .popup__select-a-code {
+  margin-right: 40px;
   width: 45px;
 }
 
@@ -3366,12 +3386,6 @@ input[type=range]::-moz-range-thumb:active {
   }
   .popup__picture img {
     height: 100%;
-  }
-  .popup__form input {
-    margin-top: -3px;
-  }
-  .popup__form select {
-    margin-top: -3px;
   }
   .popup__title {
     margin-top: 104px;
@@ -3460,8 +3474,8 @@ input[type=range]::-moz-range-thumb:active {
 @media screen and (min-width: 1200px) {
   .popup {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 20px;
+    left: calc(50vw - 600px);
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -3475,9 +3489,11 @@ input[type=range]::-moz-range-thumb:active {
     -webkit-box-align: start;
         -ms-flex-align: start;
             align-items: flex-start;
-    width: 100%;
+    width: 1200px;
     height: 795px;
     background-color: #f9f9f9;
+    -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   }
   .popup__picture {
     overflow: hidden;
@@ -3501,12 +3517,6 @@ input[type=range]::-moz-range-thumb:active {
   .popup__picture img {
     -o-object-fit: cover;
        object-fit: cover;
-  }
-  .popup__form input {
-    margin-top: -3px;
-  }
-  .popup__form select {
-    margin-top: -3px;
   }
   .popup__title {
     margin-top: 104px;
@@ -3534,6 +3544,10 @@ input[type=range]::-moz-range-thumb:active {
   }
   .popup__header fieldset {
     width: 46.2%;
+  }
+  .popup__header select,
+  .popup__header input {
+    margin-top: -3px;
   }
   .popup__body {
     display: -webkit-box;
@@ -3609,6 +3623,12 @@ input[type=range]::-moz-range-thumb:active {
   }
   .popup .watch-btn {
     margin-top: 35px;
+  }
+}
+
+@media screen and (min-width: 1200px) and (min-height: 840px) {
+  .popup {
+    top: calc(50vh - 398px);
   }
 }
 /*# sourceMappingURL=style.css.map */
