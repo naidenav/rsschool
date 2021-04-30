@@ -42,6 +42,7 @@ navBtn.addEventListener("click", () => {
   const countSlides = document.querySelector(".scroll__n");
   const marker = document.querySelectorAll(".marker");
   const map = document.querySelector(".map__wrapper");
+  const watchBtn = document.querySelector(".watch-btn");
 
   let currentMarker = "Panda";
   let currentItem = 1;
@@ -79,7 +80,7 @@ navBtn.addEventListener("click", () => {
   let shift;
 
   if (document.documentElement.clientWidth < 640) {
-    shift = 82.5;
+    shift = 82;
   } else if (document.documentElement.clientWidth < 1200) {
     shift = 130;
   } else {
@@ -147,12 +148,14 @@ navBtn.addEventListener("click", () => {
   }
 
   function changeMarker(title) {
+    watchBtn.removeAttribute("href");
     for (let i = 0; i < marker.length; i++) {
       if (marker[i].title === currentMarker) {
         marker[i].classList.remove("marker-active");
       }
       if (marker[i].title === title) {
         marker[i].classList.add("marker-active");
+        watchBtn.setAttribute("href", `../zoos/${title}.html`);
       }
     }
     currentMarker = title;
@@ -168,7 +171,7 @@ navBtn.addEventListener("click", () => {
   document.querySelector(".btn_left").addEventListener("click", function() {
     shiftSlide(currentItem - 1);
     range.value = currentItem + 1;
-
+    shiftCarousel();
     changeMarker(slides[range.value - 1].title);
     countSlides.innerHTML = `0${currentItem + 1}/`;
  })

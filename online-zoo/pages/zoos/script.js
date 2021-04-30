@@ -31,3 +31,73 @@ navBtn.addEventListener("click", () => {
   menu.classList.toggle("nav-list_active");
   navBtn.classList.toggle("nav-btn_active");
 })
+
+// Слайдер видео
+
+{
+
+  const dots = document.querySelectorAll(".dot");
+  const scroll = document.querySelector(".scroll");
+  const videoSlides = document.querySelectorAll(".playlist");
+  const dotArr = Array.prototype.slice.call(dots);
+  const playlistArr = Array.prototype.slice.call(videoSlides);
+  const playlistWrapper = document.querySelector(".playlist__wrapper");
+  const mainVideo = document.querySelector(".main-video");
+
+  let currentItem = 0;
+  let isEnable = true;
+
+  function nextSlide(n) {
+    hideSlide("to-left");
+    currentItem = n;
+    showSlide("from-right");
+  }
+  
+  function previousSlide(n) {
+    hideSlide("to-right");
+    currentItem = n;
+    showSlide("from-left");
+  }
+
+  function hideSlide(direction) {
+    isEnable = false
+    const current = currentItem;
+    videoSlides[currentItem].classList.add(direction);
+    videoSlides[current].addEventListener("animationend", () => {
+      videoSlides[current].classList.remove("active", direction);
+    })
+  }
+
+  function showSlide(direction) {
+    videoSlides[currentItem].classList.add("next", direction);
+    videoSlides[currentItem].addEventListener("animationend", () => {
+      videoSlides[currentItem].classList.remove("next", direction);
+      videoSlides[currentItem].classList.add("active");
+      isEnable = true;
+    })
+  }
+
+  scroll.addEventListener("click", function(e) {
+    if (isEnable === true && e.target.classList.contains("dot") && !e.target.classList.contains("dot-active")) {
+      const targetItem = dotArr.indexOf(e.target);
+      dots[currentItem].classList.remove("dot-active");
+      if (targetItem > currentItem) {
+        nextSlide(targetItem);
+      }
+      if (targetItem < currentItem) {
+        previousSlide(targetItem);
+      }
+      dots[currentItem].classList.add("dot-active");
+    }
+  })
+
+  playlistWrapper.addEventListener("click", function(e) {
+    if (e.target.classList.contains("plug")) {
+      const clonePlaylistVideo = e.target.previousSibling.previousSibling.cloneNode(true);
+      const cloneMainVideo = mainVideo.firstChild.nextSibling.cloneNode(true);
+      e.target.previousSibling.previousSibling.parentNode.replaceChild(cloneMainVideo, e.target.previousSibling.previousSibling);
+      mainVideo.firstChild.nextSibling.parentNode.replaceChild(clonePlaylistVideo, mainVideo.firstChild.nextSibling);
+    }
+  })
+
+}

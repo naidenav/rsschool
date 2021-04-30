@@ -554,6 +554,9 @@ body {
           right: 0;
           bottom: 0;
           background: transparent;
+          &:hover {
+               background: rgba(73,214,223,.5);
+          }
      }
      .main-video {
           position: relative;
@@ -572,11 +575,66 @@ body {
           border-width: 0;
           outline-width: 0;
      }
-     .playlist {
+     .playlist__wrapper {
+          overflow: hidden;
+          position: relative;
           margin-top: 10px;
+          width: 100%;
+     }
+     .playlist {
+          position: relative;
+          display: none;
+          animation: .5s ease-in-out;
+     }
+
+     .active,
+     .next {
           @include flex-row();
           width: 100%;
      }
+
+     .next {
+          position: absolute;
+          top: 0;
+          width: 100%;
+     }
+
+     .to-right {
+          animation-name: right;
+     }
+
+     .to-left {
+          animation-name: left;
+     }
+
+     .from-right {
+          animation-name: right;
+          animation-direction: reverse;
+     }
+
+     .from-left {
+          animation-name: left;
+          animation-direction: reverse;
+     }
+
+     @keyframes right {
+          from {
+               left:0;
+          }
+          to {
+               left: 100%
+          }
+     }
+
+     @keyframes left {
+          from {
+               left:0;
+          }
+          to {
+               left: -100%
+          }
+     }
+
      .next-video {
           position: relative;
           padding-bottom: 27%;
@@ -641,7 +699,7 @@ body {
           &__content {
                margin-top: 35px;
           }
-          .playlist {
+          .playlist__wrapper {
                margin-top: 15px;
           }
           .next-video {
@@ -687,7 +745,7 @@ body {
                @include flex-column(flex-start, center);
                width: 122%;
           }
-          .playlist {
+          .playlist__wrapper {
                margin-top: 27px;
           }
           &__description {
@@ -737,10 +795,8 @@ body {
                width: 790px;
                height: 442px;
           }
-          .playlist {
+          .playlist__wrapper {
                margin-top: 30px;
-               @include flex-row();
-               width: 100%;
           }
           .next-video {
                position: relative;

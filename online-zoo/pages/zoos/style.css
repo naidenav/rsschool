@@ -850,6 +850,10 @@ body {
   background: transparent;
 }
 
+.the-beijing-zoo .plug:hover {
+  background: rgba(73, 214, 223, 0.5);
+}
+
 .the-beijing-zoo .main-video {
   position: relative;
   padding-bottom: 56.25%;
@@ -870,8 +874,22 @@ body {
   outline-width: 0;
 }
 
-.the-beijing-zoo .playlist {
+.the-beijing-zoo .playlist__wrapper {
+  overflow: hidden;
+  position: relative;
   margin-top: 10px;
+  width: 100%;
+}
+
+.the-beijing-zoo .playlist {
+  position: relative;
+  display: none;
+  -webkit-animation: .5s ease-in-out;
+          animation: .5s ease-in-out;
+}
+
+.the-beijing-zoo .active,
+.the-beijing-zoo .next {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -886,6 +904,70 @@ body {
       -ms-flex-align: center;
           align-items: center;
   width: 100%;
+}
+
+.the-beijing-zoo .next {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.the-beijing-zoo .to-right {
+  -webkit-animation-name: right;
+          animation-name: right;
+}
+
+.the-beijing-zoo .to-left {
+  -webkit-animation-name: left;
+          animation-name: left;
+}
+
+.the-beijing-zoo .from-right {
+  -webkit-animation-name: right;
+          animation-name: right;
+  animation-direction: reverse;
+}
+
+.the-beijing-zoo .from-left {
+  -webkit-animation-name: left;
+          animation-name: left;
+  animation-direction: reverse;
+}
+
+@-webkit-keyframes right {
+  from {
+    left: 0;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+@keyframes right {
+  from {
+    left: 0;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+@-webkit-keyframes left {
+  from {
+    left: 0;
+  }
+  to {
+    left: -100%;
+  }
+}
+
+@keyframes left {
+  from {
+    left: 0;
+  }
+  to {
+    left: -100%;
+  }
 }
 
 .the-beijing-zoo .next-video {
@@ -1002,7 +1084,7 @@ body {
   .the-beijing-zoo__content {
     margin-top: 35px;
   }
-  .the-beijing-zoo .playlist {
+  .the-beijing-zoo .playlist__wrapper {
     margin-top: 15px;
   }
   .the-beijing-zoo .next-video {
@@ -1075,7 +1157,7 @@ body {
             align-items: center;
     width: 122%;
   }
-  .the-beijing-zoo .playlist {
+  .the-beijing-zoo .playlist__wrapper {
     margin-top: 27px;
   }
   .the-beijing-zoo__description {
@@ -1164,22 +1246,8 @@ body {
     width: 790px;
     height: 442px;
   }
-  .the-beijing-zoo .playlist {
+  .the-beijing-zoo .playlist__wrapper {
     margin-top: 30px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    width: 100%;
   }
   .the-beijing-zoo .next-video {
     position: relative;

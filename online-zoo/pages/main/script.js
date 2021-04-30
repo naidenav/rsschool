@@ -58,13 +58,17 @@ function changeRange() {
 
   if (watchRangeValue < rangeWatchOnline.value) {
     document.querySelector(".watch-online__carousel").style.transform = `translateX(-${(rangeWatchOnline.value - 2) * shift}px)`;
-    if (this.value > 2) {
-      slidesWatchOnline[this.value - 3].classList.add("hide-slide");
+    for (let i = 0; i < rangeWatchOnline.value - 2; i++) {
+      if (slidesWatchOnline[i] && !slidesWatchOnline[i].classList.contains("hide-slide")) {
+        slidesWatchOnline[i].classList.add("hide-slide");
+      }
     }
   } else {
     document.querySelector(".watch-online__carousel").style.transform = `translateX(${(2 - rangeWatchOnline.value) * shift}px)`;
-    if (this.value > 1) {
-      slidesWatchOnline[this.value - 2].classList.remove("hide-slide");
+    for (let i = rangeWatchOnline.value - 2; i < slidesWatchOnline.length; i++) {
+      if (slidesWatchOnline[i] && slidesWatchOnline[i].classList.contains("hide-slide")) {
+        slidesWatchOnline[i].classList.remove("hide-slide");
+      }
     }
   }
   countWatchOnline.innerHTML = `0${rangeWatchOnline.value}/`;
