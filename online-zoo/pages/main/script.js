@@ -41,9 +41,9 @@ const countWatchOnline = document.querySelector(".watch-online .scroll__n");
 let watchRangeValue = 2;
 
 function changeRange() {
-  if (!slidesWatchOnline[rangeWatchOnline.value - 1].classList.contains("slide-active")) {
-    slidesWatchOnline[rangeWatchOnline.value - 1].classList.add("slide-active");
-    slidesWatchOnline[watchRangeValue - 1].classList.remove("slide-active");
+  if (!slidesWatchOnline[rangeWatchOnline.value].classList.contains("slide-active")) {
+    slidesWatchOnline[rangeWatchOnline.value].classList.add("slide-active");
+    slidesWatchOnline[watchRangeValue].classList.remove("slide-active");
   }
 
   let shift;
@@ -54,18 +54,18 @@ function changeRange() {
     shift = 210;
   } else {
     shift = 186;
-  }
+  }  
 
   if (watchRangeValue < rangeWatchOnline.value) {
     document.querySelector(".watch-online__carousel").style.transform = `translateX(-${(rangeWatchOnline.value - 2) * shift}px)`;
-    for (let i = 0; i < rangeWatchOnline.value - 2; i++) {
+    for (let i = 0; i < rangeWatchOnline.value - 1; i++) {
       if (slidesWatchOnline[i] && !slidesWatchOnline[i].classList.contains("hide-slide")) {
         slidesWatchOnline[i].classList.add("hide-slide");
       }
     }
   } else {
     document.querySelector(".watch-online__carousel").style.transform = `translateX(${(2 - rangeWatchOnline.value) * shift}px)`;
-    for (let i = rangeWatchOnline.value - 2; i < slidesWatchOnline.length; i++) {
+    for (let i = rangeWatchOnline.value - 1; i < slidesWatchOnline.length; i++) {
       if (slidesWatchOnline[i] && slidesWatchOnline[i].classList.contains("hide-slide")) {
         slidesWatchOnline[i].classList.remove("hide-slide");
       }
@@ -78,9 +78,10 @@ function changeRange() {
 rangeWatchOnline.addEventListener("input", changeRange);
 
 carousel.addEventListener("click", function(e) {
+  console.log(e.target);
   nodes = Array.prototype.slice.call(slidesWatchOnline);
   if (e.target.tagName == "IMG") {
-    rangeWatchOnline.value = nodes.indexOf(e.target.parentElement) + 1;
+    rangeWatchOnline.value = nodes.indexOf(e.target.parentElement);
   }
   changeRange();
 })
@@ -233,13 +234,22 @@ const donateBtnFooter = document.querySelector(".footer .watch-btn");
 const cover = document.querySelector(".cover");
 
 function openPopup() {
-  document.body.classList.add("notScrollable");
+  cover.classList.add("popup_opacity-up");
   cover.classList.remove("cover_hidden");
+  cover.addEventListener("animationend", () => {
+    document.body.classList.add("notScrollable");
+    cover.classList.remove("popup_opacity-up");
+    cover.classList.remove("cover_hidden");
+  })
 }
 
 function closePopup() {
-  document.body.classList.remove("notScrollable");
-  cover.classList.add("cover_hidden");
+  cover.classList.add("popup_opacity-down");
+  cover.addEventListener("animationend", () => {
+    document.body.classList.remove("notScrollable");
+    cover.classList.add("cover_hidden");
+    cover.classList.remove("popup_opacity-down");
+  })
 }
 
 donateBtn.addEventListener("click", openPopup);
@@ -250,4 +260,4 @@ cover.addEventListener("click", (e) => {
   if (e.target.classList.contains("cover")) {
     closePopup();
   }
-});
+})

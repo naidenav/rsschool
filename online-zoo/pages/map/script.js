@@ -155,7 +155,7 @@ navBtn.addEventListener("click", () => {
       }
       if (marker[i].title === title) {
         marker[i].classList.add("marker-active");
-        watchBtn.setAttribute("href", `../zoos/${title}.html`);
+        watchBtn.setAttribute("href", `../zoos/${title.toLowerCase()}.html`);
       }
     }
     currentMarker = title;
@@ -208,3 +208,35 @@ navBtn.addEventListener("click", () => {
   })
 
 }
+
+// Popup
+
+const donateBtnFooter = document.querySelector(".footer .watch-btn");
+const cover = document.querySelector(".cover");
+
+function openPopup() {
+  cover.classList.add("popup_opacity-up");
+  cover.classList.remove("cover_hidden");
+  cover.addEventListener("animationend", () => {
+    document.body.classList.add("notScrollable");
+    cover.classList.remove("popup_opacity-up");
+    cover.classList.remove("cover_hidden");
+  })
+}
+
+function closePopup() {
+  cover.classList.add("popup_opacity-down");
+  cover.addEventListener("animationend", () => {
+    document.body.classList.remove("notScrollable");
+    cover.classList.add("cover_hidden");
+    cover.classList.remove("popup_opacity-down");
+  })
+}
+
+donateBtnFooter.addEventListener("click", openPopup);
+
+cover.addEventListener("click", (e) => {
+  if (e.target.classList.contains("cover")) {
+    closePopup();
+  }
+})

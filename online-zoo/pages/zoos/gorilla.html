@@ -119,44 +119,41 @@
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen>
                         </iframe>
-                        <div class="plug"></div>
                     </div>
-                    <div class="playlist">
-                        <div class="next-video">
-                            <iframe
-                                width="560"
-                                height="315"
-                                src="https://www.youtube-nocookie.com/embed/rgXWDk7rh4w"
-                                title="YouTube video player"
-                                frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen>
-                            </iframe>
-                            <div class="plug"></div>
+                    <div class="playlist__wrapper">
+                        <div class="playlist active">
+                            <div class="next-video">
+                                <img class="plug" src="//img.youtube.com/vi/rh9PwFvMS0I/mqdefault.jpg" alt="preview">
+                                <div class="plug"><div class="triangle"></div></div>
+                            </div>
+                            <div class="next-video">
+                                <img class="plug" src="//img.youtube.com/vi/0TYv95OXU_E/mqdefault.jpg" alt="preview">
+                                <div class="plug"><div class="triangle"></div></div>
+                            </div>
+                            <div class="next-video">
+                                <img class="plug" src="//img.youtube.com/vi/rgXWDk7rh4w/mqdefault.jpg" alt="preview">
+                                <div class="plug"><div class="triangle"></div></div>
+                            </div>
                         </div>
-                        <div class="next-video">
-                            <iframe
-                                width="560"
-                                height="315"
-                                src="https://www.youtube-nocookie.com/embed/rgXWDk7rh4w"
-                                title="YouTube video player"
-                                frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen>
-                            </iframe>
-                            <div class="plug"></div>
+                        <div class="playlist">
+                            <div class="next-video">
+                                <img class="plug" src="//img.youtube.com/vi/rgXWDk7rh4w/mqdefault.jpg" alt="preview">
+                                <div class="plug"><div class="triangle"></div></div>
+                            </div>
+                            <div class="next-video">
+                                <img class="plug" src="//img.youtube.com/vi/rgXWDk7rh4w/mqdefault.jpg" alt="preview">
+                                <div class="plug"><div class="triangle"></div></div>
+                            </div>
+                            <div class="next-video">
+                                <img class="plug" src="//img.youtube.com/vi/rgXWDk7rh4w/mqdefault.jpg" alt="preview">
+                                <div class="plug"><div class="triangle"></div></div>
+                            </div>
                         </div>
-                        <div class="next-video">
-                            <iframe
-                                width="560"
-                                height="315"
-                                src="https://www.youtube-nocookie.com/embed/rgXWDk7rh4w"
-                                title="YouTube video player"
-                                frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen>
-                            </iframe>
-                            <div class="plug"></div>
+                        <div class="playlist">
+                            <div class="next-video">
+                                <img class="plug" src="//img.youtube.com/vi/rgXWDk7rh4w/mqdefault.jpg" alt="preview">
+                                <div class="plug"><div class="triangle"></div></div>
+                            </div>
                         </div>
                     </div>
                      <div class="scroll">
@@ -200,10 +197,10 @@
                         <a href="../main/index.html" class="nav-link">About</a>
                     </li>
                     <li>
-                        <a href="../zoos/panda.html" class="nav-link">Zoos</a>
+                        <a href="panda.html" class="nav-link">Zoos</a>
                     </li>
                     <li>
-                        <a href="map.html" class="nav-link">Map</a>
+                        <a href="../map/map.html" class="nav-link">Map</a>
                     </li>
                     <li>
                         <a
@@ -268,6 +265,96 @@
             </div>
         </div>
     </footer>
+
+    <div class="cover cover_hidden" >
+
+        <div class="popup">
+
+            <div class="popup__picture">
+                <img src="../../assets/images/bg-popup.jpg" alt="bg-popup">
+            </div>
+    
+            <form class="popup__form">
+    
+                <p class="popup__title">Donate for your animal</p>
+    
+                <div class="popup__inputs-wrapper">
+                    <div class="popup__header">
+                        <fieldset class="popup__fieldset">
+                            <legend class="popup__legend">Choose an animal</legend>
+                            <select class="popup__select-an-animal">
+                                <option value="Eagle">Eagle</option>
+                                <option value="Panda">Panda</option>
+                                <option value="Gorilla">Gorilla</option>
+                                <option value="Alligator">Alligator</option>
+                                <option value="Fox">Fox</option>
+                                <option value="Sloth">Sloth</option>
+                                <option value="Elephunt">Elephunt</option>
+                                <option value="Leopard">Leopard</option>
+                            </select>    
+                        </fieldset>
+                        <fieldset class="popup__fieldset">
+                            <legend class="popup__legend">To donate</legend>
+                            <input type="text">
+                        </fieldset>
+                    </div>
+    
+                    <div class="popup__body">
+                        <div class="popup__about-you">
+                            <p class="popup__about-you-title">About you</p>
+                            <fieldset class="popup__fieldset">
+                                <legend class="popup__legend">Name</legend>
+                                <input type="text">
+                            </fieldset>
+                            <fieldset class="popup__fieldset">
+                                <legend class="popup__legend">Email</legend>
+                                <input type="email">
+                            </fieldset>
+                            <fieldset class="popup__fieldset popup__fieldset-tel">
+                                <legend class="popup__legend">Phone</legend>
+                                <select class="popup__select-a-code">
+                                    <option value="+7">+7</option>
+                                </select>        
+                                <input type="tel">
+                            </fieldset>            
+                        </div>
+                        <div class="popup__checkout">
+                            <p class="popup__about-you-title">Checkout</p>
+                            <fieldset class="popup__fieldset">
+                                <legend class="popup__legend">Card number</legend>
+                                <input type="text">
+                            </fieldset>
+                            <fieldset class="popup__fieldset popup__fieldset-date">
+                                <legend class="popup__legend">Expiry date</legend>
+                                <select class="popup__select-a-month">
+                                </select>    
+                                <select class="popup__select-a-year">
+                                </select>            
+                            </fieldset>
+                            <fieldset class="popup__fieldset">
+                                <legend class="popup__legend">CVC</legend>
+                                <input type="text">
+                            </fieldset>            
+                        </div>
+                    </div>    
+                </div>
+    
+                <p class="popup__you-agree">
+                    If don’t cancel your subscription before 
+                    the trial ends on April 15, 2021, you agree 
+                    that you will automatically be charged
+                </p>
+    
+                <button class="watch-btn" type="submit">
+                    <p class="watch-btn__name">Donate</p> 
+                </button> 
+    
+            </form>
+    
+        </div>
+
+    </div>
+
 
     <script src="script.js"></script>
 

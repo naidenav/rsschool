@@ -1105,3 +1105,374 @@ input[type=range]::-moz-range-thumb {
           }
      }
 }
+
+.cover {
+     overflow-y: scroll;
+     z-index: 1000;
+     position: fixed;
+     top: 0;
+     left: 0;
+     height: 100vh;
+     width: 100vw;
+     background-color: rgba(255,255,255,.7);
+}
+
+.popup_opacity-up {
+     animation: opacity-up ease-in .3s;
+}
+
+@keyframes opacity-up {
+     from {
+          opacity: 0;
+     }
+     to {
+          opacity: 100;
+     }
+}
+
+.popup_opacity-down {
+     animation: opacity-down ease-out .3s;
+}
+
+@keyframes opacity-down {
+     from {
+          opacity: 100;
+     }
+     to {
+          opacity: 0;
+     }
+}
+
+.cover_hidden {
+     display: none;
+}
+
+.notScrollable {
+     overflow: hidden;
+}
+
+.popup {
+     position: absolute;
+     top: 0;
+     left: 0;
+     @include flex-row(flex-start, flex-start);
+     width: 100%;
+     height: 1243px;
+     background-color: #f9f9f9;
+     &__picture {
+          overflow: hidden;
+          display: none;
+     }
+     &__form {
+          @include flex-column();
+          width: 100%;
+          input {
+               margin-top: 13px;
+               width: 100%;
+               border: none;
+               background-color: transparent;
+               font-weight: 500;
+               font-size: 16px;
+               line-height: 19px;
+               color: #313131;
+          }
+          select {
+               margin-top: 13px;
+               border: none;
+               background-color: transparent;
+               -webkit-appearance: none;
+               -moz-appearance: none;
+               background: url(../../assets/icons/triangle-form.svg);
+               background-repeat: no-repeat;
+               background-position: right 0 top 7px;
+               font-family: "Roboto",sans-serif;
+               font-weight: 500;
+               font-size: 16px;
+               line-height: 19px;
+               color: #313131;
+          }
+     }
+
+     &__title {
+          margin-top: 104px;
+          font-weight: 700;
+          font-size: 20px;
+          line-height: 23px;
+          text-transform: uppercase;
+     }
+
+     &__inputs-wrapper {
+          margin-top: 16px;
+          @include flex-column();
+          width: 87.5%;
+     }
+
+     &__header {
+          @include flex-column();
+          width: 100%;
+     }
+
+     &__fieldset {
+          position: relative;
+          padding-left: 25px;
+          padding-right: 25px;
+          margin-top: 20px;
+          @include flex-row();
+          width: 100%;
+          height: 65px;
+          border: 1px solid #828282;
+          border-radius: 5px;
+     }
+
+     &__fieldset-tel::before {
+          content: "";
+          position: absolute;
+          top: 4px;
+          left: 80px;
+          height: 32px;
+          width: 1px;
+          background-color: #828282;
+     }
+
+     &__fieldset-date::before {
+          content: "";
+          position: absolute;
+          top: 4px;
+          left: 50%;
+          height: 32px;
+          width: 1px;
+          background-color: #828282;
+     }
+
+     &__legend {
+          margin-left: -15px;
+          padding: 0 15px;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 16px;
+          color: #828282;
+     }
+
+     &__select-an-animal {
+          width: 100%;
+     }
+
+     &__body {
+          @include flex-column();
+          width: 100%;
+     }
+
+     &__about-you {
+          margin-top: 30px;
+          @include flex-column(flex-start, flex-start);
+          width: 100%;
+     }
+
+     &__about-you-title {
+          font-weight: 700;
+          font-size: 18px;
+          line-height: 21px;
+          color: #828282;
+     }
+
+     &__select-a-code {
+          margin-right: 40px;
+          width: 45px;
+     }
+
+     &__checkout {
+          margin-top: 30px;
+          @include flex-column(flex-start, flex-start);
+          width: 100%;
+     }
+
+     &__select-a-month {
+          margin-right: 20px;
+          width: 50%;
+     }
+
+     &__select-a-year {
+          margin-right: -10px;
+          margin-left: 20px;
+          width: 50%;
+          border: 1px solid #828282;
+     }
+
+     &__you-agree {
+          margin-top: 30px;
+          width: 87.5%;
+          font-weight: 500;
+          font-size: 12px;
+          line-height: 15px;
+          color: #828282;
+          text-align: center;
+     }
+
+     .watch-btn {
+          margin-top: 30px;
+     }
+     @media screen and (min-width: $tablet) {
+          &__picture {
+               overflow: hidden;
+               @include flex-column(flex-start, flex-start);
+               min-width: 164px;
+               width: 16.4%;
+               height: 1243px;
+               img {
+                    height: 100%;
+               }
+          }
+          
+          &__title {
+               margin-top: 104px;
+               font-size: 24px;
+               line-height: 28px;
+          }
+     
+          &__inputs-wrapper {
+               margin-top: 20px;
+               width: 70.4%;
+          }
+     
+          &__body {
+               @include flex-column();
+               width: 100%;
+          }
+     
+          &__about-you {
+               margin-top: 35px;
+               @include flex-column(flex-start, flex-start);
+               width: 100%;
+          }
+     
+          &__about-you-title {
+               font-size: 18px;
+               line-height: 21px;
+          }
+     
+          &__select-a-code {
+               width: 45px;
+          }
+     
+          &__checkout {
+               margin-top: 35px;
+               @include flex-column(flex-start, flex-start);
+               width: 100%;
+          }
+     
+          &__select-a-month {
+               margin-right: 20px;
+               width: 50%;
+          }
+     
+          &__select-a-year {
+               margin-right: -10px;
+               margin-left: 20px;
+               width: 50%;
+          }
+     
+          &__you-agree {
+               margin-top: 35px;
+               width: 70.4%;
+          }
+     
+          .watch-btn {
+               margin-top: 35px;
+          }     
+     }
+     @media screen and (min-width: $desktop-min) {
+          position: absolute;
+          top: 20px;
+          left: calc(50vw - 600px);
+          @include flex-row(flex-start, flex-start);
+          width: 1200px;
+          height: 795px;
+          background-color: #f9f9f9;
+          box-shadow: 0 0 15px rgba(0,0,0,.2);
+          &__picture {
+               overflow: hidden;
+               @include flex-column(flex-start, flex-start);
+               min-width: 164px;
+               width: 16.4%;
+               height: 795px;
+               img {
+                    object-fit: cover;
+               }
+          }
+     
+          &__title {
+               margin-top: 104px;
+          }
+     
+          &__inputs-wrapper {
+               width: 72.3%;
+               margin-top: 20px;
+               width: 70.4%;
+          }
+
+          &__header {
+               @include flex-row(space-between, flex-start);
+               width: 100%;
+               fieldset {
+                    width: 46.2%
+               }
+               select,
+               input {
+                    margin-top: -3px;
+               }
+          }
+     
+          &__body {
+               @include flex-row(space-between, flex-start);
+               width: 100%;
+          }
+     
+          &__about-you {
+               margin-top: 35px;
+               @include flex-column(flex-start, flex-start);
+               width: 46.2%;
+          }
+     
+          &__about-you-title {
+               font-weight: 700;
+               font-size: 18px;
+               line-height: 21px;
+               color: #828282;
+          }
+     
+          &__select-a-code {
+               width: 45px;
+          }
+     
+          &__checkout {
+               margin-top: 35px;
+               @include flex-column(flex-start, flex-start);
+               width: 46.2%;
+          }
+     
+          &__select-a-month {
+               margin-right: 20px;
+               width: 50%;
+          }
+     
+          &__select-a-year {
+               margin-right: -10px;
+               margin-left: 20px;
+               width: 50%;
+          }
+     
+          &__you-agree {
+               margin-top: 35px;
+               width: 478px;
+          }
+     
+          .watch-btn {
+               margin-top: 35px;
+          }   
+          @media screen and (min-height: 840px) {
+               top: calc(50vh - 398px);
+          }       
+     }
+     @media screen and (min-width: $desktop) {
+     }  
+}

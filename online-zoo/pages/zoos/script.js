@@ -40,9 +40,8 @@ navBtn.addEventListener("click", () => {
   const scroll = document.querySelector(".scroll");
   const videoSlides = document.querySelectorAll(".playlist");
   const dotArr = Array.prototype.slice.call(dots);
-  const playlistArr = Array.prototype.slice.call(videoSlides);
   const playlistWrapper = document.querySelector(".playlist__wrapper");
-  const mainVideo = document.querySelector(".main-video");
+  const iframe = document.querySelector("iframe");
 
   let currentItem = 0;
   let isEnable = true;
@@ -93,11 +92,49 @@ navBtn.addEventListener("click", () => {
 
   playlistWrapper.addEventListener("click", function(e) {
     if (e.target.classList.contains("plug")) {
-      const clonePlaylistVideo = e.target.previousSibling.previousSibling.cloneNode(true);
-      const cloneMainVideo = mainVideo.firstChild.nextSibling.cloneNode(true);
-      e.target.previousSibling.previousSibling.parentNode.replaceChild(cloneMainVideo, e.target.previousSibling.previousSibling);
-      mainVideo.firstChild.nextSibling.parentNode.replaceChild(clonePlaylistVideo, mainVideo.firstChild.nextSibling);
+      const srcOfIframe = iframe.src;
+      const srcOfImages = e.target.previousSibling.previousSibling.src;
+      const codeOfCurrentVideo = srcOfIframe.match(/\/[\w,-]{11}$/i);
+      const codeOfNextVideo = srcOfImages.match(/\/[\w,-]{11}/i);
+
+      e.target.previousSibling.previousSibling.src = `//img.youtube.com/vi${codeOfCurrentVideo}/mqdefault.jpg`;
+      iframe.src = `https://www.youtube-nocookie.com/embed${codeOfNextVideo}`;
     }
   })
 
 }
+
+// Popup
+
+const donateBtn = document.querySelector(".the-beijing-zoo__description .watch-btn");
+const donateBtnFooter = document.querySelector(".footer .watch-btn");
+const cover = document.querySelector(".cover");
+
+function openPopup() {
+  cover.classList.add("popup_opacity-up");
+  cover.classList.remove("cover_hidden");
+  cover.addEventListener("animationend", () => {
+    document.body.classList.add("notScrollable");
+    cover.classList.remove("popup_opacity-up");
+    cover.classList.remove("cover_hidden");
+  })
+}
+
+function closePopup() {
+  cover.classList.add("popup_opacity-down");
+  cover.addEventListener("animationend", () => {
+    document.body.classList.remove("notScrollable");
+    cover.classList.add("cover_hidden");
+    cover.classList.remove("popup_opacity-down");
+  })
+}
+
+donateBtn.addEventListener("click", openPopup);
+
+donateBtnFooter.addEventListener("click", openPopup);
+
+cover.addEventListener("click", (e) => {
+  if (e.target.classList.contains("cover")) {
+    closePopup();
+  }
+})

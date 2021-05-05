@@ -416,6 +416,8 @@ body {
           background: url(../../assets/icons/line.svg) no-repeat center left;
      }
      &__carousel {
+          position: relative;
+          left: -122px;
           margin-left: 10px;
           @include flex-row(flex-start, center);
           width: 100%;
@@ -457,12 +459,24 @@ body {
           }
           &:hover {
                transform: scale(1.1);
-               // .slide-content {
-               //      top: 0;
-               //      visibility: visible;
-               //      opacity: 100%;
-               // }
           }
+     }
+     .circle {
+          @include flex-column(center, center);
+     }
+     .out-circle {
+          margin-top: 2px;
+          @include flex-column(center, center);
+          height: 13px;
+          width: 13px;
+          border: 1px solid #fefefe;
+          border-radius: 50%;
+     }
+     .in-circle {
+          height: 5px;
+          width: 5px;
+          background-color: #fefefe;
+          border-radius: 50%;
      }
      .hide-slide {
           opacity: 0;
@@ -536,6 +550,8 @@ body {
                height: 352px;
           }     
           &__carousel {
+               position: relative;
+               left: -210px;     
                margin-left: 40px;
                height: 370px;
           }
@@ -662,11 +678,18 @@ body {
                top:427px;
                width: 1680px;
           }
+          &__carousel {
+               position: relative;
+               left: -186px;     
+          }
           &__slide {
                margin-top: 10px;
                margin-left: 46px;
                width: 140px;
                height: 203px;
+          }
+          .circle {
+               margin-top: -20px;
           }
           .slide-active {
                margin-top: -20px;
@@ -1951,6 +1974,32 @@ input[type=range]::-moz-range-thumb {
      height: 100vh;
      width: 100vw;
      background-color: rgba(255,255,255,.7);
+}
+
+.popup_opacity-up {
+     animation: opacity-up ease-in .3s;
+}
+
+@keyframes opacity-up {
+     from {
+          opacity: 0;
+     }
+     to {
+          opacity: 100;
+     }
+}
+
+.popup_opacity-down {
+     animation: opacity-down ease-out .3s;
+}
+
+@keyframes opacity-down {
+     from {
+          opacity: 100;
+     }
+     to {
+          opacity: 0;
+     }
 }
 
 .cover_hidden {
