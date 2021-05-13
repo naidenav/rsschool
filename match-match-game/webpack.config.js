@@ -68,5 +68,5 @@ module.exports = ({ development }) => ({
   resolve: {
     extensions: ['.ts', '.js'],
   },
-  ...devServer(env.development)
+  ...devServer(development)
 });
