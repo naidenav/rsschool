@@ -1,12 +1,17 @@
-import { Main } from './components/main/main';
+import { Header } from './components/header/header';
+import { Game } from './components/game/game';
 import { ImageCategoryModel } from './components/models/image-category-model';
 
 export class App {
-  private readonly main: Main;
+  private readonly header: Header;
+
+  private readonly game: Game;
 
   constructor(private readonly rootElement: HTMLElement) {
-    this.main = new Main();
-    this.rootElement.appendChild(this.main.element);
+    this.header = new Header();
+    this.game = new Game();
+    this.rootElement.appendChild(this.header.element);
+    this.rootElement.appendChild(this.game.element);
   }
 
   async start(): Promise<void> {
@@ -14,6 +19,6 @@ export class App {
     const categories: ImageCategoryModel[] = await res.json();
     const cat = categories[0];
     const images = cat.images.map((name) => `${cat.category}/${name}`);
-    this.main.game.newGame(images);
+    this.game.newGame(images);
   }
 }

@@ -8,7 +8,6 @@
   perspective: 450px;
 
   &:hover > .card {
-    transform: translateZ(30px);
     box-shadow: 0 8px 15px rgba(0,0,0,.3);
   }
 
@@ -17,14 +16,14 @@
   }
 
   &:hover > .flipped {
-    transform: translateZ(30px) rotateY(-180deg) translateX(-100%);
+    transform: rotateY(-180deg) translateX(-100%);
   }
-
 }
+
 .card {
   position: relative;
-  width: 193px;
-  height: 293px;
+  width: 150px;
+  height: 200px;
   border-radius: 10px;
   box-shadow: 1px 1px 5px rgba(0,0,0,.8);
 
@@ -55,8 +54,16 @@
   }
 
   &__back {
-    image-rendering: pixelated;
     transform: rotateY(180deg);
-    background: url(../../assets/card-cover.png) no-repeat;
+    background: url(../../assets/card-cover.jpg) no-repeat;
+  }
+}
+
+.card-container_6x6 {
+  margin: .5%;
+  .card {
+    width: 80px;
+    height: 100px;
+    border-radius: 5px;
   }
 }

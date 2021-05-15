@@ -1,0 +1,11 @@
+.nav {
+  position: absolute;
+  top: 0;
+  left: calc(50% - 450px);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+  width: 300px;
+}

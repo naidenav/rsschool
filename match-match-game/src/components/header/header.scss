@@ -1,0 +1,39 @@
+.header {
+  position: relative;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 70px;
+  width: 100%;
+  background-color: rgba(47, 124, 95, 0.5);
+  box-shadow: 0 5px 10px rgba(0,0,0,.5);
+}
+
+.game-logo {
+  position: absolute;
+  top: calc(50% - 20px);
+  left: 30px;
+  .match-top,
+  .match-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 20px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.3px;
+    text-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  }
+}
+.match-top {
+  color: white;
+}
+.match-bottom {
+  color: rgba(47, 124, 95, 1);
+  background-color: white;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
