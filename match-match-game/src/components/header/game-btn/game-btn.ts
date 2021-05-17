@@ -1,5 +1,5 @@
 import './game-btn.scss';
-import { BaseComponent } from "../../base-component";
+import { BaseComponent } from '../../base-component';
 
 export class GameBtn extends BaseComponent {
   constructor(title: string) {

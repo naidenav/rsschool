@@ -27,7 +27,7 @@ export class Game extends BaseComponent {
       .sort(() => Math.random() - 0.5);
 
     cards.forEach((card) => {
-      card.element.addEventListener('click', () => this.cardHandler(card));
+      card.element.addEventListener('click', (e) => this.cardHandler(card));
     });
 
     this.cardsField.addCards(cards);
@@ -42,6 +42,10 @@ export class Game extends BaseComponent {
     if (!this.activeCard) {
       this.activeCard = card;
     } else {
+      if (card === this.activeCard) {
+        this.isAnimation = false;
+        return;
+      }
       if (this.activeCard.image !== card.image) {
         await delay(FLIP_DELAY);
         await Promise.all([this.activeCard.flipToBack(), card.flipToBack()]);

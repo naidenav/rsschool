@@ -8,7 +8,7 @@
   perspective: 450px;
 
   &:hover > .card {
-    box-shadow: 0 8px 15px rgba(0,0,0,.3);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
   }
 
   &.flipped > .card {
@@ -25,10 +25,10 @@
   width: 150px;
   height: 200px;
   border-radius: 10px;
-  box-shadow: 1px 1px 5px rgba(0,0,0,.8);
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
 
   transform-origin: left;
-  transition-duration: .4s;
+  transition-duration: 0.4s;
   transform-style: preserve-3d;
 
   &.flipped {
@@ -46,7 +46,6 @@
     border-radius: inherit;
     background-position: center !important;
     background-size: cover !important;
-
   }
 
   &__front {
@@ -60,7 +59,7 @@
 }
 
 .card-container_6x6 {
-  margin: .5%;
+  margin: 0.5%;
   .card {
     width: 80px;
     height: 100px;

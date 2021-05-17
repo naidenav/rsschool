@@ -1,0 +1,99 @@
+.h2 {
+  margin-top: 20px;
+  align-self: start;
+  font-size: 24px;
+}
+
+.about-game {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 900px;
+  height: 900px;
+  color: white;
+  font-weight: normal;
+  letter-spacing: 1.2px;
+}
+
+.register {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+}
+.instruction {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 20px;
+  width: 430px;
+  height: 100%;
+  background-color: rgb(91, 93, 104);
+  &__number {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgb(42, 104, 80);
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.3);
+  }
+  &__text {
+    width: 85%;
+  }
+}
+.popup-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
+  img {
+    height: 300px;
+  }
+  width: 430px;
+}
+.setting {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+}
+.setting-btn-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  width: 430px;
+  height: 200px;
+}
+.setting-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 60px;
+}
+.how-to-play {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+}
+.game-example {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
+  img {
+    height: 300px;
+  }
+  width: 430px;
+  border-radius: 3px;
+}
