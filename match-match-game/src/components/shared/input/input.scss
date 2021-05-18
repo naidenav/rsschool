@@ -1,0 +1,46 @@
+.register-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 350px;
+  height: 60px;
+  background-color: rgb(235, 235, 235);
+  border-radius: 2px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  &__fieldset {
+    position: relative;
+    height: 40px;
+    width: 300px;
+    border: none;
+    border-bottom: 1px solid gray;
+  }
+  &__legend {
+    margin-left: 5px;
+    padding: 3px;
+    font-size: 10px;
+    font-weight: 700;
+    color: rgb(100, 100, 100);
+  }
+  &__input {
+    display: flex;
+    width: 270px;
+    font-size: 16px;
+    color: #413b3b;
+    border: none;
+    outline: none;
+    background-color: transparent;
+  }
+  &__valid-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 15px;
+    height: 15px;
+    background-size: cover;
+    background: url(../../../assets/icons/invalid-icon.svg) no-repeat center;
+  }
+  .valid {
+    background: url(../../../assets/icons/valid-icon.svg) no-repeat center;
+  }
+}

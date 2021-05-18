@@ -3,6 +3,7 @@ import { Game } from './components/game/game';
 import { Header } from './components/header/header';
 import { Main } from './components/main/main';
 import { ImageCategoryModel } from './components/models/image-category-model';
+import { Popup } from './components/popup/popup';
 
 interface Nav {
   name: string;
@@ -17,14 +18,18 @@ export class App {
 
   private readonly game: Game;
 
+  private readonly popup: Popup;
+
   constructor(private readonly rootElement: HTMLElement) {
     this.header = new Header();
     this.main = new Main();
     this.about = new AboutGame();
+    this.popup = new Popup('add-user');
     this.game = new Game();
     this.rootElement.appendChild(this.header.element);
     this.rootElement.appendChild(this.main.element);
     this.main.element.appendChild(this.about.element);
+    // this.about.element.append(this.popup.element);
 
     window.onpopstate = () => {
       console.log(window.location.hash);
@@ -35,6 +40,28 @@ export class App {
         currentRoute.component();
       }
     };
+
+    this.header.gameBtn.element.addEventListener('click', () => {
+      if (this.main.element.contains(this.about.element)) {
+        document.body.classList.add('notScrollable');
+        this.about.popup.element.classList.add('popup_opacity-up');
+        this.about.popup.element.classList.remove('cover_hidden');
+        this.about.popup.element.addEventListener('animationend', () => {
+          this.about.popup.element.classList.remove('popup_opacity-up');
+          this.about.popup.element.classList.remove('cover_hidden');
+          document.body.classList.add('notScrollable');
+        });
+      }
+    })
+
+    this.about.popup.cancelBtn.element.addEventListener('click', () => {
+      this.about.popup.element.classList.add('popup_opacity-down');
+      this.about.popup.element.addEventListener('animationend', () => {
+        document.body.classList.remove('notScrollable');
+        this.about.popup.element.classList.add('cover_hidden');
+        this.about.popup.element.classList.remove('popup_opacity-down');
+      });
+    })
   }
 
   private routing: Array<Nav> = [

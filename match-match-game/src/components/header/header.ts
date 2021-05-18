@@ -4,9 +4,9 @@ import { Nav } from './nav/nav';
 import { GameBtn } from './game-btn/game-btn';
 
 export class Header extends BaseComponent {
-  private readonly nav: Nav;
+  readonly nav: Nav;
 
-  private readonly gameBtn: GameBtn;
+  readonly gameBtn: GameBtn;
 
   constructor() {
     super('header', ['header']);

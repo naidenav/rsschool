@@ -1,9 +1,13 @@
 import './about-game.scss';
 import { BaseComponent } from '../base-component';
+import { Popup } from '../popup/popup';
 
 export class AboutGame extends BaseComponent {
+  readonly popup: Popup;
+
   constructor() {
     super('div', ['about-game']);
+    this.popup = new Popup('add-user');
     const gameExample = require('../../assets/game-example.png');
     const popupExample = require('../../assets/popup-example.png');
     this.element.innerHTML = `
@@ -27,7 +31,7 @@ export class AboutGame extends BaseComponent {
           </p>
         </div>
         <div class='setting-btn-wrapper'>
-          <button class='setting-btn'>Game Setting</button>
+          <a href='#setting' class='setting-btn'>Game Setting</a>
         </div>
       </section>
       <section class='how-to-play'>
@@ -35,7 +39,7 @@ export class AboutGame extends BaseComponent {
           <div class='instruction__number'>3</div>
           <p class='instruction__text'>
             Start you new game! Remember card
-            positions and match it before times up.
+            positions and match it before times up
           </p>
         </div>
         <div class='game-example'>
@@ -43,5 +47,6 @@ export class AboutGame extends BaseComponent {
         </div>
       </section>
     `;
+    this.element.append(this.popup.element);
   }
 }

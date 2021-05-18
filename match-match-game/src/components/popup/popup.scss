@@ -1,0 +1,115 @@
+.cover {
+  overflow-y: scroll;
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: calc(100vw + 11px);
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.popup_opacity-up {
+  animation: opacity-up ease-in 0.3s;
+}
+
+@keyframes opacity-up {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100;
+  }
+}
+
+.popup_opacity-down {
+  animation: opacity-down ease-out 0.3s;
+}
+
+@keyframes opacity-down {
+  from {
+    opacity: 100;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.cover_hidden {
+  display: none;
+}
+
+.notScrollable {
+  overflow: hidden;
+}
+
+.popup {
+  position: absolute;
+  top: calc(50vh - 225px);
+  left: calc(50vw - 350px);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  width: 700px;
+  height: 450px;
+  background-color: #6c887a;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  &__title {
+    margin-top: 20px;
+    align-self: flex-start;
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: white;
+    text-shadow: 1px 2px 5px rgba(0, 0, 0, 0.5);
+  }
+  .avatar {
+    margin-right: 30px;
+    height: 100%;
+    img {
+      height: 100%;
+    }
+  }
+  .input-and-avatar {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 210px;
+  }
+  .input-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    height: 100%;
+  }
+  .buttons-wrapper {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 205px;
+  }
+  .button_add-user {
+    color: rgb(59, 59, 59);
+    &:hover {
+      color: rgb(44, 156, 78);
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    }
+  }
+  .button_cancel {
+    color: rgb(59, 59, 59);
+    background: rgb(105, 105, 105);
+    color: rgb(230, 230, 230);
+    font-weight: 500;
+    &:hover {
+      color: rgb(201, 201, 201);
+    }
+  }
+}
