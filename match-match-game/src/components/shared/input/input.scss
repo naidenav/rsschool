@@ -30,6 +30,12 @@
     border: none;
     outline: none;
     background-color: transparent;
+    &:valid + div {
+      background: url(../../../assets/icons/valid-icon.svg) no-repeat center;
+    }
+    &:invalid + div {
+      background: url(../../../assets/icons/invalid-icon.svg) no-repeat center;
+    }
   }
   &__valid-icon {
     position: absolute;
@@ -38,9 +44,5 @@
     width: 15px;
     height: 15px;
     background-size: cover;
-    background: url(../../../assets/icons/invalid-icon.svg) no-repeat center;
-  }
-  .valid {
-    background: url(../../../assets/icons/valid-icon.svg) no-repeat center;
   }
 }

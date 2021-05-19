@@ -2,7 +2,6 @@ import './popup.scss';
 import { BaseComponent } from '../base-component';
 import { Button } from '../shared/button/button';
 import { Input } from '../shared/input/input';
-
 export class Popup extends BaseComponent {
   readonly popup: BaseComponent;
 
@@ -54,35 +53,44 @@ export class Popup extends BaseComponent {
     this.avatar.element.innerHTML = `<img src='${avatar}' alt='bg-popup'>`;
     this.buttonWrapper.element.append(this.addUserBtn.element, this.cancelBtn.element);
 
-    this.firstNameInput.input.element.addEventListener('input', () => {
-      if (/^[\p{L}+\d\s]{3,30}$/u.test((this.firstNameInput.input.element as HTMLInputElement).value)
-      && /\p{L}+/u.test((this.firstNameInput.input.element as HTMLInputElement).value)) {
-        this.firstNameInput.validIcon.element.classList.add('valid');
+    const emailRegexp = new RegExp(['^((([0-9A-Za-z]{1}[-0-9A-z\\.]{1,}[0-9A-Za-z]{1})|',
+    '([0-9А-Яа-я]{1}[-0-9А-я\\.]{1,}[0-9А-Яа-я]{1}))@([-A-Za-z]{1,}\\.){1,2}[-A-Za-z]{2,})$'].join(''), 'u');
+
+    const nameRegexp = /^[\p{L}+\d\s]{3,30}$/u;
+
+    const firstNameInput = this.firstNameInput.input.element as HTMLInputElement;
+    const lastNameInput = this.lastNameInput.input.element as HTMLInputElement;
+    const emailInput = this.emailInput.input.element as HTMLInputElement;
+
+    firstNameInput.addEventListener('input', () => {
+      if (nameRegexp.test(firstNameInput.value)
+      && /\p{L}+/u.test(firstNameInput.value)) {
+        firstNameInput.setCustomValidity('');
       } else {
-        if (this.firstNameInput.validIcon.element.classList.contains('valid')) {
-          this.firstNameInput.validIcon.element.classList.remove('valid');
-        }
+        firstNameInput.setCustomValidity('Bad First Name');
       }
     })
 
-    this.lastNameInput.input.element.addEventListener('input', () => {
-      if (/^[\d]{3,30}$/u.test((this.lastNameInput.input.element as HTMLInputElement).value)) {
-        this.lastNameInput.validIcon.element.classList.add('valid');
+    lastNameInput.addEventListener('input', () => {
+      if (nameRegexp.test(lastNameInput.value)
+      && /\p{L}+/u.test(lastNameInput.value)) {
+        lastNameInput.setCustomValidity('');
       } else {
-        if (this.lastNameInput.validIcon.element.classList.contains('valid')) {
-          this.lastNameInput.validIcon.element.classList.remove('valid');
-        }
+        lastNameInput.setCustomValidity('Bad Last Name');
       }
     })
 
-    this.emailInput.input.element.addEventListener('input', () => {
-      if (/^((([0-9A-Za-z]{1}[-0-9A-z\.]{1,}[0-9A-Za-z]{1})|([0-9А-Яа-я]{1}[-0-9А-я\.]{1,}[0-9А-Яа-я]{1}))@([-A-Za-z]{1,}\.){1,2}[-A-Za-z]{2,})$/u.test((this.emailInput.input.element as HTMLInputElement).value)) {
-        this.emailInput.validIcon.element.classList.add('valid');
+    emailInput.addEventListener('input', () => {
+      if (emailRegexp.test(emailInput.value)) {
+        emailInput.setCustomValidity('');
       } else {
-        if (this.emailInput.validIcon.element.classList.contains('valid')) {
-          this.emailInput.validIcon.element.classList.remove('valid');
-        }
+        emailInput.setCustomValidity('Bad Email');
       }
     })
+
+    this.addUserBtn.element.addEventListener('click', () => {
+
+    });
+
   }
 }
