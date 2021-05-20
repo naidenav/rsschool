@@ -13,7 +13,7 @@ export class Nav extends BaseComponent {
     super('nav', ['nav']);
     this.about = new NavBtn('about', 'about game', '#about');
     this.score = new NavBtn('score', 'best score', '#score');
-    this.setting = new NavBtn('setting', 'game setting', '#game');
+    this.setting = new NavBtn('setting', 'game setting', '#setting');
     this.element.appendChild(this.about.element);
     this.element.appendChild(this.score.element);
     this.element.appendChild(this.setting.element);

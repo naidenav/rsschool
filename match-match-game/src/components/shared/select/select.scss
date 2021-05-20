@@ -1,0 +1,35 @@
+.select {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 350px;
+  height: 100px;
+  &__label {
+    font-size: 24px;
+    font-weight: 700;
+    color: rgb(230, 230, 230);
+  }
+  &__input {
+    padding-left: 10px;
+    margin-top: 10px;
+    display: flex;
+    width: 270px;
+    height: 30px;
+    font-size: 16px;
+    color: rgb(230, 230, 230);
+    border: none;
+    outline: none;
+    background-color: transparent;
+    border-bottom: 1px solid gray;
+  }
+  &__option {
+    border: none;
+    background-color: rgb(124, 124, 124);
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: rgb(68, 136, 99);
+    }
+  }
+}
