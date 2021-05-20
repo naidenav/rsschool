@@ -25,6 +25,10 @@ export class Popup extends BaseComponent {
 
   readonly avatar: BaseComponent;
 
+  readonly avatarLabel: BaseComponent;
+
+  readonly avatarInput: BaseComponent;
+
   readonly buttonWrapper: BaseComponent;
 
   constructor(id: string) {
@@ -42,6 +46,11 @@ export class Popup extends BaseComponent {
     this.inputAndAvatar = new BaseComponent('div', ['input-and-avatar']);
     this.inputWrapper = new BaseComponent('div', ['input-wrapper']);
     this.avatar = new BaseComponent('div', ['avatar']);
+    this.avatarLabel = new BaseComponent('label', ['avatar-label'], '');
+    this.avatarLabel.element.setAttribute('for', 'avatar-input-file');
+    this.avatarInput = new BaseComponent('input', ['avatar-input']);
+    this.avatarInput.element.setAttribute('id', 'avatar-input-file');
+    this.avatarInput.element.setAttribute('type', 'file');
     this.buttonWrapper = new BaseComponent('div', ['buttons-wrapper']);
 
     this.element.append(this.popup.element);
@@ -49,8 +58,7 @@ export class Popup extends BaseComponent {
     this.popupForm.element.append(this.inputAndAvatar.element, this.buttonWrapper.element);
     this.inputAndAvatar.element.append(this.inputWrapper.element, this.avatar.element);
     this.inputWrapper.element.append(this.firstNameInput.element, this.lastNameInput.element, this.emailInput.element);
-    const avatar = require('../../assets/icons/default-avatar.svg');
-    this.avatar.element.innerHTML = `<img src='${avatar}' alt='bg-popup'>`;
+    this.avatar.element.append(this.avatarLabel.element, this.avatarInput.element);
     this.buttonWrapper.element.append(this.addUserBtn.element, this.cancelBtn.element);
 
     const emailRegexp = new RegExp(['^((([0-9A-Za-z]{1}[-0-9A-z\\.]{1,}[0-9A-Za-z]{1})|',
@@ -87,10 +95,5 @@ export class Popup extends BaseComponent {
         emailInput.setCustomValidity('Bad Email');
       }
     })
-
-    this.addUserBtn.element.addEventListener('click', () => {
-
-    });
-
   }
 }
