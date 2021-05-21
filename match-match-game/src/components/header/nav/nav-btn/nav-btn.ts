@@ -11,4 +11,16 @@ export class NavBtn extends BaseComponent {
       <p class='nav-btn__title'>${title}</p>
     `;
   }
+
+  disable() {
+    this.element.classList.add('nav-btn_disabled');
+  }
+
+  enable() {
+    this.element.classList.remove('nav-btn_disabled');
+  }
+
+  highlight() {
+    this.element.classList.add('highlight');
+  }
 }

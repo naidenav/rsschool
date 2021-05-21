@@ -40,3 +40,34 @@
     transition-duration: 0.3s;
   }
 }
+.nav-btn_disabled {
+  pointer-events: none;
+  cursor: default;
+  &:hover {
+    background-color: unset;
+  }
+  &:hover > &__icon {
+    box-shadow: unset;
+  }
+  &:hover > &__title {
+    text-shadow: unset;
+  }
+  .nav-btn__title {
+    color: rgb(185, 185, 185);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  }
+  .nav-btn__icon {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    filter: brightness(60%);
+  }
+}
+.highlight {
+  background-color: rgba(255, 255, 255, 0.1);
+  .nav-btn__icon {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  }
+  .nav-btn__title {
+    text-shadow: 0 3px 6px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.25);
+  }
+}
+

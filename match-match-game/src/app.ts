@@ -41,7 +41,6 @@ export class App {
     // this.about.element.append(this.popup.element);
 
     window.onpopstate = () => {
-      console.log(window.location.hash);
       const currentRouteName = window.location.hash.slice(1);
       const currentRoute = this.routing.find((p: Nav) => p.name === currentRouteName);
 
@@ -76,7 +75,20 @@ export class App {
     const lastNameInput = this.about.popup.lastNameInput.input.element as HTMLInputElement;
     const emailInput = this.about.popup.emailInput.input.element as HTMLInputElement;
 
-    this.header.gameBtn.element.addEventListener('click', showPopup);
+    this.header.registerUserBtn.element.addEventListener('click', showPopup);
+
+    this.header.startGameBtn.element.addEventListener('click', () => {
+      this.start();
+      window.location.href = `${window.location.href.replace(/#(.*)$/, '')}#game`;
+      this.header.element.replaceChild(this.header.stopGameBtn.element, this.header.startGameBtn.element);
+      this.header.nav.about.disable();
+      this.header.nav.score.disable();
+      this.header.nav.setting.disable();
+    });
+
+    this.header.stopGameBtn.element.addEventListener('click', () => {
+
+    });
 
     this.about.popup.cancelBtn.element.addEventListener('click', hidePopup);
 
@@ -84,6 +96,7 @@ export class App {
       if (firstNameInput.validity.valid && lastNameInput.validity.valid && emailInput.validity.valid) {
         e.preventDefault();
         this.submit();
+        this.header.element.replaceChild(this.header.startGameBtn.element, this.header.registerUserBtn.element);
         hidePopup();
       }
     })
@@ -156,6 +169,7 @@ export class App {
         records: []
       })
     }
+
     sessionStorage.setItem('current User', `${firstNameInput.value} ${lastNameInput.value}`);
   }
 

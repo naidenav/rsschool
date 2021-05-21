@@ -6,12 +6,18 @@ import { GameBtn } from './game-btn/game-btn';
 export class Header extends BaseComponent {
   readonly nav: Nav;
 
-  readonly gameBtn: GameBtn;
+  readonly registerUserBtn: GameBtn;
+
+  readonly startGameBtn: GameBtn;
+
+  readonly stopGameBtn: GameBtn;
 
   constructor() {
     super('header', ['header']);
     this.nav = new Nav();
-    this.gameBtn = new GameBtn('register new player');
+    this.registerUserBtn = new GameBtn('register new player');
+    this.startGameBtn = new GameBtn('start game');
+    this.stopGameBtn = new GameBtn('stop game');
     this.element.innerHTML = `
       <div class='game-logo'>
         <p class='match-top'>match</p>
@@ -19,6 +25,6 @@ export class Header extends BaseComponent {
       </div>
     `;
     this.element.appendChild(this.nav.element);
-    this.element.appendChild(this.gameBtn.element);
+    this.element.appendChild(this.registerUserBtn.element);
   }
 }

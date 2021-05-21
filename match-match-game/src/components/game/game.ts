@@ -25,11 +25,14 @@ export class Game extends BaseComponent {
   }
 
   newGame(images: string[]): void {
+    const count = Number(sessionStorage.getItem('difficulty'));
     this.cardsField.clear();
-    const cards = images
-      .concat(images)
-      .map((url) => new Card(url))
-      .sort(() => Math.random() - 0.5);
+    const cards: Card[] = images
+      .sort(() => Math.random() - 0.5)
+      .slice(0, (count / 2))
+      .concat(images.slice(0, (count / 2)))
+      .sort(() => Math.random() - 0.5)
+      .map((url) => new Card(url));
 
     cards.forEach((card) => {
       card.element.addEventListener('click', (e) => this.cardHandler(card));

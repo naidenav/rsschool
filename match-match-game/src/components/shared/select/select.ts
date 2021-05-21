@@ -26,7 +26,6 @@ export class Select extends BaseComponent {
 
     if (selectContent) {
       selectContent.forEach((item) => {
-        console.log('item ', item)
         const option = new BaseComponent('option', ['select__option'], item);
         option.element.setAttribute('value', item);
         this.options.push(option);
