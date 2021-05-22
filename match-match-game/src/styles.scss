@@ -35,9 +35,21 @@ html {
 }
 
 body {
+  overflow-x: hidden;
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
   background-color: rgb(56, 58, 70);
+}
+
+h2,
+p,
+div {
+  cursor: default;
+}
+
+input,
+select {
+  cursor: pointer;
 }
 
 ::-webkit-scrollbar {

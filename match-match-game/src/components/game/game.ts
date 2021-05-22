@@ -16,6 +16,16 @@ export class Game extends BaseComponent {
 
   private timer: Timer;
 
+  currentCountCouple: number = 0;
+
+  totalCountCouple: number = 8;
+
+  score: number = 0;
+
+  totalCompare: number = 0;
+
+  wrongCompare: number = 0;
+
   constructor() {
     super('div', ['game']);
     this.cardsField = new CardsField();
@@ -39,24 +49,41 @@ export class Game extends BaseComponent {
     });
 
     this.cardsField.addCards(cards);
-    setTimeout(() => this.timer.startTimer(), 3000);
-    setTimeout(() => this.timer.finishTimer(), 10000);
+    setTimeout(() => this.timer.startTimer(), 5000);
+  }
+
+  getScore() {
+    this.timer.finishTimer();
+    const seconds = this.timer.getSeconds();
+    this.score = ((this.totalCompare - this.wrongCompare) * 100
+    - seconds * 10) * (this.totalCountCouple / 8);
+    if (this.score < 0) this.score = 0;
+    console.log(this.score);
   }
 
   private async cardHandler(card: Card) {
     if (this.isAnimation) return;
     this.isAnimation = true;
 
+    this.totalCompare++;
+
     await card.flipToFront();
 
     if (!this.activeCard) {
       this.activeCard = card;
     } else {
-      if (card === this.activeCard) {
+      if (card.image === this.activeCard.image) {
+        card.element.classList.add('not-available');
+        this.activeCard.element.classList.add('not-available');
+        this.currentCountCouple++;
         this.isAnimation = false;
-        return;
+        if (this.currentCountCouple < this.totalCountCouple) {
+          this.activeCard = undefined;
+          return;
+        } else this.getScore();
       }
       if (this.activeCard.image !== card.image) {
+        this.wrongCompare++;
         await delay(FLIP_DELAY);
         await Promise.all([this.activeCard.flipToBack(), card.flipToBack()]);
       }

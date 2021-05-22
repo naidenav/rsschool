@@ -46,4 +46,7 @@ export class Timer extends BaseComponent {
     clearInterval(minutesTimer);
   }
 
+  getSeconds() {
+    return this.seconds + this.minutes * 60;
+  }
 }

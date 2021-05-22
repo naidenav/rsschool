@@ -10,7 +10,8 @@ import { DataBase } from './data-base';
 
 interface Nav {
   name: string;
-  component(): void;
+  route: HTMLElement | null;
+  content: HTMLElement;
 }
 export class App {
   private readonly dataBase: DataBase;
@@ -27,8 +28,10 @@ export class App {
 
   private readonly popup: Popup;
 
+  private routing: Array<Nav>;
+
   constructor(private readonly rootElement: HTMLElement) {
-    this.dataBase = new DataBase('myDB', 'naidenav', 1);
+    this.dataBase = new DataBase('naidenav', 'userData', 1);
     this.header = new Header();
     this.main = new Main();
     this.about = new AboutGame();
@@ -38,17 +41,42 @@ export class App {
     this.rootElement.appendChild(this.header.element);
     this.rootElement.appendChild(this.main.element);
     this.main.element.appendChild(this.about.element);
-    // this.about.element.append(this.popup.element);
+
+    this.routing = [
+      {
+        name: 'about',
+        route: this.header.nav.about.element,
+        content: this.about.element,
+      },
+      {
+        name: 'game',
+        route: null,
+        content: this.game.element,
+      },
+      {
+        name: 'score',
+        route: this.header.nav.score.element,
+        content: this.game.element,
+      },
+      {
+        name: 'setting',
+        route: this.header.nav.setting.element,
+        content: this.setting.element,
+      },
+    ];
 
     window.onpopstate = () => {
       const currentRouteName = window.location.hash.slice(1);
       const currentRoute = this.routing.find((p: Nav) => p.name === currentRouteName);
 
       if (currentRoute) {
-        currentRoute.component();
+        this.navigate(currentRoute.route, currentRoute.content);
       }
     };
 
+    this.header.nav.score.element.addEventListener('click', () => {
+      this.start();
+    })
     const showPopup = () => {
       if (this.main.element.contains(this.about.element)) {
         document.body.classList.add('notScrollable');
@@ -101,6 +129,16 @@ export class App {
       }
     })
 
+
+    this.setting.selectDifficulty.select.element.addEventListener('input', () => {
+      switch((this.setting.selectDifficulty.select.element as HTMLInputElement).value) {
+        case '4 x 4': sessionStorage.setItem('difficulty', '16');
+        break;
+        case '6 x 6': sessionStorage.setItem('difficulty', '36');
+        this.game.totalCountCouple = 18;
+      }
+    })
+
     // const avatarInput = this.about.popup.avatarInput.element as HTMLInputElement;
     // let avatarBase64;
     // avatarInput.addEventListener('input', () => {
@@ -108,44 +146,16 @@ export class App {
     // });
   }
 
-  private routing: Array<Nav> = [
-    {
-      name: 'about',
-      component: () => {
-        const currentChild = this.main.element.firstElementChild;
-        if (currentChild) {
-          this.main.element.replaceChild(this.about.element, currentChild);
-        }
-      },
-    },
-    {
-      name: 'game',
-      component: () => {
-        const currentChild = this.main.element.firstElementChild;
-        if (currentChild) {
-          this.main.element.replaceChild(this.game.element, currentChild);
-        }
-      },
-    },
-    {
-      name: 'score',
-      component: () => {
-        const currentChild = this.main.element.firstElementChild;
-        if (currentChild) {
-          this.main.element.replaceChild(this.game.element, currentChild);
-        }
-      },
-    },
-    {
-      name: 'setting',
-      component: () => {
-        const currentChild = this.main.element.firstElementChild;
-        if (currentChild) {
-          this.main.element.replaceChild(this.setting.element, currentChild);
-        }
-      },
-    },
-  ];
+  navigate(route: HTMLElement | null, content: HTMLElement) {
+    const currentChild = this.main.element.firstElementChild;
+    if (currentChild) {
+      this.main.element.replaceChild(content, currentChild);
+    }
+    this.header.nav.removeHighlight();
+    if (route !== null) {
+      route.classList.add('nav-btn_highlight');
+    }
+  }
 
   async start(): Promise<void> {
     const res = await fetch('./images.json');
@@ -161,7 +171,6 @@ export class App {
     const emailInput = this.about.popup.emailInput.input.element as HTMLInputElement;
 
     if (firstNameInput.validity.valid && lastNameInput.validity.valid && emailInput.validity.valid) {
-      console.log('все гуд')
       this.dataBase.addUser('naidenav',{
         firstName: firstNameInput.value,
         lastName: lastNameInput.value,
@@ -172,5 +181,4 @@ export class App {
 
     sessionStorage.setItem('current User', `${firstNameInput.value} ${lastNameInput.value}`);
   }
-
 }
