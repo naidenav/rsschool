@@ -131,12 +131,9 @@ export class App {
 
 
     this.setting.selectDifficulty.select.element.addEventListener('input', () => {
-      switch((this.setting.selectDifficulty.select.element as HTMLInputElement).value) {
-        case '4 x 4': sessionStorage.setItem('difficulty', '16');
-        break;
-        case '6 x 6': sessionStorage.setItem('difficulty', '36');
-        this.game.totalCountCouple = 18;
-      }
+      const selectValue = (this.setting.selectDifficulty.select.element as HTMLInputElement).value;
+      sessionStorage.setItem('difficulty', selectValue.slice(0, 2));
+      this.game.totalCountCouple = +selectValue.slice(0, 2) / 2;
     })
 
     // const avatarInput = this.about.popup.avatarInput.element as HTMLInputElement;
@@ -160,8 +157,13 @@ export class App {
   async start(): Promise<void> {
     const res = await fetch('./images.json');
     const categories: ImageCategoryModel[] = await res.json();
-    const cat = categories[0];
-    const images = cat.images.map((name) => `${cat.category}/${name}`);
+    let category: ImageCategoryModel = categories[0];
+    for (let type of categories) {
+      if (type.category === sessionStorage.getItem('cardsType')) {
+        category = type;
+      }
+    }
+    const images = category.images.map((name) => `${category.category}/${name}`);
     this.game.newGame(images);
   }
 

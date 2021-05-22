@@ -1,4 +1,7 @@
 .cards-field {
+  position: absolute;
+  top: calc(50% - 250px);
+  left: calc(50% - 300px);
   margin-top: -15px;
   display: flex;
   flex-direction: row;
@@ -6,5 +9,15 @@
   justify-content: center;
   flex-wrap: wrap;
   width: 600px;
-  height: calc(100vh - 140px);
+  height: 530px;
+}
+
+.cards-field_24 {
+  left: calc(50% - 400px);
+  width: 800px;
+}
+
+.cards-field_36 {
+  left: calc(50% - 600px);
+  width: 1200px;
 }

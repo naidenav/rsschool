@@ -21,7 +21,7 @@ export class GameSetting extends BaseComponent {
   constructor() {
     super('div', ['game-setting']);
 
-    this.selectDifficulty = new Select('Difficulty', ['4 x 4', '6 x 6'], 'select-cards-type', 'select game difficulty');
+    this.selectDifficulty = new Select('Difficulty', ['16 cards', '24 cards', '36 cards'], 'select-cards-type', 'select game difficulty');
     this.selectCardsType = new Select('Game cards', categories, 'select-cards-type', 'select game cards type');
     this.element.append(this.selectCardsType.element, this.selectDifficulty.element);
 

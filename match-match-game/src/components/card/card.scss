@@ -1,5 +1,5 @@
 .card-container {
-  margin: 1%;
+  margin: 9px;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -55,15 +55,6 @@
   &__back {
     transform: rotateY(180deg);
     background: url(../../assets/card-cover.jpg) no-repeat;
-  }
-}
-
-.card-container_6x6 {
-  margin: 0.5%;
-  .card {
-    width: 80px;
-    height: 100px;
-    border-radius: 5px;
   }
 }
 

@@ -36,6 +36,15 @@ export class Game extends BaseComponent {
 
   newGame(images: string[]): void {
     const count = Number(sessionStorage.getItem('difficulty'));
+    if (count !== 16) {
+      if (this.cardsField.element.classList.contains('cards-field_24')) {
+        this.cardsField.element.classList.remove('cards-field_24');
+      }
+      if (this.cardsField.element.classList.contains('cards-field_36')) {
+        this.cardsField.element.classList.remove('cards-field_36');
+      }
+      this.cardsField.element.classList.add(`cards-field_${count}`);
+    }
     this.cardsField.clear();
     const cards: Card[] = images
       .sort(() => Math.random() - 0.5)
