@@ -44,6 +44,6 @@ export class Card extends BaseComponent {
 
   setFalseCard() {
     setTimeout(() => this.falseCard.element.classList.add('appearance-on'), 200);
-    setTimeout(() => this.falseCard.element.classList.remove('appearance-on'), 2000);
+    setTimeout(() => this.falseCard.element.classList.remove('appearance-on'), 1800);
   }
 }

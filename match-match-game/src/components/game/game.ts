@@ -22,7 +22,7 @@ export class Game extends BaseComponent {
 
   score: number = 0;
 
-  totalCompare: number = 0;
+  successCompare: number = 0;
 
   wrongCompare: number = 0;
 
@@ -64,7 +64,9 @@ export class Game extends BaseComponent {
   getScore() {
     this.timer.finishTimer();
     const seconds = this.timer.getSeconds();
-    this.score = ((this.totalCompare - this.wrongCompare) * 100
+    console.log(this.totalCountCouple, this.successCompare, this.wrongCompare, seconds);
+
+    this.score = ((this.successCompare - this.wrongCompare) * 100
     - seconds * 10) * (this.totalCountCouple / 8);
     if (this.score < 0) this.score = 0;
     console.log(this.score);
@@ -73,8 +75,6 @@ export class Game extends BaseComponent {
   private async cardHandler(card: Card) {
     if (this.isAnimation) return;
     this.isAnimation = true;
-
-    this.totalCompare++;
 
     await card.flipToFront();
 
@@ -86,6 +86,7 @@ export class Game extends BaseComponent {
         card.setTrueCard();
         card.element.classList.add('not-available');
         this.activeCard.element.classList.add('not-available');
+        this.successCompare++;
         this.currentCountCouple++;
         this.isAnimation = false;
         if (this.currentCountCouple < this.totalCountCouple) {
