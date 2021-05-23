@@ -82,6 +82,8 @@ export class Game extends BaseComponent {
       this.activeCard = card;
     } else {
       if (card.image === this.activeCard.image) {
+        this.activeCard.setTrueCard();
+        card.setTrueCard();
         card.element.classList.add('not-available');
         this.activeCard.element.classList.add('not-available');
         this.currentCountCouple++;
@@ -93,6 +95,8 @@ export class Game extends BaseComponent {
       }
       if (this.activeCard.image !== card.image) {
         this.wrongCompare++;
+        this.activeCard.setFalseCard();
+        card.setFalseCard();
         await delay(FLIP_DELAY);
         await Promise.all([this.activeCard.flipToBack(), card.flipToBack()]);
       }

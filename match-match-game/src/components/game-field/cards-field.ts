@@ -18,9 +18,15 @@ export class CardsField extends BaseComponent {
 
   addCards(cards: Card[]): void {
     this.cards = cards;
-    this.cards.forEach((card) => this.element.appendChild(card.element));
+    this.cards.forEach((card) => {
+      card.element.classList.add('not-available');
+      this.element.appendChild(card.element);
+    });
     setTimeout(() => {
-      this.cards.forEach((card) => card.flipToBack());
+      this.cards.forEach((card) => {
+        card.flipToBack();
+        card.element.classList.remove('not-available');
+      });
     }, SHOW_TIME * 1000);
   }
 }

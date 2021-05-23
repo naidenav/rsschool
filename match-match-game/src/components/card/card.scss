@@ -61,3 +61,27 @@
 .not-available {
   pointer-events: none;
 }
+
+.true-card {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(58, 255, 58, 0.25) url(../../assets/icons/true-card-icon.svg) no-repeat center;
+}
+
+.false-card {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 58, 58, 0.25) url(../../assets/icons/false-card-icon.svg) no-repeat center;
+}
+
+.appearance-on {
+  opacity: 100;
+}
