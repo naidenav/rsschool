@@ -28,6 +28,8 @@ export class Timer extends BaseComponent {
   startTimer() {
     this.seconds = 0;
     this.minutes = 0;
+    clearInterval(secondsTimer);
+    clearInterval(minutesTimer);
     minutesTimer = setInterval(() => {
       if (this.minutes === 59) {
         this.minutes = 0;

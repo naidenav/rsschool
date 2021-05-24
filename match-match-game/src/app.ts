@@ -74,9 +74,6 @@ export class App {
       }
     };
 
-    this.header.nav.score.element.addEventListener('click', () => {
-      this.start();
-    })
     const showPopup = () => {
       if (this.main.element.contains(this.about.element)) {
         document.body.classList.add('notScrollable');
@@ -115,7 +112,15 @@ export class App {
     });
 
     this.header.stopGameBtn.element.addEventListener('click', () => {
+      this.game.timer.stopTimer();
+      this.game.timer.resetTimer();
+      this.game.cardsField.clear();
 
+      window.location.href = `${window.location.href.replace(/#(.*)$/, '')}#about`;
+      this.header.nav.about.enable();
+      this.header.nav.score.enable();
+      this.header.nav.setting.enable()
+      this.header.element.replaceChild(this.header.startGameBtn.element, this.header.stopGameBtn.element);
     });
 
     this.about.popup.cancelBtn.element.addEventListener('click', hidePopup);
@@ -166,14 +171,19 @@ export class App {
     const emailInput = this.about.popup.emailInput.input.element as HTMLInputElement;
 
     if (firstNameInput.validity.valid && lastNameInput.validity.valid && emailInput.validity.valid) {
-      this.dataBase.addUser('naidenav',{
+      this.dataBase.addUser('userData', {
         firstName: firstNameInput.value,
         lastName: lastNameInput.value,
         email: emailInput.value,
         records: []
       })
+
+      this.header.userName.element.innerText = `${firstNameInput.value}`;
     }
 
-    sessionStorage.setItem('current User', `${firstNameInput.value} ${lastNameInput.value}`);
+    sessionStorage.setItem('firstName', `${firstNameInput.value}`);
+    sessionStorage.setItem('lastName', `${lastNameInput.value}`);
+    sessionStorage.setItem('email', `${emailInput.value}`);
+
   }
 }

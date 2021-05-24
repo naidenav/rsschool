@@ -29,7 +29,7 @@ export class DataBase {
       if (this.dbReq !== null) {
         this.db = this.dbReq.result;
         if (this.db !== null) {
-          this.db.createObjectStore(repository, { keyPath: 'email' });
+          this.db.createObjectStore(repository);
         }
       }
     };
@@ -75,7 +75,7 @@ export class DataBase {
       }
 
       result.onerror = () => {
-        console.log('ключф нет')
+        console.log('ключа нет')
       }
 
       transaction.oncomplete = () => {

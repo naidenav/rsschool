@@ -8,13 +8,13 @@ import { Timer } from '../shared/timer/timer';
 const FLIP_DELAY = 2000;
 
 export class Game extends BaseComponent {
-  private readonly cardsField: CardsField;
+  cardsField: CardsField;
 
   private activeCard?: Card;
 
   private isAnimation = false;
 
-  private timer: Timer;
+  timer: Timer;
 
   private totalCountCouple: number = 8;
 
@@ -38,17 +38,17 @@ export class Game extends BaseComponent {
     this.successCompare = 0;
     this.wrongCompare = 0;
     this.score = 0;
+    this.timer.stopTimer();
     this.timer.resetTimer();
+    this.isAnimation = false;
+    this.activeCard = undefined;
+
+    this.cardsField.setDefault();
 
     if (count !== 16) {
-      if (this.cardsField.element.classList.contains('cards-field_24')) {
-        this.cardsField.element.classList.remove('cards-field_24');
-      }
-      if (this.cardsField.element.classList.contains('cards-field_36')) {
-        this.cardsField.element.classList.remove('cards-field_36');
-      }
       this.cardsField.element.classList.add(`cards-field_${count}`);
     }
+
     this.cardsField.clear();
     const cards: Card[] = images
       .sort(() => Math.random() - 0.5)
