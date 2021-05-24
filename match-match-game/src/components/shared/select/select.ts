@@ -1,8 +1,7 @@
 import './select.scss';
-import { BaseComponent } from "../../base-component";
+import { BaseComponent } from '../../base-component';
 
 export class Select extends BaseComponent {
-
   readonly label: BaseComponent;
 
   readonly select: BaseComponent;
@@ -11,7 +10,7 @@ export class Select extends BaseComponent {
 
   readonly options: BaseComponent[];
 
-  constructor(title: string, selectContent: string[], id:string, content: string, disabled?: boolean) {
+  constructor(title: string, selectContent: string[], id: string, content: string, disabled?: boolean) {
     super('div', ['select']);
     this.label = new BaseComponent('label', ['select__label'], title);
     this.select = new BaseComponent('select', ['select__input']);

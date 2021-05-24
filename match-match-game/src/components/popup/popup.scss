@@ -6,7 +6,7 @@
   left: 0;
   width: calc(100vw + 11px);
   height: 100vh;
-  background-color: rgba(0,0,0,.6);
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .popup_opacity-up {
@@ -54,7 +54,7 @@
   justify-content: flex-start;
   width: 700px;
   height: 450px;
-  background-color: rgb(76,150,84);
+  background-color: rgb(76, 150, 84);
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   &__title {
     margin-top: 20px;
@@ -81,7 +81,7 @@
       border: none;
       background: url(../../assets/icons/default-avatar.svg) no-repeat center;
       background-size: cover;
-      transition-duration: .3s;
+      transition-duration: 0.3s;
       &:hover {
         filter: brightness(80%);
       }
@@ -115,7 +115,7 @@
     color: rgb(59, 59, 59);
     &:hover {
       color: rgb(26, 180, 44);
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
     }
   }
   .button_cancel {

@@ -1,12 +1,11 @@
 import './about-game.scss';
 import { BaseComponent } from '../base-component';
-import { Popup } from '../popup/popup';
+import gameExample from '../../assets/game-example.png';
+import popupExample from '../../assets/popup-example.png';
 
 export class AboutGame extends BaseComponent {
   constructor() {
     super('div', ['about-game']);
-    const gameExample = require('../../assets/game-example.png');
-    const popupExample = require('../../assets/popup-example.png');
     this.element.innerHTML = `
       <h2 class='h2'>How to play?</h2>
       <section class='register'>

@@ -2,6 +2,7 @@ import './popup.scss';
 import { BaseComponent } from '../base-component';
 import { Button } from '../shared/button/button';
 import { Input } from '../shared/input/input';
+
 export class Popup extends BaseComponent {
   readonly popup: BaseComponent;
 
@@ -31,7 +32,7 @@ export class Popup extends BaseComponent {
 
   readonly buttonWrapper: BaseComponent;
 
-  constructor(id: string) {
+  constructor() {
     super('div', ['cover', 'cover_hidden']);
     this.popup = new BaseComponent('div', ['popup']);
     this.popupTitle = new BaseComponent('p', ['popup__title'], 'Register new Player');
@@ -61,8 +62,13 @@ export class Popup extends BaseComponent {
     this.avatar.element.append(this.avatarLabel.element, this.avatarInput.element);
     this.buttonWrapper.element.append(this.addUserBtn.element, this.cancelBtn.element);
 
-    const emailRegexp = new RegExp(['^((([0-9A-Za-z]{1}[-0-9A-z\\.]{1,}[0-9A-Za-z]{1})|',
-    '([0-9А-Яа-я]{1}[-0-9А-я\\.]{1,}[0-9А-Яа-я]{1}))@([-A-Za-z]{1,}\\.){1,2}[-A-Za-z]{2,})$'].join(''), 'u');
+    const emailRegexp = new RegExp(
+      [
+        '^((([0-9A-Za-z]{1}[-0-9A-z\\.]{1,}[0-9A-Za-z]{1})|',
+        '([0-9А-Яа-я]{1}[-0-9А-я\\.]{1,}[0-9А-Яа-я]{1}))@([-A-Za-z]{1,}\\.){1,2}[-A-Za-z]{2,})$',
+      ].join(''),
+      'u',
+    );
 
     const nameRegexp = /^[\p{L}+\d\s]{3,30}$/u;
 
@@ -71,22 +77,20 @@ export class Popup extends BaseComponent {
     const emailInput = this.emailInput.input.element as HTMLInputElement;
 
     firstNameInput.addEventListener('input', () => {
-      if (nameRegexp.test(firstNameInput.value)
-      && /\p{L}+/u.test(firstNameInput.value)) {
+      if (nameRegexp.test(firstNameInput.value) && /\p{L}+/u.test(firstNameInput.value)) {
         firstNameInput.setCustomValidity('');
       } else {
         firstNameInput.setCustomValidity('Bad First Name');
       }
-    })
+    });
 
     lastNameInput.addEventListener('input', () => {
-      if (nameRegexp.test(lastNameInput.value)
-      && /\p{L}+/u.test(lastNameInput.value)) {
+      if (nameRegexp.test(lastNameInput.value) && /\p{L}+/u.test(lastNameInput.value)) {
         lastNameInput.setCustomValidity('');
       } else {
         lastNameInput.setCustomValidity('Bad Last Name');
       }
-    })
+    });
 
     emailInput.addEventListener('input', () => {
       if (emailRegexp.test(emailInput.value)) {
@@ -94,6 +98,6 @@ export class Popup extends BaseComponent {
       } else {
         emailInput.setCustomValidity('Bad Email');
       }
-    })
+    });
   }
 }

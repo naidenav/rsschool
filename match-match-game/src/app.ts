@@ -5,7 +5,6 @@ import { Header } from './components/header/header';
 import { Main } from './components/main/main';
 import { ImageCategoryModel } from './components/models/image-category-model';
 import { Popup } from './components/popup/popup';
-import { getBase64Image } from './components/shared/getBase64';
 import { DataBase } from './data-base';
 
 interface Nav {
@@ -36,7 +35,7 @@ export class App {
     this.main = new Main();
     this.about = new AboutGame();
     this.setting = new GameSetting();
-    this.popup = new Popup('add-user');
+    this.popup = new Popup();
     this.game = new Game();
     this.rootElement.append(this.header.element, this.main.element, this.popup.element);
     this.main.element.append(this.about.element);
@@ -81,7 +80,7 @@ export class App {
         this.popup.element.classList.remove('cover_hidden');
         document.body.classList.add('notScrollable');
       });
-    }
+    };
 
     const hidePopup = () => {
       this.popup.element.classList.add('popup_opacity-down');
@@ -90,7 +89,7 @@ export class App {
         this.popup.element.classList.add('cover_hidden');
         this.popup.element.classList.remove('popup_opacity-down');
       });
-    }
+    };
 
     const firstNameInput = this.popup.firstNameInput.input.element as HTMLInputElement;
     const lastNameInput = this.popup.lastNameInput.input.element as HTMLInputElement;
@@ -115,7 +114,7 @@ export class App {
       window.location.href = `${window.location.href.replace(/#(.*)$/, '')}#about`;
       this.header.nav.about.enable();
       this.header.nav.score.enable();
-      this.header.nav.setting.enable()
+      this.header.nav.setting.enable();
       this.header.btnWrapper.element.replaceChild(this.header.startGameBtn.element, this.header.stopGameBtn.element);
     });
 
@@ -125,10 +124,11 @@ export class App {
       if (firstNameInput.validity.valid && lastNameInput.validity.valid && emailInput.validity.valid) {
         e.preventDefault();
         this.submit();
-        this.header.element.replaceChild(this.header.startGameBtn.element, this.header.registerUserBtn.element);
+        this.header.btnWrapper.element.replaceChild(this.header.startGameBtn.element,
+        this.header.registerUserBtn.element);
         hidePopup();
       }
-    })
+    });
 
     // const avatarInput = this.about.popup.avatarInput.element as HTMLInputElement;
     // let avatarBase64;
@@ -137,7 +137,7 @@ export class App {
     // });
   }
 
-  navigate(route: HTMLElement | null, content: HTMLElement) {
+  navigate(route: HTMLElement | null, content: HTMLElement): void {
     const currentChild = this.main.element.firstElementChild;
     if (currentChild) {
       this.main.element.replaceChild(content, currentChild);
@@ -152,16 +152,16 @@ export class App {
     const res = await fetch('./images.json');
     const categories: ImageCategoryModel[] = await res.json();
     let category: ImageCategoryModel = categories[0];
-    for (let type of categories) {
-      if (type.category === sessionStorage.getItem('cardsType')) {
-        category = type;
+    for (let i = 0; i < categories.length; i++) {
+      if (categories[i].category === sessionStorage.getItem('cardsType')) {
+        category = categories[i];
       }
     }
     const images = category.images.map((name) => `${category.category}/${name}`);
     this.game.startGame(images);
   }
 
-  submit():void {
+  submit(): void {
     const firstNameInput = this.popup.firstNameInput.input.element as HTMLInputElement;
     const lastNameInput = this.popup.lastNameInput.input.element as HTMLInputElement;
     const emailInput = this.popup.emailInput.input.element as HTMLInputElement;
@@ -171,8 +171,8 @@ export class App {
         firstName: firstNameInput.value,
         lastName: lastNameInput.value,
         email: emailInput.value,
-        records: []
-      })
+        records: [],
+      });
 
       this.header.userName.element.innerText = `${firstNameInput.value}`;
     }
@@ -180,6 +180,5 @@ export class App {
     sessionStorage.setItem('firstName', `${firstNameInput.value}`);
     sessionStorage.setItem('lastName', `${lastNameInput.value}`);
     sessionStorage.setItem('email', `${emailInput.value}`);
-
   }
 }

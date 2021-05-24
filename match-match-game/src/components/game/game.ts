@@ -1,7 +1,7 @@
 import './game.scss';
 import { BaseComponent } from '../base-component';
 import { Card } from '../card/card';
-import { CardsField } from '../game-field/cards-field';
+import { CardsField } from '../cards-field/cards-field';
 import { delay } from '../shared/delay';
 import { Timer } from '../shared/timer/timer';
 
@@ -16,13 +16,13 @@ export class Game extends BaseComponent {
 
   timer: Timer;
 
-  private totalCountCouple: number = 8;
+  private totalCountCouple = 8;
 
-  private score: number = 0;
+  private score = 0;
 
-  private successCompare: number = 0;
+  private successCompare = 0;
 
-  private wrongCompare: number = 0;
+  private wrongCompare = 0;
 
   constructor() {
     super('div', ['game']);
@@ -52,28 +52,25 @@ export class Game extends BaseComponent {
     this.cardsField.clear();
     const cards: Card[] = images
       .sort(() => Math.random() - 0.5)
-      .slice(0, (count / 2))
-      .concat(images.slice(0, (count / 2)))
+      .slice(0, count / 2)
+      .concat(images.slice(0, count / 2))
       .sort(() => Math.random() - 0.5)
       .map((url) => new Card(url));
 
     cards.forEach((card) => {
-      card.element.addEventListener('click', (e) => this.cardHandler(card));
+      card.element.addEventListener('click', () => this.cardHandler(card));
     });
 
     this.cardsField.addCards(cards);
     setTimeout(() => this.timer.startTimer(), 5000);
   }
 
-  getScore() {
+  getScore(): void {
     this.timer.stopTimer();
     const seconds = this.timer.getSeconds();
-    console.log(this.totalCountCouple, this.successCompare, this.wrongCompare, seconds);
 
-    this.score = ((this.successCompare - this.wrongCompare) * 100
-    - seconds * 10) * (this.totalCountCouple / 8);
+    this.score = ((this.successCompare - this.wrongCompare) * 100 - seconds * 10) * (this.totalCountCouple / 8);
     if (this.score < 0) this.score = 0;
-    console.log(this.score);
   }
 
   private async cardHandler(card: Card) {
@@ -95,7 +92,8 @@ export class Game extends BaseComponent {
         if (this.successCompare < this.totalCountCouple) {
           this.activeCard = undefined;
           return;
-        } else this.getScore();
+        }
+        this.getScore();
       }
       if (this.activeCard.image !== card.image) {
         this.wrongCompare++;

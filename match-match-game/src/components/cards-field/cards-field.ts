@@ -30,7 +30,7 @@ export class CardsField extends BaseComponent {
     }, SHOW_TIME * 1000);
   }
 
-  setDefault() {
+  setDefault(): void {
     if (this.element.classList.contains('cards-field_24')) {
       this.element.classList.remove('cards-field_24');
     }

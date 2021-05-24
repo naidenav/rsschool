@@ -10,7 +10,7 @@ export class Input extends BaseComponent {
 
   readonly validIcon: BaseComponent;
 
-  constructor(title: string, type: string, required: boolean = true, maxlength?: string, id?: string, disabled?: boolean) {
+  constructor(title: string, type: string, required = true, maxlength?: string, id?: string, disabled?: boolean) {
     super('div', ['register-input']);
     this.fieldset = new BaseComponent('fieldset', ['register-input__fieldset']);
     this.legend = new BaseComponent('legend', ['register-input__legend'], title);
@@ -27,13 +27,13 @@ export class Input extends BaseComponent {
     if (id) this.input.element.setAttribute('id', id);
   }
 
-  disable() {
+  disable(): void {
     if (!this.input.element.hasAttribute('disabled')) {
       this.input.element.setAttribute('disabled', '');
     }
   }
 
-  enable() {
+  enable(): void {
     if (this.input.element.hasAttribute('disabled')) {
       this.input.element.removeAttribute('disabled');
     }
