@@ -2,6 +2,7 @@ import './game-setting.scss';
 import { BaseComponent } from "../base-component";
 import { ImageCategoryModel } from "../models/image-category-model";
 import { Select } from "../shared/select/select";
+import { Popup } from '../popup/popup';
 
 const difficulty = ['16 cards', '24 cards', '36 cards'];
 const categories: string[] = [];

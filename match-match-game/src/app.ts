@@ -38,9 +38,8 @@ export class App {
     this.setting = new GameSetting();
     this.popup = new Popup('add-user');
     this.game = new Game();
-    this.rootElement.appendChild(this.header.element);
-    this.rootElement.appendChild(this.main.element);
-    this.main.element.appendChild(this.about.element);
+    this.rootElement.append(this.header.element, this.main.element, this.popup.element);
+    this.main.element.append(this.about.element);
 
     this.routing = [
       {
@@ -75,37 +74,34 @@ export class App {
     };
 
     const showPopup = () => {
-      if (this.main.element.contains(this.about.element)) {
+      this.popup.element.classList.add('popup_opacity-up');
+      this.popup.element.classList.remove('cover_hidden');
+      this.popup.element.addEventListener('animationend', () => {
+        this.popup.element.classList.remove('popup_opacity-up');
+        this.popup.element.classList.remove('cover_hidden');
         document.body.classList.add('notScrollable');
-        this.about.popup.element.classList.add('popup_opacity-up');
-        this.about.popup.element.classList.remove('cover_hidden');
-        this.about.popup.element.addEventListener('animationend', () => {
-          this.about.popup.element.classList.remove('popup_opacity-up');
-          this.about.popup.element.classList.remove('cover_hidden');
-          document.body.classList.add('notScrollable');
-        });
-      }
-    }
-
-    const hidePopup = () => {
-      this.about.popup.element.classList.add('popup_opacity-down');
-      this.about.popup.element.addEventListener('animationend', () => {
-        document.body.classList.remove('notScrollable');
-        this.about.popup.element.classList.add('cover_hidden');
-        this.about.popup.element.classList.remove('popup_opacity-down');
       });
     }
 
-    const firstNameInput = this.about.popup.firstNameInput.input.element as HTMLInputElement;
-    const lastNameInput = this.about.popup.lastNameInput.input.element as HTMLInputElement;
-    const emailInput = this.about.popup.emailInput.input.element as HTMLInputElement;
+    const hidePopup = () => {
+      this.popup.element.classList.add('popup_opacity-down');
+      this.popup.element.addEventListener('animationend', () => {
+        document.body.classList.remove('notScrollable');
+        this.popup.element.classList.add('cover_hidden');
+        this.popup.element.classList.remove('popup_opacity-down');
+      });
+    }
+
+    const firstNameInput = this.popup.firstNameInput.input.element as HTMLInputElement;
+    const lastNameInput = this.popup.lastNameInput.input.element as HTMLInputElement;
+    const emailInput = this.popup.emailInput.input.element as HTMLInputElement;
 
     this.header.registerUserBtn.element.addEventListener('click', showPopup);
 
     this.header.startGameBtn.element.addEventListener('click', () => {
       this.start();
       window.location.href = `${window.location.href.replace(/#(.*)$/, '')}#game`;
-      this.header.element.replaceChild(this.header.stopGameBtn.element, this.header.startGameBtn.element);
+      this.header.btnWrapper.element.replaceChild(this.header.stopGameBtn.element, this.header.startGameBtn.element);
       this.header.nav.about.disable();
       this.header.nav.score.disable();
       this.header.nav.setting.disable();
@@ -120,12 +116,12 @@ export class App {
       this.header.nav.about.enable();
       this.header.nav.score.enable();
       this.header.nav.setting.enable()
-      this.header.element.replaceChild(this.header.startGameBtn.element, this.header.stopGameBtn.element);
+      this.header.btnWrapper.element.replaceChild(this.header.startGameBtn.element, this.header.stopGameBtn.element);
     });
 
-    this.about.popup.cancelBtn.element.addEventListener('click', hidePopup);
+    this.popup.cancelBtn.element.addEventListener('click', hidePopup);
 
-    this.about.popup.addUserBtn.element.addEventListener('click', (e) => {
+    this.popup.addUserBtn.element.addEventListener('click', (e) => {
       if (firstNameInput.validity.valid && lastNameInput.validity.valid && emailInput.validity.valid) {
         e.preventDefault();
         this.submit();
@@ -166,9 +162,9 @@ export class App {
   }
 
   submit():void {
-    const firstNameInput = this.about.popup.firstNameInput.input.element as HTMLInputElement;
-    const lastNameInput = this.about.popup.lastNameInput.input.element as HTMLInputElement;
-    const emailInput = this.about.popup.emailInput.input.element as HTMLInputElement;
+    const firstNameInput = this.popup.firstNameInput.input.element as HTMLInputElement;
+    const lastNameInput = this.popup.lastNameInput.input.element as HTMLInputElement;
+    const emailInput = this.popup.emailInput.input.element as HTMLInputElement;
 
     if (firstNameInput.validity.valid && lastNameInput.validity.valid && emailInput.validity.valid) {
       this.dataBase.addUser('userData', {

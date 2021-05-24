@@ -10,7 +10,7 @@ export class Input extends BaseComponent {
 
   readonly validIcon: BaseComponent;
 
-  constructor(title: string, type: string, required: boolean = true, id?: string, maxlength?: string, disabled?: boolean) {
+  constructor(title: string, type: string, required: boolean = true, maxlength?: string, id?: string, disabled?: boolean) {
     super('div', ['register-input']);
     this.fieldset = new BaseComponent('fieldset', ['register-input__fieldset']);
     this.legend = new BaseComponent('legend', ['register-input__legend'], title);
