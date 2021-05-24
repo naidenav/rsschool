@@ -129,13 +129,6 @@ export class App {
       }
     })
 
-
-    this.setting.selectDifficulty.select.element.addEventListener('input', () => {
-      const selectValue = (this.setting.selectDifficulty.select.element as HTMLInputElement).value;
-      sessionStorage.setItem('difficulty', selectValue.slice(0, 2));
-      this.game.totalCountCouple = +selectValue.slice(0, 2) / 2;
-    })
-
     // const avatarInput = this.about.popup.avatarInput.element as HTMLInputElement;
     // let avatarBase64;
     // avatarInput.addEventListener('input', () => {
@@ -164,7 +157,7 @@ export class App {
       }
     }
     const images = category.images.map((name) => `${category.category}/${name}`);
-    this.game.newGame(images);
+    this.game.startGame(images);
   }
 
   submit():void {

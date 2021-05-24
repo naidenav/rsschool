@@ -41,9 +41,15 @@ export class Timer extends BaseComponent {
     }, 1000);
   }
 
-  finishTimer() {
+  stopTimer() {
     clearInterval(secondsTimer);
     clearInterval(minutesTimer);
+  }
+
+  resetTimer() {
+    this.seconds = 0;
+    this.minutes = 0;
+    this.render();
   }
 
   getSeconds() {

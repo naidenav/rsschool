@@ -16,15 +16,13 @@ export class Game extends BaseComponent {
 
   private timer: Timer;
 
-  currentCountCouple: number = 0;
+  private totalCountCouple: number = 8;
 
-  totalCountCouple: number = 8;
+  private score: number = 0;
 
-  score: number = 0;
+  private successCompare: number = 0;
 
-  successCompare: number = 0;
-
-  wrongCompare: number = 0;
+  private wrongCompare: number = 0;
 
   constructor() {
     super('div', ['game']);
@@ -34,8 +32,14 @@ export class Game extends BaseComponent {
     this.element.append(this.cardsField.element);
   }
 
-  newGame(images: string[]): void {
+  startGame(images: string[]): void {
     const count = Number(sessionStorage.getItem('difficulty'));
+    this.totalCountCouple = count / 2;
+    this.successCompare = 0;
+    this.wrongCompare = 0;
+    this.score = 0;
+    this.timer.resetTimer();
+
     if (count !== 16) {
       if (this.cardsField.element.classList.contains('cards-field_24')) {
         this.cardsField.element.classList.remove('cards-field_24');
@@ -62,7 +66,7 @@ export class Game extends BaseComponent {
   }
 
   getScore() {
-    this.timer.finishTimer();
+    this.timer.stopTimer();
     const seconds = this.timer.getSeconds();
     console.log(this.totalCountCouple, this.successCompare, this.wrongCompare, seconds);
 
@@ -87,9 +91,8 @@ export class Game extends BaseComponent {
         card.element.classList.add('not-available');
         this.activeCard.element.classList.add('not-available');
         this.successCompare++;
-        this.currentCountCouple++;
         this.isAnimation = false;
-        if (this.currentCountCouple < this.totalCountCouple) {
+        if (this.successCompare < this.totalCountCouple) {
           this.activeCard = undefined;
           return;
         } else this.getScore();
