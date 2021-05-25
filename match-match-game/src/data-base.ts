@@ -1,19 +1,13 @@
-interface UserProfile {
-  firstName: string;
-  lastName: string;
-  email: string;
-  records: Record[];
-}
-
-interface Record {
-  score: number;
-  date: Date;
-}
+import { UserProfile } from "./components/models/user-profile-model";
 
 export class DataBase {
   dbReq: IDBOpenDBRequest | null = null;
 
   db: IDBDatabase | null = null;
+
+  userData: IDBObjectStore | null = null;
+
+  isChange: boolean = false;
 
   constructor(readonly name: string, readonly repName: string, readonly version: number) {
     this.name = name;
@@ -28,7 +22,8 @@ export class DataBase {
       if (this.dbReq !== null) {
         this.db = this.dbReq.result;
         if (this.db !== null) {
-          this.db.createObjectStore(repository);
+          this.userData = this.db.createObjectStore(repository);
+          this.userData.createIndex('bestScore', 'bestScore');
         }
       }
     };
@@ -55,6 +50,32 @@ export class DataBase {
     }
   }
 
+  getFirstTenUsers() {
+    let transaction: IDBTransaction | null = null;
+    let store: IDBObjectStore | null = null;
+
+    if (this.db !== null) {
+      transaction = this.db.transaction(['userData'], 'readwrite');
+      store = transaction.objectStore('userData');
+
+      let bestScoreIndex = store.index('bestScore');
+
+      let request = bestScoreIndex.openCursor(null, 'prev');
+      const tenUsers: UserProfile[] = [];
+
+      request.onsuccess = () => {
+        let cursor = request.result;
+
+        if (cursor && tenUsers.length < 10) {
+          tenUsers.push(cursor.value);
+          cursor.continue();
+        }
+      }
+
+      return tenUsers;
+    }
+  }
+
   addUser(repName: string, data: UserProfile): void {
     let transaction: IDBTransaction | null = null;
     let store: IDBObjectStore | null = null;
@@ -63,28 +84,29 @@ export class DataBase {
       transaction = this.db.transaction([repName], 'readwrite');
       store = transaction.objectStore(repName);
 
-      const result = store.getKey(data.email);
+      const result = store.get(data.email);
       result.onsuccess = () => {
-        if (result.result !== data.email && store !== null) {
-          store.add(data, data.email);
+        if (!result.result) {
+          console.log(this.getFirstTenUsers());
+          store?.add(data, data.email);
         }
       };
 
       result.onerror = () => {
-        // console.log('ключа нет');
-      };
+        throw Error(`${result.error}`);
+      }
 
       transaction.oncomplete = () => {
         // console.log('Data saved!');
       };
 
       transaction.onerror = () => {
-        // alert('error saving data');
+        throw Error(`${transaction?.error}`);
       };
     }
   }
 
-  addRecord(repName: string, userEmail: string/* , score: number */): void {
+  addRecord(repName: string, data: UserProfile): void {
     let transaction: IDBTransaction | null = null;
     let store: IDBObjectStore | null = null;
 
@@ -92,12 +114,23 @@ export class DataBase {
       transaction = this.db.transaction([repName], 'readwrite');
       store = transaction.objectStore(repName);
 
+      let result = store.get(data.email);
+
+      result.onsuccess = () => {
+        store?.put(data, data.email);
+      }
+
+      result.onerror = () => {
+        throw Error(`${result.error}`);
+      }
+
       transaction.oncomplete = () => {
+        this.isChange = true;
         // console.log('Data saved!');
       };
 
       transaction.onerror = () => {
-        // alert('error saving data');
+        throw Error(`${transaction?.error}`);
       };
     }
   }

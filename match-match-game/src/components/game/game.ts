@@ -4,11 +4,14 @@ import { Card } from '../card/card';
 import { CardsField } from '../cards-field/cards-field';
 import { delay } from '../shared/delay';
 import { Timer } from '../shared/timer/timer';
+import { FinishPopup } from '../finish-popup/finish-popup';
 
 const FLIP_DELAY = 2000;
 
 export class Game extends BaseComponent {
   cardsField: CardsField;
+
+  finishPopup: FinishPopup;
 
   private activeCard?: Card;
 
@@ -18,7 +21,7 @@ export class Game extends BaseComponent {
 
   private totalCountCouple = 8;
 
-  private score = 0;
+  score = 0;
 
   private successCompare = 0;
 
@@ -27,9 +30,10 @@ export class Game extends BaseComponent {
   constructor() {
     super('div', ['game']);
     this.cardsField = new CardsField();
+    this.finishPopup = new FinishPopup();
     this.timer = new Timer();
     this.element.append(this.timer.element);
-    this.element.append(this.cardsField.element);
+    this.element.append(this.cardsField.element, this.finishPopup.element);
   }
 
   startGame(images: string[]): void {
@@ -94,6 +98,10 @@ export class Game extends BaseComponent {
           return;
         }
         this.getScore();
+
+        this.finishPopup.content.element.innerHTML = `Congratulations! You successfully found all
+        matches in ${this.timer.minutes}.${this.timer.seconds} minutes.`
+        this.finishPopup.showFinishPopup();
       }
       if (this.activeCard.image !== card.image) {
         this.wrongCompare++;

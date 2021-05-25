@@ -1,0 +1,64 @@
+.score {
+  .h2 {
+    margin-top: 30px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    font-weight: normal;
+    color: white;
+    text-shadow: 1px 2px 5px rgba(0,0,0,.5);
+  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 900px;
+  min-height: calc(100vh - 130px);
+  background-color: rgba(76, 150, 84, 0.5);
+  border-radius: 2px;
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.score-table {
+  margin-top: 30px;
+  display: table;
+  width: 800px;
+  border-collapse: collapse;
+  border-color: rgb(80, 80, 80);
+}
+
+.t-body {
+  display: table-row-group;
+}
+
+.first-column {
+  padding-left: 30px;
+  width: 250px;
+  text-align: left;
+}
+
+.tr-header {
+  display: table-row;
+  border-bottom: 2px solid rgb(230, 230, 230);
+}
+
+.th-header {
+  display: table-cell;
+  height: 30px;
+  vertical-align: middle;
+  font-size: 20px;
+  font-weight: normal;
+  color: white;
+  text-shadow: 1px 2px 5px rgba(0,0,0,.3);
+}
+
+.td {
+  display: table-cell;
+  height: 30px;
+  vertical-align: middle;
+  font-size: 20px;
+  font-weight: normal;
+  color: rgb(218, 218, 218);
+  text-shadow: 1px 2px 5px rgba(0,0,0,.3);
+}
+
+

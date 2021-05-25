@@ -1,9 +1,8 @@
-.h2 {
-  align-self: start;
-  font-size: 24px;
-}
-
 .about-game {
+  .h2 {
+    align-self: start;
+    font-size: 24px;
+  }
   margin-top: -10px;
   display: flex;
   flex-direction: column;
@@ -82,25 +81,25 @@
   align-items: center;
   justify-content: center;
   height: 60px;
-  width: 150px;
-  font-size: 14px;
+  width: 180px;
+  font-size: 16px;
   font-weight: 700;
   color: rgb(235, 235, 235);
   text-transform: uppercase;
   text-decoration: none;
   background-color: rgb(190, 67, 67);
-  border-radius: 5px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  border-radius: 30px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.4);
   transition-duration: 0.2s;
   &:hover,
   &:focus {
     outline: none;
     text-shadow: 1px 2px 5px rgba(0, 0, 0, 0.3);
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25), 0 3px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.15), 0 3px 7px rgba(0, 0, 0, 0.2);
   }
   &:active {
     text-shadow: unset;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.4);
   }
 }
 .how-to-play {
