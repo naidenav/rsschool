@@ -39,7 +39,6 @@ export class Score extends BaseComponent {
   }
 
   addRecord(data: UserProfile) {
-    console.log('hey')
     const tr = new BaseComponent('tr', ['tr-body']);
     const tdPlayer = new BaseComponent('td', ['td', 'td-player'], `${data.firstName} ${data.lastName}`);
     const tdScore = new BaseComponent('td', ['td'], `${data.bestScore}`);
@@ -48,6 +47,6 @@ export class Score extends BaseComponent {
     const tdDate = new BaseComponent('td', ['td'], date);
 
     this.tBody.element.append(tr.element);
-    tr.element.append(tdPlayer.element, tdScore.element, tdTime.element, this.thDate.element);
+    tr.element.append(tdPlayer.element, tdScore.element, tdTime.element, tdDate.element);
   }
 }

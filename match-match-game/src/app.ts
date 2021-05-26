@@ -33,13 +33,28 @@ export class App {
 
   private routing: Array<Nav>;
 
+  tenUsers: UserProfile[] = [];
+
   constructor(private readonly rootElement: HTMLElement) {
     this.dataBase = new DataBase('naidenav', 'userData', 2);
+
+    this.dataBase.initDB('userData')
+      .then((db) => {
+        if (db !== undefined) {
+          this.dataBase.db = db;
+          this.dataBase.getFirstTenUsers(db)
+
+          .then((tenUsers: UserProfile[]) => {
+            this.tenUsers = tenUsers;
+            this.updateScore();
+          })
+        }
+      })
+
     this.header = new Header();
     this.main = new Main();
     this.about = new AboutGame();
     this.score = new Score();
-    this.updateScore();
     this.setting = new GameSetting();
     this.popup = new Popup();
     this.game = new Game();
@@ -129,7 +144,6 @@ export class App {
     });
 
     this.game.finishPopup.button.element.addEventListener('click', () => {
-      this.updateScore();
       this.game.finishPopup.hideFinishPopup();
       const firstName = sessionStorage.getItem('firstName');
       const lastName = sessionStorage.getItem('lastName');
@@ -147,6 +161,12 @@ export class App {
           date: date,
         }
         this.dataBase.addRecord('userData', record)
+      }
+      if (this.dataBase.db !== null) {
+        this.dataBase.getFirstTenUsers(this.dataBase.db).then((tenUsers) => {
+          this.tenUsers = tenUsers;
+          this.updateScore();
+        });
       }
       this.stopGame();
     })
@@ -217,15 +237,14 @@ export class App {
     this.header.btnWrapper.element.replaceChild(this.header.startGameBtn.element, this.header.stopGameBtn.element);
   }
 
-  async updateScore() {
-    let userData = this.dataBase.getFirstTenUsers();
-console.log(userData)
-    if (userData) {
-      userData?.forEach((item: UserProfile) => {
-        if (item.bestScore !== 0) {
-          this.score.addRecord(item);
-        }
-      });
-    }
+  updateScore() {
+    this.score.tBody.element.innerHTML = '';
+    console.log(this.tenUsers[8])
+    this.tenUsers.forEach((item: UserProfile) => {
+      if (item.bestScore !== 0) {
+        this.score.addRecord(item);
+      }
+    });
+    console.log('vse')
   }
 }
