@@ -1,6 +1,5 @@
 import './finish-popup.scss';
 import { BaseComponent } from '../base-component';
-import { Button } from '../shared/button/button';
 
 export class FinishPopup extends BaseComponent {
   readonly finishPopup: BaseComponent;
@@ -19,7 +18,7 @@ export class FinishPopup extends BaseComponent {
     this.finishPopup.element.append(this.content.element, this.button.element);
   }
 
-  showFinishPopup() {
+  showFinishPopup(): void {
     this.element.classList.add('popup_opacity-up');
     this.element.classList.remove('cover_hidden');
     this.element.addEventListener('animationend', () => {
@@ -29,7 +28,7 @@ export class FinishPopup extends BaseComponent {
     });
   }
 
-  hideFinishPopup() {
+  hideFinishPopup(): void {
     document.body.classList.remove('notScrollable');
     this.element.classList.add('cover_hidden');
   }

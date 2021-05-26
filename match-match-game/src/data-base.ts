@@ -1,4 +1,4 @@
-import { UserProfile } from "./components/models/user-profile-model";
+import { UserProfile } from './components/models/user-profile-model';
 
 export class DataBase {
   dbReq: IDBOpenDBRequest | null = null;
@@ -7,7 +7,7 @@ export class DataBase {
 
   userData: IDBObjectStore | null = null;
 
-  isChange: boolean = false;
+  isChange = false;
 
   tenUsers: UserProfile[] = [];
 
@@ -17,7 +17,6 @@ export class DataBase {
   }
 
   async initDB(repository: string): Promise<IDBDatabase> {
-    console.log(this.name)
     this.dbReq = indexedDB.open(this.name, this.version);
     this.dbReq.onupgradeneeded = () => {
       if (this.dbReq !== null) {
@@ -51,53 +50,13 @@ export class DataBase {
       };
     }
 
-    let promise = new Promise<IDBDatabase>((resolve, reject) => {
+    const promise = new Promise<IDBDatabase>((resolve) => {
       if (this.dbReq !== null) {
         this.dbReq.onsuccess = () => {
           if (this.dbReq !== null) {
             resolve(this.dbReq.result);
           }
-        }
-      }
-    });
-
-    return promise;
-  }
-
-  getFirstTenUsers(db: IDBDatabase): Promise<UserProfile[]> {
-    let transaction: IDBTransaction | null = null;
-    let store: IDBObjectStore | null = null;
-
-    transaction = db.transaction(['userData'], 'readwrite');
-    store = transaction.objectStore('userData');
-
-    let bestScoreIndex = store.index('bestScore');
-
-    let request = bestScoreIndex.openCursor(null, 'prev');
-
-    request.onerror = () => {
-      throw Error(`${request.error}`);
-    }
-
-    // request.onsuccess = () => {
-    //   let cursor = request.result;
-
-    //   if (cursor && this.tenUsers.length < 10) {
-    //     this.tenUsers.push(cursor.value);
-    //     cursor.continue();
-    //   }
-    // }
-
-    let promise = new Promise<UserProfile[]>((resolve, reject) => {
-      let result: UserProfile[] = [];
-
-      request.onsuccess = () => {
-        let cursor = request.result;
-
-        if (cursor && result.length < 10) {
-          result.push(cursor.value);
-          cursor.continue();
-        } else resolve(result);
+        };
       }
     });
 
@@ -121,7 +80,7 @@ export class DataBase {
 
       result.onerror = () => {
         throw Error(`${result.error}`);
-      }
+      };
 
       transaction.oncomplete = () => {
         // console.log('Data saved!');
@@ -141,15 +100,16 @@ export class DataBase {
       transaction = this.db.transaction([repName], 'readwrite');
       store = transaction.objectStore(repName);
 
-      let result = store.get(data.email);
+      const result = store.get(data.email);
 
       result.onsuccess = () => {
-        store?.put(data, data.email);
-      }
+        const prifile: UserProfile = result.result;
+        if (data.bestScore > prifile.bestScore) store?.put(data, data.email);
+      };
 
       result.onerror = () => {
         throw Error(`${result.error}`);
-      }
+      };
 
       transaction.oncomplete = () => {
         this.isChange = true;

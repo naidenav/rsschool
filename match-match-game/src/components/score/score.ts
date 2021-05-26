@@ -1,5 +1,5 @@
 import './score.scss';
-import { BaseComponent } from "../base-component";
+import { BaseComponent } from '../base-component';
 import { UserProfile } from '../models/user-profile-model';
 
 export class Score extends BaseComponent {
@@ -34,13 +34,21 @@ export class Score extends BaseComponent {
     this.element.append(this.scoreTitle.element, this.scoreTable.element);
     this.scoreTable.element.append(this.tBody.element);
     this.tBody.element.append(this.trHeader.element);
-    this.trHeader.element.append(this.thPlayer.element, this.thScore.element,
-      this.thTime.element, this.thDate.element);
+    this.trHeader.element.append(this.thPlayer.element, this.thScore.element, this.thTime.element, this.thDate.element);
   }
 
-  addRecord(data: UserProfile) {
+  clearScore():void {
+    this.trHeader.element.nextSibling?.remove();
+    if (this.trHeader.element.nextSibling) this.clearScore();
+  }
+
+  addRecord(data: UserProfile, index: number): void {
     const tr = new BaseComponent('tr', ['tr-body']);
-    const tdPlayer = new BaseComponent('td', ['td', 'td-player'], `${data.firstName} ${data.lastName}`);
+    const tdPlayer = new BaseComponent(
+      'td',
+      ['td', 'td-player'],
+      `${index + 1}.&nbsp;&nbsp;${data.firstName} ${data.lastName}`,
+    );
     const tdScore = new BaseComponent('td', ['td'], `${data.bestScore}`);
     const tdTime = new BaseComponent('td', ['td'], data.time);
     const date = `${data.date.getDate()}.${data.date.getMonth()}.${data.date.getFullYear()}`;
