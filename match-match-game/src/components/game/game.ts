@@ -100,7 +100,8 @@ export class Game extends BaseComponent {
         this.getScore();
 
         this.finishPopup.content.element.innerHTML = `Congratulations! You successfully found all
-        matches in ${this.timer.minutes}.${this.timer.seconds} minutes.`;
+        matches in <span class='bold'>${this.timer.minutes}.${this.timer.seconds < 10 ? '0' + this.timer.seconds : this.timer.seconds}</span>
+        minutes. Your result is <span class='bold'>${this.score}</span> points`;
         this.finishPopup.showFinishPopup();
       }
       if (this.activeCard.image !== card.image) {

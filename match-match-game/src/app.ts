@@ -168,11 +168,11 @@ export class App {
         getFirstTenUsers(this.dataBase.db).then((tenUsers) => {
           this.tenUsers = tenUsers;
           this.updateScore();
+          this.stopGame();
+          this.game.finishPopup.hideFinishPopup();
+          window.location.href = `${window.location.href.replace(/#(.*)$/, '')}#score`;
         });
       }
-      this.game.finishPopup.hideFinishPopup();
-      window.location.href = `${window.location.href.replace(/#(.*)$/, '')}#score`;
-      this.stopGame();
     });
 
     // const avatarInput = this.about.popup.avatarInput.element as HTMLInputElement;

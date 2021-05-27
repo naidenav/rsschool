@@ -47,11 +47,13 @@ export class Score extends BaseComponent {
     const tdPlayer = new BaseComponent(
       'td',
       ['td', 'td-player'],
-      `${index + 1}.&nbsp;&nbsp;${data.firstName} ${data.lastName}`,
+      `<span class='position'>${index + 1}.</span>&nbsp;&nbsp;${data.firstName} ${data.lastName}`,
     );
     const tdScore = new BaseComponent('td', ['td'], `${data.bestScore}`);
     const tdTime = new BaseComponent('td', ['td'], data.time);
-    const date = `${data.date.getDate()}.${data.date.getMonth()}.${data.date.getFullYear()}`;
+    const day = data.date.getDate() < 10 ? '0' + data.date.getDate() : data.date.getDate();
+    const month = data.date.getMonth() < 10 ? '0' + data.date.getMonth() : data.date.getMonth();
+    const date = `${day}.${month}.${data.date.getFullYear()}`;
     const tdDate = new BaseComponent('td', ['td'], date);
 
     this.tBody.element.append(tr.element);

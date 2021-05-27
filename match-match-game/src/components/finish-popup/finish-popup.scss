@@ -45,15 +45,15 @@
 
 .finish-popup {
   position: absolute;
-  top: calc(50vh - 75px);
-  left: calc(50vw - 200px);
+  top: calc(50vh - 90px);
+  left: calc(50vw - 225px);
   padding: 30px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   justify-content: space-between;
-  width: 370px;
-  height: 160px;
+  width: 450px;
+  height: 180px;
   background-color: rgb(76, 150, 84);
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
@@ -63,6 +63,7 @@
     font-size: 20px;
     font-weight: normal;
     line-height: 1.2em;
+    text-align: center;
     color: rgb(230, 230, 230);
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
   }

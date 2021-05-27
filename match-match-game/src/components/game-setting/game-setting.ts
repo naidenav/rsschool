@@ -11,7 +11,7 @@ export class GameSetting extends BaseComponent {
     super('div', ['game-setting']);
 
     const difficulty = ['16 cards', '24 cards', '36 cards'];
-    const categories = ['Animals', 'Flags', 'South park'];
+    const categories = ['Animals', 'Flags', 'South park', 'Pokemon'];
 
     this.selectDifficulty = new Select('Difficulty', difficulty, 'select-cards-type', 'select game difficulty');
     this.selectCardsType = new Select('Game cards', categories, 'select-cards-type', 'select game cards type');
