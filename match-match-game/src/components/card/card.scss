@@ -55,7 +55,8 @@
 
   &__back {
     transform: rotateY(180deg);
-    background: url(../../assets/card-cover.jpg) no-repeat;
+    background: url(../../assets/card-cover.jpg) no-repeat center;
+    background-size: cover;
   }
 }
 
