@@ -84,3 +84,18 @@ select {
 ::-webkit-scrollbar-button:vertical:end:increment {
   display: none;
 }
+
+.avatar-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 50%;
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+

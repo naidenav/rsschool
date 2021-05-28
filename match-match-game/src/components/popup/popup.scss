@@ -65,6 +65,11 @@
     color: white;
     text-shadow: 1px 2px 5px rgba(0, 0, 0, 0.5);
   }
+  .avatar-wrapper {
+    margin-right: 25px;
+    width: 210px;
+    height: 210px;
+  }
   .avatar {
     display: flex;
     flex-direction: row;

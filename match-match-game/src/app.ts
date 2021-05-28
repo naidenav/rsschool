@@ -1,4 +1,5 @@
 import { AboutGame } from './components/about-game/about-game';
+import { BaseComponent } from './components/base-component';
 import { GameSetting } from './components/game-setting/game-setting';
 import { Game } from './components/game/game';
 import { Header } from './components/header/header';
@@ -7,6 +8,7 @@ import { ImageCategoryModel } from './components/models/image-category-model';
 import { UserProfile } from './components/models/user-profile-model';
 import { Popup } from './components/popup/popup';
 import { Score } from './components/score/score';
+import { getBase64 } from './components/shared/get-base64';
 import { getFirstTenUsers } from './components/shared/getTenUsers';
 import { DataBase } from './data-base';
 
@@ -115,6 +117,7 @@ export class App {
     const firstNameInput = this.popup.firstNameInput.input.element as HTMLInputElement;
     const lastNameInput = this.popup.lastNameInput.input.element as HTMLInputElement;
     const emailInput = this.popup.emailInput.input.element as HTMLInputElement;
+    let avatar: string = './avatar.svg';
 
     this.header.registerUserBtn.element.addEventListener('click', showPopup);
 
@@ -137,13 +140,26 @@ export class App {
     this.popup.addUserBtn.element.addEventListener('click', (e) => {
       if (firstNameInput.validity.valid && lastNameInput.validity.valid && emailInput.validity.valid) {
         e.preventDefault();
-        this.submit();
+        this.submit(avatar);
         this.header.btnWrapper.element.replaceChild(
           this.header.startGameBtn.element,
           this.header.registerUserBtn.element,
         );
         hidePopup();
       }
+    });
+
+    this.popup.avatarInput.element.addEventListener('change', () => {
+      getBase64(this.popup.avatarInput.element as HTMLInputElement)?.then((result) => {
+        avatar = result;
+        this.popup.avatar.element.remove();
+        const avatarWrapper = new BaseComponent('div', ['avatar-wrapper']);
+        const avatarImage = new BaseComponent('img', []);
+        avatarImage.element.setAttribute('src', result as string);
+
+        avatarWrapper.element.append(avatarImage.element);
+        this.popup.inputAndAvatar.element.append(avatarWrapper.element);
+      });
     });
 
     this.game.finishPopup.button.element.addEventListener('click', () => {
@@ -158,6 +174,7 @@ export class App {
           firstName,
           lastName,
           email,
+          avatar,
           bestScore: score,
           time,
           date,
@@ -206,27 +223,31 @@ export class App {
     this.game.startGame(images);
   }
 
-  submit(): void {
+  submit(avatar: string): void {
     const firstNameInput = this.popup.firstNameInput.input.element as HTMLInputElement;
     const lastNameInput = this.popup.lastNameInput.input.element as HTMLInputElement;
     const emailInput = this.popup.emailInput.input.element as HTMLInputElement;
+    const avatarSrc = avatar;
 
     if (firstNameInput.validity.valid && lastNameInput.validity.valid && emailInput.validity.valid) {
       this.dataBase.addUser('userData', {
         firstName: firstNameInput.value,
         lastName: lastNameInput.value,
         email: emailInput.value,
+        avatar: avatarSrc,
         bestScore: 0,
         time: '',
         date: new Date(),
       });
 
+      this.header.avatar.element.style.backgroundImage = `url('${avatarSrc}')`;
       this.header.userName.element.innerText = `${firstNameInput.value}`;
     }
 
     sessionStorage.setItem('firstName', `${firstNameInput.value}`);
     sessionStorage.setItem('lastName', `${lastNameInput.value}`);
     sessionStorage.setItem('email', `${emailInput.value}`);
+    sessionStorage.setItem('avatarSrc', avatarSrc);
   }
 
   stopGame(): void {

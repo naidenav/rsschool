@@ -30,7 +30,7 @@
   display: table-row-group;
 }
 
-.first-column {
+.player-column {
   padding-left: 30px;
   width: 250px;
   text-align: left;
@@ -43,12 +43,12 @@
 
 .tr-body {
   border-bottom: .5px solid rgb(68, 100, 69);
-  &:hover {
-    background-color: rgb(68, 100, 69);
+  &:hover td {
+    color: rgb(125, 224, 130);
   }
 }
 
-.th-header {
+.th {
   display: table-cell;
   height: 40px;
   vertical-align: middle;
@@ -58,7 +58,12 @@
   text-shadow: 1px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
+.th-avatar {
+  width: 35px;
+}
+
 .td {
+  padding: 3px;
   display: table-cell;
   height: 35px;
   vertical-align: middle;
@@ -70,11 +75,22 @@
 }
 
 .td-player {
+  padding-left: 10px;
   font-weight: 400;
   color: white;
   text-align: left;
 }
 
-.position {
+.td-avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+}
+
+.td-position {
+  width: 30px;
   font-weight: 300;
+  text-align: left;
 }
