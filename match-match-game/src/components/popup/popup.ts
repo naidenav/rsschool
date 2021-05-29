@@ -62,10 +62,10 @@ export class Popup extends BaseComponent {
     this.avatar.element.append(this.avatarLabel.element, this.avatarInput.element);
     this.buttonWrapper.element.append(this.addUserBtn.element, this.cancelBtn.element);
 
-    const regPart1 = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))/;
+    const regPart1 = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))/;
     const regPart2 = /@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-    const emailRegexp = new RegExp(`${regPart1.source}${regPart2.source}`);;
+    const emailRegexp = new RegExp(`${regPart1.source}${regPart2.source}`);
 
     const nameRegexp = /^[\p{L}+\d\s]{3,30}$/u;
 

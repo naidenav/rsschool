@@ -40,11 +40,17 @@ export class Score extends BaseComponent {
     this.element.append(this.scoreTitle.element, this.scoreTable.element);
     this.scoreTable.element.append(this.tBody.element);
     this.tBody.element.append(this.trHeader.element);
-    this.trHeader.element.append(this.thPosition.element, this.thAvatar.element, this.thPlayer.element,
-      this.thScore.element, this.thTime.element, this.thDate.element);
+    this.trHeader.element.append(
+      this.thPosition.element,
+      this.thAvatar.element,
+      this.thPlayer.element,
+      this.thScore.element,
+      this.thTime.element,
+      this.thDate.element,
+    );
   }
 
-  clearScore():void {
+  clearScore(): void {
     this.trHeader.element.nextSibling?.remove();
     if (this.trHeader.element.nextSibling) this.clearScore();
   }
@@ -63,6 +69,13 @@ export class Score extends BaseComponent {
     const tdDate = new BaseComponent('td', ['td'], date);
 
     this.tBody.element.append(tr.element);
-    tr.element.append(tdPosition.element, tdAvatar.element, tdPlayer.element, tdScore.element, tdTime.element, tdDate.element);
+    tr.element.append(
+      tdPosition.element,
+      tdAvatar.element,
+      tdPlayer.element,
+      tdScore.element,
+      tdTime.element,
+      tdDate.element,
+    );
   }
 }

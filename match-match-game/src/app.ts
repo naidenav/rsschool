@@ -44,12 +44,10 @@ export class App {
     this.dataBase.initDB('userData').then((db) => {
       if (db !== undefined) {
         this.dataBase.db = db;
-        getFirstTenUsers(db)
-
-          .then((tenUsers: UserProfile[]) => {
-            this.tenUsers = tenUsers;
-            this.updateScore();
-          });
+        getFirstTenUsers(db).then((tenUsers: UserProfile[]) => {
+          this.tenUsers = tenUsers;
+          this.updateScore();
+        });
       }
     });
 
@@ -117,7 +115,7 @@ export class App {
     const firstNameInput = this.popup.firstNameInput.input.element as HTMLInputElement;
     const lastNameInput = this.popup.lastNameInput.input.element as HTMLInputElement;
     const emailInput = this.popup.emailInput.input.element as HTMLInputElement;
-    let avatar: string = './avatar.svg';
+    let avatar = './avatar.svg';
 
     this.header.registerUserBtn.element.addEventListener('click', showPopup);
 

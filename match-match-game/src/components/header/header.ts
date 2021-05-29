@@ -23,10 +23,11 @@ export class Header extends BaseComponent {
     this.nav = new Nav();
     this.btnWrapper = new BaseComponent('div', ['btn-wrapper']);
     this.registerUserBtn = new GameBtn('register new player');
+    this.registerUserBtn.element.style.transform = 'translateX(50px)';
     this.startGameBtn = new GameBtn('start game');
     this.stopGameBtn = new GameBtn('stop game');
     this.userName = new BaseComponent('p', ['user-name']);
-    this.avatar = new BaseComponent('div', ['avatar-image'])
+    this.avatar = new BaseComponent('div', ['avatar-image']);
     this.element.innerHTML = `
       <div class='game-logo'>
         <p class='match-top'>match</p>

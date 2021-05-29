@@ -14,7 +14,8 @@ export class Card extends BaseComponent {
     this.trueCard = new BaseComponent('div', ['true-card']);
     this.element.innerHTML = `
       <div class="card">
-        <div class="card__front" style="background: rgb(152, 185, 124) url('./images/${image}') no-repeat center; background-size: cover"></div>
+        <div class="card__front" style="background: rgb(152, 185, 124) url('./images/${image}')
+        no-repeat center; background-size: cover"></div>
         <div class="card__back"></div>
       </div>
     `;
