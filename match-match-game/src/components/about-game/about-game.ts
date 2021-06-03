@@ -14,6 +14,7 @@ export class AboutGame extends BaseComponent {
           <p class='instruction__text'>
             Register a new player in the game
           </p>
+          <button class='game-btn' id='register-user-btn'>Register new player</button>
         </div>
         <div class='popup-form'>
         <img src='${popupExample}' alt='popup-example'>

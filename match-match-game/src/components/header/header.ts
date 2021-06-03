@@ -8,8 +8,6 @@ export class Header extends BaseComponent {
 
   readonly btnWrapper: BaseComponent;
 
-  readonly registerUserBtn: GameBtn;
-
   readonly startGameBtn: GameBtn;
 
   readonly stopGameBtn: GameBtn;
@@ -22,8 +20,6 @@ export class Header extends BaseComponent {
     super('header', ['header']);
     this.nav = new Nav();
     this.btnWrapper = new BaseComponent('div', ['btn-wrapper']);
-    this.registerUserBtn = new GameBtn('register new player');
-    this.registerUserBtn.element.style.transform = 'translateX(50px)';
     this.startGameBtn = new GameBtn('start game');
     this.stopGameBtn = new GameBtn('stop game');
     this.userName = new BaseComponent('p', ['user-name']);
@@ -46,7 +42,7 @@ export class Header extends BaseComponent {
 
     if (userName) {
       this.btnWrapper.element.append(this.startGameBtn.element);
-    } else this.btnWrapper.element.append(this.registerUserBtn.element);
+    }
 
     if (avatarSrc) {
       this.avatar.element.style.backgroundImage = `url('${avatarSrc}')`;

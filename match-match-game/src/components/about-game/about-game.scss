@@ -23,6 +23,7 @@
   width: 100%;
 }
 .instruction {
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: baseline;
@@ -48,6 +49,11 @@
   &__text {
     width: 85%;
     line-height: 1.4em;
+  }
+  .game-btn {
+    position: absolute;
+    top: 90px;
+    left: calc(50% - 130px);
   }
 }
 .popup-form {

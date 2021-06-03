@@ -117,7 +117,9 @@ export class App {
     const emailInput = this.popup.emailInput.input.element as HTMLInputElement;
     let avatar = './avatar.svg';
 
-    this.header.registerUserBtn.element.addEventListener('click', showPopup);
+    const registerUserBtn = document.getElementById('register-user-btn');
+
+    registerUserBtn?.addEventListener('click', showPopup);
 
     this.header.startGameBtn.element.addEventListener('click', () => {
       this.start();
@@ -139,11 +141,16 @@ export class App {
       if (firstNameInput.validity.valid && lastNameInput.validity.valid && emailInput.validity.valid) {
         e.preventDefault();
         this.submit(avatar);
-        this.header.btnWrapper.element.replaceChild(
-          this.header.startGameBtn.element,
-          this.header.registerUserBtn.element,
-        );
+        this.header.avatar.element.before(this.header.startGameBtn.element);
         hidePopup();
+        firstNameInput.value = '';
+        lastNameInput.value = '';
+        emailInput.value = '';
+        const avatarWrapper = document.querySelector('.avatar-wrapper');
+        if (avatarWrapper) {
+          avatarWrapper.remove();
+          this.popup.inputAndAvatar.element.append(this.popup.avatar.element);
+        }
       }
     });
 
