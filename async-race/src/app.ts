@@ -1,4 +1,5 @@
 import { BaseComponent } from './components/base-component';
+import { GarageControl } from './components/garage-control/garage-control';
 import { MainButton } from './components/main-button/main-button';
 
 export class App {
@@ -11,6 +12,8 @@ export class App {
 
   private main: BaseComponent;
 
+  private garageControl: GarageControl;
+
   private paginationBtnsWrapper: BaseComponent;
 
   private nextPageBtn: MainButton;
@@ -22,11 +25,13 @@ export class App {
     this.garageBtn = new MainButton('garage', ['garage-btn']);
     this.winnersBtn = new MainButton('winners', ['winners-btn']);
     this.main = new BaseComponent('main', ['main']);
+    this.garageControl = new GarageControl();
     this.paginationBtnsWrapper = new BaseComponent('nav', ['pagination-btns-wrapper']);
     this.nextPageBtn = new MainButton('next', ['next-page-btn']);
     this.prevPageBtn = new MainButton('prev', ['prev-page-btn']);
 
     this.navigation.element.append(this.garageBtn.element, this.winnersBtn.element);
+    this.main.element.append(this.garageControl.element);
     this.paginationBtnsWrapper.element.append(this.prevPageBtn.element, this.nextPageBtn.element);
     this.rootElement.append(this.navigation.element, this.main.element,this.paginationBtnsWrapper.element);
 

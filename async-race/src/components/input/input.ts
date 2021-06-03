@@ -1,11 +1,13 @@
-import './main-button.scss';
+import './input.scss';
 import { BaseComponent } from "../base-component";
 
-export class MainButton extends BaseComponent {
-  constructor(title: string, styles: string[] = [], disabled: boolean = false) {
-    super('button', ['main-button'], title);
-    if (disabled) this.element.setAttribute('disabled', '')
+export class Input extends BaseComponent {
+  constructor(type: string, styles: string[] = [], disabled: boolean = false, id?: string) {
+    super('input', ['input']);
+    this.element.setAttribute('type', type);
     this.element.classList.add(...styles);
+    if (disabled) this.element.setAttribute('disabled', '');
+    if (id) this.element.setAttribute('id', id);
   }
 
   disable(): void {

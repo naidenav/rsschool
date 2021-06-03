@@ -1,0 +1,52 @@
+.garage-control {
+  margin-top: 20px;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 120px;
+  width: 420px;
+}
+
+.create-panel,
+.update-panel,
+.race-reset-generate {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 30px;
+  width: 100%;
+}
+
+.text-input {
+  height: 30px;
+  width: 59%;
+}
+
+.color-input {
+  height: 30px;
+  width: 15%;
+}
+
+.create-btn {
+  width: 24%;
+}
+
+.update-btn {
+  width: 24%;
+}
+
+.race-btn {
+  width: 29%;
+}
+
+.reset-btn {
+  width: 29%;
+}
+
+.generate-btn {
+  width: 40%;
+}
+
