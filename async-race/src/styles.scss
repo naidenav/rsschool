@@ -1,0 +1,91 @@
+@import url(./reset.css);
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  src: local(''),
+       url('./assets/fonts/roboto-v27-latin-300.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('./assets/fonts/roboto-v27-latin-300.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''), url('./assets/fonts/roboto-v20-latin-regular.woff2') format('woff2'),
+    url('./assets/fonts/roboto-v20-latin-regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  src: local(''), url('./assets/fonts/roboto-v20-latin-500.woff2') format('woff2'),
+    url('./assets/fonts/roboto-v20-latin-500.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: local(''), url('./assets/fonts/roboto-v20-latin-700.woff2') format('woff2'),
+    url('./assets/fonts/roboto-v20-latin-700.woff') format('woff');
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  overflow-x: hidden;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  background-color: rgb(0, 0, 0);
+}
+
+h2,
+p,
+div {
+  cursor: default;
+}
+
+h2 {
+  margin-top: 1000px;
+  font-size: 20px;
+  color: #ffffff;
+}
+
+input,
+select {
+  cursor: pointer;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+::-webkit-scrollbar {
+  margin-right: -10px;
+  width: 10px;
+  background-color: #00000000;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #a8a8a8;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #ffffff;
+}
+::-webkit-scrollbar-button:vertical:start:decrement {
+  display: none;
+}
+::-webkit-scrollbar-button:vertical:end:increment {
+  display: none;
+}
