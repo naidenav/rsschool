@@ -30,3 +30,30 @@
     border-bottom: 5px solid rgb(90, 90, 90);
   }
 }
+
+.create-btn {
+  width: 24%;
+}
+
+.update-btn {
+  width: 24%;
+}
+
+.race-btn {
+  width: 29%;
+}
+
+.reset-btn {
+  width: 29%;
+}
+
+.generate-btn {
+  width: 40%;
+}
+
+.create-btn,
+.update-btn,
+.generate-btn {
+  background-color: rgb(193, 222, 223);
+  border-color: rgb(117, 178, 180);
+}
