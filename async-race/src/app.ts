@@ -2,6 +2,7 @@ import { BaseComponent } from './components/base-component';
 import { GarageControl } from './components/garage-control/garage-control';
 import { Button } from './components/button/button';
 import { CarProfile, Winners } from './interfaces';
+import { Garage } from './pages/garage/garage';
 
 export class App {
   // private routing: Array<Nav>;
@@ -13,7 +14,7 @@ export class App {
 
   private main: BaseComponent;
 
-  private garageControl: GarageControl;
+  private garage: Garage;
 
   private paginationBtnsWrapper: BaseComponent;
 
@@ -27,13 +28,13 @@ export class App {
     this.garageBtn = new Button('garage', ['main-button', 'garage-btn']);
     this.winnersBtn = new Button('winners', ['main-button', 'winners-btn']);
     this.main = new BaseComponent('main', ['main']);
-    this.garageControl = new GarageControl();
+    this.garage = new Garage(cars);
     this.paginationBtnsWrapper = new BaseComponent('nav', ['pagination-btns-wrapper']);
     this.nextPageBtn = new Button('next', ['main-button', 'next-page-btn']);
     this.prevPageBtn = new Button('prev', ['main-button', 'prev-page-btn']);
 
     this.navigation.element.append(this.garageBtn.element, this.winnersBtn.element);
-    this.main.element.append(this.garageControl.element);
+    this.main.element.append(this.garage.element);
     this.paginationBtnsWrapper.element.append(this.prevPageBtn.element, this.nextPageBtn.element);
     this.rootElement.append(this.navigation.element, this.main.element,this.paginationBtnsWrapper.element);
 
