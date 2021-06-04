@@ -1,3 +1,4 @@
+import './car.scss';
 import { CarProfile } from "../../interfaces";
 import { BaseComponent } from "../base-component";
 import { Button } from "../button/button";
@@ -39,11 +40,8 @@ export class Car extends BaseComponent {
     this.flag = new BaseComponent('img', ['flag-image']);
     this.carColor = carProfile.color;
     this.car.element.innerHTML = `
-    <?xml version="1.0" encoding="iso-8859-1"?>
-      <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-      <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
       <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-        width="324.447px" height="324.447px" viewBox="0 0 324.447 324.447" style="enable-background:new 0 0 324.447 324.447;"
+        width="100px" height="100px" viewBox="0 0 324.447 110" style="enable-background:new 0 0 324.447 324.447;"
         xml:space="preserve">
         <g>
           <g>

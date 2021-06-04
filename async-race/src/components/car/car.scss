@@ -1,0 +1,82 @@
+.car {
+  position: relative;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100vw;
+}
+
+.car-header {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+.select-btn {
+
+}
+
+.remove-btn {
+  margin-left: 10px;
+}
+
+.car-name {
+  margin-left: 10px;
+  display: block;
+  align-self: center;
+  font-size: 24px;
+  font-weight: 500;
+  color: rgb(255, 246, 121);
+}
+
+.car-body {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-start;
+  width: 100vw;
+  border-bottom: 2px dotted white;
+}
+
+.car-body:nth-child(2) {
+  padding-left: 10px;
+}
+
+.engine-btn {
+  margin-left: 10px;
+  align-self: center;
+}
+
+.car-container {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100px;
+  height: 50px;
+  svg {
+    width: 100%;
+  }
+}
+
+.flag-image {
+  position: absolute;
+  bottom: 0;
+  right: 200px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}
