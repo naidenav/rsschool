@@ -12,8 +12,14 @@ interface QueryParam {
   value: string | number
 }
 
-export const getAllCars = async () => {
-  const response = await fetch(`${baseURL}${path.garage}`);
+const generateQueryString = (queryParams: QueryParam[] = []) => {
+  return queryParams.length ? `?${queryParams
+    .map((param) => `${param.key}=${param.value}`).join('&')}`
+    : '';
+}
+
+export const getAllCars = async (queryParams: QueryParam[] = []) => {
+  const response = await fetch(`${baseURL}${path.garage}${generateQueryString(queryParams)}`);
   const cars = await response.json();
   const totalCars = Number(response.headers.get('X-Total-Count'));
 
@@ -62,14 +68,8 @@ export const deleteCar = async (id: number) => {
   });
 }
 
-const generateQueryString = (queryParams: QueryParam[]) => {
-  return queryParams.length ? `?${queryParams
-    .map((param) => `${param.key}=${param.value}`).join('&')}`
-    : '';
-}
-
-export const getWinners = async (queryParams: QueryParam[]) => {
-  const response = await fetch(`${baseURL}${path.garage}${generateQueryString(queryParams)}`);
+export const getWinners = async (queryParams?: QueryParam[]) => {
+  const response = await fetch(`${baseURL}${path.winners}${generateQueryString(queryParams)}`);
   const winners = await response.json();
   const totalWinners = Number(response.headers.get('X-Total-Count'));
 

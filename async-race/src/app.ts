@@ -1,6 +1,7 @@
 import { BaseComponent } from './components/base-component';
 import { GarageControl } from './components/garage-control/garage-control';
 import { Button } from './components/button/button';
+import { CarProfile, Winners } from './interfaces';
 
 export class App {
   // private routing: Array<Nav>;
@@ -20,7 +21,8 @@ export class App {
 
   private prevPageBtn: Button;
 
-  constructor(private readonly rootElement: HTMLElement) {
+  constructor(private readonly rootElement: HTMLElement, cars: CarProfile[], totalCars: number,
+    winners: Winners[], totalWinners: number) {
     this.navigation = new BaseComponent('nav', ['main-navigation']);
     this.garageBtn = new Button('garage', ['main-button', 'garage-btn']);
     this.winnersBtn = new Button('winners', ['main-button', 'winners-btn']);
