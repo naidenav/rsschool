@@ -57,7 +57,16 @@ div {
 }
 
 h2 {
-  font-size: 20px;
+  margin-top: 40px;
+  margin-left: 20px;
+  font-size: 30px;
+  color: #ffffff;
+}
+
+h3 {
+  margin-top: 20px;
+  margin-left: 20px;
+  font-size: 26px;
   color: #ffffff;
 }
 
@@ -104,5 +113,6 @@ select {
 }
 
 .pagination-btns-wrapper {
+  margin-top: 40px;
   width: 160px;
 }

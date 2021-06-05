@@ -1,5 +1,4 @@
 import { BaseComponent } from './components/base-component';
-import { GarageControl } from './components/garage-control/garage-control';
 import { Button } from './components/button/button';
 import { CarProfile, Winners } from './interfaces';
 import { Garage } from './pages/garage/garage';
@@ -22,13 +21,15 @@ export class App {
 
   private prevPageBtn: Button;
 
+  public isGaragePage: boolean = true;
+
   constructor(private readonly rootElement: HTMLElement, cars: CarProfile[], totalCars: number,
     winners: Winners[], totalWinners: number) {
     this.navigation = new BaseComponent('nav', ['main-navigation']);
     this.garageBtn = new Button('garage', ['main-button', 'garage-btn']);
     this.winnersBtn = new Button('winners', ['main-button', 'winners-btn']);
     this.main = new BaseComponent('main', ['main']);
-    this.garage = new Garage(cars);
+    this.garage = new Garage(cars, totalCars);
     this.paginationBtnsWrapper = new BaseComponent('nav', ['pagination-btns-wrapper']);
     this.nextPageBtn = new Button('next', ['main-button', 'next-page-btn']);
     this.prevPageBtn = new Button('prev', ['main-button', 'prev-page-btn']);

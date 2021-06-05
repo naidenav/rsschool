@@ -8,8 +8,12 @@ export class GarageList extends BaseComponent {
     this.renderCars(carsList);
   }
 
-  renderCars(carList: CarProfile[]) {
-    carList.forEach(car => {
+  renderCars(cars: CarProfile[]) {
+    while (this.element.firstChild) {
+      this.element.firstChild.remove();
+    }
+
+    cars.forEach(car => {
       const carSection = new Car(car);
       this.element.append(carSection.element);
     })

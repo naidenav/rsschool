@@ -7,9 +7,9 @@ import flagImg from '../../assets/finish-flag.png';
 export class Car extends BaseComponent {
   private carHeader: BaseComponent;
 
-  private selectBtn: Button;
+  public selectBtn: Button;
 
-  private removeBtn: Button;
+  public removeBtn: Button;
 
   private carName: BaseComponent;
 
@@ -32,10 +32,11 @@ export class Car extends BaseComponent {
     this.carHeader = new BaseComponent('div', ['car-header']);
     this.selectBtn = new Button('select', ['main-button', 'select-btn']);
     this.removeBtn = new Button('remove', ['main-button', 'remove-btn']);
+    this.removeBtn.element.setAttribute('id', String(carProfile.id));
     this.carName = new BaseComponent('p', ['car-name'], carProfile.name);
     this.carBody = new BaseComponent('div', ['car-body']);
     this.startEngineBtn = new Button('a', ['engine-btn']);
-    this.stopEngineBtn = new Button('b', ['engine-btn']);
+    this.stopEngineBtn = new Button('b', ['engine-btn'], true);
     this.car = new BaseComponent('div', ['car-container']);
     this.flag = new BaseComponent('img', ['flag-image']);
     this.carColor = carProfile.color;

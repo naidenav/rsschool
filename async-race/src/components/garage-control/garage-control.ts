@@ -6,15 +6,15 @@ import { Input } from '../input/input';
 export class GarageControl extends BaseComponent {
   private createPanel: BaseComponent;
 
-  private createTextInput: BaseComponent;
+  readonly createTextInput: BaseComponent;
 
-  private createColorInput: BaseComponent;
+  readonly createColorInput: BaseComponent;
 
-  private createBtn: Button;
+  readonly createBtn: Button;
 
   private updatePanel: BaseComponent;
 
-  private updateTextInput: BaseComponent;
+  readonly updateTextInput: BaseComponent;
 
   private updateColorInput: BaseComponent;
 
@@ -51,6 +51,5 @@ export class GarageControl extends BaseComponent {
       this.updateBtn.element);
     this.raceResetGenerate.element.append(this.raceBtn.element, this.resetBtn.element, this.generateBtn.element);
     this.element.append(this.createPanel.element, this.updatePanel.element, this.raceResetGenerate.element);
-
   }
 }

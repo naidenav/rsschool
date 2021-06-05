@@ -44,6 +44,8 @@ export const createCar = async (car: CarProfile) => {
     },
     body: JSON.stringify(car),
   });
+
+  return car;
 }
 
 export const createOneHundredCars = async () => {
