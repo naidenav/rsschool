@@ -16,17 +16,17 @@ export class GarageControl extends BaseComponent {
 
   readonly updateTextInput: BaseComponent;
 
-  private updateColorInput: BaseComponent;
+  readonly updateColorInput: BaseComponent;
 
-  private updateBtn: Button;
+  readonly updateBtn: Button;
 
   private raceResetGenerate: BaseComponent;
 
-  private raceBtn: Button;
+  readonly raceBtn: Button;
 
-  private resetBtn: Button;
+  readonly resetBtn: Button;
 
-  private generateBtn: Button;
+  readonly generateBtn: Button;
 
   constructor() {
     super('div', ['garage-control']);

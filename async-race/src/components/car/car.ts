@@ -31,8 +31,10 @@ export class Car extends BaseComponent {
 
     this.carHeader = new BaseComponent('div', ['car-header']);
     this.selectBtn = new Button('select', ['main-button', 'select-btn']);
+    this.selectBtn.element.dataset.id = String(carProfile.id);
+    this.selectBtn.element.dataset.name = carProfile.name;
     this.removeBtn = new Button('remove', ['main-button', 'remove-btn']);
-    this.removeBtn.element.setAttribute('id', String(carProfile.id));
+    this.removeBtn.element.dataset.id = String(carProfile.id);
     this.carName = new BaseComponent('p', ['car-name'], carProfile.name);
     this.carBody = new BaseComponent('div', ['car-body']);
     this.startEngineBtn = new Button('a', ['engine-btn']);
