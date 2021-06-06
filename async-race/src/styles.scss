@@ -98,8 +98,7 @@ select {
   display: none;
 }
 
-.main-navigation,
-.pagination-btns-wrapper {
+.main-navigation {
   margin-top: 20px;
   margin-left: 20px;
   display: flex;
@@ -110,9 +109,4 @@ select {
 
 .main-navigation {
   width: 220px;
-}
-
-.pagination-btns-wrapper {
-  margin-top: 40px;
-  width: 160px;
 }

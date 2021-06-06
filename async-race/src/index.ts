@@ -6,7 +6,7 @@ window.onload = async () => {
   const garageParams = [
     {
       key: '_page',
-      value: '0'
+      value: '1'
     },
     {
       key: '_limit',
@@ -17,7 +17,7 @@ window.onload = async () => {
   const winnersParams = [
     {
       key: '_page',
-      value: '0'
+      value: '1'
     },
     {
       key: '_limit',

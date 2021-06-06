@@ -15,12 +15,6 @@ export class App {
 
   private garage: Garage;
 
-  private paginationBtnsWrapper: BaseComponent;
-
-  private nextPageBtn: Button;
-
-  private prevPageBtn: Button;
-
   public isGaragePage: boolean = true;
 
   constructor(private readonly rootElement: HTMLElement, cars: CarProfile[], totalCars: number,
@@ -30,14 +24,10 @@ export class App {
     this.winnersBtn = new Button('winners', ['main-button', 'winners-btn']);
     this.main = new BaseComponent('main', ['main']);
     this.garage = new Garage(cars, totalCars);
-    this.paginationBtnsWrapper = new BaseComponent('nav', ['pagination-btns-wrapper']);
-    this.nextPageBtn = new Button('next', ['main-button', 'next-page-btn']);
-    this.prevPageBtn = new Button('prev', ['main-button', 'prev-page-btn']);
 
     this.navigation.element.append(this.garageBtn.element, this.winnersBtn.element);
     this.main.element.append(this.garage.element);
-    this.paginationBtnsWrapper.element.append(this.prevPageBtn.element, this.nextPageBtn.element);
-    this.rootElement.append(this.navigation.element, this.main.element,this.paginationBtnsWrapper.element);
+    this.rootElement.append(this.navigation.element, this.main.element);
 
 
     // this.routing = [
