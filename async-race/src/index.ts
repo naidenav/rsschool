@@ -6,23 +6,23 @@ window.onload = async () => {
   const garageParams = [
     {
       key: '_page',
-      value: '1'
+      value: '1',
     },
     {
       key: '_limit',
-      value: '7'
-    }
+      value: '7',
+    },
   ];
 
   const winnersParams = [
     {
       key: '_page',
-      value: '1'
+      value: '1',
     },
     {
       key: '_limit',
-      value: '10'
-    }
+      value: '10',
+    },
   ];
 
   const cars = await getAllCars(garageParams);

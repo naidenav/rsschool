@@ -9,4 +9,3 @@ export interface Winners {
   wins: number,
   time: number
 }
-

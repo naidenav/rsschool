@@ -1,10 +1,10 @@
 import './button.scss';
-import { BaseComponent } from "../base-component";
+import { BaseComponent } from '../base-component';
 
 export class Button extends BaseComponent {
-  constructor(title: string, styles: string[] = [], disabled: boolean = false) {
+  constructor(title: string, styles: string[] = [], disabled = false) {
     super('button', styles, title);
-    if (disabled) this.element.setAttribute('disabled', '')
+    if (disabled) this.element.setAttribute('disabled', '');
     this.element.classList.add(...styles);
   }
 

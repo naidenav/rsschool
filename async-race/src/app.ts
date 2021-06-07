@@ -15,7 +15,7 @@ export class App {
 
   private garage: Garage;
 
-  public isGaragePage: boolean = true;
+  public isGaragePage = true;
 
   constructor(private readonly rootElement: HTMLElement, cars: CarProfile[], totalCars: number,
     winners: Winners[], totalWinners: number) {
@@ -28,7 +28,6 @@ export class App {
     this.navigation.element.append(this.garageBtn.element, this.winnersBtn.element);
     this.main.element.append(this.garage.element);
     this.rootElement.append(this.navigation.element, this.main.element);
-
 
     // this.routing = [
     //   {

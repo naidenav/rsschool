@@ -1,8 +1,8 @@
 import './input.scss';
-import { BaseComponent } from "../base-component";
+import { BaseComponent } from '../base-component';
 
 export class Input extends BaseComponent {
-  constructor(type: string, styles: string[] = [], disabled: boolean = false, id?: string) {
+  constructor(type: string, styles: string[] = [], disabled = false, id?: string) {
     super('input', ['input']);
     this.element.setAttribute('type', type);
     this.element.classList.add(...styles);

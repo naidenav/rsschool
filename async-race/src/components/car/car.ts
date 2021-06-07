@@ -1,7 +1,7 @@
 import './car.scss';
-import { CarProfile } from "../../interfaces";
-import { BaseComponent } from "../base-component";
-import { Button } from "../button/button";
+import { CarProfile } from '../../interfaces';
+import { BaseComponent } from '../base-component';
+import { Button } from '../button/button';
 import flagImg from '../../assets/finish-flag.png';
 
 export class Car extends BaseComponent {
@@ -65,7 +65,7 @@ export class Car extends BaseComponent {
           </g>
         </g>
       </svg>
-    `
+    `;
     this.flag.element.setAttribute('src', flagImg);
 
     this.carHeader.element.append(this.selectBtn.element, this.removeBtn.element, this.carName.element);

@@ -6,17 +6,17 @@ import { Input } from '../input/input';
 export class GarageControl extends BaseComponent {
   private createPanel: BaseComponent;
 
-  readonly createTextInput: BaseComponent;
+  readonly createTextInput: Input;
 
-  readonly createColorInput: BaseComponent;
+  readonly createColorInput: Input;
 
   readonly createBtn: Button;
 
   private updatePanel: BaseComponent;
 
-  readonly updateTextInput: BaseComponent;
+  readonly updateTextInput: Input;
 
-  readonly updateColorInput: BaseComponent;
+  readonly updateColorInput: Input;
 
   readonly updateBtn: Button;
 
@@ -36,13 +36,13 @@ export class GarageControl extends BaseComponent {
     (this.createColorInput.element as HTMLInputElement).value = '#3c46d3';
     this.createBtn = new Button('create', ['main-button', 'create-btn']);
     this.updatePanel = new BaseComponent('div', ['update-panel']);
-    this.updateTextInput = new Input('text', ['text-input'], false, 'update-text-input');
-    this.updateColorInput = new Input('color', ['color-input'], false, 'update-color-input');
+    this.updateTextInput = new Input('text', ['text-input'], true, 'update-text-input');
+    this.updateColorInput = new Input('color', ['color-input'], true, 'update-color-input');
     (this.updateColorInput.element as HTMLInputElement).value = '#d33c3c';
-    this.updateBtn = new Button('update', ['main-button', 'update-btn']);
+    this.updateBtn = new Button('update', ['main-button', 'update-btn'], true);
     this.raceResetGenerate = new BaseComponent('div', ['race-reset-generate']);
     this.raceBtn = new Button('race', ['main-button', 'race-btn']);
-    this.resetBtn = new Button('reset', ['main-button', 'reset-btn']);
+    this.resetBtn = new Button('reset', ['main-button', 'reset-btn'], true);
     this.generateBtn = new Button('generate cars', ['main-button', 'generate-btn']);
 
     this.createPanel.element.append(this.createTextInput.element, this.createColorInput.element,

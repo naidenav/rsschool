@@ -1,6 +1,6 @@
 import './page.control.scss';
-import { BaseComponent } from "../base-component";
-import { Button } from "../button/button";
+import { BaseComponent } from '../base-component';
+import { Button } from '../button/button';
 import { Garage } from '../../pages/garage/garage';
 
 export class PageControl extends BaseComponent {
@@ -43,4 +43,3 @@ export class PageControl extends BaseComponent {
     }
   }
 }
-
