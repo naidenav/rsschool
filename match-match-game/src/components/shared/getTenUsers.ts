@@ -15,15 +15,6 @@ export function getFirstTenUsers(db: IDBDatabase): Promise<UserProfile[]> {
     throw Error(`${request.error}`);
   };
 
-  // request.onsuccess = () => {
-  //   let cursor = request.result;
-
-  //   if (cursor && this.tenUsers.length < 10) {
-  //     this.tenUsers.push(cursor.value);
-  //     cursor.continue();
-  //   }
-  // }
-
   const promise = new Promise<UserProfile[]>((resolve) => {
     const result: UserProfile[] = [];
 

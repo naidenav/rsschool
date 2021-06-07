@@ -28,13 +28,6 @@ export class DataBase {
       }
     };
 
-    // this.dbReq.onsuccess = () => {
-    //   console.log('success');
-    //   if (this.dbReq !== null) {
-    //     this.db = this.dbReq.result;
-    //   }
-    // };
-
     this.dbReq.onerror = () => {
       if (this.dbReq !== null) {
         throw Error(`${this.dbReq.error}`);
@@ -46,7 +39,6 @@ export class DataBase {
         if (this.db !== null) {
           this.db.close();
         }
-        // alert('The database is out of date. Please reload the page');
       };
     }
 
@@ -82,10 +74,6 @@ export class DataBase {
         throw Error(`${result.error}`);
       };
 
-      transaction.oncomplete = () => {
-        // console.log('Data saved!');
-      };
-
       transaction.onerror = () => {
         throw Error(`${transaction?.error}`);
       };
@@ -109,11 +97,6 @@ export class DataBase {
 
       result.onerror = () => {
         throw Error(`${result.error}`);
-      };
-
-      transaction.oncomplete = () => {
-        this.isChange = true;
-        // console.log('Data saved!');
       };
 
       transaction.onerror = () => {

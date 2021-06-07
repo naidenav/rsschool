@@ -59,14 +59,19 @@ export class Game extends BaseComponent {
       .slice(0, count / 2)
       .concat(images.slice(0, count / 2))
       .sort(() => Math.random() - 0.5)
-      .map((url) => new Card(url));
-
-    cards.forEach((card) => {
-      card.element.addEventListener('click', () => this.cardHandler(card));
-    });
+      .map((url, index) => new Card(url, index));
 
     this.cardsField.addCards(cards);
     setTimeout(() => this.timer.startTimer(), 5000);
+
+    this.cardsField.element.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      for (let i = 0; i < this.cardsField.cards.length; i++) {
+        if (target.dataset.index === String(i)) {
+          this.cardHandler(this.cardsField.cards[i]);
+        }
+      }
+    });
   }
 
   getScore(): void {
@@ -99,10 +104,7 @@ export class Game extends BaseComponent {
         }
         this.getScore();
 
-        this.finishPopup.content.element.innerHTML = `Congratulations! You successfully found all
-        matches in <span class='bold'>${this.timer.minutes}.
-        ${this.timer.seconds < 10 ? `0${this.timer.seconds}` : this.timer.seconds}</span> minutes.
-        Your result is <span class='bold'>${this.score}</span> points`;
+        this.finishPopup.content.element.innerHTML = this.getTextWithCongratulations();
         this.finishPopup.showFinishPopup();
       }
       if (this.activeCard.image !== card.image) {
@@ -116,5 +118,11 @@ export class Game extends BaseComponent {
     }
 
     this.isAnimation = false;
+  }
+
+  getTextWithCongratulations(): string {
+    return `Congratulations! You successfully found all matches in <span class='bold'>
+    ${this.timer.minutes}.${this.timer.seconds < 10 ? `0${this.timer.seconds}` : this.timer.seconds}</span> minutes.
+    Your result is <span class='bold'>${this.score}</span> points`;
   }
 }

@@ -23,9 +23,7 @@ export class Timer extends BaseComponent {
   }
 
   render(): void {
-    this.currentTime = `${this.minutes < 10 ? `0${this.minutes}` : this.minutes}:${
-      this.seconds < 10 ? `0${this.seconds}` : this.seconds
-    }`;
+    this.currentTime = this.getTimerReadings();
     this.element.innerHTML = this.currentTime;
   }
 
@@ -60,5 +58,11 @@ export class Timer extends BaseComponent {
 
   getSeconds(): number {
     return this.seconds + this.minutes * 60;
+  }
+
+  getTimerReadings(): string {
+    return `${this.minutes < 10 ? `0${this.minutes}` : this.minutes}:${
+      this.seconds < 10 ? `0${this.seconds}` : this.seconds
+    }`;
   }
 }

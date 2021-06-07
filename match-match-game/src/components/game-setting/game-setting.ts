@@ -1,6 +1,7 @@
 import './game-setting.scss';
 import { BaseComponent } from '../base-component';
 import { Select } from '../shared/select/select';
+import { DIFFICULTY, CATEGORIES } from '../constants';
 
 export class GameSetting extends BaseComponent {
   readonly selectCardsType: Select;
@@ -10,11 +11,8 @@ export class GameSetting extends BaseComponent {
   constructor() {
     super('div', ['game-setting']);
 
-    const difficulty = ['16 cards', '24 cards', '36 cards'];
-    const categories = ['Animals', 'Flags', 'South park', 'Pokemon'];
-
-    this.selectDifficulty = new Select('Difficulty', difficulty, 'select-cards-type', 'select game difficulty');
-    this.selectCardsType = new Select('Game cards', categories, 'select-cards-type', 'select game cards type');
+    this.selectDifficulty = new Select('Difficulty', DIFFICULTY, 'select-cards-type', 'select game difficulty');
+    this.selectCardsType = new Select('Game cards', CATEGORIES, 'select-cards-type', 'select game cards type');
 
     this.element.append(this.selectCardsType.element, this.selectDifficulty.element);
 

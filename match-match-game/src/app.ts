@@ -196,12 +196,6 @@ export class App {
         });
       }
     });
-
-    // const avatarInput = this.about.popup.avatarInput.element as HTMLInputElement;
-    // let avatarBase64;
-    // avatarInput.addEventListener('input', () => {
-    //   avatarBase64 = getBase64Image(avatarInput);
-    // });
   }
 
   navigate(route: HTMLElement | null, content: HTMLElement): void {

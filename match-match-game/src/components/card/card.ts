@@ -8,10 +8,11 @@ export class Card extends BaseComponent {
 
   trueCard: BaseComponent;
 
-  constructor(readonly image: string) {
+  constructor(readonly image: string, index: number) {
     super('div', ['card-container']);
     this.falseCard = new BaseComponent('div', ['false-card']);
     this.trueCard = new BaseComponent('div', ['true-card']);
+    this.trueCard.element.dataset.index = String(index);
     this.element.innerHTML = `
       <div class="card">
         <div class="card__front" style="background: rgb(152, 185, 124) url('./images/${image}')
