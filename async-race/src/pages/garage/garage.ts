@@ -39,7 +39,6 @@ export class Garage extends BaseComponent {
 
     const createTextInput = this.control.createTextInput.element as HTMLInputElement;
     const createColorInput = this.control.createColorInput.element as HTMLInputElement;
-    const updateTextInput = this.control.updateTextInput.element as HTMLInputElement;
     const updateColorInput = this.control.updateColorInput.element as HTMLInputElement;
 
     this.control.createBtn.element.addEventListener('click', async () => {
@@ -62,42 +61,16 @@ export class Garage extends BaseComponent {
     };
 
     this.garageList.element.addEventListener('click', async (e) => {
-      if ((e.target as HTMLElement).classList.contains('remove-btn')) {
-        const id = Number((e.target as HTMLElement).dataset.id);
-
-        await deleteCar(id);
-        await this.updateCarsList();
-      } else if ((e.target as HTMLElement).classList.contains('select-btn')) {
-        this.control.updateTextInput.enable();
-        this.control.updateColorInput.enable();
-        this.control.updateBtn.enable();
-
-        this.idOfCurrentlyUpdatedCar = Number((e.target as HTMLElement).dataset.id);
-        const { name } = (e.target as HTMLElement).dataset;
-        const { color } = (e.target as HTMLElement).dataset;
-
-        if (name) updateTextInput.value = name;
-        if (color) updateColorInput.value = color;
-
+      const target = e.target as HTMLElement;
+      if (target.classList.contains('remove-btn')) {
+        this.removeCar(target);
+      } else if (target.classList.contains('select-btn')) {
+        this.selectCar(target);
         updateColorInput.removeEventListener('input', changeCarColor);
-
         updateColorInput.addEventListener('input', changeCarColor);
 
         this.control.updateBtn.element.addEventListener('click', async () => {
-          this.control.updateTextInput.disable();
-          this.control.updateColorInput.disable();
-          this.control.updateBtn.disable();
-
-          const carName = this.getCarName(updateTextInput);
-          const carColor = (updateColorInput).value;
-          const car = {
-            name: carName,
-            color: carColor,
-          };
-
-          await updateCar(this.idOfCurrentlyUpdatedCar, car);
-          await this.updateCarsList();
-          (updateTextInput).value = '';
+          await this.updateCarData();
         }, { once: true });
       }
     });
@@ -122,6 +95,48 @@ export class Garage extends BaseComponent {
 
   updatePageNumberTitle() {
     this.pageNumperTitle.element.innerText = `Page #${this.currentPage}`;
+  }
+
+  async removeCar(button: HTMLElement) {
+    const id = Number(button.dataset.id);
+
+    await deleteCar(id);
+    await this.updateCarsList();
+  }
+
+  selectCar(button: HTMLElement) {
+    this.control.updateTextInput.enable();
+    this.control.updateColorInput.enable();
+    this.control.updateBtn.enable();
+
+    this.idOfCurrentlyUpdatedCar = Number(button.dataset.id);
+    const { name } = button.dataset;
+    const { color } = button.dataset;
+    const updateTextInput = this.control.updateTextInput.element as HTMLInputElement;
+    const updateColorInput = this.control.updateColorInput.element as HTMLInputElement;
+
+    if (name) updateTextInput.value = name;
+    if (color) updateColorInput.value = color;
+  }
+
+  async updateCarData() {
+    this.control.updateTextInput.disable();
+    this.control.updateColorInput.disable();
+    this.control.updateBtn.disable();
+
+    const updateTextInput = this.control.updateTextInput.element as HTMLInputElement;
+    const updateColorInput = this.control.updateColorInput.element as HTMLInputElement;
+
+    const carName = this.getCarName(updateTextInput);
+    const carColor = (updateColorInput).value;
+    const car = {
+      name: carName,
+      color: carColor,
+    };
+
+    await updateCar(this.idOfCurrentlyUpdatedCar, car);
+    await this.updateCarsList();
+    (updateTextInput).value = '';
   }
 
   async updateCarsList() {

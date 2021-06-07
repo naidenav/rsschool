@@ -1,11 +1,5 @@
+import { BASE_URL, PATH } from './constants';
 import { CarProfile } from './interfaces';
-
-const baseURL = 'http://localhost:3000';
-
-const path = {
-  garage: '/garage',
-  winners: '/winners',
-};
 
 interface QueryParam {
   key: string,
@@ -17,7 +11,7 @@ const generateQueryString = (queryParams: QueryParam[] = []) => (queryParams.len
   : '');
 
 export const getAllCars = async (queryParams: QueryParam[] = []) => {
-  const response = await fetch(`${baseURL}${path.garage}${generateQueryString(queryParams)}`);
+  const response = await fetch(`${BASE_URL}${PATH.garage}${generateQueryString(queryParams)}`);
   const cars = await response.json();
   const totalCars = Number(response.headers.get('X-Total-Count'));
 
@@ -28,14 +22,14 @@ export const getAllCars = async (queryParams: QueryParam[] = []) => {
 };
 
 export const getCar = async (id: number) => {
-  const response = await fetch(`${baseURL}${path.garage}/${id}`);
+  const response = await fetch(`${BASE_URL}${PATH.garage}/${id}`);
   const car = await response.json();
 
   return car;
 };
 
 export const createCar = async (car: CarProfile) => {
-  const response = await fetch(`${baseURL}${path.garage}`, {
+  const response = await fetch(`${BASE_URL}${PATH.garage}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -43,11 +37,13 @@ export const createCar = async (car: CarProfile) => {
     body: JSON.stringify(car),
   });
 
-  response.json();
+  const newCar = await response.json();
+
+  return newCar;
 };
 
 export const updateCar = async (id: number, newCar: CarProfile) => {
-  const response = await fetch(`${baseURL}${path.garage}/${id}`, {
+  const response = await fetch(`${BASE_URL}${PATH.garage}/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -55,17 +51,26 @@ export const updateCar = async (id: number, newCar: CarProfile) => {
     body: JSON.stringify(newCar),
   });
 
-  response.json();
+  const updatedCar = await response.json();
+
+  return updatedCar;
 };
 
 export const deleteCar = async (id: number) => {
-  const response = await fetch(`${baseURL}${path.garage}/${id}`, {
+  const response = await fetch(`${BASE_URL}${PATH.garage}/${id}`, {
     method: 'DELETE',
   });
 };
 
+export const startStopCarsEngine = async (queryParams: QueryParam[]) => {
+  const request = await fetch(`${BASE_URL}${PATH.engine}${generateQueryString(queryParams)}`);
+  const response = await request.json();
+
+  return response;
+}
+
 export const getWinners = async (queryParams?: QueryParam[]) => {
-  const response = await fetch(`${baseURL}${path.winners}${generateQueryString(queryParams)}`);
+  const response = await fetch(`${BASE_URL}${PATH.winners}${generateQueryString(queryParams)}`);
   const winners = await response.json();
   const totalWinners = Number(response.headers.get('X-Total-Count'));
 
