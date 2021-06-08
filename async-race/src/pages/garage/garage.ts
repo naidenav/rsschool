@@ -1,14 +1,16 @@
 import {
-  createCar, deleteCar, getAllCars, updateCar,
+  createCar, deleteCar, drive, getAllCars, startEngine, updateCar,
 } from '../../api';
+import { animation } from '../../components/animation';
 import { BaseComponent } from '../../components/base-component';
 import { GarageControl } from '../../components/garage-control/garage-control';
 import { GarageList } from '../../components/garage-list/garage-list';
+import { getAnimationId } from '../../components/get-animation-id';
 import { getRandomCarName } from '../../components/get-random-car-name';
 import { getRandomCars } from '../../components/get-random-cars';
-import { getRandomColor } from '../../components/get-random-color';
 import { PageControl } from '../../components/page-control/page-control';
-import { CarProfile } from '../../interfaces';
+import { GAP, GARAGE_LIMIT } from '../../constants';
+import { AnimationState, CarProfile } from '../../interfaces';
 
 export class Garage extends BaseComponent {
   private control: GarageControl;
@@ -24,6 +26,8 @@ export class Garage extends BaseComponent {
   public currentPage = 1;
 
   public idOfCurrentlyUpdatedCar = 0;
+
+  public animationStore: AnimationState[] = [];
 
   constructor(carList: CarProfile[], totalCars: number) {
     super('div', ['garage']);
@@ -72,6 +76,26 @@ export class Garage extends BaseComponent {
         this.control.updateBtn.element.addEventListener('click', async () => {
           await this.updateCarData();
         }, { once: true });
+      } else if (target.classList.contains('start-engine-btn')) {
+        const id = String(target.dataset.id);
+        target.setAttribute('disabled', '');
+        (target.nextSibling as HTMLElement).removeAttribute('disabled');
+        const res = await startEngine(id);
+        const car = target.nextSibling?.nextSibling as HTMLElement;
+        const animationTime = res.distance / res.velocity;
+        const animationDistance = document.documentElement.clientWidth - GAP;
+        let animationId = animation(car, animationDistance, animationTime);
+        this.animationStore.push(animationId);
+
+        target.nextSibling?.addEventListener('click', () => {
+          window.cancelAnimationFrame(animationId.requestId);
+          car.style.transform = 'translateX(0)';
+          target.removeAttribute('disabled');
+          (target.nextSibling as HTMLElement).setAttribute('disabled', '');
+        }, { once: true })
+
+        const { success } = await drive(id);
+        if (!success) window.cancelAnimationFrame(animationId.requestId);
       }
     });
 
@@ -147,7 +171,7 @@ export class Garage extends BaseComponent {
       },
       {
         key: '_limit',
-        value: '7',
+        value: GARAGE_LIMIT,
       },
     ];
     const cars = await getAllCars(queryParams);

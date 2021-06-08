@@ -5,3 +5,9 @@ export const PATH = {
   winners: '/winners',
   engine: '/engine',
 };
+
+export const GAP = 270;
+
+export const GARAGE_LIMIT = '7';
+
+export const WINNERS_LIMIT = '10';

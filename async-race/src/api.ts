@@ -1,5 +1,5 @@
 import { BASE_URL, PATH } from './constants';
-import { CarProfile } from './interfaces';
+import { CarProfile, Velocity } from './interfaces';
 
 interface QueryParam {
   key: string,
@@ -62,11 +62,17 @@ export const deleteCar = async (id: number) => {
   });
 };
 
-export const startStopCarsEngine = async (queryParams: QueryParam[]) => {
-  const request = await fetch(`${BASE_URL}${PATH.engine}${generateQueryString(queryParams)}`);
-  const response = await request.json();
+export const startEngine = async (id: string): Promise<Velocity> => {
+  return (await fetch(`${BASE_URL}${PATH.engine}?id=${id}&status=started`)).json();
+}
 
-  return response;
+export const stopEngine = async (id: string) => {
+  return (await fetch(`${BASE_URL}${PATH.engine}?id=${id}&status=stopped`)).json();
+}
+
+export const drive = async (id: string) => {
+  const res = await fetch(`${BASE_URL}${PATH.engine}?id=${id}&status=drive`).catch();
+  return res.status !== 200 ? { success: false } : { ...(await res.json()) };
 }
 
 export const getWinners = async (queryParams?: QueryParam[]) => {

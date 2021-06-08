@@ -1,6 +1,7 @@
 import './styles.scss';
 import { App } from './app';
 import { getAllCars, getWinners } from './api';
+import { GARAGE_LIMIT, WINNERS_LIMIT } from './constants';
 
 window.onload = async () => {
   const garageParams = [
@@ -10,7 +11,7 @@ window.onload = async () => {
     },
     {
       key: '_limit',
-      value: '7',
+      value: GARAGE_LIMIT,
     },
   ];
 
@@ -21,7 +22,7 @@ window.onload = async () => {
     },
     {
       key: '_limit',
-      value: '10',
+      value: WINNERS_LIMIT,
     },
   ];
 

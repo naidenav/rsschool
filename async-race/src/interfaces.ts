@@ -9,3 +9,19 @@ export interface Winners {
   wins: number,
   time: number
 }
+
+export interface Velocity {
+  velocity: number,
+  distance: number,
+}
+
+export interface AnimationOptions {
+  timing: Function,
+  draw: Function,
+  duration: number,
+}
+
+export interface AnimationState {
+  carId: string,
+  requestId: number,
+}

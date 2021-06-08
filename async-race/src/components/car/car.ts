@@ -1,5 +1,5 @@
 import './car.scss';
-import { CarProfile } from '../../interfaces';
+import { CarProfile, Velocity } from '../../interfaces';
 import { BaseComponent } from '../base-component';
 import { Button } from '../button/button';
 import flagImg from '../../assets/finish-flag.png';
