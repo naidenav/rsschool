@@ -29,6 +29,8 @@ export class Garage extends BaseComponent {
 
   public animationStore: AnimationState[] = [];
 
+  public carsId: number[] = [];
+
   constructor(carList: CarProfile[], totalCars: number) {
     super('div', ['garage']);
     this.control = new GarageControl();
@@ -37,6 +39,8 @@ export class Garage extends BaseComponent {
     this.garageList = new GarageList(carList);
     this.pageControl = new PageControl(this);
     this.pageControl.checkPaginationStatus(totalCars, this.currentPage);
+
+    carList.forEach(item => item.id ? this.carsId.push(item.id) : '');
 
     this.element.append(this.control.element, this.garageTitle.element,
       this.pageNumperTitle.element, this.garageList.element, this.pageControl.element);
@@ -78,24 +82,13 @@ export class Garage extends BaseComponent {
         }, { once: true });
       } else if (target.classList.contains('start-engine-btn')) {
         const id = String(target.dataset.id);
-        target.setAttribute('disabled', '');
-        (target.nextSibling as HTMLElement).removeAttribute('disabled');
-        const res = await startEngine(id);
-        const car = target.nextSibling?.nextSibling as HTMLElement;
-        const animationTime = res.distance / res.velocity;
-        const animationDistance = document.documentElement.clientWidth - GAP;
-        let animationId = animation(car, animationDistance, animationTime);
-        this.animationStore.push(animationId);
-
-        target.nextSibling?.addEventListener('click', () => {
-          window.cancelAnimationFrame(animationId.requestId);
-          car.style.transform = 'translateX(0)';
-          target.removeAttribute('disabled');
-          (target.nextSibling as HTMLElement).setAttribute('disabled', '');
-        }, { once: true })
-
+        const animationId = await this.startDriving(id);
         const { success } = await drive(id);
         if (!success) window.cancelAnimationFrame(animationId.requestId);
+      } else if (target.classList.contains('stop-engine-btn')) {
+        const id = String(target.dataset.id);
+        const animationId = getAnimationId(this.animationStore, id)
+        if (animationId) this.stopDriving(id, animationId);
       }
     });
 
@@ -105,6 +98,24 @@ export class Garage extends BaseComponent {
       await Promise.all(cars.map(async car => await createCar(car)));
       await this.updateCarsList();
     });
+
+    this.control.raceBtn.element.addEventListener('click', async () => {
+      this.control.raceBtn.disable();
+      await Promise.all(this.carsId.map(async id => {
+        const animationId = await this.startDriving(String(id));
+        this.control.resetBtn.enable();
+        const { success } = await drive(String(id));
+        if (!success) window.cancelAnimationFrame(animationId.requestId);
+      }));
+
+
+    })
+
+    this.control.resetBtn.element.addEventListener('click', async () => {
+      this.control.resetBtn.disable();
+      this.animationStore.map(async item => await this.stopDriving(item.carId, item.requestId));
+      this.control.raceBtn.enable();
+    })
   }
 
   getCarName(input: HTMLInputElement): string {
@@ -179,5 +190,40 @@ export class Garage extends BaseComponent {
     this.garageList.renderCars(cars.cars);
     this.updateCarsCount(cars.totalCars);
     this.pageControl.checkPaginationStatus(cars.totalCars, this.currentPage);
+    for (let car of cars.cars) {
+      if (car.id) this.carsId.push(car.id);
+    }
+  }
+
+  async startDriving(id: string) {
+    const carSection = document.getElementById(id);
+    const startBtn = carSection?.querySelector('.start-engine-btn');
+    const stopBtn = carSection?.querySelector('.stop-engine-btn');
+    const car = carSection?.querySelector('.car-container') as HTMLElement;
+
+    startBtn?.setAttribute('disabled', '');
+    stopBtn?.removeAttribute('disabled');
+    const res = await startEngine(id);
+    const animationTime = res.distance / res.velocity;
+    const animationDistance = document.documentElement.clientWidth - GAP;
+
+    let animationId = animation(car, animationDistance, animationTime);
+    animationId.carId = id;
+    this.animationStore.push(animationId);
+
+    return animationId;
+  }
+
+  async stopDriving(id: string, requestId: number) {
+    const carSection = document.getElementById(id);
+    const startBtn = carSection?.querySelector('.start-engine-btn');
+    const stopBtn = carSection?.querySelector('.stop-engine-btn');
+    const car = carSection?.querySelector('.car-container') as HTMLElement;
+
+    window.cancelAnimationFrame(requestId);
+
+    car.style.transform = 'translateX(0)';
+    startBtn?.removeAttribute('disabled');
+    stopBtn?.setAttribute('disabled', '');
   }
 }

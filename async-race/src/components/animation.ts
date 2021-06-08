@@ -2,7 +2,7 @@ import { AnimationState } from '../interfaces';
 
 export function animation(car: HTMLElement, distance: number, animationTime: number) {
   let start: number | null = null;
-  const state: AnimationState = { carId: car.id, requestId: 0 };
+  const state: AnimationState = { carId: '', requestId: 0 };
 
   function step(timeStamp: number) {
     if (!start) start = timeStamp;

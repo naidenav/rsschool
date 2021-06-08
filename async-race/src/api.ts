@@ -12,12 +12,12 @@ const generateQueryString = (queryParams: QueryParam[] = []) => (queryParams.len
 
 export const getAllCars = async (queryParams: QueryParam[] = []) => {
   const response = await fetch(`${BASE_URL}${PATH.garage}${generateQueryString(queryParams)}`);
-  const cars = await response.json();
+  const cars: CarProfile[] = await response.json();
   const totalCars = Number(response.headers.get('X-Total-Count'));
 
   return {
-    cars,
-    totalCars,
+    cars: cars,
+    totalCars: totalCars,
   };
 };
 
