@@ -72,6 +72,7 @@ export const stopEngine = async (id: string) => {
 
 export const drive = async (id: string) => {
   const res = await fetch(`${BASE_URL}${PATH.engine}?id=${id}&status=drive`).catch();
+
   return res.status !== 200 ? { success: false } : { ...(await res.json()) };
 }
 
@@ -85,3 +86,20 @@ export const getWinners = async (queryParams?: QueryParam[]) => {
     totalWinners,
   };
 };
+
+// export const createWinner = async (id: number) => {
+//   const response = await fetch(`${BASE_URL}${PATH.winners}/${id}`, {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify(car),
+//   });
+//   const winners = await response.json();
+//   const totalWinners = Number(response.headers.get('X-Total-Count'));
+
+//   return {
+//     winners,
+//     totalWinners,
+//   };
+// };

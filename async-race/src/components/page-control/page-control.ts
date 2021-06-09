@@ -18,12 +18,14 @@ export class PageControl extends BaseComponent {
     this.prevPageBtn.element.addEventListener('click', async () => {
       context.currentPage--;
       context.updatePageNumberTitle();
+      context.animationStore = [];
       await context.updateCarsList();
     });
 
     this.nextPageBtn.element.addEventListener('click', async () => {
       context.currentPage++;
       context.updatePageNumberTitle();
+      context.animationStore = [];
       await context.updateCarsList();
     });
   }

@@ -4,6 +4,12 @@ export interface CarProfile {
   id?: number
 }
 
+export interface WinnerProfile {
+  id: number,
+  wins: number,
+  time: number
+}
+
 export interface Winners {
   id: number,
   wins: number,
@@ -12,16 +18,10 @@ export interface Winners {
 
 export interface Velocity {
   velocity: number,
-  distance: number,
-}
-
-export interface AnimationOptions {
-  timing: Function,
-  draw: Function,
-  duration: number,
+  distance: number
 }
 
 export interface AnimationState {
   carId: string,
-  requestId: number,
+  requestId: number
 }
