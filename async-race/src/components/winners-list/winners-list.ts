@@ -1,13 +1,13 @@
 import './winners-list.scss';
 import { BaseComponent } from '../base-component';
-import { CarProfile, WinnerProfile } from '../../interfaces';
+import { CarProfile, FullWinnerInfo, WinnerProfile } from '../../interfaces';
 
 export class WinnersList extends BaseComponent {
   tBody: BaseComponent;
 
   trHeader: BaseComponent;
 
-  thPosition: BaseComponent;
+  thNumber: BaseComponent;
 
   thCar: BaseComponent;
 
@@ -17,11 +17,11 @@ export class WinnersList extends BaseComponent {
 
   thBestTime: BaseComponent;
 
-  constructor(winners: WinnerProfile[]) {
+  constructor(fullWinnersInfo: FullWinnerInfo[]) {
     super('table', ['winners-list']);
     this.tBody = new BaseComponent('tbody', ['t-body']);
     this.trHeader = new BaseComponent('tr', ['tr-header']);
-    this.thPosition = new BaseComponent('th', ['th', 'th-position'], 'Position');
+    this.thNumber = new BaseComponent('th', ['th', 'th-number'], 'Number');
     this.thCar = new BaseComponent('th', ['th', 'th-car'], 'Car');
     this.thName = new BaseComponent('th', ['th', 'th-name'], 'Name');
     this.thWins = new BaseComponent('th', ['th', 'th-wins'], 'Wins');
@@ -30,20 +30,20 @@ export class WinnersList extends BaseComponent {
     this.element.append(this.tBody.element);
     this.tBody.element.append(this.trHeader.element);
     this.trHeader.element.append(
-      this.thPosition.element,
+      this.thNumber.element,
       this.thCar.element,
       this.thName.element,
       this.thWins.element,
       this.thBestTime.element,
     );
 
-    this.renderWinners(winners);
+    this.renderWinners(fullWinnersInfo);
   }
 
   addWinner(winner: WinnerProfile, car: CarProfile, index: number): void {
     const tr = new BaseComponent('tr', ['tr-body']);
-    const tdPosition = new BaseComponent('td', ['td', 'td-position'], `${index + 1}.`);
-    const tdCar = new BaseComponent('td', ['td']);
+    const tdNumber = new BaseComponent('td', ['td', 'td-number'], `${index + 1}`);
+    const tdCar = new BaseComponent('td', ['td', 'td-car']);
     tdCar.element.innerHTML = `
       <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
       width="100px" height="100px" viewBox="0 0 324.447 110" style="enable-background:new 0 0 324.447 324.447;"
@@ -73,7 +73,7 @@ export class WinnersList extends BaseComponent {
 
     this.tBody.element.append(tr.element);
     tr.element.append(
-      tdPosition.element,
+      tdNumber.element,
       tdCar.element,
       tdName.element,
       tdWins.element,
@@ -81,11 +81,10 @@ export class WinnersList extends BaseComponent {
     );
   }
 
-  renderWinners(winners: WinnerProfile[]) {
+  renderWinners(fullWinnersInfo: FullWinnerInfo[]) {
     while (this.trHeader.element.nextSibling) {
       this.trHeader.element.nextSibling.remove();
     }
-
-
+    fullWinnersInfo.forEach((winner, index) => this.addWinner(winner.winner, winner.car, index));
   }
 }

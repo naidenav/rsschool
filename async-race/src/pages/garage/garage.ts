@@ -2,15 +2,13 @@ import {
   checkWinner,
   createCar, createWinner, deleteCar, drive, getAllCars, getWinner, startEngine, updateCar, updateWinner,
 } from '../../api';
-import { animation } from '../../components/animation';
+import { animation, getAnimationId, getRandomCarName, getRandomCars } from '../../components/utils';
 import { BaseComponent } from '../../components/base-component';
 import { GarageControl } from '../../components/garage-control/garage-control';
 import { GarageList } from '../../components/garage-list/garage-list';
-import { getAnimationId } from '../../components/get-animation-id';
-import { getRandomCarName } from '../../components/get-random-car-name';
-import { getRandomCars } from '../../components/get-random-cars';
 import { PageControl } from '../../components/page-control/page-control';
 import { Timer } from '../../components/timer';
+import { updatePageNumberTitle } from '../../components/utils';
 import { GAP, GARAGE_LIMIT } from '../../constants';
 import { AnimationState, CarProfile, WinnerProfile } from '../../interfaces';
 
@@ -47,7 +45,7 @@ export class Garage extends BaseComponent {
     this.pageNumperTitle = new BaseComponent('h3', ['h3'], 'Page #1');
     this.garageList = new GarageList(carList);
     this.pageControl = new PageControl();
-    this.pageControl.checkPaginationStatus(totalCars, this.currentPage);
+    this.pageControl.checkPaginationStatus(totalCars, this.currentPage, GARAGE_LIMIT);
     this.totalCars = totalCars;
 
     carList.forEach(item => item.id ? this.carsId.push(item.id) : '');
@@ -125,7 +123,7 @@ export class Garage extends BaseComponent {
           console.log(this.timer.getTime(), id);
           this.winner = id;
           const time = this.timer.getTime();
-          await this.createWinner(id, time);
+          await this.saveWinner(id, time);
         }
         if (!success) window.cancelAnimationFrame(animationId.requestId);
       }));
@@ -133,7 +131,7 @@ export class Garage extends BaseComponent {
     })
 
     this.control.resetBtn.element.addEventListener('click', async () => {
-      this.pageControl.checkPaginationStatus(this.totalCars, this.currentPage);
+      this.pageControl.checkPaginationStatus(this.totalCars, this.currentPage, GARAGE_LIMIT);
       this.control.resetBtn.disable();
       this.animationStore.map(async item => await this.stopDriving(item.carId, item.requestId));
       this.control.raceBtn.enable();
@@ -142,14 +140,14 @@ export class Garage extends BaseComponent {
 
     this.pageControl.prevPageBtn.element.addEventListener('click', async () => {
       this.currentPage--;
-      this.updatePageNumberTitle();
+      updatePageNumberTitle(this);
       this.animationStore = [];
       await this.updateCarsList();
     });
 
     this.pageControl.nextPageBtn.element.addEventListener('click', async () => {
       this.currentPage++;
-      this.updatePageNumberTitle();
+      updatePageNumberTitle(this);
       this.animationStore = [];
       await this.updateCarsList();
     });
@@ -163,10 +161,6 @@ export class Garage extends BaseComponent {
 
   updateCarsCount(count: number) {
     this.garageTitle.element.innerText = `Garage (${count})`;
-  }
-
-  updatePageNumberTitle() {
-    this.pageNumperTitle.element.innerText = `Page #${this.currentPage}`;
   }
 
   async removeCar(button: HTMLElement) {
@@ -226,7 +220,7 @@ export class Garage extends BaseComponent {
 
     this.garageList.renderCars(cars.cars);
     this.updateCarsCount(cars.totalCars);
-    this.pageControl.checkPaginationStatus(cars.totalCars, this.currentPage);
+    this.pageControl.checkPaginationStatus(cars.totalCars, this.currentPage, GARAGE_LIMIT);
     this.carsId = [];
     for (let car of cars.cars) {
       if (car.id) this.carsId.push(car.id);
@@ -265,7 +259,7 @@ export class Garage extends BaseComponent {
     stopBtn?.setAttribute('disabled', '');
   }
 
-  async createWinner(id: number, time: number) {
+  async saveWinner(id: number, time: number) {
     const status = await checkWinner(id);
     if (status === 200) {
       const winner: WinnerProfile = await getWinner(id);

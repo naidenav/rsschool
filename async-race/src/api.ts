@@ -1,5 +1,5 @@
 import { BASE_URL, PATH } from './constants';
-import { CarProfile, Velocity, WinnerProfile } from './interfaces';
+import { CarProfile, Velocity, WinnerProfile, FullWinnerInfo } from './interfaces';
 
 interface QueryParam {
   key: string,
@@ -65,15 +65,15 @@ export const drive = async (id: string) => {
 
 export const getWinners = async (queryParams?: QueryParam[]) => {
   const response = await fetch(`${BASE_URL}${PATH.winners}${generateQueryString(queryParams)}`);
-  const winners: WinnerProfile[] = await Promise.all((await response.json()).map(async (winner: WinnerProfile) => {
+  const fullWinnersInfo: FullWinnerInfo[] = await Promise.all((await response.json()).map(async (winner: WinnerProfile) => {
     return {
       winner,
-      winnersCar: await getCar(winner.id)
+      car: await getCar(winner.id)
     }
   }));
 
   return {
-    winners,
+    fullWinnersInfo,
     totalWinners: Number(response.headers.get('X-Total-Count')),
   };
 };

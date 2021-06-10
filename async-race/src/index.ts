@@ -28,5 +28,5 @@ window.onload = async () => {
 
   const cars = await getAllCars(garageParams);
   const winners = await getWinners(winnersParams);
-  const application = new App(document.body, cars.cars, cars.totalCars, winners.winners, winners.totalWinners);
+  const application = new App(document.body, cars.cars, cars.totalCars, winners.fullWinnersInfo, winners.totalWinners);
 };

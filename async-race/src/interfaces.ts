@@ -19,3 +19,8 @@ export interface AnimationState {
   carId: string,
   requestId: number
 }
+
+export interface FullWinnerInfo {
+  winner: WinnerProfile,
+  car: CarProfile,
+}

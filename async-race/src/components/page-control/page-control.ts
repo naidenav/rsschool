@@ -1,8 +1,6 @@
 import './page.control.scss';
 import { BaseComponent } from '../base-component';
 import { Button } from '../button/button';
-import { Garage } from '../../pages/garage/garage';
-import { Winners } from '../../pages/winners/winners';
 
 export class PageControl extends BaseComponent {
   readonly nextPageBtn: Button;
@@ -17,11 +15,12 @@ export class PageControl extends BaseComponent {
     this.element.append(this.prevPageBtn.element, this.nextPageBtn.element);
   }
 
-  checkPaginationStatus(totalCars: number, currentPage: number) {
-    if (!this.nextPageBtn.element.hasAttribute('disabled') && Math.ceil(totalCars / 7) === currentPage) {
+  checkPaginationStatus(totalCars: number, currentPage: number, recordsLimit: string) {
+    const limit = Number(recordsLimit);
+    if (!this.nextPageBtn.element.hasAttribute('disabled') && Math.ceil(totalCars / limit) === currentPage) {
       this.nextPageBtn.disable();
     } else if (this.nextPageBtn.element.hasAttribute('disabled')
-    && Math.ceil(totalCars / 7) > currentPage) {
+    && Math.ceil(totalCars / limit) > currentPage) {
       this.nextPageBtn.enable();
     }
 

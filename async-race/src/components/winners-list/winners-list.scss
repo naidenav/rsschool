@@ -1,5 +1,6 @@
 .winners-list {
   margin-top: 20px;
+  margin-left: 20px;
   display: table;
   width: 800px;
   border-collapse: collapse;
@@ -12,7 +13,7 @@
 
 .tr-header {
   display: table-row;
-  border-bottom: 2px solid rgb(230, 230, 230);
+  background-color: rgb(102, 209, 91);
 }
 
 .tr-body {
@@ -28,7 +29,7 @@
   vertical-align: middle;
   font-size: 20px;
   font-weight: normal;
-  color: white;
+  color: black;
   text-shadow: 1px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
@@ -42,6 +43,12 @@
   font-weight: 300;
   color: rgb(230, 230, 230);
   text-shadow: 1px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.td-car {
+  svg {
+    margin-top: -60px;
+  }
 }
 
 .td-position {

@@ -1,6 +1,6 @@
 import { BaseComponent } from './components/base-component';
 import { Button } from './components/button/button';
-import { CarProfile, WinnerProfile } from './interfaces';
+import { CarProfile, FullWinnerInfo, WinnerProfile } from './interfaces';
 import { Garage } from './pages/garage/garage';
 import { Winners } from './pages/winners/winners';
 
@@ -21,13 +21,13 @@ export class App {
   public isGaragePage = true;
 
   constructor(private readonly rootElement: HTMLElement, cars: CarProfile[], totalCars: number,
-    winners: WinnerProfile[], totalWinners: number) {
+    fullWinnersInfo: FullWinnerInfo[], totalWinners: number) {
     this.navigation = new BaseComponent('nav', ['main-navigation']);
     this.garageBtn = new Button('garage', ['main-button', 'garage-btn']);
     this.winnersBtn = new Button('winners', ['main-button', 'winners-btn']);
     this.main = new BaseComponent('main', ['main']);
     this.garage = new Garage(cars, totalCars);
-    this.winners = new Winners(winners, totalWinners);
+    this.winners = new Winners(fullWinnersInfo, totalWinners);
 
     this.navigation.element.append(this.garageBtn.element, this.winnersBtn.element);
     this.main.element.append(this.garage.element, this.winners.element);
@@ -40,7 +40,8 @@ export class App {
       }
     });
 
-    this.winnersBtn.element.addEventListener('click', () => {
+    this.winnersBtn.element.addEventListener('click', async () => {
+      await this.winners.updateWinnersList();
       if (this.winners.element.classList.contains('hidden')) {
         this.garage.element.classList.add('hidden');
         this.winners.element.classList.remove('hidden');
