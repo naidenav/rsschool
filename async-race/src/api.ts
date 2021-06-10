@@ -1,5 +1,5 @@
 import { BASE_URL, PATH } from './constants';
-import { CarProfile, Velocity } from './interfaces';
+import { CarProfile, Velocity, WinnerProfile } from './interfaces';
 
 interface QueryParam {
   key: string,
@@ -16,44 +16,31 @@ export const getAllCars = async (queryParams: QueryParam[] = []) => {
   const totalCars = Number(response.headers.get('X-Total-Count'));
 
   return {
-    cars: cars,
-    totalCars: totalCars,
+    cars,
+    totalCars,
   };
 };
 
-export const getCar = async (id: number) => {
-  const response = await fetch(`${BASE_URL}${PATH.garage}/${id}`);
-  const car = await response.json();
-
-  return car;
-};
+export const getCar = async (id: number) => (await fetch(`${BASE_URL}${PATH.garage}/${id}`)).json();
 
 export const createCar = async (car: CarProfile) => {
-  const response = await fetch(`${BASE_URL}${PATH.garage}`, {
+  return (await fetch(`${BASE_URL}${PATH.garage}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(car),
-  });
-
-  const newCar = await response.json();
-
-  return newCar;
+  })).json();
 };
 
 export const updateCar = async (id: number, newCar: CarProfile) => {
-  const response = await fetch(`${BASE_URL}${PATH.garage}/${id}`, {
+  return (await fetch(`${BASE_URL}${PATH.garage}/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(newCar),
-  });
-
-  const updatedCar = await response.json();
-
-  return updatedCar;
+  })).json();
 };
 
 export const deleteCar = async (id: number) => {
@@ -71,35 +58,47 @@ export const stopEngine = async (id: string) => {
 }
 
 export const drive = async (id: string) => {
-  const res = await fetch(`${BASE_URL}${PATH.engine}?id=${id}&status=drive`).catch();
+  const response = await fetch(`${BASE_URL}${PATH.engine}?id=${id}&status=drive`).catch();
 
-  return res.status !== 200 ? { success: false } : { ...(await res.json()) };
+  return response.status !== 200 ? { success: false } : { ...(await response.json()) };
 }
 
 export const getWinners = async (queryParams?: QueryParam[]) => {
   const response = await fetch(`${BASE_URL}${PATH.winners}${generateQueryString(queryParams)}`);
-  const winners = await response.json();
-  const totalWinners = Number(response.headers.get('X-Total-Count'));
+  const winners: WinnerProfile[] = await Promise.all((await response.json()).map(async (winner: WinnerProfile) => {
+    return {
+      winner,
+      winnersCar: await getCar(winner.id)
+    }
+  }));
 
   return {
     winners,
-    totalWinners,
+    totalWinners: Number(response.headers.get('X-Total-Count')),
   };
 };
 
-// export const createWinner = async (id: number) => {
-//   const response = await fetch(`${BASE_URL}${PATH.winners}/${id}`, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify(car),
-//   });
-//   const winners = await response.json();
-//   const totalWinners = Number(response.headers.get('X-Total-Count'));
+export const checkWinner = async (id: number) => (await fetch(`${BASE_URL}${PATH.winners}/${id}`)).status;
 
-//   return {
-//     winners,
-//     totalWinners,
-//   };
-// };
+export const getWinner = async (id: number) => (await fetch(`${BASE_URL}${PATH.winners}/${id}`)).json();
+
+export const createWinner = async (newWinner: WinnerProfile) => {
+  return (await fetch(`${BASE_URL}${PATH.winners}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(newWinner),
+  })).json();
+};
+
+export const updateWinner = async (winner: WinnerProfile) => {
+  return (await fetch(`${BASE_URL}${PATH.winners}/${winner.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(winner),
+  })).json();
+};
+

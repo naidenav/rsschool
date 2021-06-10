@@ -10,12 +10,6 @@ export interface WinnerProfile {
   time: number
 }
 
-export interface Winners {
-  id: number,
-  wins: number,
-  time: number
-}
-
 export interface Velocity {
   velocity: number,
   distance: number

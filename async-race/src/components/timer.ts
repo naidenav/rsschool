@@ -42,11 +42,7 @@ export class Timer {
     this.milliseconds = 0;
   }
 
-  getTime(): string {
-    let milliseconds = String(this.milliseconds);
-    if (this.milliseconds < 10) milliseconds = `00${this.milliseconds}`;
-    if (this.milliseconds < 100) milliseconds = `0${this.milliseconds}`;
-
-    return `${this.seconds}.${milliseconds}`;
+  getTime(): number {
+    return this.seconds + this.milliseconds / 1000;
   }
 }

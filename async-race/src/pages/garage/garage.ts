@@ -1,5 +1,6 @@
 import {
-  createCar, deleteCar, drive, getAllCars, startEngine, updateCar,
+  checkWinner,
+  createCar, createWinner, deleteCar, drive, getAllCars, getWinner, startEngine, updateCar, updateWinner,
 } from '../../api';
 import { animation } from '../../components/animation';
 import { BaseComponent } from '../../components/base-component';
@@ -45,7 +46,7 @@ export class Garage extends BaseComponent {
     this.garageTitle = new BaseComponent('h2', ['h2'], `Garage (${totalCars})`);
     this.pageNumperTitle = new BaseComponent('h3', ['h3'], 'Page #1');
     this.garageList = new GarageList(carList);
-    this.pageControl = new PageControl(this);
+    this.pageControl = new PageControl();
     this.pageControl.checkPaginationStatus(totalCars, this.currentPage);
     this.totalCars = totalCars;
 
@@ -70,7 +71,6 @@ export class Garage extends BaseComponent {
       await createCar(car);
       await this.updateCarsList();
       (createTextInput).value = '';
-      console.log(this.carsId)
     });
 
     const changeCarColor = () => {
@@ -124,7 +124,8 @@ export class Garage extends BaseComponent {
           this.timer.stopTimer();
           console.log(this.timer.getTime(), id);
           this.winner = id;
-          // await this.createWinner(id);
+          const time = this.timer.getTime();
+          await this.createWinner(id, time);
         }
         if (!success) window.cancelAnimationFrame(animationId.requestId);
       }));
@@ -138,6 +139,20 @@ export class Garage extends BaseComponent {
       this.control.raceBtn.enable();
       this.winner = null;
     })
+
+    this.pageControl.prevPageBtn.element.addEventListener('click', async () => {
+      this.currentPage--;
+      this.updatePageNumberTitle();
+      this.animationStore = [];
+      await this.updateCarsList();
+    });
+
+    this.pageControl.nextPageBtn.element.addEventListener('click', async () => {
+      this.currentPage++;
+      this.updatePageNumberTitle();
+      this.animationStore = [];
+      await this.updateCarsList();
+    });
   }
 
   getCarName(input: HTMLInputElement): string {
@@ -250,10 +265,23 @@ export class Garage extends BaseComponent {
     stopBtn?.setAttribute('disabled', '');
   }
 
-  async createWinner(id: number) {
-    // const winner: WinnerProfile = {
-    //   id: id,
-
-    // }
+  async createWinner(id: number, time: number) {
+    const status = await checkWinner(id);
+    if (status === 200) {
+      const winner: WinnerProfile = await getWinner(id);
+      const newWinner: WinnerProfile = {
+        id,
+        wins: winner.wins + 1,
+        time: winner.time < time ? winner.time : time,
+      }
+      await updateWinner(newWinner);
+    } else {
+      const newWinner: WinnerProfile = {
+        id,
+        wins: 1,
+        time: time,
+      }
+      await createWinner(newWinner);
+    }
   }
 }

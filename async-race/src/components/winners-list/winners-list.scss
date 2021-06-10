@@ -1,0 +1,51 @@
+.winners-list {
+  margin-top: 20px;
+  display: table;
+  width: 800px;
+  border-collapse: collapse;
+  border-color: rgb(80, 80, 80);
+}
+
+.t-body {
+  display: table-row-group;
+}
+
+.tr-header {
+  display: table-row;
+  border-bottom: 2px solid rgb(230, 230, 230);
+}
+
+.tr-body {
+  border-bottom: .5px solid rgb(68, 100, 69);
+  &:hover td {
+    color: rgb(125, 224, 130);
+  }
+}
+
+.th {
+  display: table-cell;
+  height: 40px;
+  vertical-align: middle;
+  font-size: 20px;
+  font-weight: normal;
+  color: white;
+  text-shadow: 1px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.td {
+  padding: 3px;
+  display: table-cell;
+  height: 35px;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 300;
+  color: rgb(230, 230, 230);
+  text-shadow: 1px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.td-position {
+  width: 30px;
+  font-weight: 300;
+  text-align: left;
+}
