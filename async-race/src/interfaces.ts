@@ -4,6 +4,11 @@ export interface CarProfile {
   id?: number
 }
 
+export interface CarsInfo {
+  cars: CarProfile[],
+  totalCars: number,
+}
+
 export interface WinnerProfile {
   id: number,
   wins: number,
@@ -20,7 +25,16 @@ export interface AnimationState {
   requestId: number
 }
 
-export interface FullWinnerInfo {
+export interface Winners {
   winner: WinnerProfile,
   car: CarProfile,
+}
+
+export interface WinnersInfo {
+  winners: Winners[],
+  totalWinners: number,
+}
+
+export interface IsSuccess {
+  success: boolean,
 }

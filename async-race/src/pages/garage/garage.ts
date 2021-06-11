@@ -1,16 +1,18 @@
 import {
-  checkWinner,
-  createCar, createWinner, deleteCar, drive, getAllCars, getWinner, startEngine, updateCar, updateWinner,
+  createCar, deleteCar, drive, getAllCars, startEngine, updateCar,
 } from '../../api';
-import { animation, getAnimationId, getRandomCarName, getRandomCars } from '../../components/utils';
+import {
+  animation, getAnimationId, getCarName, getRandomCars, saveWinner,
+  stopDriving,
+} from '../../components/utils';
 import { BaseComponent } from '../../components/base-component';
 import { GarageControl } from '../../components/garage-control/garage-control';
 import { GarageList } from '../../components/garage-list/garage-list';
 import { PageControl } from '../../components/page-control/page-control';
 import { Timer } from '../../components/timer';
-import { updatePageNumberTitle } from '../../components/utils';
+
 import { GAP, GARAGE_LIMIT } from '../../constants';
-import { AnimationState, CarProfile, WinnerProfile } from '../../interfaces';
+import { AnimationState, CarProfile } from '../../interfaces';
 
 export class Garage extends BaseComponent {
   private timer: Timer;
@@ -48,7 +50,7 @@ export class Garage extends BaseComponent {
     this.pageControl.checkPaginationStatus(totalCars, this.currentPage, GARAGE_LIMIT);
     this.totalCars = totalCars;
 
-    carList.forEach(item => item.id ? this.carsId.push(item.id) : '');
+    carList.forEach((item) => (item.id ? this.carsId.push(item.id) : ''));
 
     this.element.append(this.control.element, this.garageTitle.element,
       this.pageNumperTitle.element, this.garageList.element, this.pageControl.element);
@@ -59,7 +61,7 @@ export class Garage extends BaseComponent {
 
     this.control.createBtn.element.addEventListener('click', async () => {
       this.totalCars++;
-      const carName = this.getCarName(createTextInput);
+      const carName = getCarName(createTextInput);
       const carColor = (createColorInput).value;
       const car = {
         name: carName,
@@ -97,8 +99,8 @@ export class Garage extends BaseComponent {
         if (!success) window.cancelAnimationFrame(animationId.requestId);
       } else if (target.classList.contains('stop-engine-btn')) {
         const id = String(target.dataset.id);
-        const animationId = getAnimationId(this.animationStore, id)
-        if (animationId) this.stopDriving(id, animationId);
+        const animationId = getAnimationId(this.animationStore, id);
+        if (animationId) stopDriving(id, animationId);
       }
     });
 
@@ -106,7 +108,7 @@ export class Garage extends BaseComponent {
       const cars = getRandomCars();
       this.totalCars += 100;
 
-      await Promise.all(cars.map(async car => await createCar(car)));
+      await Promise.all(cars.map(async (car) => createCar(car)));
       await this.updateCarsList();
     });
 
@@ -115,62 +117,55 @@ export class Garage extends BaseComponent {
       this.pageControl.nextPageBtn.disable();
       this.pageControl.prevPageBtn.disable();
       this.timer.startTimer();
-      await Promise.all(this.carsId.map(async id => {
+      await Promise.all(this.carsId.map(async (id) => {
         const animationId = await this.startDriving(String(id));
         const { success } = await drive(String(id));
         if (success && !this.winner) {
           this.timer.stopTimer();
-          console.log(this.timer.getTime(), id);
           this.winner = id;
           const time = this.timer.getTime();
-          await this.saveWinner(id, time);
+          await saveWinner(id, time);
         }
         if (!success) window.cancelAnimationFrame(animationId.requestId);
       }));
       this.control.resetBtn.enable();
-    })
+    });
 
     this.control.resetBtn.element.addEventListener('click', async () => {
       this.pageControl.checkPaginationStatus(this.totalCars, this.currentPage, GARAGE_LIMIT);
       this.control.resetBtn.disable();
-      this.animationStore.map(async item => await this.stopDriving(item.carId, item.requestId));
+      this.animationStore.map(async (item) => stopDriving(item.carId, item.requestId));
       this.control.raceBtn.enable();
       this.winner = null;
-    })
+    });
 
     this.pageControl.prevPageBtn.element.addEventListener('click', async () => {
       this.currentPage--;
-      updatePageNumberTitle(this);
+      this.updatePageNumberTitle();
       this.animationStore = [];
       await this.updateCarsList();
     });
 
     this.pageControl.nextPageBtn.element.addEventListener('click', async () => {
       this.currentPage++;
-      updatePageNumberTitle(this);
+      this.updatePageNumberTitle();
       this.animationStore = [];
       await this.updateCarsList();
     });
   }
 
-  getCarName(input: HTMLInputElement): string {
-    if (input.value) {
-      return input.value;
-    } return getRandomCarName();
-  }
-
-  updateCarsCount(count: number) {
+  updateCarsCount(count: number): void {
     this.garageTitle.element.innerText = `Garage (${count})`;
   }
 
-  async removeCar(button: HTMLElement) {
+  async removeCar(button: HTMLElement): Promise<void> {
     const id = Number(button.dataset.id);
     this.carsId.splice(this.carsId.indexOf(id), 1);
     await deleteCar(id);
     await this.updateCarsList();
   }
 
-  selectCar(button: HTMLElement) {
+  selectCar(button: HTMLElement): void {
     this.control.updateTextInput.enable();
     this.control.updateColorInput.enable();
     this.control.updateBtn.enable();
@@ -185,7 +180,7 @@ export class Garage extends BaseComponent {
     if (color) updateColorInput.value = color;
   }
 
-  async updateCarData() {
+  async updateCarData(): Promise<void> {
     this.control.updateTextInput.disable();
     this.control.updateColorInput.disable();
     this.control.updateBtn.disable();
@@ -193,7 +188,7 @@ export class Garage extends BaseComponent {
     const updateTextInput = this.control.updateTextInput.element as HTMLInputElement;
     const updateColorInput = this.control.updateColorInput.element as HTMLInputElement;
 
-    const carName = this.getCarName(updateTextInput);
+    const carName = getCarName(updateTextInput);
     const carColor = (updateColorInput).value;
     const car = {
       name: carName,
@@ -205,7 +200,11 @@ export class Garage extends BaseComponent {
     (updateTextInput).value = '';
   }
 
-  async updateCarsList() {
+  updatePageNumberTitle = (): void => {
+    this.pageNumperTitle.element.innerText = `Page #${this.currentPage}`;
+  };
+
+  async updateCarsList(): Promise<void> {
     const queryParams = [
       {
         key: '_page',
@@ -222,12 +221,13 @@ export class Garage extends BaseComponent {
     this.updateCarsCount(cars.totalCars);
     this.pageControl.checkPaginationStatus(cars.totalCars, this.currentPage, GARAGE_LIMIT);
     this.carsId = [];
-    for (let car of cars.cars) {
-      if (car.id) this.carsId.push(car.id);
+    for (let i = 0; i < cars.cars.length; i++) {
+      const { id } = cars.cars[i];
+      if (id) this.carsId.push(id);
     }
   }
 
-  async startDriving(id: string) {
+  async startDriving(id: string): Promise<AnimationState> {
     const carSection = document.getElementById(id);
     const startBtn = carSection?.querySelector('.start-engine-btn');
     const stopBtn = carSection?.querySelector('.stop-engine-btn');
@@ -239,43 +239,10 @@ export class Garage extends BaseComponent {
     const animationTime = res.distance / res.velocity;
     const animationDistance = document.documentElement.clientWidth - GAP;
 
-    let animationId = animation(car, animationDistance, animationTime);
+    const animationId = animation(car, animationDistance, animationTime);
     animationId.carId = id;
     this.animationStore.push(animationId);
 
     return animationId;
-  }
-
-  async stopDriving(id: string, requestId: number) {
-    const carSection = document.getElementById(id);
-    const startBtn = carSection?.querySelector('.start-engine-btn');
-    const stopBtn = carSection?.querySelector('.stop-engine-btn');
-    const car = carSection?.querySelector('.car-container') as HTMLElement;
-
-    window.cancelAnimationFrame(requestId);
-
-    car.style.transform = 'translateX(0)';
-    startBtn?.removeAttribute('disabled');
-    stopBtn?.setAttribute('disabled', '');
-  }
-
-  async saveWinner(id: number, time: number) {
-    const status = await checkWinner(id);
-    if (status === 200) {
-      const winner: WinnerProfile = await getWinner(id);
-      const newWinner: WinnerProfile = {
-        id,
-        wins: winner.wins + 1,
-        time: winner.time < time ? winner.time : time,
-      }
-      await updateWinner(newWinner);
-    } else {
-      const newWinner: WinnerProfile = {
-        id,
-        wins: 1,
-        time: time,
-      }
-      await createWinner(newWinner);
-    }
   }
 }

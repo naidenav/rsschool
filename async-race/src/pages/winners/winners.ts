@@ -3,11 +3,10 @@ import { BaseComponent } from '../../components/base-component';
 import { PageControl } from '../../components/page-control/page-control';
 import { WinnersList } from '../../components/winners-list/winners-list';
 import { WINNERS_LIMIT } from '../../constants';
-import { FullWinnerInfo, WinnerProfile } from '../../interfaces';
+import { Winners } from '../../interfaces';
 import { getWinners } from '../../api';
-import { updatePageNumberTitle } from '../../components/utils';
 
-export class Winners extends BaseComponent {
+export class WinnersPage extends BaseComponent {
   private winnersTitle: BaseComponent;
 
   public pageNumperTitle: BaseComponent;
@@ -20,7 +19,7 @@ export class Winners extends BaseComponent {
 
   public totalWinners: number;
 
-  constructor(fullWinnersInfo: FullWinnerInfo[], totalWinners: number) {
+  constructor(fullWinnersInfo: Winners[], totalWinners: number) {
     super('div', ['winners', 'hidden']);
     this.winnersTitle = new BaseComponent('h2', ['h2'], `Winners (${totalWinners})`);
     this.pageNumperTitle = new BaseComponent('h3', ['h3'], 'Page #1');
@@ -34,18 +33,22 @@ export class Winners extends BaseComponent {
 
     this.pageControl.prevPageBtn.element.addEventListener('click', async () => {
       this.currentPage--;
-      updatePageNumberTitle(this);
+      this.updatePageNumberTitle();
       await this.updateWinnersList();
     });
 
     this.pageControl.nextPageBtn.element.addEventListener('click', async () => {
       this.currentPage++;
-      updatePageNumberTitle(this);
+      this.updatePageNumberTitle();
       await this.updateWinnersList();
     });
   }
 
-  async updateWinnersList() {
+  updatePageNumberTitle = (): void => {
+    this.pageNumperTitle.element.innerText = `Page #${this.currentPage}`;
+  };
+
+  async updateWinnersList(): Promise<void> {
     const queryParams = [
       {
         key: '_page',
@@ -57,7 +60,7 @@ export class Winners extends BaseComponent {
       },
     ];
     const winners = await getWinners(queryParams);
-    this.winnersList.renderWinners(winners.fullWinnersInfo);
+    this.winnersList.renderWinners(winners.winners);
     this.totalWinners = winners.totalWinners;
     this.pageControl.checkPaginationStatus(this.totalWinners, this.currentPage, WINNERS_LIMIT);
   }
