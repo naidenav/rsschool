@@ -75,7 +75,7 @@ export const stopDriving = async (id: string, requestId: number): Promise<void> 
 
   window.cancelAnimationFrame(requestId);
 
-  car.style.transform = 'translateX(0)';
+  if (car) car.style.transform = 'translateX(0)';
   startBtn?.removeAttribute('disabled');
   stopBtn?.setAttribute('disabled', '');
 };

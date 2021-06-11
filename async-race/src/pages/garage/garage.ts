@@ -1,5 +1,5 @@
 import {
-  createCar, deleteCar, drive, getAllCars, startEngine, updateCar,
+  createCar, deleteCar, deleteWinner, drive, getAllCars, startEngine, updateCar,
 } from '../../api';
 import {
   animation, getAnimationId, getCarName, getRandomCars, saveWinner,
@@ -81,24 +81,24 @@ export class Garage extends BaseComponent {
 
     this.garageList.element.addEventListener('click', async (e) => {
       const target = e.target as HTMLElement;
+      const id = String(target.dataset.id);
+
       if (target.classList.contains('remove-btn')) {
         this.totalCars--;
         this.removeCar(target);
+        await deleteWinner(id);
       } else if (target.classList.contains('select-btn')) {
         this.selectCar(target);
         updateColorInput.removeEventListener('input', changeCarColor);
         updateColorInput.addEventListener('input', changeCarColor);
-
         this.control.updateBtn.element.addEventListener('click', async () => {
           await this.updateCarData();
         }, { once: true });
       } else if (target.classList.contains('start-engine-btn')) {
-        const id = String(target.dataset.id);
         const animationId = await this.startDriving(id);
         const { success } = await drive(id);
         if (!success) window.cancelAnimationFrame(animationId.requestId);
       } else if (target.classList.contains('stop-engine-btn')) {
-        const id = String(target.dataset.id);
         const animationId = getAnimationId(this.animationStore, id);
         if (animationId) stopDriving(id, animationId);
       }

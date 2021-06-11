@@ -74,6 +74,11 @@ export const checkWinner = async (id: number): Promise<number> => (await fetch(`
 
 export const getWinner = async (id: number): Promise<WinnerProfile> => (await fetch(`${BASE_URL}${PATH.winners}/${id}`)).json();
 
+export const deleteWinner = async (id: string): Promise<void> => {
+  const response = await fetch(`${BASE_URL}${PATH.winners}/${id}`, {
+    method: 'DELETE',
+  });
+};
 export const createWinner = async (newWinner: WinnerProfile): Promise<WinnerProfile> => (await fetch(`${BASE_URL}${PATH.winners}`, {
   method: 'POST',
   headers: {
