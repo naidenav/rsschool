@@ -1,12 +1,7 @@
 import { BASE_URL, PATH } from './constants';
 import {
-  CarProfile, Velocity, WinnerProfile, Winners, CarsInfo, IsSuccess, WinnersInfo,
+  CarProfile, Velocity, WinnerProfile, Winners, CarsInfo, IsSuccess, WinnersInfo, QueryParam,
 } from './interfaces';
-
-interface QueryParam {
-  key: string,
-  value: string | number
-}
 
 const generateQueryString = (queryParams: QueryParam[] = []): string => (queryParams.length ? `?${queryParams
   .map((param) => `${param.key}=${param.value}`).join('&')}`

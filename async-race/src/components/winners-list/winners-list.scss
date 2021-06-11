@@ -56,3 +56,31 @@
   font-weight: 300;
   text-align: left;
 }
+
+.th-wins {
+  position: relative;
+}
+
+.th-time {
+  position: relative;
+}
+
+.sort-arrow {
+  margin-left: 5px;
+  margin-bottom: -2px;
+  display: inline-block;
+  opacity: 0;
+  height: 20px;
+  width: 15px;
+  background: url(../../assets/icons/down-arrow.svg) no-repeat center;
+  background-size: cover;
+}
+
+.arrow-down {
+  opacity: 100;
+}
+
+.arrow-up {
+  opacity: 100;
+  transform: rotate(180deg);
+}

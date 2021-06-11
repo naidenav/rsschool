@@ -1,3 +1,8 @@
+export interface QueryParam {
+  key: string,
+  value: string | number
+}
+
 export interface CarProfile {
   name: string,
   color: string,

@@ -17,6 +17,10 @@ export class WinnersList extends BaseComponent {
 
   thBestTime: BaseComponent;
 
+  winsSortArrow: BaseComponent;
+
+  timeSortArrow: BaseComponent;
+
   constructor(fullWinnersInfo: Winners[]) {
     super('table', ['winners-list']);
     this.tBody = new BaseComponent('tbody', ['t-body']);
@@ -26,6 +30,11 @@ export class WinnersList extends BaseComponent {
     this.thName = new BaseComponent('th', ['th', 'th-name'], 'Name');
     this.thWins = new BaseComponent('th', ['th', 'th-wins'], 'Wins');
     this.thBestTime = new BaseComponent('th', ['th', 'th-time'], 'Best time (seconds)');
+    this.winsSortArrow = new BaseComponent('div', ['sort-arrow']);
+    this.timeSortArrow = new BaseComponent('div', ['sort-arrow']);
+
+    this.thWins.element.append(this.winsSortArrow.element);
+    this.thBestTime.element.append(this.timeSortArrow.element);
 
     this.element.append(this.tBody.element);
     this.tBody.element.append(this.trHeader.element);
