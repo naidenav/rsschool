@@ -92,7 +92,7 @@ export class WinnersList extends BaseComponent {
     );
   }
 
-  renderWinners(fullWinnersInfo: Winners[]) {
+  renderWinners(fullWinnersInfo: Winners[]): void {
     while (this.trHeader.element.nextSibling) {
       this.trHeader.element.nextSibling.remove();
     }

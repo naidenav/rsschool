@@ -116,6 +116,7 @@ export class Garage extends BaseComponent {
       this.control.raceBtn.disable();
       this.pageControl.nextPageBtn.disable();
       this.pageControl.prevPageBtn.disable();
+      this.garageList.element.classList.add('non-interactive');
       this.timer.startTimer();
       await Promise.all(this.carsId.map(async (id) => {
         const animationId = await this.startDriving(String(id));
@@ -134,6 +135,7 @@ export class Garage extends BaseComponent {
     this.control.resetBtn.element.addEventListener('click', async () => {
       this.pageControl.checkPaginationStatus(this.totalCars, this.currentPage, GARAGE_LIMIT);
       this.control.resetBtn.disable();
+      this.garageList.element.classList.remove('non-interactive');
       this.animationStore.map(async (item) => stopDriving(item.carId, item.requestId));
       this.control.raceBtn.enable();
       this.winner = null;

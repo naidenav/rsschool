@@ -1,20 +1,13 @@
 import {
   checkWinner, createWinner, getWinner, updateWinner,
 } from '../api';
+import { BRANDS, CHARS, MODELS } from '../constants';
 import { AnimationState, CarProfile, WinnerProfile } from '../interfaces';
 
 export const getAnimationId = (store: AnimationState[], carId: string): number | undefined => {
   const id = store.find((item) => item.carId === carId);
   return id?.requestId;
 };
-
-const brand = ['BMW', 'Mercedes', 'Audi', 'Volvo', 'Honda', 'Toyota', 'Nissan', 'Renault',
-  'Ford', 'Ferrari', 'Lambargini', 'Jaguar', 'Lada', 'Hyundai', 'Bentley'];
-
-const model = ['Granta', 'Mustang', 'Sierra', 'A4', 'SLA', 'Gelentvagen', 'Skyline', 'Mark II', 'Logan', 'Daster',
-  'Escort', 'Kalina Sport', 'Solaris', 'Civic', 'Prius', 'Corolla', 'Camry', 'V40'];
-
-const char = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
 
 function randomIndex(arr: string[]): number {
   return Math.floor(Math.random() * arr.length);
@@ -23,12 +16,12 @@ function randomIndex(arr: string[]): number {
 export const getRandomColor = (): string => {
   let color = '#';
   for (let i = 0; i < 6; i++) {
-    color += `${char[randomIndex(char)]}`;
+    color += `${CHARS[randomIndex(CHARS)]}`;
   }
   return color;
 };
 
-export const getRandomCarName = (): string => `${brand[randomIndex(brand)]} ${model[randomIndex(model)]}`;
+export const getRandomCarName = (): string => `${BRANDS[randomIndex(BRANDS)]} ${MODELS[randomIndex(MODELS)]}`;
 
 export const getRandomCars = (): CarProfile[] => {
   const arrOfCars = [];

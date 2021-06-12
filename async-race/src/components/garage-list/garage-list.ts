@@ -8,7 +8,7 @@ export class GarageList extends BaseComponent {
     this.renderCars(carsList);
   }
 
-  renderCars(cars: CarProfile[]) {
+  renderCars(cars: CarProfile[]): void {
     while (this.element.firstChild) {
       this.element.firstChild.remove();
     }

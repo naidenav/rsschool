@@ -1,4 +1,4 @@
-import './page.control.scss';
+import './page-control.scss';
 import { BaseComponent } from '../base-component';
 import { Button } from '../button/button';
 
@@ -15,7 +15,7 @@ export class PageControl extends BaseComponent {
     this.element.append(this.prevPageBtn.element, this.nextPageBtn.element);
   }
 
-  checkPaginationStatus(totalCars: number, currentPage: number, recordsLimit: string) {
+  checkPaginationStatus(totalCars: number, currentPage: number, recordsLimit: string): void {
     const limit = Number(recordsLimit);
     if (!this.nextPageBtn.element.hasAttribute('disabled') && Math.ceil(totalCars / limit) === currentPage) {
       this.nextPageBtn.disable();
