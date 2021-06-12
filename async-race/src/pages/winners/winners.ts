@@ -19,7 +19,9 @@ export class WinnersPage extends BaseComponent {
 
   public totalWinners: number;
 
-  private sortOrder: string | null = null;
+  private order: string | null = null;
+
+  private sort: string | null = null;
 
   constructor(fullWinnersInfo: Winners[], totalWinners: number) {
     super('div', ['winners', 'hidden']);
@@ -36,21 +38,25 @@ export class WinnersPage extends BaseComponent {
     this.pageControl.prevPageBtn.element.addEventListener('click', async () => {
       this.currentPage--;
       this.updatePageNumberTitle();
-      await this.updateWinnersList();
+      if (this.sort && this.order) {
+        await this.updateWinnersList(this.sort, this.order);
+      } else await this.updateWinnersList();
     });
 
     this.pageControl.nextPageBtn.element.addEventListener('click', async () => {
       this.currentPage++;
       this.updatePageNumberTitle();
-      await this.updateWinnersList();
+      if (this.sort && this.order) {
+        await this.updateWinnersList(this.sort, this.order);
+      } else await this.updateWinnersList();
     });
 
     this.winnersList.thWins.element.addEventListener('click', async () => {
-      this.toSort('wins', this.winnersList.winsSortArrow.element, this.winnersList.timeSortArrow.element)
+      this.toSort('wins', this.winnersList.winsSortArrow.element, this.winnersList.timeSortArrow.element);
     });
 
     this.winnersList.thBestTime.element.addEventListener('click', async () => {
-      this.toSort('time', this.winnersList.timeSortArrow.element, this.winnersList.winsSortArrow.element)
+      this.toSort('time', this.winnersList.timeSortArrow.element, this.winnersList.winsSortArrow.element);
     });
   }
 
@@ -63,6 +69,7 @@ export class WinnersPage extends BaseComponent {
     const winners = await getWinners(queryParams);
     this.winnersList.renderWinners(winners.winners);
     this.totalWinners = winners.totalWinners;
+    this.winnersTitle.element.innerHTML = `Winners (${winners.totalWinners})`;
     this.pageControl.checkPaginationStatus(this.totalWinners, this.currentPage, WINNERS_LIMIT);
   }
 
@@ -84,20 +91,21 @@ export class WinnersPage extends BaseComponent {
     return queryParams;
   }
 
-  async toSort(column: string, sortArrow: HTMLElement, otherSortArrow: HTMLElement) {
+  async toSort(column: string, sortArrow: HTMLElement, otherSortArrow: HTMLElement): Promise<void> {
+    this.sort = column;
     if (otherSortArrow.classList.contains('arrow-up')) {
-      otherSortArrow.classList.remove('arrow-up')
+      otherSortArrow.classList.remove('arrow-up');
     }
     if (otherSortArrow.classList.contains('arrow-down')) {
-      otherSortArrow.classList.remove('arrow-down')
+      otherSortArrow.classList.remove('arrow-down');
     }
-    if (this.sortOrder !== 'ASC') {
-      this.sortOrder = 'ASC';
+    if (this.order !== 'ASC') {
+      this.order = 'ASC';
       if (sortArrow.classList.contains('arrow-down')) sortArrow.classList.remove('arrow-dowm');
       sortArrow.classList.add('arrow-up');
       await this.updateWinnersList(column, 'ASC');
     } else {
-      this.sortOrder = 'DESC';
+      this.order = 'DESC';
       if (sortArrow.classList.contains('arrow-up')) sortArrow.classList.remove('arrow-up');
       sortArrow.classList.add('arrow-down');
       await this.updateWinnersList(column, 'DESC');
