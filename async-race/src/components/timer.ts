@@ -43,6 +43,6 @@ export class Timer {
   }
 
   getTime(): number {
-    return this.seconds + this.milliseconds / 1000;
+    return this.seconds + Math.round(this.milliseconds) / 1000;
   }
 }
