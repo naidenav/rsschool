@@ -1,0 +1,18 @@
+.victory-message {
+  visibility: visible;
+  z-index: 1000;
+  position: fixed;
+  top: calc(50vh - 100px);
+  left: calc(50vw - 250px);
+  padding: 20px;
+  min-height: 100px;
+  width: 500px;
+  font-size: 60px;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  text-shadow: 5px 5px 0 rgb(253, 49, 49);
+}
+
+.message-hidden {
+  visibility: hidden;
+}

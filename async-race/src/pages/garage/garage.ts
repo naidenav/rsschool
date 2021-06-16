@@ -1,5 +1,6 @@
+import './garage.scss';
 import {
-  createCar, deleteCar, deleteWinner, drive, getAllCars, startEngine, updateCar,
+  createCar, deleteCar, deleteWinner, drive, getAllCars, getCar, startEngine, updateCar,
 } from '../../api';
 import {
   animation, getAnimationId, getCarName, getRandomCars, saveWinner,
@@ -39,6 +40,8 @@ export class Garage extends BaseComponent {
 
   public totalCars: number;
 
+  private victoryMessage: BaseComponent;
+
   constructor(carList: CarProfile[], totalCars: number) {
     super('div', ['garage']);
     this.timer = new Timer();
@@ -49,11 +52,12 @@ export class Garage extends BaseComponent {
     this.pageControl = new PageControl();
     this.pageControl.checkPaginationStatus(totalCars, this.currentPage, GARAGE_LIMIT);
     this.totalCars = totalCars;
+    this.victoryMessage = new BaseComponent('div', ['victory-message', 'message-hidden']);
 
     carList.forEach((item) => (item.id ? this.carsId.push(item.id) : ''));
 
-    this.element.append(this.control.element, this.garageTitle.element,
-      this.pageNumperTitle.element, this.garageList.element, this.pageControl.element);
+    this.element.append(this.control.element, this.garageTitle.element, this.pageNumperTitle.element,
+      this.garageList.element, this.pageControl.element, this.victoryMessage.element);
 
     const createTextInput = this.control.createTextInput.element as HTMLInputElement;
     const createColorInput = this.control.createColorInput.element as HTMLInputElement;
@@ -127,6 +131,7 @@ export class Garage extends BaseComponent {
           this.timer.stopTimer();
           this.winner = id;
           const time = this.timer.getTime();
+          await this.showVictoryMessage(id, time);
           await saveWinner(id, time);
         }
         if (!success) window.cancelAnimationFrame(animationId.requestId);
@@ -141,6 +146,7 @@ export class Garage extends BaseComponent {
       this.animationStore.map(async (item) => stopDriving(item.carId, item.requestId));
       this.control.raceBtn.enable();
       this.winner = null;
+      this.hideVictoryMessage();
     });
 
     this.pageControl.prevPageBtn.element.addEventListener('click', async () => {
@@ -248,5 +254,16 @@ export class Garage extends BaseComponent {
     stopBtn?.removeAttribute('disabled');
 
     return animationId;
+  }
+
+  async showVictoryMessage(id: number, time: number): Promise<void> {
+    const car = await getCar(id);
+    this.victoryMessage.element.innerHTML = `${car.name} went first (${time}s)`;
+    this.victoryMessage.element.classList.remove('message-hidden');
+  }
+
+  hideVictoryMessage(): void {
+    this.victoryMessage.element.innerHTML = '';
+    this.victoryMessage.element.classList.add('message-hidden');
   }
 }
