@@ -100,7 +100,9 @@ export class Garage extends BaseComponent {
         if (!success) window.cancelAnimationFrame(animationId.requestId);
       } else if (target.classList.contains('stop-engine-btn')) {
         const animationId = getAnimationId(this.animationStore, id);
-        if (animationId) stopDriving(id, animationId);
+        if (animationId) await stopDriving(id, animationId);
+        const index = this.animationStore.findIndex((item: AnimationState) => item.carId === id);
+        if (index !== -1) this.animationStore.splice(index, 1);
       }
     });
 
@@ -236,7 +238,6 @@ export class Garage extends BaseComponent {
     const car = carSection?.querySelector('.car-container') as HTMLElement;
 
     startBtn?.setAttribute('disabled', '');
-    stopBtn?.removeAttribute('disabled');
     const res = await startEngine(id);
     const animationTime = res.distance / res.velocity;
     const animationDistance = document.documentElement.clientWidth - GAP;
@@ -244,6 +245,7 @@ export class Garage extends BaseComponent {
     const animationId = animation(car, animationDistance, animationTime);
     animationId.carId = id;
     this.animationStore.push(animationId);
+    stopBtn?.removeAttribute('disabled');
 
     return animationId;
   }
