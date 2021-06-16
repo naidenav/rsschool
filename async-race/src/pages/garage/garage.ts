@@ -258,7 +258,7 @@ export class Garage extends BaseComponent {
 
   async showVictoryMessage(id: number, time: number): Promise<void> {
     const car = await getCar(id);
-    this.victoryMessage.element.innerHTML = `${car.name} went first (${time}s)`;
+    this.victoryMessage.element.innerHTML = `${car.name} has finished first (${time}s)`;
     this.victoryMessage.element.classList.remove('message-hidden');
   }
 
