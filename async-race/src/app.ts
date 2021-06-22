@@ -5,7 +5,6 @@ import { Garage } from './pages/garage/garage';
 import { WinnersPage } from './pages/winners/winners';
 
 export class App {
-  // private routing: Array<Nav>;
   private navigation: BaseComponent;
 
   private garageBtn: Button;
@@ -47,38 +46,5 @@ export class App {
         this.winners.element.classList.remove('hidden');
       }
     });
-
-    // this.routing = [
-    //   {
-    //     name: 'garage',
-    //     route: ,
-    //     content: ,
-    //   },
-    //   {
-    //     name: 'winners',
-    //     route: ,
-    //     content: ,
-    //   },
-    // ];
-
-    // window.onpopstate = () => {
-    //   const currentRouteName = window.location.hash.slice(1);
-    //   const currentRoute = this.routing.find((p: Nav) => p.name === currentRouteName);
-
-    //   if (currentRoute) {
-    //     this.navigate(currentRoute.route, currentRoute.content);
-    //   }
-    // }
   }
-
-  // navigate(route: HTMLElement | null, content: HTMLElement): void {
-  //   const currentChild = ;
-  //   if (currentChild) {
-  //     .replaceChild(content, currentChild);
-  //   }
-  // }
-
-  // async start(): Promise<void> {
-  //   const res = await fetch('');
-  // }
 }

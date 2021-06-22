@@ -17,16 +17,22 @@ export class PageControl extends BaseComponent {
 
   checkPaginationStatus(totalCars: number, currentPage: number, recordsLimit: string): void {
     const limit = Number(recordsLimit);
-    if (!this.nextPageBtn.element.hasAttribute('disabled') && Math.ceil(totalCars / limit) === currentPage) {
+
+    const nextBtnIsEnable = !this.nextPageBtn.element.hasAttribute('disabled');
+    const pageIsLast = Math.ceil(totalCars / limit) === currentPage;
+    const pageIsNotLast = Math.ceil(totalCars / limit) > currentPage;
+
+    if (nextBtnIsEnable && pageIsLast) {
       this.nextPageBtn.disable();
-    } else if (this.nextPageBtn.element.hasAttribute('disabled')
-    && Math.ceil(totalCars / limit) > currentPage) {
+    } else if (!nextBtnIsEnable && pageIsNotLast) {
       this.nextPageBtn.enable();
     }
 
-    if (!this.prevPageBtn.element.hasAttribute('disabled') && currentPage === 1) {
+    const prevBtnIsEnable = !this.prevPageBtn.element.hasAttribute('disabled');
+
+    if (prevBtnIsEnable && currentPage === 1) {
       this.prevPageBtn.disable();
-    } else if (this.prevPageBtn.element.hasAttribute('disabled') && currentPage > 1) {
+    } else if (!prevBtnIsEnable && currentPage > 1) {
       this.prevPageBtn.enable();
     }
   }

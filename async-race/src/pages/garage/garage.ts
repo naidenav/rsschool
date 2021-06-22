@@ -1,6 +1,6 @@
 import './garage.scss';
 import {
-  createCar, deleteCar, deleteWinner, drive, getAllCars, getCar, startEngine, updateCar,
+  createCar, deleteCar, deleteWinner, drive, getAllCars, getCar, startEngine, stopEngine, updateCar,
 } from '../../api';
 import {
   animation, getAnimationId, getCarName, getRandomCars, saveWinner,
@@ -103,8 +103,9 @@ export class Garage extends BaseComponent {
         const { success } = await drive(id);
         if (!success) window.cancelAnimationFrame(animationId.requestId);
       } else if (target.classList.contains('stop-engine-btn')) {
+        await stopEngine(id);
         const animationId = getAnimationId(this.animationStore, id);
-        if (animationId) await stopDriving(id, animationId);
+        if (animationId) stopDriving(id, animationId);
         const index = this.animationStore.findIndex((item: AnimationState) => item.carId === id);
         if (index !== -1) this.animationStore.splice(index, 1);
       }
@@ -143,8 +144,12 @@ export class Garage extends BaseComponent {
       this.pageControl.checkPaginationStatus(this.totalCars, this.currentPage, GARAGE_LIMIT);
       this.control.resetBtn.disable();
       this.garageList.element.classList.remove('non-interactive');
-      this.animationStore.map(async (item) => stopDriving(item.carId, item.requestId));
+      await Promise.all(this.animationStore.map(async (item) => {
+        await stopEngine(item.carId);
+        stopDriving(item.carId, item.requestId);
+      }));
       this.control.raceBtn.enable();
+      this.animationStore = [];
       this.winner = null;
       this.hideVictoryMessage();
     });
