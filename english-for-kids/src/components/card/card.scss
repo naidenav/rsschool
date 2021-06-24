@@ -1,0 +1,99 @@
+@import url(../../styles.scss);
+
+.card-container {
+  margin: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  cursor: pointer;
+
+  perspective: 450px;
+
+  &.flipped > .card {
+    transform: rotateY(-180deg) translateX(-100%);
+  }
+
+  &:hover > .flipped {
+    transform: rotateY(-180deg) translateX(-100%);
+  }
+}
+
+.card {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.4);
+
+  transform-origin: left;
+  transition-duration: 0.4s;
+  transform-style: preserve-3d;
+
+  &.flipped {
+    transform: rotateY(-180deg) translateX(-100%);
+    pointer-events: none;
+  }
+
+  &__front,
+  &__back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    backface-visibility: hidden;
+    border-radius: inherit;
+    background-position: center !important;
+    background-size: cover !important;
+    transition-duration: 1s;
+  }
+
+  &__back {
+    transform: rotateY(180deg);
+  }
+
+  &__title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding-left: 10%;
+    padding-right: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 25%;
+    font-size: 20px;
+    color: white;
+    border-top: 3px solid white;
+    background-color: var(--bg-sidebar);
+  }
+
+  &__turn-btn {
+    height: 1.3em;
+    width: 1.3em;
+    background: transparent url(../../assets/icons/back.svg) no-repeat center;
+    background-size: cover;
+  }
+
+  &__true {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(58, 255, 58, 0.25) url(../../assets/icons/true-card-icon.svg) no-repeat center;
+    background-position: 92% 8%;
+    bottom: 0;
+    border-radius: 15px;
+    transition-duration: 0.2s;
+  }
+}
+
+.not-available {
+  pointer-events: none;
+}
+
+.appearance-on {
+  opacity: 100;
+}

@@ -1,3 +1,5 @@
+export const FLIP_CLASS = 'flipped';
+
 export const CARDS = [
   ['Action (set A)', 'Action (set B)', 'Animal (set A)', 'Animal (set B)', 'Clothes', 'Emotions'],
   [

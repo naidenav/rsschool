@@ -1,10 +1,5 @@
 @import url(./reset.css);
 
-$desktop: 1920px;
-$desktop-min: 1200px;
-$tablet: 640px;
-$mobile: 320px;
-
 /* kaushan-script-regular - latin */
 @font-face {
   font-family: 'Kaushan Script';
@@ -70,7 +65,7 @@ html {
 .train-mode {
   --bg-color: #ffff99;
   --bg-color-down: #3af18d;
-  --bg-sidebar: #40b173;
+  --bg-sidebar: #238c52;
   #bg-image {
     left: -5%;
   }
@@ -113,8 +108,8 @@ body {
 }
 
 .wrapper {
-  width: 1200px;
   @include flex-column();
+  width: 95%;
 }
 
 .non-interactive {
@@ -157,4 +152,23 @@ select {
 }
 ::-webkit-scrollbar-button:vertical:end:increment {
   display: none;
+}
+
+
+
+
+@media screen and (min-width: 640px) {
+  .wrapper {
+    width: 90%;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .wrapper {
+    width: 75%;
+  }
+}
+@media screen and (min-width: 1920px) {
+  .wrapper {
+    width: 1200px;
+  }
 }

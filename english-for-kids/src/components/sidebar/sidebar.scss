@@ -8,11 +8,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: calc((100% - 1200px) / 2 + 75px);
+  width: 75%;
   height: 100%;
   background: var(--bg-sidebar);
   transition-duration: .3s;
-  transition-timing-function: linear;
+  transition-timing-function: ease-in-out;
   transform: translateX(-102%);
   box-shadow: 4px 0 20px rgba(0, 0, 0, 0.35);
   &__list {
@@ -31,10 +31,11 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    height: 60px;
+    height: 50px;
     width: 100%;
     color: white;
-    font-size: 30px;
+    text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.35);
+    font-size: 20px;
     text-decoration: none;
     text-transform: uppercase;
     transition-duration: .1s;
@@ -46,4 +47,26 @@
   .main-link {
     margin-bottom: 20px;
   }
+  @media screen and (min-width: 640px) {
+    width: 50%;
+    &__link {
+      font-size: 24px;
+      height: 50;
+    }
+  }
+  @media screen and (min-width: 1200px) {
+    width: calc(25% / 2 + 75px);
+    &__link {
+      font-size: 18px;
+      height: 40px;
+    }
+  }
+  @media screen and (min-width: 1920px) {
+    width: calc((100% - 1200px) / 2 + 75px);
+    &__link {
+      font-size: 30px;
+      height: 60px;
+    }
+  }
+
 }
