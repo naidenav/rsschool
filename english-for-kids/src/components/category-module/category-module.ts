@@ -1,4 +1,3 @@
-import './category-module.scss';
 import { CARDS, CATEGORIES } from "../../constants";
 import { BaseComponent } from "../base-component";
 import { Category } from "../category/category";

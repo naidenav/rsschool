@@ -6,21 +6,26 @@ import { CATEGORIES } from '../../constants';
 export class Sidebar extends BaseComponent {
   private list: BaseComponent;
 
+  isSidebarOpen = false;
+
   constructor(app: App) {
     super('aside', ['sidebar']);
     this.list = new BaseComponent('ul', ['sidebar__list']);
     this.element.append(this.list.element);
 
     app.header.sidebarBtn.element.addEventListener('click', () => {
-      console.log('gdf')
       if (app.header.sidebarBtn.element.classList.contains('sidebar-btn_active')) {
-        this.hideSidebar();
-        app.header.sidebarBtn.element.classList.remove('sidebar-btn_active');
+        this.hideSidebar(app);
       } else {
-        this.showSidebar();
-        app.header.sidebarBtn.element.classList.add('sidebar-btn_active');
+        this.showSidebar(app);
       }
     });
+
+    document.body.addEventListener('click', (e) => {
+        if (!(e.target as HTMLElement).classList.contains('sidebar') && this.isSidebarOpen) {
+          this.hideSidebar(app);
+        }
+    })
   }
 
   renderList():void {
@@ -34,11 +39,19 @@ export class Sidebar extends BaseComponent {
     });
   }
 
-  showSidebar() {
+  showSidebar(app: App) {
     this.element.style.transform = 'translateX(0)';
+    app.header.sidebarBtn.element.classList.add('sidebar-btn_active');
+    this.element.addEventListener('transitionend', () => {
+      this.isSidebarOpen = true;
+    })
   }
 
-  hideSidebar() {
+  hideSidebar(app: App) {
     this.element.style.transform = 'translateX(-102%)';
+    app.header.sidebarBtn.element.classList.remove('sidebar-btn_active');
+    this.element.addEventListener('transitionend', () => {
+      this.isSidebarOpen = false;
+    })
   }
 }

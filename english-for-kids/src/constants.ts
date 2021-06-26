@@ -2,6 +2,8 @@ import { Card } from "./interfaces";
 
 export const FLIP_CLASS = 'flipped';
 
+export const MAIN_ROUTE = 'main';
+
 export const CATEGORIES = ['Action (set A)', 'Action (set B)', 'Animal (set A)', 'Animal (set B)', 'Clothes', 'Emotions'];
 
 export const CARDS: Card[][] = [

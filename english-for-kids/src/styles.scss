@@ -114,12 +114,22 @@ body {
   width: 95%;
 }
 
-.card-container {
+.container {
   margin-top: 20px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: flex-start;
+  width: 100%;
+}
+
+.category-module,
+.card-module {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   width: 100%;
 }
 
