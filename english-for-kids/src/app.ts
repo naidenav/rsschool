@@ -1,6 +1,8 @@
 import { Background } from "./components/background";
 import { BaseComponent } from "./components/base-component";
 import { Card } from "./components/card/card";
+import { CategoryModule } from "./components/category-module/category-module";
+import { Category } from "./components/category/category";
 import { Header } from "./components/header/header";
 import { Sidebar } from "./components/sidebar/sidebar";
 import { State } from "./interfaces";
@@ -14,7 +16,9 @@ export class App {
 
   private sidebar: Sidebar;
 
-  private card: Card;
+  private container: BaseComponent;
+
+  private categoryModule: CategoryModule;
 
   private state: State = {
     mode: 'train',
@@ -27,10 +31,13 @@ export class App {
     this.header = new Header();
     this.sidebar = new Sidebar(this);
     this.sidebar.renderList();
-    this.card = new Card('./cat.jpg', 'Cat', 'Кошка');
+    this.container = new BaseComponent('div', ['card-container']);
+    this.categoryModule = new CategoryModule();
+    this.categoryModule.render();
 
-    this.rootElement.append(this.background.element, this.wrapper.element, this.sidebar.element, this.card.element);
-    this.wrapper.element.append(this.header.element);
+    this.rootElement.append(this.background.element, this.wrapper.element, this.sidebar.element);
+    this.container.element.append(this.categoryModule.element);
+    this.wrapper.element.append(this.header.element, this.container.element);
 
 
 

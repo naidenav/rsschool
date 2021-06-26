@@ -9,7 +9,7 @@
   height: 94px;
   width: 100%;
   &__sidebar-btn {
-    z-index: 1;
+    z-index: 2;
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
     -webkit-tap-highlight-color: transparent;
     margin-top: 20px;
@@ -22,13 +22,13 @@
     background: none;
     line {
       transition-duration: .3s;
-      stroke: rgb(32, 143, 110);
+      stroke: var(--bg-sidebar);
       stroke-linecap: round;
     }
     &:hover {
       cursor: pointer;
       & line {
-        stroke: var(--bg-color-down);
+        filter: brightness(1.2);
       }
     }
   }
@@ -54,7 +54,7 @@
     left: 100px;
     font-family: 'Kaushan Script', Verdana, sans-serif;
     font-size: 30px;
-    color: var(--bg-color-down);
+    color: var(--bg-color);
     text-shadow: 1px 2px 4px rgba(3, 44, 34, 0.25);
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: rgb(32, 143, 95);
@@ -74,7 +74,7 @@
       display: inline-block;
       width: 100px;
       height: 35px;
-      background: var(--bg-color-down);
+      background: var(--bg-sidebar);
       box-shadow: 2px 4px 15px rgba(6, 12, 70, 0.15);
       border: 1px solid rgb(32, 143, 110);
       border-radius: 50px;

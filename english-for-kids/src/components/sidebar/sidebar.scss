@@ -1,6 +1,7 @@
 @import url(../../styles.scss);
 
 .sidebar {
+  z-index: 1;
   position: absolute;
   left: 0;
   top: 0;
@@ -38,10 +39,12 @@
     font-size: 20px;
     text-decoration: none;
     text-transform: uppercase;
-    transition-duration: .1s;
     &:hover,
     &:focus {
       background-color: var(--bg-color-down);
+    }
+    &:active {
+      filter: brightness(.9);
     }
   }
   .main-link {

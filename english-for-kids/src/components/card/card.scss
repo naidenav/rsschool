@@ -22,6 +22,7 @@
   position: relative;
   width: 200px;
   height: 200px;
+  border-radius: 60px;
   box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.4);
 
   transform-origin: left;
@@ -35,6 +36,7 @@
 
   &__front,
   &__back {
+    overflow: hidden;
     position: absolute;
     top: 0;
     left: 0;
@@ -55,8 +57,9 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    padding-left: 10%;
-    padding-right: 10%;
+    padding-left: 13%;
+    padding-right: 13%;
+    padding-bottom: 5px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -67,6 +70,7 @@
     color: white;
     border-top: 3px solid white;
     background-color: var(--bg-sidebar);
+    transition: 1s;
   }
 
   &__turn-btn {
@@ -85,7 +89,7 @@
     background: rgba(58, 255, 58, 0.25) url(../../assets/icons/true-card-icon.svg) no-repeat center;
     background-position: 92% 8%;
     bottom: 0;
-    border-radius: 15px;
+    border-radius: 40px;
     transition-duration: 0.2s;
   }
 }

@@ -1,7 +1,7 @@
 import './sidebar.scss'
 import { BaseComponent } from "../base-component";
 import { App } from '../../app';
-import { CARDS } from '../../constants';
+import { CATEGORIES } from '../../constants';
 
 export class Sidebar extends BaseComponent {
   private list: BaseComponent;
@@ -27,7 +27,7 @@ export class Sidebar extends BaseComponent {
     const mainLink = document.createElement('li');
     mainLink.innerHTML = '<a href="#main" class="sidebar__link main-link">Main page</a>';
     this.list.element.append(mainLink);
-    CARDS[0].forEach((category, index) => {
+    CATEGORIES.forEach((category, index) => {
       const link = document.createElement('li');
       link.innerHTML = `<a href="#${index}" class="sidebar__link">${category}</a>`;
       this.list.element.append(link);

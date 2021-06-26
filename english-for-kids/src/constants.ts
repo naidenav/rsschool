@@ -1,7 +1,10 @@
+import { Card } from "./interfaces";
+
 export const FLIP_CLASS = 'flipped';
 
-export const CARDS = [
-  ['Action (set A)', 'Action (set B)', 'Animal (set A)', 'Animal (set B)', 'Clothes', 'Emotions'],
+export const CATEGORIES = ['Action (set A)', 'Action (set B)', 'Animal (set A)', 'Animal (set B)', 'Clothes', 'Emotions'];
+
+export const CARDS: Card[][] = [
   [
     {
       word: 'cry',
