@@ -10,15 +10,9 @@ export class Router {
         this.navigate(app.categoryModule.element, app);
       } else {
         app.cardModule.clear();
-        app.cardModule.render(currentRouteName);
+        app.cardModule.render(currentRouteName, app.store.getState());
         this.navigate(app.cardModule.element, app);
       }
-
-      // const currentRoute = this.routing.find((p: Nav) => p.name === currentRouteName);
-
-      // if (currentRoute) {
-      //   this.navigate(currentRoute.route, currentRoute.content);
-      // }
     };
   }
 

@@ -1,3 +1,5 @@
+import { applyMiddleware, createStore } from "redux";
+import thunk from "redux-thunk";
 import { Background } from "./components/background";
 import { BaseComponent } from "./components/base-component";
 import { CardModule } from "./components/card-module/card-module";
@@ -5,9 +7,11 @@ import { Card } from "./components/card/card";
 import { CategoryModule } from "./components/category-module/category-module";
 import { Category } from "./components/category/category";
 import { Header } from "./components/header/header";
+import { switchMode } from "./components/redux/actions";
+import { rootReducer } from "./components/redux/rootReducer";
 import { Router } from "./components/router";
 import { Sidebar } from "./components/sidebar/sidebar";
-import { State } from "./interfaces";
+import { PLAY_MODE, TRAIN_MODE } from "./constants";
 
 export class App {
   private router: Router;
@@ -26,9 +30,10 @@ export class App {
 
   readonly cardModule: CardModule;
 
-  private state: State = {
-    mode: 'train',
-  };
+  readonly store = createStore(
+    rootReducer,
+    applyMiddleware(thunk)
+  );
 
   constructor(private readonly rootElement: HTMLElement) {
     this.rootElement.classList.add('train-mode');
@@ -52,13 +57,28 @@ export class App {
     const modeSwitcher = document.getElementById('mode-switcher__input');
 
     modeSwitcher?.addEventListener('change', () => {
-      if (document.body.classList.contains('train-mode')) {
-        document.body.classList.remove('train-mode');
-        document.body.classList.add('play-mode');
-      } else if (document.body.classList.contains('play-mode')) {
-        document.body.classList.remove('play-mode');
-        document.body.classList.add('train-mode');
-      }
+      this.store.dispatch(switchMode());
     });
+
+    this.store.subscribe(() => {
+      const state = this.store.getState()
+
+      this.switchTheme();
+      if (state === PLAY_MODE) {
+        this.cardModule.hideTitles();
+      } else if (state === TRAIN_MODE) {
+        this.cardModule.showTitles();
+      }
+    })
+  }
+
+  switchTheme() {
+    if (document.body.classList.contains('train-mode')) {
+      document.body.classList.remove('train-mode');
+      document.body.classList.add('play-mode');
+    } else if (document.body.classList.contains('play-mode')) {
+      document.body.classList.remove('play-mode');
+      document.body.classList.add('train-mode');
+    }
   }
 }

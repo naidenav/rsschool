@@ -1,8 +1,14 @@
-import { Card } from "./interfaces";
+import { Card } from './interfaces';
 
 export const FLIP_CLASS = 'flipped';
 
 export const MAIN_ROUTE = 'main';
+
+export const TRAIN_MODE = 'TRAIN_MODE';
+
+export const PLAY_MODE = 'PLAY_MODE';
+
+export const TITLE_HEIGHT = '25%'
 
 export const CATEGORIES = ['Action (set A)', 'Action (set B)', 'Animal (set A)', 'Animal (set B)', 'Clothes', 'Emotions'];
 
