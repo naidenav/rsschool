@@ -10,7 +10,8 @@ export const PLAY_MODE = 'PLAY_MODE';
 
 export const TITLE_HEIGHT = '25%'
 
-export const CATEGORIES = ['Action (set A)', 'Action (set B)', 'Animal (set A)', 'Animal (set B)', 'Clothes', 'Emotions'];
+export const CATEGORIES = ['Action (set A)', 'Action (set B)', 'Animal (set A)', 'Animal (set B)', 'Clothes', 'Emotions',
+'Fruits', 'Colors'];
 
 export const CARDS: Card[][] = [
   [
@@ -311,6 +312,106 @@ export const CARDS: Card[][] = [
       translation: 'смех',
       image: 'img/laugh.jpg',
       audioSrc: 'audio/laugh.mp3'
+    }
+  ],
+  [
+    {
+      word: 'orange',
+      translation: 'апельсин',
+      image: 'img/orange.jpg',
+      audioSrc: 'audio/orange.mp3'
+    },
+    {
+      word: 'cherry',
+      translation: 'вишня',
+      image: 'img/cherry.jpg',
+      audioSrc: 'audio/cherry.mp3'
+    },
+    {
+      word: 'banana',
+      translation: 'банан',
+      image: 'img/banana.jpg',
+      audioSrc: 'audio/banana.mp3'
+    },
+    {
+      word: 'pear',
+      translation: 'груша',
+      image: 'img/pear.jpg',
+      audioSrc: 'audio/pear.mp3'
+    },
+    {
+      word: 'apple',
+      translation: 'яблоко',
+      image: 'img/apple.jpg',
+      audioSrc: 'audio/apple.mp3'
+    },
+    {
+      word: 'peach',
+      translation: 'персик',
+      image: 'img/peach.jpg',
+      audioSrc: 'audio/peach.mp3'
+    },
+    {
+      word: 'grape',
+      translation: 'виноград',
+      image: 'img/grape.jpg',
+      audioSrc: 'audio/grape.mp3'
+    },
+    {
+      word: 'pineapple',
+      translation: 'ананас',
+      image: 'img/pineapple.jpg',
+      audioSrc: 'audio/pineapple.mp3'
+    }
+  ],
+  [
+    {
+      word: 'black',
+      translation: 'чёрный',
+      image: 'img/black.jpg',
+      audioSrc: 'audio/black.mp3'
+    },
+    {
+      word: 'yellow',
+      translation: 'жёлтый',
+      image: 'img/yellow.jpg',
+      audioSrc: 'audio/yellow.mp3'
+    },
+    {
+      word: 'green',
+      translation: 'зелёный',
+      image: 'img/green.jpg',
+      audioSrc: 'audio/green.mp3'
+    },
+    {
+      word: 'blue',
+      translation: 'голубой',
+      image: 'img/blue.jpg',
+      audioSrc: 'audio/blue.mp3'
+    },
+    {
+      word: 'pink',
+      translation: 'розовый',
+      image: 'img/pink.jpg',
+      audioSrc: 'audio/pink.mp3'
+    },
+    {
+      word: 'brown',
+      translation: 'коричневый',
+      image: 'img/brown.jpg',
+      audioSrc: 'audio/brown.mp3'
+    },
+    {
+      word: 'white',
+      translation: 'белый',
+      image: 'img/white.jpg',
+      audioSrc: 'audio/white.mp3'
+    },
+    {
+      word: 'red',
+      translation: 'красный',
+      image: 'img/red.jpg',
+      audioSrc: 'audio/red.mp3'
     }
   ]
 ]

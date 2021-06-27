@@ -9,7 +9,7 @@ export class CategoryModule extends BaseComponent {
 
   render() {
     CATEGORIES.forEach((item, index) => {
-      const imageSrc = CARDS[index][0].image;
+      const imageSrc = CARDS[index][3].image;
       const category = new Category(item, imageSrc, index)
       this.element.append(category.element);
     })
