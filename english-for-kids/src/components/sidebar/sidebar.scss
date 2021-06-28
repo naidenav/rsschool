@@ -41,14 +41,17 @@
     text-transform: uppercase;
     &:hover,
     &:focus {
-      background-color: var(--bg-color-down);
+      filter: brightness(1.2);
+      background-color: var(--bg-sidebar);
     }
     &:active {
+      filter: brightness(1.2);
       filter: brightness(.9);
     }
   }
   .active-route {
-    text-decoration: underline;
+    border-left: 5px solid white;
+    border-left: 5px solid var(--bg-sidebar);
     pointer-events: none;
   }
   .main-link {

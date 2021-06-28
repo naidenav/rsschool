@@ -1,9 +1,17 @@
-import { Action } from "redux";
-import { SWITCH_MODE } from "./types";
+import { ModeAction, PageAction } from "../../interfaces";
+import { SWITCH_MODE, SWITCH_PAGE } from "./types";
 
-export function switchMode(): Action {
+export function switchMode(mode: string): ModeAction {
   return {
-    type: SWITCH_MODE
+    type: SWITCH_MODE,
+    mode
+  }
+}
+
+export function switchPage(page: string): PageAction {
+  return {
+    type: SWITCH_PAGE,
+    page
   }
 }
 

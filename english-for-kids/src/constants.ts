@@ -1,12 +1,17 @@
-import { Card } from './interfaces';
+import { Card, State } from './interfaces';
 
 export const FLIP_CLASS = 'flipped';
 
-export const MAIN_ROUTE = 'main';
+export const MAIN_PAGE = 'main';
 
-export const TRAIN_MODE = 'TRAIN_MODE';
+export const TRAIN_MODE = 'train-mode';
 
-export const PLAY_MODE = 'PLAY_MODE';
+export const PLAY_MODE = 'play-mode';
+
+export const INITIAL_STATE: State = {
+  mode: TRAIN_MODE,
+  page: MAIN_PAGE,
+}
 
 export const TITLE_HEIGHT = '25%'
 

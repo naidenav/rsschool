@@ -1,17 +1,16 @@
-import { applyMiddleware, createStore } from "redux";
+import { applyMiddleware, createStore, Store } from "redux";
 import thunk from "redux-thunk";
 import { Background } from "./components/background";
 import { BaseComponent } from "./components/base-component";
 import { CardModule } from "./components/card-module/card-module";
-import { Card } from "./components/card/card";
 import { CategoryModule } from "./components/category-module/category-module";
-import { Category } from "./components/category/category";
 import { Header } from "./components/header/header";
 import { switchMode } from "./components/redux/actions";
 import { rootReducer } from "./components/redux/rootReducer";
 import { Router } from "./components/router";
 import { Sidebar } from "./components/sidebar/sidebar";
-import { PLAY_MODE, TRAIN_MODE } from "./constants";
+import { INITIAL_STATE, PLAY_MODE, TRAIN_MODE } from "./constants";
+import { State } from "./interfaces";
 
 export class App {
   private router: Router;
@@ -30,8 +29,9 @@ export class App {
 
   readonly cardModule: CardModule;
 
-  readonly store = createStore(
+  readonly store: Store = createStore(
     rootReducer,
+    INITIAL_STATE,
     applyMiddleware(thunk)
   );
 
@@ -57,28 +57,33 @@ export class App {
     const modeSwitcher = document.getElementById('mode-switcher__input');
 
     modeSwitcher?.addEventListener('change', () => {
-      this.store.dispatch(switchMode());
+      const mode = (modeSwitcher as HTMLInputElement).checked ? PLAY_MODE : TRAIN_MODE;
+      this.store.dispatch(switchMode(mode));
+      console.log(this.store.getState())
     });
 
     this.store.subscribe(() => {
       const state = this.store.getState()
 
-      this.switchTheme();
-      if (state === PLAY_MODE) {
-        this.cardModule.hideTitles();
-      } else if (state === TRAIN_MODE) {
-        this.cardModule.showTitles();
-      }
+      this.updateMode(state);
     })
   }
 
-  switchTheme() {
-    if (document.body.classList.contains('train-mode')) {
-      document.body.classList.remove('train-mode');
-      document.body.classList.add('play-mode');
-    } else if (document.body.classList.contains('play-mode')) {
-      document.body.classList.remove('play-mode');
-      document.body.classList.add('train-mode');
+  updateMode(state: State) {
+    if (state.mode === PLAY_MODE) {
+      if (document.body.classList.contains(TRAIN_MODE)) {
+        document.body.classList.remove(TRAIN_MODE);
+        document.body.classList.add(PLAY_MODE);
+      }
+
+      this.cardModule.hideTitles();
+    } else if (state.mode === TRAIN_MODE) {
+      if (document.body.classList.contains(PLAY_MODE)) {
+        document.body.classList.remove(PLAY_MODE);
+        document.body.classList.add(TRAIN_MODE);
+      }
+
+      this.cardModule.showTitles();
     }
   }
 }

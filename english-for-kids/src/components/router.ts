@@ -1,16 +1,19 @@
 import { App } from "../app";
-import { MAIN_ROUTE } from "../constants";
+import { MAIN_PAGE } from "../constants";
+import { switchPage } from "./redux/actions";
 
 export class Router {
   constructor(app: App) {
     window.onpopstate = () => {
       const currentRouteName = window.location.hash.slice(1);
+      app.store.dispatch(switchPage(currentRouteName));
 
-      if (currentRouteName === MAIN_ROUTE) {
+      if (currentRouteName === MAIN_PAGE) {
         this.navigate(app.categoryModule.element, app);
       } else {
         app.cardModule.clear();
-        app.cardModule.render(currentRouteName, app.store.getState());
+        const state = app.store.getState();
+        app.cardModule.render(currentRouteName, state.mode);
         this.navigate(app.cardModule.element, app);
       }
     };
