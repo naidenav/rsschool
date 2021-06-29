@@ -40,13 +40,13 @@ export class App {
     this.router = new Router(this);
     this.background = new Background();
     this.wrapper = new BaseComponent('div', ['wrapper']);
-    this.header = new Header();
+    this.header = new Header(this);
     this.sidebar = new Sidebar(this);
     this.sidebar.renderList();
     this.container = new BaseComponent('div', ['container']);
     this.categoryModule = new CategoryModule();
     this.categoryModule.render();
-    this.cardModule = new CardModule();
+    this.cardModule = new CardModule(this);
 
     this.rootElement.append(this.background.element, this.wrapper.element, this.sidebar.element);
     this.container.element.append(this.categoryModule.element);
@@ -59,13 +59,19 @@ export class App {
     modeSwitcher?.addEventListener('change', () => {
       const mode = (modeSwitcher as HTMLInputElement).checked ? PLAY_MODE : TRAIN_MODE;
       this.store.dispatch(switchMode(mode));
-      console.log(this.store.getState())
+    if (mode === PLAY_MODE) this.header.showGameBtn();
+      if (mode === TRAIN_MODE) {
+        this.header.hideGameBtn();
+        setTimeout(() => this.header.setStartGameBtn(), 300);
+      }
     });
 
     this.store.subscribe(() => {
-      const state = this.store.getState()
+      const state: State = this.store.getState();
+      console.log(state)
 
       this.updateMode(state);
+      this.sidebar.highlightActiveRoute(state.page);
     })
   }
 

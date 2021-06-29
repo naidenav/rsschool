@@ -1,5 +1,6 @@
-import { ModeAction, PageAction } from "../../interfaces";
-import { SWITCH_MODE, SWITCH_PAGE } from "./types";
+import { Action } from "redux";
+import { CardAction, GameAction, ModeAction, PageAction, CardInfo } from "../../interfaces";
+import { GAME, REMOVE_CURRENT_CARD, SET_CURRENT_CARD, SWITCH_MODE, SWITCH_PAGE } from "./types";
 
 export function switchMode(mode: string): ModeAction {
   return {
@@ -15,3 +16,22 @@ export function switchPage(page: string): PageAction {
   }
 }
 
+export function setCurrentCard(card: CardInfo | null): CardAction {
+  return {
+    type: SET_CURRENT_CARD,
+    currentCard: card
+  }
+}
+
+export function removeCurrentCard(): Action {
+  return {
+    type: REMOVE_CURRENT_CARD,
+  }
+}
+
+export function game(state: boolean): GameAction {
+  return {
+    type: GAME,
+    isGameStarted: state,
+  }
+}

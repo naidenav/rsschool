@@ -1,4 +1,4 @@
-import { Card, State } from './interfaces';
+import { CardInfo, State } from './interfaces';
 
 export const FLIP_CLASS = 'flipped';
 
@@ -8,9 +8,15 @@ export const TRAIN_MODE = 'train-mode';
 
 export const PLAY_MODE = 'play-mode';
 
+export const ERROR_AUDIO_SRC = './audio/error.mp3';
+
+export const CORRECT_AUDIO_SRC = './audio/correct.mp3';
+
 export const INITIAL_STATE: State = {
   mode: TRAIN_MODE,
   page: MAIN_PAGE,
+  currentCard: null,
+  isGameStarted: false,
 }
 
 export const TITLE_HEIGHT = '25%'
@@ -18,7 +24,7 @@ export const TITLE_HEIGHT = '25%'
 export const CATEGORIES = ['Action (set A)', 'Action (set B)', 'Animal (set A)', 'Animal (set B)', 'Clothes', 'Emotions',
 'Fruits', 'Colors'];
 
-export const CARDS: Card[][] = [
+export const CARDS: CardInfo[][] = [
   [
     {
       word: 'cry',

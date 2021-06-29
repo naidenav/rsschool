@@ -30,11 +30,11 @@ export class Sidebar extends BaseComponent {
 
   renderList():void {
     const mainLink = document.createElement('li');
-    mainLink.innerHTML = '<a href="#main" class="sidebar__link main-link">Main page</a>';
+    mainLink.innerHTML = '<a href="#main" id="main-route" class="sidebar__link main-link active-route">Main page</a>';
     this.list.element.append(mainLink);
     CATEGORIES.forEach((category, index) => {
       const link = document.createElement('li');
-      link.innerHTML = `<a href="#${index}" class="sidebar__link">${category}</a>`;
+      link.innerHTML = `<a href="#${index}" id="${index}-route" class="sidebar__link">${category}</a>`;
       this.list.element.append(link);
     });
   }
@@ -53,5 +53,12 @@ export class Sidebar extends BaseComponent {
     this.element.addEventListener('transitionend', () => {
       this.isSidebarOpen = false;
     })
+  }
+
+  highlightActiveRoute(state: string) {
+    const prevRoute = document.querySelector('.active-route');
+    prevRoute?.classList.remove('active-route');
+    const currentRoute = document.getElementById(`${state}-route`);
+    currentRoute?.classList.add('active-route');
   }
 }

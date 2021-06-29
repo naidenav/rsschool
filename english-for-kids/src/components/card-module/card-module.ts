@@ -1,13 +1,21 @@
-import { CARDS, PLAY_MODE } from "../../constants";
+import { App } from "../../app";
+import { CARDS, CORRECT_AUDIO_SRC, ERROR_AUDIO_SRC, PLAY_MODE } from "../../constants";
+import { CardInfo, State } from "../../interfaces";
 import { BaseComponent } from "../base-component";
 import { Card } from "../card/card";
-import { playAudio } from "../utils";
+import { game, setCurrentCard } from "../redux/actions";
+import { checkCard, getCardInfo, playAudio } from "../utils";
 
 export class CardModule extends BaseComponent {
-  constructor() {
+  cardList: Card[] = [];
+
+  constructor(app: App) {
     super('div', ['card-module']);
 
     this.element.addEventListener('click', (e) => {
+      const state: State = app.store.getState();
+      if (state.mode === PLAY_MODE) return;
+
       const card = (e.target as HTMLElement).closest('.card-container');
       if (card && !(e.target as HTMLElement).classList.contains('card__turn-btn')) {
         const audioSrc = (card as HTMLElement).dataset.audio;
@@ -29,11 +37,13 @@ export class CardModule extends BaseComponent {
   }
 
   render(index: string, state: string) {
+    this.cardList = [];
     const i = +index;
     CARDS[i].forEach(item => {
       const card = new Card(item.image, item.word, item.translation, item.audioSrc);
       if (state === PLAY_MODE) card.hideTitile();
       this.element.append(card.element);
+      this.cardList.push(card);
     })
   }
 
@@ -50,5 +60,20 @@ export class CardModule extends BaseComponent {
   showTitles() {
     const cards = document.querySelectorAll('.card__front-title');
     cards.forEach(item => item.classList.remove('hide-title'));
+  }
+
+  async startGame(app: App) {
+    const cards = [...this.cardList].sort(() => Math.random() - 0.5);
+    const gameBtn = document.getElementById('game-btn');
+
+    app.store.dispatch(game(true));
+
+    await checkCard(cards, app);
+  }
+
+  finishGame(app: App) {
+    app.store.dispatch(game(false));
+    app.store.dispatch(setCurrentCard(null));
+    app.header.setStartGameBtn();
   }
 }

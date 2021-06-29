@@ -17,8 +17,20 @@ export class Card extends BaseComponent {
 
   turnBtn: BaseComponent;
 
+  word: string;
+
+  translation: string;
+
+  imageSrc: string;
+
+  audioSrc: string;
+
   constructor(image: string, word: string, translation: string, audioSrc: string) {
     super('div', ['card-container']);
+    this.word = word;
+    this.translation = translation;
+    this.imageSrc = image;
+    this.audioSrc = audioSrc;
     this.element.dataset.audio = audioSrc;
     this.card = new BaseComponent('div', ['card']);
     this.frontCard = new BaseComponent('div', ['card__front']);
@@ -48,5 +60,21 @@ export class Card extends BaseComponent {
 
   showTitile() {
     this.frontTitle.element.classList.remove('hide-title');
+  }
+
+  getWord() {
+    return this.word;
+  }
+
+  getTranslation() {
+    return this.translation;
+  }
+
+  getImageSrc() {
+    return this.imageSrc;
+  }
+
+  getAudioSrc() {
+    return this.audioSrc;
   }
 }
