@@ -39,9 +39,11 @@ export const checkCard = async (cards: Card[], app: App) => {
     const target = (e.target as HTMLElement).closest('.card-container');
     if (target && target !== cards[0].element) {
       playAudio(ERROR_AUDIO_SRC);
+      app.progressBar.wrongChoice();
       checkCard(cards, app);
     } else if (target && target === cards[0].element) {
       playAudio(CORRECT_AUDIO_SRC);
+      app.progressBar.rightChoice();
       cards[0].setTrueCard();
       if (cards.length > 1) {
         cards.shift()

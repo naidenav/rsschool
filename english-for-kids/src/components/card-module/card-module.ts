@@ -76,5 +76,6 @@ export class CardModule extends BaseComponent {
     app.store.dispatch(setCurrentCard(null));
     app.header.setStartGameBtn();
     this.cardList.forEach(item => item.removeTrueCard())
+    app.progressBar.clear();
   }
 }

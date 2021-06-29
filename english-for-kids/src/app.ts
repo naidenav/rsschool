@@ -5,6 +5,7 @@ import { BaseComponent } from "./components/base-component";
 import { CardModule } from "./components/card-module/card-module";
 import { CategoryModule } from "./components/category-module/category-module";
 import { Header } from "./components/header/header";
+import { ProgressBar } from "./components/progress-bar/progress-bar";
 import { switchMode } from "./components/redux/actions";
 import { rootReducer } from "./components/redux/rootReducer";
 import { Router } from "./components/router";
@@ -20,6 +21,8 @@ export class App {
   private wrapper: BaseComponent;
 
   readonly header: Header;
+
+  readonly progressBar: ProgressBar;
 
   private sidebar: Sidebar;
 
@@ -41,6 +44,7 @@ export class App {
     this.background = new Background();
     this.wrapper = new BaseComponent('div', ['wrapper']);
     this.header = new Header(this);
+    this.progressBar = new ProgressBar();
     this.sidebar = new Sidebar(this);
     this.sidebar.renderList();
     this.container = new BaseComponent('div', ['container']);
@@ -50,9 +54,7 @@ export class App {
 
     this.rootElement.append(this.background.element, this.wrapper.element, this.sidebar.element);
     this.container.element.append(this.categoryModule.element);
-    this.wrapper.element.append(this.header.element, this.container.element);
-
-
+    this.wrapper.element.append(this.header.element, this.progressBar.element, this.container.element);
 
     const modeSwitcher = document.getElementById('mode-switcher__input');
 
