@@ -12,6 +12,7 @@ export interface State {
   page: string,
   currentCard: CardInfo | null,
   isGameStarted: boolean,
+  isBreak: boolean,
 }
 
 export interface PageAction extends Action {
@@ -28,4 +29,8 @@ export interface ModeAction extends Action {
 
 export interface CardAction extends Action {
   currentCard: CardInfo | null,
+}
+
+export interface BreakGameAction extends Action {
+  isBreak: boolean,
 }

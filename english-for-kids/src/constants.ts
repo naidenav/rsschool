@@ -17,6 +17,7 @@ export const INITIAL_STATE: State = {
   page: MAIN_PAGE,
   currentCard: null,
   isGameStarted: false,
+  isBreak: false,
 }
 
 export const TITLE_HEIGHT = '25%'

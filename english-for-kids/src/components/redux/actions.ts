@@ -1,6 +1,6 @@
 import { Action } from "redux";
-import { CardAction, GameAction, ModeAction, PageAction, CardInfo } from "../../interfaces";
-import { GAME, REMOVE_CURRENT_CARD, SET_CURRENT_CARD, SWITCH_MODE, SWITCH_PAGE } from "./types";
+import { CardAction, GameAction, ModeAction, PageAction, CardInfo, BreakGameAction } from "../../interfaces";
+import { BREAK_GAME, GAME, REMOVE_CURRENT_CARD, SET_CURRENT_CARD, SWITCH_MODE, SWITCH_PAGE } from "./types";
 
 export function switchMode(mode: string): ModeAction {
   return {
@@ -33,5 +33,12 @@ export function game(state: boolean): GameAction {
   return {
     type: GAME,
     isGameStarted: state,
+  }
+}
+
+export function breakGame(isBreak: boolean): BreakGameAction {
+  return {
+    type: BREAK_GAME,
+    isBreak: isBreak,
   }
 }

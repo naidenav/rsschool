@@ -3,7 +3,7 @@ import { CARDS, CORRECT_AUDIO_SRC, ERROR_AUDIO_SRC, PLAY_MODE } from "../../cons
 import { CardInfo, State } from "../../interfaces";
 import { BaseComponent } from "../base-component";
 import { Card } from "../card/card";
-import { game, setCurrentCard } from "../redux/actions";
+import { breakGame, game, setCurrentCard } from "../redux/actions";
 import { checkCard, getCardInfo, playAudio } from "../utils";
 
 export class CardModule extends BaseComponent {
@@ -64,7 +64,6 @@ export class CardModule extends BaseComponent {
 
   async startGame(app: App) {
     const cards = [...this.cardList].sort(() => Math.random() - 0.5);
-    const gameBtn = document.getElementById('game-btn');
 
     app.store.dispatch(game(true));
 
@@ -73,7 +72,9 @@ export class CardModule extends BaseComponent {
 
   finishGame(app: App) {
     app.store.dispatch(game(false));
+    app.store.dispatch(breakGame(true));
     app.store.dispatch(setCurrentCard(null));
     app.header.setStartGameBtn();
+    this.cardList.forEach(item => item.removeTrueCard())
   }
 }

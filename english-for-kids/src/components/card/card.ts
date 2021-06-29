@@ -50,10 +50,6 @@ export class Card extends BaseComponent {
     this.element.append(this.card.element, this.trueCard.element);
   }
 
-  setTrueCard(): void {
-    setTimeout(() => this.trueCard.element.classList.add('appearance-on'), 200);
-  }
-
   hideTitile() {
     this.frontTitle.element.classList.add('hide-title');
   }
@@ -76,5 +72,13 @@ export class Card extends BaseComponent {
 
   getAudioSrc() {
     return this.audioSrc;
+  }
+
+  setTrueCard() {
+    this.trueCard.element.classList.add('true_on');
+  }
+
+  removeTrueCard() {
+    this.trueCard.element.classList.remove('true_on');
   }
 }

@@ -9,7 +9,7 @@ import { switchMode } from "./components/redux/actions";
 import { rootReducer } from "./components/redux/rootReducer";
 import { Router } from "./components/router";
 import { Sidebar } from "./components/sidebar/sidebar";
-import { INITIAL_STATE, PLAY_MODE, TRAIN_MODE } from "./constants";
+import { INITIAL_STATE, MAIN_PAGE, PLAY_MODE, TRAIN_MODE } from "./constants";
 import { State } from "./interfaces";
 
 export class App {
@@ -57,9 +57,11 @@ export class App {
     const modeSwitcher = document.getElementById('mode-switcher__input');
 
     modeSwitcher?.addEventListener('change', () => {
+      const state: State = this.store.getState();
+      if (state.isGameStarted) this.cardModule.finishGame(this);
       const mode = (modeSwitcher as HTMLInputElement).checked ? PLAY_MODE : TRAIN_MODE;
       this.store.dispatch(switchMode(mode));
-    if (mode === PLAY_MODE) this.header.showGameBtn();
+      if (mode === PLAY_MODE && state.page !== MAIN_PAGE) this.header.showGameBtn();
       if (mode === TRAIN_MODE) {
         this.header.hideGameBtn();
         setTimeout(() => this.header.setStartGameBtn(), 300);
@@ -68,7 +70,6 @@ export class App {
 
     this.store.subscribe(() => {
       const state: State = this.store.getState();
-      console.log(state)
 
       this.updateMode(state);
       this.sidebar.highlightActiveRoute(state.page);

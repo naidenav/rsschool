@@ -14,8 +14,6 @@ export class Header extends BaseComponent {
 
   readonly modeSwitcher: BaseComponent;
 
-  readonly modeSwitcherInput: BaseComponent;
-
   constructor(app: App) {
     super('header', ['header']);
     this.sidebarBtn = new BaseComponent('button', ['header__sidebar-btn']);
@@ -39,10 +37,6 @@ export class Header extends BaseComponent {
       <div class="game-btn__repeat-image"></div>
     `;
     this.modeSwitcher = new BaseComponent('div', ['mode-switcher']);
-    this.modeSwitcherInput = new BaseComponent('input');
-    this.modeSwitcherInput.element.setAttribute('type', 'checkbox');
-    this.modeSwitcherInput.element.setAttribute('id', 'mode-switcher__input');
-    this.modeSwitcher.element.append(this.modeSwitcherInput.element);
     this.modeSwitcher.element.innerHTML = `
       <input type="checkbox" id="mode-switcher__input">
         <label class="mode-switcher__container" for="mode-switcher__input">
