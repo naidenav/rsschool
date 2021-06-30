@@ -13,6 +13,7 @@ export interface State {
   currentCard: CardInfo | null,
   isGameStarted: boolean,
   isBreak: boolean,
+  mistakes: number,
 }
 
 export interface PageAction extends Action {

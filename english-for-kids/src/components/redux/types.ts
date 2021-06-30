@@ -10,3 +10,6 @@ export const GAME = 'GAME';
 
 export const BREAK_GAME = 'BREAK_GAME';
 
+export const ADD_MISTAKE = 'ADD_MISTAKE';
+
+export const REMOVE_MISTAKES = 'REMOVE_MISTAKES';

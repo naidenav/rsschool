@@ -12,12 +12,19 @@ export const ERROR_AUDIO_SRC = './audio/error.mp3';
 
 export const CORRECT_AUDIO_SRC = './audio/correct.mp3';
 
+export const SUCCESS_AUDIO_SRC = './audio/success.mp3';
+
+export const FAILURE_AUDIO_SRC = './audio/failure.mp3';
+
+export const PLACE_FOR_ICON = 34;
+
 export const INITIAL_STATE: State = {
   mode: TRAIN_MODE,
   page: MAIN_PAGE,
   currentCard: null,
   isGameStarted: false,
   isBreak: false,
+  mistakes: 0,
 }
 
 export const TITLE_HEIGHT = '25%'

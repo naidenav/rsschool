@@ -1,10 +1,10 @@
 import { App } from "../../app";
-import { CARDS, CORRECT_AUDIO_SRC, ERROR_AUDIO_SRC, PLAY_MODE } from "../../constants";
-import { CardInfo, State } from "../../interfaces";
+import { CARDS, PLAY_MODE } from "../../constants";
+import { State } from "../../interfaces";
 import { BaseComponent } from "../base-component";
 import { Card } from "../card/card";
-import { breakGame, game, setCurrentCard } from "../redux/actions";
-import { checkCard, getCardInfo, playAudio } from "../utils";
+import { game, setCurrentCard } from "../redux/actions";
+import { cardsHandler, playAudio } from "../utils";
 
 export class CardModule extends BaseComponent {
   cardList: Card[] = [];
@@ -67,12 +67,11 @@ export class CardModule extends BaseComponent {
 
     app.store.dispatch(game(true));
 
-    await checkCard(cards, app);
+    await cardsHandler(cards, app);
   }
 
   finishGame(app: App) {
     app.store.dispatch(game(false));
-    app.store.dispatch(breakGame(true));
     app.store.dispatch(setCurrentCard(null));
     app.header.setStartGameBtn();
     this.cardList.forEach(item => item.removeTrueCard())

@@ -6,15 +6,16 @@ import { CardModule } from "./components/card-module/card-module";
 import { CategoryModule } from "./components/category-module/category-module";
 import { Header } from "./components/header/header";
 import { ProgressBar } from "./components/progress-bar/progress-bar";
-import { switchMode } from "./components/redux/actions";
+import { breakGame, switchMode } from "./components/redux/actions";
 import { rootReducer } from "./components/redux/rootReducer";
 import { Router } from "./components/router";
 import { Sidebar } from "./components/sidebar/sidebar";
+import { Summary } from "./components/summary/summary";
 import { INITIAL_STATE, MAIN_PAGE, PLAY_MODE, TRAIN_MODE } from "./constants";
 import { State } from "./interfaces";
 
 export class App {
-  private router: Router;
+  readonly router: Router;
 
   private background: Background;
 
@@ -25,6 +26,8 @@ export class App {
   readonly progressBar: ProgressBar;
 
   private sidebar: Sidebar;
+
+  readonly summary: Summary;
 
   readonly container: BaseComponent;
 
@@ -47,6 +50,7 @@ export class App {
     this.progressBar = new ProgressBar();
     this.sidebar = new Sidebar(this);
     this.sidebar.renderList();
+    this.summary = new Summary();
     this.container = new BaseComponent('div', ['container']);
     this.categoryModule = new CategoryModule();
     this.categoryModule.render();
@@ -60,7 +64,10 @@ export class App {
 
     modeSwitcher?.addEventListener('change', () => {
       const state: State = this.store.getState();
-      if (state.isGameStarted) this.cardModule.finishGame(this);
+      if (state.isGameStarted) {
+        this.store.dispatch(breakGame(true));
+        this.cardModule.finishGame(this);
+      }
       const mode = (modeSwitcher as HTMLInputElement).checked ? PLAY_MODE : TRAIN_MODE;
       this.store.dispatch(switchMode(mode));
       if (mode === PLAY_MODE && state.page !== MAIN_PAGE) this.header.showGameBtn();

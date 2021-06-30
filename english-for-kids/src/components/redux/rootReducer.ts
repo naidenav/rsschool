@@ -1,7 +1,7 @@
 import { Action, combineReducers } from "redux";
 import { INITIAL_STATE, PLAY_MODE, TRAIN_MODE } from "../../constants";
 import { BreakGameAction, CardAction, GameAction, ModeAction, PageAction, State } from "../../interfaces";
-import { BREAK_GAME, GAME, SET_CURRENT_CARD, SWITCH_MODE, SWITCH_PAGE } from "./types";
+import { ADD_MISTAKE, BREAK_GAME, GAME, REMOVE_MISTAKES, SET_CURRENT_CARD, SWITCH_MODE, SWITCH_PAGE } from "./types";
 
 function modeReducer(state = INITIAL_STATE.mode, action: ModeAction) {
   if (action.type === SWITCH_MODE) {
@@ -43,10 +43,22 @@ function cardReducer(state = INITIAL_STATE.currentCard, action: CardAction) {
   return state;
 }
 
+function mistakesReducer(state = INITIAL_STATE.mistakes, action: Action) {
+  if (action.type === ADD_MISTAKE) {
+    return state + 1;
+  }
+  if (action.type === REMOVE_MISTAKES) {
+    return 0;
+  }
+
+  return state;
+}
+
 export const rootReducer = combineReducers({
   mode: modeReducer,
   page: pageReducer,
   currentCard: cardReducer,
   isGameStarted: gameReducer,
   isBreak: breakGameReducer,
+  mistakes: mistakesReducer,
 })
