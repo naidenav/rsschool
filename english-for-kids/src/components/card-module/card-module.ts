@@ -1,10 +1,12 @@
-import { App } from "../../app";
-import { CARDS, PLAY_MODE } from "../../constants";
-import { State } from "../../interfaces";
-import { BaseComponent } from "../base-component";
-import { Card } from "../card/card";
-import { game, setCurrentCard } from "../redux/actions";
-import { cardsHandler, playAudio } from "../utils";
+/* eslint-disable import/no-cycle */
+
+import { App } from '../../app';
+import { CARDS, PLAY_MODE } from '../../constants';
+import { State } from '../../interfaces';
+import { BaseComponent } from '../base-component';
+import { Card } from '../card/card';
+import { game, setCurrentCard } from '../redux/actions';
+import { cardsHandler, playAudio } from '../utils';
 
 export class CardModule extends BaseComponent {
   cardList: Card[] = [];
@@ -36,33 +38,31 @@ export class CardModule extends BaseComponent {
     });
   }
 
-  render(index: string, state: string) {
+  render(index: string, state: string): void {
     this.cardList = [];
     const i = +index;
-    CARDS[i].forEach(item => {
+    CARDS[i].forEach((item) => {
       const card = new Card(item.image, item.word, item.translation, item.audioSrc);
       if (state === PLAY_MODE) card.hideTitile();
       this.element.append(card.element);
       this.cardList.push(card);
-    })
+    });
   }
 
-  clear() {
+  clear(): void {
     this.element.firstElementChild?.remove();
     if (this.element.firstElementChild) this.clear();
   }
 
-  hideTitles() {
-    const cards = document.querySelectorAll('.card__front-title');
-    cards.forEach(item => item.classList.add('hide-title'));
+  hideTitles(): void {
+    this.cardList.forEach((item) => item.hideTitile());
   }
 
-  showTitles() {
-    const cards = document.querySelectorAll('.card__front-title');
-    cards.forEach(item => item.classList.remove('hide-title'));
+  showTitles(): void {
+    this.cardList.forEach((item) => item.showTitile());
   }
 
-  async startGame(app: App) {
+  async startGame(app: App): Promise<void> {
     const cards = [...this.cardList].sort(() => Math.random() - 0.5);
 
     app.store.dispatch(game(true));
@@ -70,11 +70,11 @@ export class CardModule extends BaseComponent {
     await cardsHandler(cards, app);
   }
 
-  finishGame(app: App) {
+  finishGame(app: App): void {
     app.store.dispatch(game(false));
     app.store.dispatch(setCurrentCard(null));
     app.header.setStartGameBtn();
-    this.cardList.forEach(item => item.removeTrueCard())
+    this.cardList.forEach((item) => item.removeTrueCard());
     app.progressBar.clear();
   }
 }

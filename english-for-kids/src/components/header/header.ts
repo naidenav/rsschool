@@ -1,9 +1,10 @@
+/* eslint-disable import/no-cycle */
+
 import './header.scss';
 import { BaseComponent } from '../base-component';
 import { App } from '../../app';
 import { CardInfo, State } from '../../interfaces';
 import { playAudio } from '../utils';
-import { Card } from '../card/card';
 
 export class Header extends BaseComponent {
   readonly sidebarBtn: BaseComponent;
@@ -55,24 +56,22 @@ export class Header extends BaseComponent {
         this.setRepeatBtn();
       }
       if (gameState.isGameStarted) playAudio((gameState.currentCard as CardInfo).audioSrc);
-    })
+    });
   }
 
-  showGameBtn() {
+  showGameBtn(): void {
     this.gameBtn.element.classList.remove('game-btn-off');
   }
 
-  hideGameBtn() {
+  hideGameBtn(): void {
     this.gameBtn.element.classList.add('game-btn-off');
   }
 
-  setStartGameBtn() {
+  setStartGameBtn(): void {
     this.gameBtn.element.classList.remove('game-btn_transform');
   }
 
-  setRepeatBtn() {
+  setRepeatBtn(): void {
     this.gameBtn.element.classList.add('game-btn_transform');
   }
 }
-
-

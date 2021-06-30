@@ -1,18 +1,23 @@
-import { applyMiddleware, createStore, Store } from "redux";
-import thunk from "redux-thunk";
-import { Background } from "./components/background";
-import { BaseComponent } from "./components/base-component";
-import { CardModule } from "./components/card-module/card-module";
-import { CategoryModule } from "./components/category-module/category-module";
-import { Header } from "./components/header/header";
-import { ProgressBar } from "./components/progress-bar/progress-bar";
-import { breakGame, switchMode } from "./components/redux/actions";
-import { rootReducer } from "./components/redux/rootReducer";
-import { Router } from "./components/router";
-import { Sidebar } from "./components/sidebar/sidebar";
-import { Summary } from "./components/summary/summary";
-import { INITIAL_STATE, MAIN_PAGE, PLAY_MODE, TRAIN_MODE } from "./constants";
-import { State } from "./interfaces";
+/* eslint-disable import/no-cycle */
+
+import { applyMiddleware, createStore, Store } from 'redux';
+import thunk from 'redux-thunk';
+import { Background } from './components/background';
+import { BaseComponent } from './components/base-component';
+import { CardModule } from './components/card-module/card-module';
+import { CategoryModule } from './components/category-module/category-module';
+import { Header } from './components/header/header';
+import { ProgressBar } from './components/progress-bar/progress-bar';
+import { breakGame, switchMode } from './components/redux/actions';
+import { rootReducer } from './components/redux/rootReducer';
+import { Router } from './components/router';
+import { Sidebar } from './components/sidebar/sidebar';
+import { Summary } from './components/summary/summary';
+import { highlightActiveRoute } from './components/utils';
+import {
+  INITIAL_STATE, MAIN_PAGE, PLAY_MODE, TRAIN_MODE,
+} from './constants';
+import { State } from './interfaces';
 
 export class App {
   readonly router: Router;
@@ -38,7 +43,7 @@ export class App {
   readonly store: Store = createStore(
     rootReducer,
     INITIAL_STATE,
-    applyMiddleware(thunk)
+    applyMiddleware(thunk),
   );
 
   constructor(private readonly rootElement: HTMLElement) {
@@ -81,11 +86,11 @@ export class App {
       const state: State = this.store.getState();
 
       this.updateMode(state);
-      this.sidebar.highlightActiveRoute(state.page);
-    })
+      highlightActiveRoute(state.page);
+    });
   }
 
-  updateMode(state: State) {
+  updateMode(state: State): void {
     if (state.mode === PLAY_MODE) {
       if (document.body.classList.contains(TRAIN_MODE)) {
         document.body.classList.remove(TRAIN_MODE);

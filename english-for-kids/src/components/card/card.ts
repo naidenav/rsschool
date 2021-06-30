@@ -1,6 +1,5 @@
 import './card.scss';
 import { BaseComponent } from '../base-component';
-import { FLIP_CLASS, TITLE_HEIGHT } from '../../constants';
 
 export class Card extends BaseComponent {
   card: BaseComponent;
@@ -50,35 +49,35 @@ export class Card extends BaseComponent {
     this.element.append(this.card.element, this.trueCard.element);
   }
 
-  hideTitile() {
+  hideTitile(): void {
     this.frontTitle.element.classList.add('hide-title');
   }
 
-  showTitile() {
+  showTitile(): void {
     this.frontTitle.element.classList.remove('hide-title');
   }
 
-  getWord() {
+  getWord(): string {
     return this.word;
   }
 
-  getTranslation() {
+  getTranslation(): string {
     return this.translation;
   }
 
-  getImageSrc() {
+  getImageSrc(): string {
     return this.imageSrc;
   }
 
-  getAudioSrc() {
+  getAudioSrc(): string {
     return this.audioSrc;
   }
 
-  setTrueCard() {
+  setTrueCard(): void {
     this.trueCard.element.classList.add('true_on');
   }
 
-  removeTrueCard() {
+  removeTrueCard(): void {
     this.trueCard.element.classList.remove('true_on');
   }
 }

@@ -1,5 +1,5 @@
 import './progress-bar.scss';
-import { BaseComponent } from "../base-component";
+import { BaseComponent } from '../base-component';
 import { PLACE_FOR_ICON } from '../../constants';
 
 export class ProgressBar extends BaseComponent {
@@ -7,19 +7,19 @@ export class ProgressBar extends BaseComponent {
     super('div', ['progress-bar']);
   }
 
-  rightChoice() {
+  rightChoice(): void {
     this.checkWidth();
     const rightIcon = new BaseComponent('div', ['progress-bar__right-icon']);
     this.element.append(rightIcon.element);
   }
 
-  wrongChoice() {
+  wrongChoice(): void {
     this.checkWidth();
     const wrongIcon = new BaseComponent('div', ['progress-bar__wrong-icon']);
     this.element.append(wrongIcon.element);
   }
 
-  checkWidth() {
+  checkWidth(): void {
     const width = this.element.clientWidth;
     const numOfIcons = this.element.children.length;
     const widthOfAllIcons = numOfIcons * PLACE_FOR_ICON;
@@ -27,7 +27,7 @@ export class ProgressBar extends BaseComponent {
     if (widthOfAllIcons + PLACE_FOR_ICON > width) this.element.firstElementChild?.remove();
   }
 
-  clear() {
+  clear(): void {
     this.element.firstElementChild?.remove();
     if (this.element.firstElementChild) this.clear();
   }

@@ -1,5 +1,7 @@
-import './sidebar.scss'
-import { BaseComponent } from "../base-component";
+/* eslint-disable import/no-cycle */
+
+import './sidebar.scss';
+import { BaseComponent } from '../base-component';
 import { App } from '../../app';
 import { CATEGORIES } from '../../constants';
 
@@ -22,10 +24,10 @@ export class Sidebar extends BaseComponent {
     });
 
     document.body.addEventListener('click', (e) => {
-        if (!(e.target as HTMLElement).classList.contains('sidebar') && this.isSidebarOpen) {
-          this.hideSidebar(app);
-        }
-    })
+      if (!(e.target as HTMLElement).classList.contains('sidebar') && this.isSidebarOpen) {
+        this.hideSidebar(app);
+      }
+    });
   }
 
   renderList():void {
@@ -39,26 +41,19 @@ export class Sidebar extends BaseComponent {
     });
   }
 
-  showSidebar(app: App) {
+  showSidebar(app: App): void {
     this.element.style.transform = 'translateX(0)';
     app.header.sidebarBtn.element.classList.add('sidebar-btn_active');
     this.element.addEventListener('transitionend', () => {
       this.isSidebarOpen = true;
-    })
+    });
   }
 
-  hideSidebar(app: App) {
+  hideSidebar(app: App): void {
     this.element.style.transform = 'translateX(-102%)';
     app.header.sidebarBtn.element.classList.remove('sidebar-btn_active');
     this.element.addEventListener('transitionend', () => {
       this.isSidebarOpen = false;
-    })
-  }
-
-  highlightActiveRoute(state: string) {
-    const prevRoute = document.querySelector('.active-route');
-    prevRoute?.classList.remove('active-route');
-    const currentRoute = document.getElementById(`${state}-route`);
-    currentRoute?.classList.add('active-route');
+    });
   }
 }

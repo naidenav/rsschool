@@ -1,6 +1,5 @@
 import './category.scss';
-import { BaseComponent } from "../base-component";
-import { CARDS } from '../../constants';
+import { BaseComponent } from '../base-component';
 
 export class Category extends BaseComponent {
   title: BaseComponent;
