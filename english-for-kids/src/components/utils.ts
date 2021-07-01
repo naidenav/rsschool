@@ -13,6 +13,12 @@ export const playAudio = (src: string): void => {
   audio.play();
 };
 
+export const renderTableIcon = (iconClass: string): string => {
+  return `
+    <div class="table-icon ${iconClass}-icon"></div>
+  `
+}
+
 export const navigate = (content: HTMLElement, app: App): void => {
   const currentChild = app.container.element.firstElementChild;
   if (currentChild) {
@@ -32,6 +38,10 @@ export const getCardInfo = (card: Card): CardInfo => ({
   translation: card.getTranslation(),
   image: card.getImageSrc(),
   audioSrc: card.getAudioSrc(),
+  trainModeTurns: 0,
+  playModeChoices: 0,
+  trueChoicesNum: 0,
+  trueChoicesPer: 0,
 });
 
 export const cardsHandler = async (cards: Card[], app: App): Promise<void> => {
@@ -72,9 +82,8 @@ export const cardsHandler = async (cards: Card[], app: App): Promise<void> => {
         } else app.summary.succes(app);
         setTimeout(() => {
           window.location.hash = `#${MAIN_PAGE}`;
-          app.header.showGameBtn();
         }, 4000);
       }
-    }
+    } else cardsHandler(cards, app);
   }, { once: true });
 };

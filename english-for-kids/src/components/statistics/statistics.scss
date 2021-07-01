@@ -1,0 +1,149 @@
+.statistics {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: var(--bg-color);
+  &__btn-wrapper {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 400px;
+  }
+  &__button {
+    padding-left: 15px;
+    padding-right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    font-size: 16px;
+    font-weight: 700;
+    color: rgb(255, 255, 255);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    background-color: var(--bg-sidebar);
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.4);
+    transition-duration: 0.2s;
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12), 0 3px 6px rgba(0, 0, 0, 0.15);
+    }
+    &:active {
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.4);
+    }
+  }
+}
+
+.table {
+  margin-top: 20px;
+  display: table;
+  width: 1000px;
+  border-collapse: collapse;
+  border-color: rgb(80, 80, 80);
+}
+
+.table-icon {
+  display: inline-block;
+  height: 30px;
+  width: 30px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.train-icon {
+  background-image: url(../../assets/icons/train-icon.svg);
+}
+
+.play-icon {
+  background-image: url(../../assets/icons/play-icon.svg);
+}
+
+
+.percentage-icon {
+  background-image: url(../../assets/icons/percentage.svg);
+}
+
+
+.true-card-icon {
+  background-image: url(../../assets/icons/true-cards-icon.svg);
+}
+
+.t-body {
+  display: table-row-group;
+}
+
+.tr-header {
+  display: table-row;
+  background-color: var(--bg-sidebar);
+}
+
+.tr-body {
+  border-bottom: .5px solid var(--bg-sidebar);
+  &:hover td {
+    color: rgb(125, 224, 130);
+  }
+}
+
+.th {
+  display: table-cell;
+  height: 40px;
+  vertical-align: middle;
+  font-size: 20px;
+  font-weight: normal;
+  color: white;
+  text-shadow: 1px 2px 5px rgba(0, 0, 0, 0.3);
+  &:not(:nth-child(1)):hover {
+    cursor: pointer;
+  }
+}
+
+.td {
+  padding: 3px;
+  display: table-cell;
+  height: 35px;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 300;
+  color: var(--bg-sidebar);
+  text-shadow: 1px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.sort-arrow {
+  margin-left: 5px;
+  margin-bottom: 3px;
+  display: inline-block;
+  opacity: 0;
+  height: 20px;
+  width: 15px;
+  background: url(../../assets/icons/down-arrow.svg) no-repeat center;
+  background-size: cover;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.arrow-down {
+  opacity: 100;
+}
+
+.arrow-up {
+  opacity: 100;
+  transform: rotate(180deg);
+}
+

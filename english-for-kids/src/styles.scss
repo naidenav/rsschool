@@ -101,7 +101,7 @@ body {
   position: relative;
   overflow-x: hidden;
   @include flex-column();
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   font-family: 'Montserrat', Verdana, sans-serif;
   font-weight: 500;
@@ -112,6 +112,7 @@ body {
 .wrapper {
   @include flex-column();
   width: 95%;
+  height: 100%;
 }
 
 .container {

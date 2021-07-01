@@ -30,7 +30,7 @@ export class Summary extends BaseComponent {
   failure(mistakes: number, app: App): void {
     this.clear();
     this.image.element.classList.add('failure-image');
-    this.title.element.innerHTML = `You made ${mistakes} mistakes`;
+    this.title.element.innerHTML = `You made <span class="mistakes">${mistakes}</span> mistakes`;
     navigate(this.element, app);
     playAudio(FAILURE_AUDIO_SRC);
     app.store.dispatch(removeMistakes());

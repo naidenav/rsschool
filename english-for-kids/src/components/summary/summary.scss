@@ -19,6 +19,12 @@
     -webkit-text-stroke-color: var(--bg-sidebar);
     text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.3);
   }
+  .mistakes {
+    font-weight: 700;
+    color: rgb(231, 139, 139);
+    -webkit-text-stroke-width: 4px;
+    -webkit-text-stroke-color: rgb(236, 47, 47);
+  }
 }
 
 .success-image {

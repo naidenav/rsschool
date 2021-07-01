@@ -5,6 +5,10 @@ export interface CardInfo {
   translation: string,
   image: string,
   audioSrc: string,
+  trainModeTurns: number,
+  playModeChoices: number,
+  trueChoicesNum: number,
+  trueChoicesPer: number,
 }
 
 export interface State {

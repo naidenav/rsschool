@@ -39,6 +39,9 @@ export class Sidebar extends BaseComponent {
       link.innerHTML = `<a href="#${index}" id="${index}-route" class="sidebar__link">${category}</a>`;
       this.list.element.append(link);
     });
+    const statisticsLink = document.createElement('li');
+    statisticsLink.innerHTML = '<a href="#statistics" id="statistics-route" class="sidebar__link statistics-link">Statistics</a>';
+    this.list.element.append(statisticsLink);
   }
 
   showSidebar(app: App): void {

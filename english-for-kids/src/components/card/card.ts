@@ -41,12 +41,12 @@ export class Card extends BaseComponent {
     this.backTitle = new BaseComponent('div', ['card__back-title'], translation);
     this.turnBtn = new BaseComponent('div', ['card__turn-btn']);
 
-    this.frontCard.element.append(this.frontTitle.element);
+    this.frontCard.element.append(this.trueCard.element, this.frontTitle.element);
     this.backCard.element.append(this.backTitle.element);
     this.frontTitle.element.append(this.turnBtn.element);
     this.card.element.append(this.frontCard.element, this.backCard.element);
 
-    this.element.append(this.card.element, this.trueCard.element);
+    this.element.append(this.card.element);
   }
 
   hideTitile(): void {
@@ -75,9 +75,11 @@ export class Card extends BaseComponent {
 
   setTrueCard(): void {
     this.trueCard.element.classList.add('true_on');
+    this.element.classList.add('non-interactive');
   }
 
   removeTrueCard(): void {
     this.trueCard.element.classList.remove('true_on');
+    this.element.classList.remove('non-interactive');
   }
 }

@@ -6,12 +6,14 @@ import { Background } from './components/background';
 import { BaseComponent } from './components/base-component';
 import { CardModule } from './components/card-module/card-module';
 import { CategoryModule } from './components/category-module/category-module';
+import { Footer } from './components/footer/footer';
 import { Header } from './components/header/header';
 import { ProgressBar } from './components/progress-bar/progress-bar';
 import { breakGame, switchMode } from './components/redux/actions';
 import { rootReducer } from './components/redux/rootReducer';
 import { Router } from './components/router';
 import { Sidebar } from './components/sidebar/sidebar';
+import { Statistics } from './components/statistics/statistics';
 import { Summary } from './components/summary/summary';
 import { highlightActiveRoute } from './components/utils';
 import {
@@ -40,6 +42,10 @@ export class App {
 
   readonly cardModule: CardModule;
 
+  readonly footer: Footer;
+
+  readonly statistics: Statistics;
+
   readonly store: Store = createStore(
     rootReducer,
     INITIAL_STATE,
@@ -60,10 +66,13 @@ export class App {
     this.categoryModule = new CategoryModule();
     this.categoryModule.render();
     this.cardModule = new CardModule(this);
+    this.footer = new Footer();
+    this.statistics = new Statistics();
 
     this.rootElement.append(this.background.element, this.wrapper.element, this.sidebar.element);
     this.container.element.append(this.categoryModule.element);
-    this.wrapper.element.append(this.header.element, this.progressBar.element, this.container.element);
+    this.wrapper.element.append(this.header.element, this.progressBar.element, this.container.element,
+       this.footer.element);
 
     const modeSwitcher = document.getElementById('mode-switcher__input');
 
