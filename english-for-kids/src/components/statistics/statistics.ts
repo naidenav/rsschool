@@ -1,9 +1,16 @@
+/* eslint-disable import/no-cycle */
+
 import './statistics.scss';
 import { BaseComponent } from "../base-component";
-import { SORT_ARROW } from '../../constants';
-import { renderTableIcon } from '../utils';
+import { CARDS, CARDS_STORAGE, CATEGORIES, CATEGORIES_STORAGE, SORT_ARROW, TRAIN_DIFFICULT_PAGE } from '../../constants';
+import { navigate, renderTableIcon } from '../utils';
+import { CardInfo, State } from '../../interfaces';
+import { Card } from '../card/card';
+import { App } from '../../app';
 
 export class Statistics extends BaseComponent {
+  wrapper: BaseComponent;
+
   btnWrapper: BaseComponent;
 
   trainDifficultBtn: BaseComponent;
@@ -32,8 +39,9 @@ export class Statistics extends BaseComponent {
 
   thTrueCardsPer: BaseComponent;
 
-  constructor() {
+  constructor(app: App) {
     super('div', ['statistics']);
+    this.wrapper = new BaseComponent('div', ['wrapper']);
     this.btnWrapper = new BaseComponent('div', ['statistics__btn-wrapper']);
     this.trainDifficultBtn = new BaseComponent('button', ['statistics__button'], 'Train Difficult');
     this.resetBtn = new BaseComponent('button', ['statistics__button'], 'Reset Statistics');
@@ -58,7 +66,8 @@ export class Statistics extends BaseComponent {
     this.thTrueCardsPer = new BaseComponent('th', ['th']);
     this.thTrueCardsPer.element.innerHTML = `${renderTableIcon('percentage')} ${SORT_ARROW}`;
 
-    this.element.append(this.btnWrapper.element, this.statTable.element);
+    this.element.append(this.wrapper.element);
+    this.wrapper.element.append(this.btnWrapper.element, this.statTable.element);
     this.statTable.element.append(this.tBody.element);
     this.tBody.element.append(this.trHeader.element);
     this.trHeader.element.append(
@@ -71,6 +80,15 @@ export class Statistics extends BaseComponent {
       this.thTrueCardsNum.element,
       this.thTrueCardsPer.element,
     );
+
+    this.resetBtn.element.addEventListener('click', () => {
+      localStorage.removeItem(CARDS_STORAGE);
+      localStorage.removeItem(CATEGORIES_STORAGE);
+    });
+
+    this.trainDifficultBtn.element.addEventListener('click', async () => {
+      this.trainDifficult(app);
+    })
   }
 
   clear(): void {
@@ -78,27 +96,89 @@ export class Statistics extends BaseComponent {
     if (this.trHeader.element.nextSibling) this.clear();
   }
 
-  // addRecord(data: UserProfile, index: number): void {
-  //   const tr = new BaseComponent('tr', ['tr-body']);
-  //   const tdPosition = new BaseComponent('td', ['td', 'td-position'], `${index + 1}.`);
-  //   const tdAvatar = new BaseComponent('td', ['td-avatar']);
-  //   tdAvatar.element.style.backgroundImage = `url('${data.avatar}')`;
-  //   const tdPlayer = new BaseComponent('td', ['td', 'td-player'], `${data.firstName} ${data.lastName}`);
-  //   const tdScore = new BaseComponent('td', ['td'], `${data.bestScore}`);
-  //   const tdTime = new BaseComponent('td', ['td'], data.time);
-  //   const day = data.date.getDate() < 10 ? `0${data.date.getDate()}` : data.date.getDate();
-  //   const month = data.date.getMonth() < 10 ? `0${data.date.getMonth()}` : data.date.getMonth();
-  //   const date = `${day}.${month}.${data.date.getFullYear()}`;
-  //   const tdDate = new BaseComponent('td', ['td'], date);
+  addRecord(card: CardInfo, category: string, index: number): void {
+    const tr = new BaseComponent('tr', ['tr-body']);
+    const tdPosition = new BaseComponent('td', ['td'], `${index + 1}.`);
+    const thCategory = new BaseComponent('td', ['td'], `${category}`);
+    const thWord = new BaseComponent('td', ['td'], `${card.word}`);
+    const thTranslation = new BaseComponent('td', ['td'], `${card.translation}`);
+    const thTrainCardsNum = new BaseComponent('td', ['td'], `${card.trainModeTurns}`);
+    const thPlayCardsNum = new BaseComponent('td', ['td'], `${card.trueChoices}`);
+    const thTrueCardsNum = new BaseComponent('td', ['td'], `${card.falseChoices}`);
+    const thTrueCardsPer = new BaseComponent('td', ['td'], `${card.trueChoicesPer}`);
 
-  //   this.tBody.element.append(tr.element);
-  //   tr.element.append(
-  //     tdPosition.element,
-  //     tdAvatar.element,
-  //     tdPlayer.element,
-  //     tdScore.element,
-  //     tdTime.element,
-  //     tdDate.element,
-  //   );
-  // }
+    this.tBody.element.append(tr.element);
+    tr.element.append(
+      tdPosition.element,
+      thCategory.element,
+      thWord.element,
+      thTranslation.element,
+      thTrainCardsNum.element,
+      thPlayCardsNum.element,
+      thTrueCardsNum.element,
+      thTrueCardsPer.element,
+    );
+  }
+
+  render() {
+    this.clear();
+    if (!localStorage.getItem(CARDS_STORAGE)) {
+      const data = JSON.stringify(CARDS);
+      localStorage.setItem(CARDS_STORAGE, data);
+    };
+    if (!localStorage.getItem(CATEGORIES_STORAGE)) {
+      const data = JSON.stringify(CATEGORIES);
+      localStorage.setItem(CATEGORIES_STORAGE, data);
+    };
+    const categoryData = localStorage.getItem(CATEGORIES_STORAGE);
+    const cardsData = localStorage.getItem(CARDS_STORAGE);
+
+    if (categoryData !== null && cardsData !== null) {
+      const categories: string[] = JSON.parse(categoryData);
+      const cards: CardInfo[][] = JSON.parse(cardsData);
+      let index = 0;
+      for (let i = 0; i < categories.length; i++) {
+        for (let j = 0; j < cards[i].length; j++) {
+          this.addRecord(cards[i][j], categories[i], index++)
+        }
+      }
+    }
+  }
+
+  getDifficultWords(): CardInfo[] | undefined {
+    const cardsData = localStorage.getItem(CARDS_STORAGE);
+
+    if (cardsData !== null) {
+      const cards: CardInfo[][] = JSON.parse(cardsData);
+
+      const cardsList: CardInfo[] = [];
+
+      for (let i = 0; i < cards.length; i++) {
+        for (let j = 0; j < cards[i].length; j++) {
+          if (cards[i][j].trueChoicesPer > 0 && cards[i][j].trueChoicesPer < 100) {
+            cardsList.push(cards[i][j]);
+          }
+        }
+      }
+
+      cardsList.sort((a, b) => a.trueChoicesPer > b.trueChoicesPer ? 1 : -1);
+
+      return cardsList.length <= 8 ? cardsList : cardsList.slice(0, 7);
+    }
+  }
+
+  async trainDifficult(app: App) {
+    const cardsInfo = this.getDifficultWords();
+
+    if (cardsInfo) {
+      const cards = cardsInfo.map(item => new Card(item.image, item.word, item.translation, item.audioSrc));
+      if (cards) {
+        cards.sort(() => Math.random() - 0.5);
+        const state: State = app.store.getState();
+        app.cardModule.clear();
+        app.cardModule.render(state.mode, undefined, cards);
+        navigate(app.cardModule.element, app);
+      }
+    }
+  }
 }

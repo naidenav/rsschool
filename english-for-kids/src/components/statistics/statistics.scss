@@ -1,10 +1,11 @@
 .statistics {
-  position: fixed;
+  position: absolute;
   top: 0;
-  bottom: 0;
   left: 0;
   right: 0;
-  height: 100vh;
+  padding-bottom: 70px;
+  min-height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,6 +15,7 @@
     margin-top: 30px;
     display: flex;
     flex-direction: row;
+    align-self: flex-end;
     justify-content: space-between;
     align-items: center;
     width: 400px;
@@ -48,7 +50,7 @@
 .table {
   margin-top: 20px;
   display: table;
-  width: 1000px;
+  width: 100%;
   border-collapse: collapse;
   border-color: rgb(80, 80, 80);
 }
@@ -80,7 +82,7 @@
 
 
 .true-card-icon {
-  background-image: url(../../assets/icons/true-cards-icon.svg);
+  background-image: url(../../assets/icons/false-cards-icon.svg);
 }
 
 .t-body {
@@ -95,11 +97,13 @@
 .tr-body {
   border-bottom: .5px solid var(--bg-sidebar);
   &:hover td {
-    color: rgb(125, 224, 130);
+    background-color: var(--bg-sidebar);
+    color: white;
   }
 }
 
 .th {
+  padding-left: 20px;
   display: table-cell;
   height: 40px;
   vertical-align: middle;

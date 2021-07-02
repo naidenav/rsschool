@@ -1,12 +1,12 @@
 /* eslint-disable import/no-cycle */
 
 import { App } from '../../app';
-import { CARDS, PLAY_MODE } from '../../constants';
-import { State } from '../../interfaces';
+import { CARDS, PLAY_MODE, TRAIN_COUNT } from '../../constants';
+import { CardInfo, State } from '../../interfaces';
 import { BaseComponent } from '../base-component';
 import { Card } from '../card/card';
 import { game, setCurrentCard } from '../redux/actions';
-import { cardsHandler, playAudio } from '../utils';
+import { cardsHandler, playAudio, updateStatistics } from '../utils';
 
 export class CardModule extends BaseComponent {
   cardList: Card[] = [];
@@ -30,6 +30,9 @@ export class CardModule extends BaseComponent {
     this.element.addEventListener('click', (e) => {
       if ((e.target as HTMLElement).classList.contains('card__turn-btn')) {
         const card = (e.target as HTMLElement).closest('.card-container');
+        const state: State = app.store.getState();
+        const word = (card as HTMLElement).dataset.word;
+        if (word) updateStatistics(state.page, word, TRAIN_COUNT)
         card?.classList.add('flipped');
         card?.addEventListener('mouseleave', () => {
           card.classList.remove('flipped');
@@ -38,15 +41,23 @@ export class CardModule extends BaseComponent {
     });
   }
 
-  render(index: string, state: string): void {
-    this.cardList = [];
-    const i = +index;
-    CARDS[i].forEach((item) => {
-      const card = new Card(item.image, item.word, item.translation, item.audioSrc);
-      if (state === PLAY_MODE) card.hideTitile();
-      this.element.append(card.element);
-      this.cardList.push(card);
-    });
+  render(state: string, index?: string, difficultWords?: Card[]): void {
+    if (index && !difficultWords) {
+      this.cardList = [];
+      const i = +index;
+      CARDS[i].forEach((item) => {
+        const card = new Card(item.image, item.word, item.translation, item.audioSrc);
+        if (state === PLAY_MODE) card.hideTitile();
+        this.element.append(card.element);
+        this.cardList.push(card);
+      });
+    } else if (!index && difficultWords) {
+      difficultWords.forEach((card) => {
+        if (state === PLAY_MODE) card.hideTitile();
+        this.element.append(card.element);
+        this.cardList.push(card);
+      });
+    }
   }
 
   clear(): void {
@@ -67,7 +78,7 @@ export class CardModule extends BaseComponent {
 
     app.store.dispatch(game(true));
 
-    await cardsHandler(cards, app);
+    await cardsHandler(cards, app, true);
   }
 
   finishGame(app: App): void {

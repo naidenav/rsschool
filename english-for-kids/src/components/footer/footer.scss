@@ -1,19 +1,41 @@
 .footer {
   z-index: 0;
-  position: relative;
+  position: fixed;
   bottom: 0;
   padding: 0 15px;
 	display: flex;
   flex-direction: row;
-	justify-content: space-between;
+	justify-content: center;
 	align-items: center;
 	width: 100%;
-	max-width: 1140px;
 	margin: 0 auto;
   margin-top: 30px;
+  background-color: var(--bg-color);
 	border-top: 1px solid;
 	border-image-slice: 1;
 	border-image-source: linear-gradient(to left, var(--bg-color), var(--bg-sidebar), var(--bg-color));
+  &__wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+  }
+}
+@media screen and (min-width: 640px) {
+  .footer__wrapper {
+    width: 90%;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .footer__wrapper {
+    width: 75%;
+  }
+}
+@media screen and (min-width: 1920px) {
+  .footer__wrapper {
+    width: 1200px;
+  }
 }
 
 .github {

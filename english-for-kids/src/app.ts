@@ -67,12 +67,12 @@ export class App {
     this.categoryModule.render();
     this.cardModule = new CardModule(this);
     this.footer = new Footer();
-    this.statistics = new Statistics();
+    this.statistics = new Statistics(this);
 
-    this.rootElement.append(this.background.element, this.wrapper.element, this.sidebar.element);
+    this.rootElement.append(this.background.element, this.wrapper.element, this.sidebar.element,
+      this.footer.element);
     this.container.element.append(this.categoryModule.element);
-    this.wrapper.element.append(this.header.element, this.progressBar.element, this.container.element,
-       this.footer.element);
+    this.wrapper.element.append(this.header.element, this.progressBar.element, this.container.element);
 
     const modeSwitcher = document.getElementById('mode-switcher__input');
 

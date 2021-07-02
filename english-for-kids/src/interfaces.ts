@@ -6,8 +6,8 @@ export interface CardInfo {
   image: string,
   audioSrc: string,
   trainModeTurns: number,
-  playModeChoices: number,
-  trueChoicesNum: number,
+  trueChoices: number,
+  falseChoices: number,
   trueChoicesPer: number,
 }
 

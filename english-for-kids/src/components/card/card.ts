@@ -26,6 +26,7 @@ export class Card extends BaseComponent {
 
   constructor(image: string, word: string, translation: string, audioSrc: string) {
     super('div', ['card-container']);
+    this.element.dataset.word = word;
     this.word = word;
     this.translation = translation;
     this.imageSrc = image;

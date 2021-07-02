@@ -18,12 +18,13 @@ export class Router {
         if (state.mode === PLAY_MODE) app.header.hideGameBtn();
         navigate(app.categoryModule.element, app);
       } else if (currentRouteName === STATISTICS_PAGE) {
-        if (state.mode === PLAY_MODE) app.header.hideGameBtn();
+        if (state.mode === PLAY_MODE) app.header.showGameBtn();
+        app.statistics.render();
         navigate(app.statistics.element, app);
       } else {
         if (state.mode === PLAY_MODE) app.header.showGameBtn();
         app.cardModule.clear();
-        app.cardModule.render(currentRouteName, state.mode);
+        app.cardModule.render(state.mode, currentRouteName);
         navigate(app.cardModule.element, app);
       }
     };

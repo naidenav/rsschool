@@ -1,7 +1,7 @@
 /* eslint-disable import/no-cycle */
 
 import { App } from '../app';
-import { CORRECT_AUDIO_SRC, ERROR_AUDIO_SRC, MAIN_PAGE } from '../constants';
+import { CARDS_STORAGE, CORRECT_AUDIO_SRC, ERROR_AUDIO_SRC, FALSE_COUNT, MAIN_PAGE, STATISTICS_PAGE, TRAIN_COUNT, TRUE_COUNT, TRUE_PER_COUNT } from '../constants';
 import { CardInfo, State } from '../interfaces';
 import { Card } from './card/card';
 import { addMistake, breakGame, setCurrentCard } from './redux/actions';
@@ -39,18 +39,55 @@ export const getCardInfo = (card: Card): CardInfo => ({
   image: card.getImageSrc(),
   audioSrc: card.getAudioSrc(),
   trainModeTurns: 0,
-  playModeChoices: 0,
-  trueChoicesNum: 0,
+  trueChoices: 0,
+  falseChoices: 0,
   trueChoicesPer: 0,
 });
 
-export const cardsHandler = async (cards: Card[], app: App): Promise<void> => {
+const calculatePercentage = (card: CardInfo) => {
+  const falseChoices = card.falseChoices;
+  const trueChoices = card.trueChoices;
+
+  card.trueChoicesPer = Math.round(trueChoices / (trueChoices + falseChoices) * 100);
+}
+
+export const updateStatistics = (categoryIndex: string, word: string, count: string) => {
+  if (categoryIndex === STATISTICS_PAGE) return;
+  const cardsData = localStorage.getItem(CARDS_STORAGE);
+
+  if ( cardsData !== null) {
+    const cards: CardInfo[][] = JSON.parse(cardsData);
+    const index = Number(categoryIndex);
+    console.log(categoryIndex, word, count)
+    const card: CardInfo | undefined = cards[index].find(item => item.word === word);
+    if (card)
+    switch (count) {
+      case TRAIN_COUNT:
+        card.trainModeTurns += 1;
+        break;
+      case TRUE_COUNT:
+        card.trueChoices += 1;
+        calculatePercentage(card)
+        break;
+      case FALSE_COUNT:
+        card.falseChoices += 1;
+        break;
+      case TRUE_PER_COUNT:
+        card.trueChoicesPer += 1;
+        break;
+    }
+
+    localStorage.setItem(CARDS_STORAGE, JSON.stringify(cards));
+  }
+}
+
+export const cardsHandler = async (cards: Card[], app: App, play: boolean): Promise<void> => {
   const cardInfo = getCardInfo(cards[0]);
   let state: State = app.store.getState();
 
   if (state.currentCard !== cardInfo) {
     app.store.dispatch(setCurrentCard(cardInfo));
-    setTimeout(() => playAudio(cards[0].getAudioSrc()), 500);
+    if (play) setTimeout(() => playAudio(cards[0].getAudioSrc()), 500);
   }
 
   app.cardModule.element.addEventListener('click', (e) => {
@@ -64,15 +101,17 @@ export const cardsHandler = async (cards: Card[], app: App): Promise<void> => {
     if (target && target !== cards[0].element) {
       playAudio(ERROR_AUDIO_SRC);
       app.progressBar.wrongChoice();
-      cardsHandler(cards, app);
+      updateStatistics(state.page, cardInfo.word, FALSE_COUNT);
       app.store.dispatch(addMistake());
+      cardsHandler(cards, app, false);
     } else if (target && target === cards[0].element) {
       playAudio(CORRECT_AUDIO_SRC);
       app.progressBar.rightChoice();
       cards[0].setTrueCard();
+      updateStatistics(state.page, cardInfo.word, TRUE_COUNT);
       if (cards.length > 1) {
         cards.shift();
-        cardsHandler(cards, app);
+        cardsHandler(cards, app, true);
       } else {
         app.cardModule.finishGame(app);
         app.header.hideGameBtn();
@@ -84,6 +123,6 @@ export const cardsHandler = async (cards: Card[], app: App): Promise<void> => {
           window.location.hash = `#${MAIN_PAGE}`;
         }, 4000);
       }
-    } else cardsHandler(cards, app);
+    } else cardsHandler(cards, app, false);
   }, { once: true });
 };
