@@ -3,7 +3,7 @@
 import { App } from '../app';
 import { MAIN_PAGE, PLAY_MODE, STATISTICS_PAGE } from '../constants';
 import { State } from '../interfaces';
-import { switchPage } from './redux/actions';
+import { breakGame, switchPage } from './redux/actions';
 import { navigate } from './utils';
 
 export class Router {
@@ -11,7 +11,10 @@ export class Router {
     window.onpopstate = () => {
       const currentRouteName = window.location.hash.slice(1);
       const state: State = app.store.getState();
-      if (state.isGameStarted) app.cardModule.finishGame(app);
+      if (state.isGameStarted) {
+        app.store.dispatch(breakGame(true));
+        app.cardModule.finishGame(app);
+      }
       app.store.dispatch(switchPage(currentRouteName));
 
       if (currentRouteName === MAIN_PAGE) {

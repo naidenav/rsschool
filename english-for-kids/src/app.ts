@@ -15,7 +15,7 @@ import { Router } from './components/router';
 import { Sidebar } from './components/sidebar/sidebar';
 import { Statistics } from './components/statistics/statistics';
 import { Summary } from './components/summary/summary';
-import { highlightActiveRoute } from './components/utils';
+import { highlightActiveRoute, updateMode } from './components/utils';
 import {
   INITIAL_STATE, MAIN_PAGE, PLAY_MODE, TRAIN_MODE,
 } from './constants';
@@ -23,29 +23,17 @@ import { State } from './interfaces';
 
 export class App {
   readonly router: Router;
-
   private background: Background;
-
   private wrapper: BaseComponent;
-
   readonly header: Header;
-
   readonly progressBar: ProgressBar;
-
   private sidebar: Sidebar;
-
   readonly summary: Summary;
-
   readonly container: BaseComponent;
-
   readonly categoryModule: CategoryModule;
-
   readonly cardModule: CardModule;
-
   readonly footer: Footer;
-
   readonly statistics: Statistics;
-
   readonly store: Store = createStore(
     rootReducer,
     INITIAL_STATE,
@@ -93,27 +81,8 @@ export class App {
 
     this.store.subscribe(() => {
       const state: State = this.store.getState();
-
-      this.updateMode(state);
+      updateMode(state, this);
       highlightActiveRoute(state.page);
     });
-  }
-
-  updateMode(state: State): void {
-    if (state.mode === PLAY_MODE) {
-      if (document.body.classList.contains(TRAIN_MODE)) {
-        document.body.classList.remove(TRAIN_MODE);
-        document.body.classList.add(PLAY_MODE);
-      }
-
-      this.cardModule.hideTitles();
-    } else if (state.mode === TRAIN_MODE) {
-      if (document.body.classList.contains(PLAY_MODE)) {
-        document.body.classList.remove(PLAY_MODE);
-        document.body.classList.add(TRAIN_MODE);
-      }
-
-      this.cardModule.showTitles();
-    }
   }
 }

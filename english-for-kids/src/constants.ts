@@ -12,8 +12,6 @@ export const FALSE_COUNT = 'FALSE_COUNT';
 
 export const TRUE_PER_COUNT = 'TRUE_PER_COUNT';
 
-export const FLIP_CLASS = 'flipped';
-
 export const MAIN_PAGE = 'main';
 
 export const TRAIN_DIFFICULT_PAGE = 'train';

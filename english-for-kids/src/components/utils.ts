@@ -1,10 +1,41 @@
 /* eslint-disable import/no-cycle */
 
 import { App } from '../app';
-import { CARDS_STORAGE, CORRECT_AUDIO_SRC, ERROR_AUDIO_SRC, FALSE_COUNT, MAIN_PAGE, STATISTICS_PAGE, TRAIN_COUNT, TRUE_COUNT, TRUE_PER_COUNT } from '../constants';
+import { CARDS, CARDS_STORAGE, CATEGORIES, CATEGORIES_STORAGE, CORRECT_AUDIO_SRC, ERROR_AUDIO_SRC, FALSE_COUNT, MAIN_PAGE, PLAY_MODE, STATISTICS_PAGE, TRAIN_COUNT, TRAIN_MODE, TRUE_COUNT, TRUE_PER_COUNT } from '../constants';
 import { CardInfo, State } from '../interfaces';
+import { BaseComponent } from './base-component';
 import { Card } from './card/card';
 import { addMistake, breakGame, setCurrentCard } from './redux/actions';
+
+export const initLocalStorage = () => {
+  if (!localStorage.getItem(CARDS_STORAGE)) {
+    const data = JSON.stringify(CARDS);
+    localStorage.setItem(CARDS_STORAGE, data);
+  };
+  if (!localStorage.getItem(CATEGORIES_STORAGE)) {
+    const data = JSON.stringify(CATEGORIES);
+    localStorage.setItem(CATEGORIES_STORAGE, data);
+  };
+}
+
+export const updateMode = (state: State, app: App): void => {
+  if (state.mode === PLAY_MODE) {
+    if (document.body.classList.contains(TRAIN_MODE)) {
+      document.body.classList.remove(TRAIN_MODE);
+      document.body.classList.add(PLAY_MODE);
+    }
+
+    app.cardModule.hideTitles();
+  } else if (state.mode === TRAIN_MODE) {
+    if (document.body.classList.contains(PLAY_MODE)) {
+      document.body.classList.remove(PLAY_MODE);
+      document.body.classList.add(TRAIN_MODE);
+    }
+
+    app.cardModule.showTitles();
+  }
+}
+
 
 export const playAudio = (src: string): void => {
   const audio = new Audio();
@@ -84,19 +115,16 @@ export const updateStatistics = (categoryIndex: string, word: string, count: str
 export const cardsHandler = async (cards: Card[], app: App, play: boolean): Promise<void> => {
   const cardInfo = getCardInfo(cards[0]);
   let state: State = app.store.getState();
-
   if (state.currentCard !== cardInfo) {
     app.store.dispatch(setCurrentCard(cardInfo));
     if (play) setTimeout(() => playAudio(cards[0].getAudioSrc()), 500);
   }
-
   app.cardModule.element.addEventListener('click', (e) => {
     state = app.store.getState();
     if (state.isBreak) {
       app.store.dispatch(breakGame(false));
       return;
     }
-
     const target = (e.target as HTMLElement).closest('.card-container');
     if (target && target !== cards[0].element) {
       playAudio(ERROR_AUDIO_SRC);
@@ -126,3 +154,28 @@ export const cardsHandler = async (cards: Card[], app: App, play: boolean): Prom
     } else cardsHandler(cards, app, false);
   }, { once: true });
 };
+
+export const createRecord = (card: CardInfo, category: string, index: number): HTMLElement => {
+  const tr = new BaseComponent('tr', ['tr-body']);
+  const tdPosition = new BaseComponent('td', ['td'], `${index + 1}.`);
+  const thCategory = new BaseComponent('td', ['td'], `${category}`);
+  const thWord = new BaseComponent('td', ['td'], `${card.word}`);
+  const thTranslation = new BaseComponent('td', ['td'], `${card.translation}`);
+  const thTrainCardsNum = new BaseComponent('td', ['td'], `${card.trainModeTurns}`);
+  const thPlayCardsNum = new BaseComponent('td', ['td'], `${card.trueChoices}`);
+  const thTrueCardsNum = new BaseComponent('td', ['td'], `${card.falseChoices}`);
+  const thTrueCardsPer = new BaseComponent('td', ['td'], `${card.trueChoicesPer}`);
+
+  tr.element.append(
+    tdPosition.element,
+    thCategory.element,
+    thWord.element,
+    thTranslation.element,
+    thTrainCardsNum.element,
+    thPlayCardsNum.element,
+    thTrueCardsNum.element,
+    thTrueCardsPer.element,
+  );
+
+  return tr.element;
+}

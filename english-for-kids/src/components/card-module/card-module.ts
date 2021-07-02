@@ -5,7 +5,7 @@ import { CARDS, PLAY_MODE, TRAIN_COUNT } from '../../constants';
 import { CardInfo, State } from '../../interfaces';
 import { BaseComponent } from '../base-component';
 import { Card } from '../card/card';
-import { game, setCurrentCard } from '../redux/actions';
+import { game, removeMistakes, setCurrentCard } from '../redux/actions';
 import { cardsHandler, playAudio, updateStatistics } from '../utils';
 
 export class CardModule extends BaseComponent {
@@ -65,6 +65,10 @@ export class CardModule extends BaseComponent {
     if (this.element.firstElementChild) this.clear();
   }
 
+  clearCardList(): void {
+    this.cardList = [];
+  }
+
   hideTitles(): void {
     this.cardList.forEach((item) => item.hideTitile());
   }
@@ -75,8 +79,8 @@ export class CardModule extends BaseComponent {
 
   async startGame(app: App): Promise<void> {
     const cards = [...this.cardList].sort(() => Math.random() - 0.5);
-
     app.store.dispatch(game(true));
+    app.store.dispatch(removeMistakes());
 
     await cardsHandler(cards, app, true);
   }

@@ -2,41 +2,27 @@
 
 import './statistics.scss';
 import { BaseComponent } from "../base-component";
-import { CARDS, CARDS_STORAGE, CATEGORIES, CATEGORIES_STORAGE, SORT_ARROW, TRAIN_DIFFICULT_PAGE } from '../../constants';
-import { navigate, renderTableIcon } from '../utils';
+import { CARDS_STORAGE, CATEGORIES_STORAGE, SORT_ARROW } from '../../constants';
+import { createRecord, initLocalStorage, navigate, renderTableIcon } from '../utils';
 import { CardInfo, State } from '../../interfaces';
 import { Card } from '../card/card';
 import { App } from '../../app';
 
 export class Statistics extends BaseComponent {
   wrapper: BaseComponent;
-
   btnWrapper: BaseComponent;
-
   trainDifficultBtn: BaseComponent;
-
   resetBtn: BaseComponent;
-
   statTable: BaseComponent;
-
   tBody: BaseComponent;
-
   trHeader: BaseComponent;
-
   thPosition: BaseComponent;
-
   thCategory: BaseComponent;
-
   thWord: BaseComponent;
-
   thTranslation: BaseComponent;
-
   thTrainCardsNum: BaseComponent;
-
   thPlayCardsNum: BaseComponent;
-
   thTrueCardsNum: BaseComponent;
-
   thTrueCardsPer: BaseComponent;
 
   constructor(app: App) {
@@ -87,7 +73,7 @@ export class Statistics extends BaseComponent {
     });
 
     this.trainDifficultBtn.element.addEventListener('click', async () => {
-      this.trainDifficult(app);
+      this.trainDifficultWords(app);
     })
   }
 
@@ -97,39 +83,14 @@ export class Statistics extends BaseComponent {
   }
 
   addRecord(card: CardInfo, category: string, index: number): void {
-    const tr = new BaseComponent('tr', ['tr-body']);
-    const tdPosition = new BaseComponent('td', ['td'], `${index + 1}.`);
-    const thCategory = new BaseComponent('td', ['td'], `${category}`);
-    const thWord = new BaseComponent('td', ['td'], `${card.word}`);
-    const thTranslation = new BaseComponent('td', ['td'], `${card.translation}`);
-    const thTrainCardsNum = new BaseComponent('td', ['td'], `${card.trainModeTurns}`);
-    const thPlayCardsNum = new BaseComponent('td', ['td'], `${card.trueChoices}`);
-    const thTrueCardsNum = new BaseComponent('td', ['td'], `${card.falseChoices}`);
-    const thTrueCardsPer = new BaseComponent('td', ['td'], `${card.trueChoicesPer}`);
+    const record = createRecord(card, category, index);
 
-    this.tBody.element.append(tr.element);
-    tr.element.append(
-      tdPosition.element,
-      thCategory.element,
-      thWord.element,
-      thTranslation.element,
-      thTrainCardsNum.element,
-      thPlayCardsNum.element,
-      thTrueCardsNum.element,
-      thTrueCardsPer.element,
-    );
+    this.tBody.element.append(record);
   }
 
   render() {
     this.clear();
-    if (!localStorage.getItem(CARDS_STORAGE)) {
-      const data = JSON.stringify(CARDS);
-      localStorage.setItem(CARDS_STORAGE, data);
-    };
-    if (!localStorage.getItem(CATEGORIES_STORAGE)) {
-      const data = JSON.stringify(CATEGORIES);
-      localStorage.setItem(CATEGORIES_STORAGE, data);
-    };
+    initLocalStorage();
     const categoryData = localStorage.getItem(CATEGORIES_STORAGE);
     const cardsData = localStorage.getItem(CARDS_STORAGE);
 
@@ -145,14 +106,12 @@ export class Statistics extends BaseComponent {
     }
   }
 
-  getDifficultWords(): CardInfo[] | undefined {
+  getRandomDifficultWords(): CardInfo[] | undefined {
     const cardsData = localStorage.getItem(CARDS_STORAGE);
 
     if (cardsData !== null) {
       const cards: CardInfo[][] = JSON.parse(cardsData);
-
       const cardsList: CardInfo[] = [];
-
       for (let i = 0; i < cards.length; i++) {
         for (let j = 0; j < cards[i].length; j++) {
           if (cards[i][j].trueChoicesPer > 0 && cards[i][j].trueChoicesPer < 100) {
@@ -160,15 +119,14 @@ export class Statistics extends BaseComponent {
           }
         }
       }
-
       cardsList.sort((a, b) => a.trueChoicesPer > b.trueChoicesPer ? 1 : -1);
 
-      return cardsList.length <= 8 ? cardsList : cardsList.slice(0, 7);
+      return cardsList.length <= 8 ? cardsList : cardsList.slice(0, 8);
     }
   }
 
-  async trainDifficult(app: App) {
-    const cardsInfo = this.getDifficultWords();
+  async trainDifficultWords(app: App) {
+    const cardsInfo = this.getRandomDifficultWords();
 
     if (cardsInfo) {
       const cards = cardsInfo.map(item => new Card(item.image, item.word, item.translation, item.audioSrc));
@@ -176,6 +134,7 @@ export class Statistics extends BaseComponent {
         cards.sort(() => Math.random() - 0.5);
         const state: State = app.store.getState();
         app.cardModule.clear();
+        app.cardModule.clearCardList();
         app.cardModule.render(state.mode, undefined, cards);
         navigate(app.cardModule.element, app);
       }
