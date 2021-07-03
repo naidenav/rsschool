@@ -15,4 +15,12 @@ export class Background extends BaseComponent {
     </svg>
     `;
   }
+
+  hide() {
+    if (!this.element.classList.contains('hidden')) this.element.classList.add('hidden');
+  }
+
+  show() {
+    if (this.element.classList.contains('hidden')) this.element.classList.remove('hidden');
+  }
 }

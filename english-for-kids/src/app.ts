@@ -23,17 +23,29 @@ import { State } from './interfaces';
 
 export class App {
   readonly router: Router;
-  private background: Background;
+
+  readonly background: Background;
+
   private wrapper: BaseComponent;
+
   readonly header: Header;
+
   readonly progressBar: ProgressBar;
+
   private sidebar: Sidebar;
+
   readonly summary: Summary;
+
   readonly container: BaseComponent;
+
   readonly categoryModule: CategoryModule;
+
   readonly cardModule: CardModule;
+
   readonly footer: Footer;
+
   readonly statistics: Statistics;
+
   readonly store: Store = createStore(
     rootReducer,
     INITIAL_STATE,

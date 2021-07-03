@@ -20,8 +20,8 @@
 
 .card {
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 70vw;
+  height: 70vw;
   border-radius: 5px;
   box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.4);
 
@@ -119,4 +119,21 @@
 .not-available {
   pointer-events: none;
 }
-
+@media screen and (min-width: 500px) {
+  .card {
+    width: 200px;
+    height: 200px;
+  }
+}
+@media screen and (min-width: 640px) {
+  .card {
+    width: 240px;
+    height: 240px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .card {
+    width: 200px;
+    height: 200px;
+  }
+}

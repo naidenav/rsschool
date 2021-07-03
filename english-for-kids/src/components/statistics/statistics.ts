@@ -1,28 +1,43 @@
 /* eslint-disable import/no-cycle */
 
 import './statistics.scss';
-import { BaseComponent } from "../base-component";
+import { BaseComponent } from '../base-component';
 import { CARDS_STORAGE, CATEGORIES_STORAGE, SORT_ARROW } from '../../constants';
-import { createRecord, initLocalStorage, navigate, renderTableIcon } from '../utils';
-import { CardInfo, State } from '../../interfaces';
-import { Card } from '../card/card';
+import {
+  createRecord, initLocalStorage, renderTableIcon, trainDifficultWords,
+} from '../utils';
+import { CardInfo } from '../../interfaces';
 import { App } from '../../app';
 
 export class Statistics extends BaseComponent {
   wrapper: BaseComponent;
+
   btnWrapper: BaseComponent;
+
   trainDifficultBtn: BaseComponent;
+
   resetBtn: BaseComponent;
+
   statTable: BaseComponent;
+
   tBody: BaseComponent;
+
   trHeader: BaseComponent;
+
   thPosition: BaseComponent;
+
   thCategory: BaseComponent;
+
   thWord: BaseComponent;
+
   thTranslation: BaseComponent;
+
   thTrainCardsNum: BaseComponent;
+
   thPlayCardsNum: BaseComponent;
+
   thTrueCardsNum: BaseComponent;
+
   thTrueCardsPer: BaseComponent;
 
   constructor(app: App) {
@@ -52,8 +67,8 @@ export class Statistics extends BaseComponent {
     this.thTrueCardsPer = new BaseComponent('th', ['th']);
     this.thTrueCardsPer.element.innerHTML = `${renderTableIcon('percentage')} ${SORT_ARROW}`;
 
-    this.element.append(this.wrapper.element);
-    this.wrapper.element.append(this.btnWrapper.element, this.statTable.element);
+    this.element.append(this.btnWrapper.element, this.statTable.element);
+    // this.wrapper.element.append();
     this.statTable.element.append(this.tBody.element);
     this.tBody.element.append(this.trHeader.element);
     this.trHeader.element.append(
@@ -70,11 +85,12 @@ export class Statistics extends BaseComponent {
     this.resetBtn.element.addEventListener('click', () => {
       localStorage.removeItem(CARDS_STORAGE);
       localStorage.removeItem(CATEGORIES_STORAGE);
+      app.statistics.render();
     });
 
     this.trainDifficultBtn.element.addEventListener('click', async () => {
-      this.trainDifficultWords(app);
-    })
+      trainDifficultWords(app);
+    });
   }
 
   clear(): void {
@@ -88,7 +104,7 @@ export class Statistics extends BaseComponent {
     this.tBody.element.append(record);
   }
 
-  render() {
+  render(): void {
     this.clear();
     initLocalStorage();
     const categoryData = localStorage.getItem(CATEGORIES_STORAGE);
@@ -100,43 +116,8 @@ export class Statistics extends BaseComponent {
       let index = 0;
       for (let i = 0; i < categories.length; i++) {
         for (let j = 0; j < cards[i].length; j++) {
-          this.addRecord(cards[i][j], categories[i], index++)
+          this.addRecord(cards[i][j], categories[i], index++);
         }
-      }
-    }
-  }
-
-  getRandomDifficultWords(): CardInfo[] | undefined {
-    const cardsData = localStorage.getItem(CARDS_STORAGE);
-
-    if (cardsData !== null) {
-      const cards: CardInfo[][] = JSON.parse(cardsData);
-      const cardsList: CardInfo[] = [];
-      for (let i = 0; i < cards.length; i++) {
-        for (let j = 0; j < cards[i].length; j++) {
-          if (cards[i][j].trueChoicesPer > 0 && cards[i][j].trueChoicesPer < 100) {
-            cardsList.push(cards[i][j]);
-          }
-        }
-      }
-      cardsList.sort((a, b) => a.trueChoicesPer > b.trueChoicesPer ? 1 : -1);
-
-      return cardsList.length <= 8 ? cardsList : cardsList.slice(0, 8);
-    }
-  }
-
-  async trainDifficultWords(app: App) {
-    const cardsInfo = this.getRandomDifficultWords();
-
-    if (cardsInfo) {
-      const cards = cardsInfo.map(item => new Card(item.image, item.word, item.translation, item.audioSrc));
-      if (cards) {
-        cards.sort(() => Math.random() - 0.5);
-        const state: State = app.store.getState();
-        app.cardModule.clear();
-        app.cardModule.clearCardList();
-        app.cardModule.render(state.mode, undefined, cards);
-        navigate(app.cardModule.element, app);
       }
     }
   }

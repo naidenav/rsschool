@@ -16,12 +16,13 @@ export class Router {
         app.cardModule.finishGame(app);
       }
       app.store.dispatch(switchPage(currentRouteName));
-
+      app.background.show();
       if (currentRouteName === MAIN_PAGE) {
         if (state.mode === PLAY_MODE) app.header.hideGameBtn();
         navigate(app.categoryModule.element, app);
       } else if (currentRouteName === STATISTICS_PAGE) {
         if (state.mode === PLAY_MODE) app.header.showGameBtn();
+        app.background.hide();
         app.statistics.render();
         navigate(app.statistics.element, app);
       } else {

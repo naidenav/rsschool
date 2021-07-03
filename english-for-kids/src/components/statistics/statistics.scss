@@ -1,11 +1,8 @@
 .statistics {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  padding-bottom: 70px;
+  z-index: 1;
+  margin-top: -124px;
   min-height: 100vh;
-  width: 100%;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,13 +11,13 @@
   &__btn-wrapper {
     margin-top: 30px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-self: flex-end;
     justify-content: space-between;
-    align-items: center;
-    width: 400px;
+    align-items: flex-end;
   }
   &__button {
+    margin-bottom: 5px;
     padding-left: 15px;
     padding-right: 15px;
     display: flex;
@@ -57,8 +54,8 @@
 
 .table-icon {
   display: inline-block;
-  height: 30px;
-  width: 30px;
+  height: 15px;
+  width: 15px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -103,11 +100,10 @@
 }
 
 .th {
-  padding-left: 20px;
   display: table-cell;
-  height: 40px;
+  height: 16px;
   vertical-align: middle;
-  font-size: 20px;
+  font-size: 12px;
   font-weight: normal;
   color: white;
   text-shadow: 1px 2px 5px rgba(0, 0, 0, 0.3);
@@ -117,24 +113,23 @@
 }
 
 .td {
-  padding: 3px;
   display: table-cell;
-  height: 35px;
+  height: 16px;
   vertical-align: middle;
   text-align: center;
-  font-size: 20px;
+  font-size: 12px;
   font-weight: 300;
   color: var(--bg-sidebar);
   text-shadow: 1px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .sort-arrow {
-  margin-left: 5px;
-  margin-bottom: 3px;
-  display: inline-block;
+  display: none;
+  margin-left: 3px;
+  margin-bottom: 2px;
   opacity: 0;
-  height: 20px;
-  width: 15px;
+  height: 15px;
+  width: 10px;
   background: url(../../assets/icons/down-arrow.svg) no-repeat center;
   background-size: cover;
   &:hover {
@@ -150,4 +145,178 @@
   opacity: 100;
   transform: rotate(180deg);
 }
+
+@media screen and (min-width: 640px) {
+  .statistics {
+    padding-bottom: 70px;
+    &__btn-wrapper {
+      flex-direction: row;
+      align-self: flex-end;
+      justify-content: space-between;
+      align-items: center;
+      width: 400px;
+    }
+  }
+  .table {
+    margin-top: 20px;
+  }
+
+  .table-icon {
+    height: 20px;
+    width: 20px;
+  }
+
+  .th {
+    padding-left: 5px;
+    display: table-cell;
+    height: 30px;
+    vertical-align: middle;
+    font-size: 16px;
+    font-weight: normal;
+    color: white;
+    text-shadow: 1px 2px 5px rgba(0, 0, 0, 0.3);
+    &:not(:nth-child(1)):hover {
+      cursor: pointer;
+    }
+  }
+
+  .td {
+    padding: 1px;
+    display: table-cell;
+    height: 20px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--bg-sidebar);
+    text-shadow: 1px 2px 5px rgba(0, 0, 0, 0.3);
+  }
+
+  .sort-arrow {
+    margin-left: 2px;
+    margin-bottom: 2px;
+    display: inline-block;
+    height: 12px;
+    width: 7px;
+  }
+
+}
+@media screen and (min-width: 1200px) {
+  .statistics {
+    padding-bottom: 70px;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: var(--bg-color);
+    &__btn-wrapper {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: row;
+      align-self: flex-end;
+      justify-content: space-between;
+      align-items: center;
+      width: 400px;
+    }
+  }
+  .table {
+    margin-top: 20px;
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+    border-color: rgb(80, 80, 80);
+  }
+
+  .table-icon {
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .train-icon {
+    background-image: url(../../assets/icons/train-icon.svg);
+  }
+
+  .play-icon {
+    background-image: url(../../assets/icons/play-icon.svg);
+  }
+
+
+  .percentage-icon {
+    background-image: url(../../assets/icons/percentage.svg);
+  }
+
+
+  .true-card-icon {
+    background-image: url(../../assets/icons/false-cards-icon.svg);
+  }
+
+  .t-body {
+    display: table-row-group;
+  }
+
+  .tr-header {
+    display: table-row;
+    background-color: var(--bg-sidebar);
+  }
+
+  .tr-body {
+    border-bottom: .5px solid var(--bg-sidebar);
+    &:hover td {
+      background-color: var(--bg-sidebar);
+      color: white;
+    }
+  }
+
+  .th {
+    padding-left: 20px;
+    display: table-cell;
+    height: 40px;
+    vertical-align: middle;
+    font-size: 20px;
+    font-weight: normal;
+    color: white;
+    text-shadow: 1px 2px 5px rgba(0, 0, 0, 0.3);
+    &:not(:nth-child(1)):hover {
+      cursor: pointer;
+    }
+  }
+
+  .td {
+    padding: 3px;
+    display: table-cell;
+    height: 35px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 300;
+    color: var(--bg-sidebar);
+    text-shadow: 1px 2px 5px rgba(0, 0, 0, 0.3);
+  }
+
+  .sort-arrow {
+    margin-left: 5px;
+    margin-bottom: 3px;
+    display: inline-block;
+    opacity: 0;
+    height: 20px;
+    width: 15px;
+    background: url(../../assets/icons/down-arrow.svg) no-repeat center;
+    background-size: cover;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+@media screen and (min-width: 1920px) {
+}
+
 

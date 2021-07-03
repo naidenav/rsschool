@@ -58,6 +58,9 @@ module.exports = ({ development }) => ({
     new HtmlWebpackPlugin({
       title: 'English for Kids',
       favicon: './src/favicon.png',
+      meta: {
+        viewport: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0,',
+      },
     }),
     new CopyPlugin({
       patterns: [

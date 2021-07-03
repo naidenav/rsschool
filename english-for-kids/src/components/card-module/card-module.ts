@@ -2,7 +2,7 @@
 
 import { App } from '../../app';
 import { CARDS, PLAY_MODE, TRAIN_COUNT } from '../../constants';
-import { CardInfo, State } from '../../interfaces';
+import { State } from '../../interfaces';
 import { BaseComponent } from '../base-component';
 import { Card } from '../card/card';
 import { game, removeMistakes, setCurrentCard } from '../redux/actions';
@@ -31,8 +31,8 @@ export class CardModule extends BaseComponent {
       if ((e.target as HTMLElement).classList.contains('card__turn-btn')) {
         const card = (e.target as HTMLElement).closest('.card-container');
         const state: State = app.store.getState();
-        const word = (card as HTMLElement).dataset.word;
-        if (word) updateStatistics(state.page, word, TRAIN_COUNT)
+        const { word } = (card as HTMLElement).dataset;
+        if (word) updateStatistics(state.page, word, TRAIN_COUNT);
         card?.classList.add('flipped');
         card?.addEventListener('mouseleave', () => {
           card.classList.remove('flipped');
