@@ -1,0 +1,54 @@
+.register-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 350px;
+  height: 60px;
+  background-color: #ebebeb;
+  border-radius: 2px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  &__fieldset {
+    position: relative;
+    height: 40px;
+    width: 300px;
+    border: none;
+  }
+  &__legend {
+    margin-left: 5px;
+    padding: 3px;
+    font-size: 10px;
+    font-weight: 700;
+    color: rgb(100, 100, 100);
+  }
+  &__input {
+    display: flex;
+    width: 270px;
+    font-size: 16px;
+    color: #413b3b;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    border-bottom: 1px solid gray;
+    &:valid {
+      border-color: #36be5f;
+    }
+    &:invalid {
+      border-color: #e65c5c;
+    }
+    &:valid + div {
+      background: url(../../assets/icons/valid-icon.svg) no-repeat center;
+    }
+    &:invalid + div {
+      background: url(../../assets/icons/invalid-icon.svg) no-repeat center;
+    }
+  }
+  &__valid-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 15px;
+    height: 15px;
+    background-size: cover;
+  }
+}

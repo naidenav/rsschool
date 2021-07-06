@@ -4,10 +4,11 @@ import './statistics.scss';
 import { BaseComponent } from '../base-component';
 import { CARDS_STORAGE, CATEGORIES_STORAGE, SORT_ARROW } from '../../constants';
 import {
-  createRecord, initLocalStorage, renderTableIcon, trainDifficultWords,
+  createRecord, renderTableIcon, trainDifficultWords,
 } from '../utils';
 import { CardInfo, CategoryInfo } from '../../interfaces';
 import { App } from '../../app';
+import { getAllCategories } from '../../REST-api';
 
 export class Statistics extends BaseComponent {
   wrapper: BaseComponent;
@@ -98,26 +99,20 @@ export class Statistics extends BaseComponent {
     if (this.trHeader.element.nextSibling) this.clear();
   }
 
-  addRecord(card: CardInfo, category: string, index: number): void {
-    const record = createRecord(card, category, index);
+  addRecord(card: CardInfo, index: number): void {
+    const record = createRecord(card, index);
 
     this.tBody.element.append(record);
   }
 
-  render(categoriesData: CategoryInfo[]): void {
+  async render(categoriesData: CategoryInfo[]): Promise<void>{
     this.clear();
-    initLocalStorage(categoriesData);
-    const categoryData = localStorage.getItem(CATEGORIES_STORAGE);
-    const cardsData = localStorage.getItem(CARDS_STORAGE);
+    const categories = await getAllCategories();
 
-    if (categoryData !== null && cardsData !== null) {
-      const categories: string[] = JSON.parse(categoryData);
-      const cards: CardInfo[][] = JSON.parse(cardsData);
-      let index = 0;
-      for (let i = 0; i < categories.length; i++) {
-        for (let j = 0; j < cards[i].length; j++) {
-          this.addRecord(cards[i][j], categories[i], index++);
-        }
+    let index = 0;
+    for (let i = 0; i < categories.length; i++) {
+      for (let j = 0; j < categories[i].cards.length; j++) {
+        this.addRecord(categories[i].cards[j], index++);
       }
     }
   }

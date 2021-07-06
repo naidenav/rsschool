@@ -10,12 +10,12 @@ import { BaseComponent } from './base-component';
 import { Card } from './card/card';
 import { addMistake, breakGame, setCurrentCard } from './redux/actions';
 
-export const initLocalStorage = (categories: CategoryInfo[]): void => {
-  if (!localStorage.getItem(CATEGORIES_STORAGE)) {
-    const data = JSON.stringify(categories);
-    localStorage.setItem(CATEGORIES_STORAGE, data);
-  }
-};
+// export const initLocalStorage = (categories: CategoryInfo[]): void => {
+//   if (!localStorage.getItem(CATEGORIES_STORAGE)) {
+//     const data = JSON.stringify(categories);
+//     localStorage.setItem(CATEGORIES_STORAGE, data);
+//   }
+// };
 
 export const updateMode = (state: State, app: App): void => {
   if (state.mode === PLAY_MODE) {
@@ -161,10 +161,10 @@ export const cardsHandler = async (cards: Card[], app: App, play: boolean): Prom
   }, { once: true });
 };
 
-export const createRecord = (card: CardInfo, category: string, index: number): HTMLElement => {
+export const createRecord = (card: CardInfo, index: number): HTMLElement => {
   const tr = new BaseComponent('tr', ['tr-body']);
   const tdPosition = new BaseComponent('td', ['td'], `${index + 1}.`);
-  const thCategory = new BaseComponent('td', ['td'], `${category}`);
+  const thCategory = new BaseComponent('td', ['td'], `${card.category}`);
   const thWord = new BaseComponent('td', ['td'], `${card.word}`);
   const thTranslation = new BaseComponent('td', ['td'], `${card.translation}`);
   const thTrainCardsNum = new BaseComponent('td', ['td'], `${card.trainModeTurns}`);

@@ -8,6 +8,7 @@ import { CardModule } from './components/card-module/card-module';
 import { CategoryModule } from './components/category-module/category-module';
 import { Footer } from './components/footer/footer';
 import { Header } from './components/header/header';
+import { Popup } from './components/popup/popup';
 import { ProgressBar } from './components/progress-bar/progress-bar';
 import { breakGame, switchMode } from './components/redux/actions';
 import { rootReducer } from './components/redux/rootReducer';
@@ -48,6 +49,8 @@ export class App {
 
   readonly statistics: Statistics;
 
+  readonly popup: Popup;
+
   readonly store: Store = createStore(
     rootReducer,
     INITIAL_STATE,
@@ -71,9 +74,10 @@ export class App {
     this.cardModule = new CardModule(this);
     this.footer = new Footer();
     this.statistics = new Statistics(this);
+    this.popup = new Popup();
 
     this.rootElement.append(this.background.element, this.wrapper.element, this.sidebar.element,
-      this.footer.element);
+      this.footer.element, this.popup.element);
     this.container.element.append(this.categoryModule.element);
     this.wrapper.element.append(this.header.element, this.progressBar.element, this.container.element);
 
