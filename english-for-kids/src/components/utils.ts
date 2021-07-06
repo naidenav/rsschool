@@ -2,21 +2,17 @@
 
 import { App } from '../app';
 import {
-  CARDS, CARDS_STORAGE, CATEGORIES, CATEGORIES_STORAGE, CORRECT_AUDIO_SRC, ERROR_AUDIO_SRC, FALSE_COUNT,
+  CARDS_STORAGE, CATEGORIES_STORAGE, CORRECT_AUDIO_SRC, ERROR_AUDIO_SRC, FALSE_COUNT,
   MAIN_PAGE, PLAY_MODE, STATISTICS_PAGE, TRAIN_COUNT, TRAIN_MODE, TRUE_COUNT, TRUE_PER_COUNT,
 } from '../constants';
-import { CardInfo, State } from '../interfaces';
+import { CardInfo, CategoryInfo, State } from '../interfaces';
 import { BaseComponent } from './base-component';
 import { Card } from './card/card';
 import { addMistake, breakGame, setCurrentCard } from './redux/actions';
 
-export const initLocalStorage = (): void => {
-  if (!localStorage.getItem(CARDS_STORAGE)) {
-    const data = JSON.stringify(CARDS);
-    localStorage.setItem(CARDS_STORAGE, data);
-  }
+export const initLocalStorage = (categories: CategoryInfo[]): void => {
   if (!localStorage.getItem(CATEGORIES_STORAGE)) {
-    const data = JSON.stringify(CATEGORIES);
+    const data = JSON.stringify(categories);
     localStorage.setItem(CATEGORIES_STORAGE, data);
   }
 };
@@ -65,6 +61,8 @@ export const highlightActiveRoute = (state: string): void => {
 };
 
 export const getCardInfo = (card: Card): CardInfo => ({
+  category: card.getCategory(),
+  categoryId: card.getCategoryId(),
   word: card.getWord(),
   translation: card.getTranslation(),
   image: card.getImageSrc(),
@@ -73,6 +71,12 @@ export const getCardInfo = (card: Card): CardInfo => ({
   trueChoices: 0,
   falseChoices: 0,
   trueChoicesPer: 0,
+});
+
+export const getNewCategory = (name: string, id: number): CategoryInfo => ({
+  category: name,
+  id,
+  cards: [],
 });
 
 const calculatePercentage = (card: CardInfo) => {
@@ -182,31 +186,26 @@ export const createRecord = (card: CardInfo, category: string, index: number): H
   return tr.element;
 };
 
-export const getRandomDifficultWords = (): CardInfo[] | undefined => {
-  const cardsData = localStorage.getItem(CARDS_STORAGE);
-
-  if (cardsData !== null) {
-    const cards: CardInfo[][] = JSON.parse(cardsData);
-    const cardsList: CardInfo[] = [];
-    for (let i = 0; i < cards.length; i++) {
-      for (let j = 0; j < cards[i].length; j++) {
-        if (cards[i][j].trueChoicesPer > 0 && cards[i][j].trueChoicesPer < 100) {
-          cardsList.push(cards[i][j]);
-        }
+export const getRandomDifficultWords = (app: App): CardInfo[] | undefined => {
+  const { categories } = app;
+  const cardsList: CardInfo[] = [];
+  for (let i = 0; i < categories.length; i++) {
+    for (let j = 0; j < categories[i].cards.length; j++) {
+      if (categories[i].cards[j].trueChoicesPer > 0 && categories[i].cards[j].trueChoicesPer < 100) {
+        cardsList.push(categories[i].cards[j]);
       }
     }
-    cardsList.sort((a, b) => (a.trueChoicesPer > b.trueChoicesPer ? 1 : -1));
-
-    return cardsList.length <= 8 ? cardsList : cardsList.slice(0, 8);
   }
-  return undefined;
+  cardsList.sort((a, b) => (a.trueChoicesPer > b.trueChoicesPer ? 1 : -1));
+
+  return cardsList.length <= 8 ? cardsList : cardsList.slice(0, 8);
 };
 
 export const trainDifficultWords = async (app: App): Promise<void> => {
-  const cardsInfo = getRandomDifficultWords();
+  const cardsInfo = getRandomDifficultWords(app);
 
   if (cardsInfo) {
-    const cards = cardsInfo.map((item) => new Card(item.image, item.word, item.translation, item.audioSrc));
+    const cards = cardsInfo.map((item) => new Card(item.image, item.word, item.translation, item.audioSrc, item.category, item.categoryId));
     if (cards) {
       cards.sort(() => Math.random() - 0.5);
       const state: State = app.store.getState();

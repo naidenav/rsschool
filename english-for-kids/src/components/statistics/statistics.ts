@@ -6,7 +6,7 @@ import { CARDS_STORAGE, CATEGORIES_STORAGE, SORT_ARROW } from '../../constants';
 import {
   createRecord, initLocalStorage, renderTableIcon, trainDifficultWords,
 } from '../utils';
-import { CardInfo } from '../../interfaces';
+import { CardInfo, CategoryInfo } from '../../interfaces';
 import { App } from '../../app';
 
 export class Statistics extends BaseComponent {
@@ -85,7 +85,7 @@ export class Statistics extends BaseComponent {
     this.resetBtn.element.addEventListener('click', () => {
       localStorage.removeItem(CARDS_STORAGE);
       localStorage.removeItem(CATEGORIES_STORAGE);
-      app.statistics.render();
+      app.statistics.render(app.categories);
     });
 
     this.trainDifficultBtn.element.addEventListener('click', async () => {
@@ -104,9 +104,9 @@ export class Statistics extends BaseComponent {
     this.tBody.element.append(record);
   }
 
-  render(): void {
+  render(categoriesData: CategoryInfo[]): void {
     this.clear();
-    initLocalStorage();
+    initLocalStorage(categoriesData);
     const categoryData = localStorage.getItem(CATEGORIES_STORAGE);
     const cardsData = localStorage.getItem(CARDS_STORAGE);
 

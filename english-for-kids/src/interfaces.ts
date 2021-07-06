@@ -1,6 +1,8 @@
 import { Action } from 'redux';
 
 export interface CardInfo {
+  category: string,
+  categoryId: number,
   word: string,
   translation: string,
   image: string,
@@ -11,6 +13,12 @@ export interface CardInfo {
   trueChoicesPer: number,
 }
 
+export interface CategoryInfo {
+  _id?: string,
+  category: string,
+  id: number,
+  cards: CardInfo[],
+}
 export interface State {
   mode: string,
   page: string,
@@ -18,6 +26,11 @@ export interface State {
   isGameStarted: boolean,
   isBreak: boolean,
   mistakes: number,
+}
+
+export interface QueryParam {
+  key: string,
+  value: string | number
 }
 
 export interface PageAction extends Action {

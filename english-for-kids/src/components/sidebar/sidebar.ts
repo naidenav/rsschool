@@ -3,7 +3,7 @@
 import './sidebar.scss';
 import { BaseComponent } from '../base-component';
 import { App } from '../../app';
-import { CATEGORIES } from '../../constants';
+import { CategoryInfo } from '../../interfaces';
 
 export class Sidebar extends BaseComponent {
   private list: BaseComponent;
@@ -30,13 +30,13 @@ export class Sidebar extends BaseComponent {
     });
   }
 
-  renderList():void {
+  renderList(categories: CategoryInfo[]):void {
     const mainLink = document.createElement('li');
     mainLink.innerHTML = '<a href="#main" id="main-route" class="sidebar__link main-link active-route">Main page</a>';
     this.list.element.append(mainLink);
-    CATEGORIES.forEach((category, index) => {
+    categories.forEach((category) => {
       const link = document.createElement('li');
-      link.innerHTML = `<a href="#${index}" id="${index}-route" class="sidebar__link">${category}</a>`;
+      link.innerHTML = `<a href="#${category.id}" id="${category.id}-route" class="sidebar__link">${category.category}</a>`;
       this.list.element.append(link);
     });
     const statisticsLink = document.createElement('li');

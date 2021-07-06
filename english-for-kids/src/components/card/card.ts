@@ -16,6 +16,10 @@ export class Card extends BaseComponent {
 
   turnBtn: BaseComponent;
 
+  category: string;
+
+  categoryId: number;
+
   word: string;
 
   translation: string;
@@ -24,9 +28,11 @@ export class Card extends BaseComponent {
 
   audioSrc: string;
 
-  constructor(image: string, word: string, translation: string, audioSrc: string) {
+  constructor(image: string, word: string, translation: string, audioSrc: string, category: string, categoryId: number) {
     super('div', ['card-container']);
     this.element.dataset.word = word;
+    this.category = category;
+    this.categoryId = categoryId;
     this.word = word;
     this.translation = translation;
     this.imageSrc = image;
@@ -56,6 +62,14 @@ export class Card extends BaseComponent {
 
   showTitile(): void {
     this.frontTitle.element.classList.remove('hide-title');
+  }
+
+  getCategory(): string {
+    return this.category;
+  }
+
+  getCategoryId(): number {
+    return this.categoryId;
   }
 
   getWord(): string {

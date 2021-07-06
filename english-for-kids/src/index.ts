@@ -1,6 +1,9 @@
 import './styles.scss';
 import { App } from './app';
+import { getAllCategories } from './REST-api';
+import { CategoryInfo } from './interfaces';
 
 window.onload = async () => {
-  const application = new App(document.body);
+  const categories: CategoryInfo[] = await getAllCategories();
+  const application = new App(document.body, categories);
 };

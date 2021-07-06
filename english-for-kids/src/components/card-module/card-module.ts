@@ -1,8 +1,8 @@
 /* eslint-disable import/no-cycle */
 
 import { App } from '../../app';
-import { CARDS, PLAY_MODE, TRAIN_COUNT } from '../../constants';
-import { State } from '../../interfaces';
+import { PLAY_MODE, TRAIN_COUNT } from '../../constants';
+import { CategoryInfo, State } from '../../interfaces';
 import { BaseComponent } from '../base-component';
 import { Card } from '../card/card';
 import { game, removeMistakes, setCurrentCard } from '../redux/actions';
@@ -41,17 +41,15 @@ export class CardModule extends BaseComponent {
     });
   }
 
-  render(state: string, index?: string, difficultWords?: Card[]): void {
-    if (index && !difficultWords) {
-      this.cardList = [];
-      const i = +index;
-      CARDS[i].forEach((item) => {
-        const card = new Card(item.image, item.word, item.translation, item.audioSrc);
+  render(state: string, category?: CategoryInfo, difficultWords?: Card[]): void {
+    if (category && !difficultWords) {
+      category.cards.forEach((item) => {
+        const card = new Card(item.image, item.word, item.translation, item.audioSrc, item.category, item.categoryId);
         if (state === PLAY_MODE) card.hideTitile();
         this.element.append(card.element);
         this.cardList.push(card);
       });
-    } else if (!index && difficultWords) {
+    } else if (!category && difficultWords) {
       difficultWords.forEach((card) => {
         if (state === PLAY_MODE) card.hideTitile();
         this.element.append(card.element);

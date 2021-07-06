@@ -19,9 +19,11 @@ import { highlightActiveRoute, updateMode } from './components/utils';
 import {
   INITIAL_STATE, MAIN_PAGE, PLAY_MODE, TRAIN_MODE,
 } from './constants';
-import { State } from './interfaces';
+import { CategoryInfo, State } from './interfaces';
 
 export class App {
+  categories: CategoryInfo[];
+
   readonly router: Router;
 
   readonly background: Background;
@@ -52,19 +54,20 @@ export class App {
     applyMiddleware(thunk),
   );
 
-  constructor(private readonly rootElement: HTMLElement) {
+  constructor(private readonly rootElement: HTMLElement, categories: CategoryInfo[]) {
     this.rootElement.classList.add('train-mode');
+    this.categories = categories;
     this.router = new Router(this);
     this.background = new Background();
     this.wrapper = new BaseComponent('div', ['wrapper']);
     this.header = new Header(this);
     this.progressBar = new ProgressBar();
     this.sidebar = new Sidebar(this);
-    this.sidebar.renderList();
+    this.sidebar.renderList(categories);
     this.summary = new Summary();
     this.container = new BaseComponent('div', ['container']);
     this.categoryModule = new CategoryModule();
-    this.categoryModule.render();
+    this.categoryModule.render(categories);
     this.cardModule = new CardModule(this);
     this.footer = new Footer();
     this.statistics = new Statistics(this);
