@@ -3,7 +3,7 @@ import {
   CardAction, GameAction, ModeAction, PageAction, CardInfo, BreakGameAction,
 } from '../../interfaces';
 import {
-  ADD_MISTAKE, BREAK_GAME, GAME, REMOVE_CURRENT_CARD, REMOVE_MISTAKES, SET_CURRENT_CARD, SWITCH_MODE, SWITCH_PAGE,
+  ADD_MISTAKE, BREAK_GAME, GAME, REMOVE_ADMIN_MODE, REMOVE_CURRENT_CARD, REMOVE_MISTAKES, SET_ADMIN_MODE, SET_CURRENT_CARD, SWITCH_MODE, SET_PAGE,
 } from './types';
 
 export function switchMode(mode: string): ModeAction {
@@ -13,9 +13,9 @@ export function switchMode(mode: string): ModeAction {
   };
 }
 
-export function switchPage(page: string): PageAction {
+export function setPage(page: string): PageAction {
   return {
-    type: SWITCH_PAGE,
+    type: SET_PAGE,
     page,
   };
 }
@@ -56,5 +56,17 @@ export function addMistake(): Action {
 export function removeMistakes(): Action {
   return {
     type: REMOVE_MISTAKES,
+  };
+}
+
+export function setAdminMode(): Action {
+  return {
+    type: SET_ADMIN_MODE,
+  };
+}
+
+export function removeAdminMode(): Action {
+  return {
+    type: REMOVE_ADMIN_MODE,
   };
 }

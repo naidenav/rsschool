@@ -2,6 +2,7 @@
 
 import { applyMiddleware, createStore, Store } from 'redux';
 import thunk from 'redux-thunk';
+import { AdminModule } from './components/admin-module/admin-module';
 import { Background } from './components/background';
 import { BaseComponent } from './components/base-component';
 import { CardModule } from './components/card-module/card-module';
@@ -35,7 +36,7 @@ export class App {
 
   readonly progressBar: ProgressBar;
 
-  private sidebar: Sidebar;
+  readonly sidebar: Sidebar;
 
   readonly summary: Summary;
 
@@ -50,6 +51,8 @@ export class App {
   readonly statistics: Statistics;
 
   readonly popup: Popup;
+
+  readonly adminModule: AdminModule;
 
   readonly store: Store = createStore(
     rootReducer,
@@ -74,7 +77,8 @@ export class App {
     this.cardModule = new CardModule(this);
     this.footer = new Footer();
     this.statistics = new Statistics(this);
-    this.popup = new Popup();
+    this.popup = new Popup(this);
+    this.adminModule = new AdminModule(this);
 
     this.rootElement.append(this.background.element, this.wrapper.element, this.sidebar.element,
       this.footer.element, this.popup.element);

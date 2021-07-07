@@ -1,4 +1,8 @@
-import { CardInfo, State } from './interfaces';
+import { State } from './interfaces';
+
+export const LOGIN = 'admin';
+
+export const PASSWORD = 'admin';
 
 export const BASE_URL = 'https://alluring-glacier-28316.herokuapp.com/categories';
 
@@ -19,6 +23,8 @@ export const MAIN_PAGE = 'main';
 export const TRAIN_DIFFICULT_PAGE = 'train';
 
 export const STATISTICS_PAGE = 'statistics';
+
+export const CONTROL_PAGE = 'categories';
 
 export const TRAIN_MODE = 'train-mode';
 
@@ -45,6 +51,7 @@ export const INITIAL_STATE: State = {
   isGameStarted: false,
   isBreak: false,
   mistakes: 0,
+  isAdmin: false,
 };
 
 export const TITLE_HEIGHT = '25%';

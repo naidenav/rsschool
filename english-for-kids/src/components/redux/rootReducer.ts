@@ -4,7 +4,7 @@ import {
   BreakGameAction, CardAction, GameAction, ModeAction, PageAction,
 } from '../../interfaces';
 import {
-  ADD_MISTAKE, BREAK_GAME, GAME, REMOVE_MISTAKES, SET_CURRENT_CARD, SWITCH_MODE, SWITCH_PAGE,
+  ADD_MISTAKE, BREAK_GAME, GAME, REMOVE_ADMIN_MODE, REMOVE_MISTAKES, SET_ADMIN_MODE, SET_CURRENT_CARD, SWITCH_MODE, SET_PAGE,
 } from './types';
 
 function modeReducer(state = INITIAL_STATE.mode, action: ModeAction) {
@@ -32,7 +32,7 @@ function breakGameReducer(state = INITIAL_STATE.isBreak, action: BreakGameAction
 }
 
 function pageReducer(state = INITIAL_STATE.page, action: PageAction) {
-  if (action.type === SWITCH_PAGE) {
+  if (action.type === SET_PAGE) {
     return action.page;
   }
 
@@ -58,6 +58,16 @@ function mistakesReducer(state = INITIAL_STATE.mistakes, action: Action) {
   return state;
 }
 
+function adminReducer(state = INITIAL_STATE.isAdmin, action: Action) {
+  if (action.type === SET_ADMIN_MODE) {
+    return true;
+  } else if (action.type === REMOVE_ADMIN_MODE) {
+    return false;
+  }
+
+  return state;
+}
+
 export const rootReducer = combineReducers({
   mode: modeReducer,
   page: pageReducer,
@@ -65,4 +75,5 @@ export const rootReducer = combineReducers({
   isGameStarted: gameReducer,
   isBreak: breakGameReducer,
   mistakes: mistakesReducer,
+  isAdmin: adminReducer,
 });

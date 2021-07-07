@@ -42,6 +42,7 @@ export class CardModule extends BaseComponent {
   }
 
   render(state: string, category?: CategoryInfo, difficultWords?: Card[]): void {
+    this.clearCardList();
     if (category && !difficultWords) {
       category.cards.forEach((item) => {
         const card = new Card(item.image, item.word, item.translation, item.audioSrc, item.category, item.categoryId);

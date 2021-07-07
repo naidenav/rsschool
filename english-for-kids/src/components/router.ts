@@ -1,10 +1,10 @@
 /* eslint-disable import/no-cycle */
 
 import { App } from '../app';
-import { MAIN_PAGE, PLAY_MODE, STATISTICS_PAGE } from '../constants';
+import { CONTROL_PAGE, MAIN_PAGE, PLAY_MODE, STATISTICS_PAGE } from '../constants';
 import { CategoryInfo, State } from '../interfaces';
 import { getCategory } from '../REST-api';
-import { breakGame, switchPage } from './redux/actions';
+import { breakGame, setPage } from './redux/actions';
 import { navigate } from './utils';
 
 export class Router {
@@ -16,24 +16,40 @@ export class Router {
         app.store.dispatch(breakGame(true));
         app.cardModule.finishGame(app);
       }
-      app.store.dispatch(switchPage(currentRouteName));
+      app.store.dispatch(setPage(currentRouteName));
       app.background.show();
-      if (currentRouteName === MAIN_PAGE) {
+      await this.switchPage(app, currentRouteName);
+    };
+  }
+
+  async switchPage(app: App, routeName: string) {
+    const state: State = app.store.getState();
+
+    switch(routeName) {
+      case MAIN_PAGE:
         if (state.mode === PLAY_MODE) app.header.hideGameBtn();
         navigate(app.categoryModule.element, app);
-      } else if (currentRouteName === STATISTICS_PAGE) {
-        if (state.mode === PLAY_MODE) app.header.showGameBtn();
+        break;
+      case STATISTICS_PAGE:
         app.background.hide();
         app.statistics.render(app.categories);
         navigate(app.statistics.element, app);
-      } else {
+        break;
+      case CONTROL_PAGE:
+        if (state.mode === PLAY_MODE) app.header.hideGameBtn();
+        // if (!state.isAdmin) {
+        //   window.location.hash = `#${MAIN_PAGE}`;
+        //   break;
+        // }
+        navigate(app.adminModule.element, app);
+        break;
+      default:
         if (state.mode === PLAY_MODE) app.header.showGameBtn();
         app.cardModule.clear();
-        const id = Number(currentRouteName);
+        navigate(app.cardModule.element, app);
+        const id = Number(routeName);
         const category = await getCategory(id);
         app.cardModule.render(state.mode, category);
-        navigate(app.cardModule.element, app);
-      }
-    };
+    }
   }
 }

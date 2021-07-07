@@ -1,7 +1,7 @@
-import './category.scss';
+import './category-icon.scss';
 import { BaseComponent } from '../base-component';
 
-export class Category extends BaseComponent {
+export class CategoryIcon extends BaseComponent {
   title: BaseComponent;
 
   constructor(title: string, imageSrc: string, index: number) {

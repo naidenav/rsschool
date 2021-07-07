@@ -26,6 +26,7 @@ export interface State {
   isGameStarted: boolean,
   isBreak: boolean,
   mistakes: number,
+  isAdmin: boolean,
 }
 
 export interface QueryParam {

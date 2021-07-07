@@ -1,17 +1,20 @@
 import './popup.scss';
 import { BaseComponent } from '../base-component';
 import { Input } from '../input/input';
+import { LOGIN, PASSWORD } from '../../constants';
+import { App } from '../../app';
+import { setAdminMode } from '../redux/actions';
 
 export class Popup extends BaseComponent {
   readonly popup: BaseComponent;
 
   readonly popupTitle: BaseComponent;
 
-  readonly firstNameInput: Input;
+  readonly loginInput: Input;
 
-  readonly lastNameInput: Input;
+  readonly passwordInput: Input;
 
-  readonly addUserBtn: BaseComponent;
+  readonly loginBtn: BaseComponent;
 
   readonly cancelBtn: BaseComponent;
 
@@ -21,14 +24,14 @@ export class Popup extends BaseComponent {
 
   readonly buttonWrapper: BaseComponent;
 
-  constructor() {
+  constructor(app: App) {
     super('div', ['cover', 'cover_hidden']);
     this.popup = new BaseComponent('div', ['popup']);
     this.popupTitle = new BaseComponent('p', ['popup__title'], 'Log In');
-    this.firstNameInput = new Input('First Name:', 'text', true, '30');
-    this.lastNameInput = new Input('Last Name:', 'text', true, '30');
-    this.addUserBtn = new BaseComponent('button', ['button_add-user'], 'Log In');
-    this.addUserBtn.element.setAttribute('type', 'submit');
+    this.loginInput = new Input('First Name:', 'text', true, '30');
+    this.passwordInput = new Input('Last Name:', 'text', true, '12');
+    this.loginBtn = new BaseComponent('button', ['button_add-user'], 'Log In');
+    this.loginBtn.element.setAttribute('type', 'submit');
     this.cancelBtn = new BaseComponent('button', ['button_cancel'], 'Cancel');
     this.cancelBtn.element.setAttribute('type', 'reset');
     this.popupForm = new BaseComponent('form', ['popup__form']);
@@ -39,33 +42,45 @@ export class Popup extends BaseComponent {
     this.element.append(this.popup.element);
     this.popup.element.append(this.popupTitle.element, this.popupForm.element);
     this.popupForm.element.append(this.inputWrapper.element, this.buttonWrapper.element);
-    this.inputWrapper.element.append(this.firstNameInput.element, this.lastNameInput.element);
-    this.buttonWrapper.element.append(this.addUserBtn.element, this.cancelBtn.element);
+    this.inputWrapper.element.append(this.loginInput.element, this.passwordInput.element);
+    this.buttonWrapper.element.append(this.loginBtn.element, this.cancelBtn.element);
 
-    const nameRegexp = /^[\p{L}+\d\s]{3,30}$/u;
+    const nameRegexp = /^[\p{L}+\d\s]{1,30}$/u;
+    const loginRegexp = new RegExp(`^${LOGIN}$`);
+    const passwordRegexp = new RegExp(`^${PASSWORD}$`);
 
-    const firstNameInput = this.firstNameInput.input.element as HTMLInputElement;
-    const lastNameInput = this.lastNameInput.input.element as HTMLInputElement;
+    const loginInput = this.loginInput.input.element as HTMLInputElement;
+    const passwordInput = this.passwordInput.input.element as HTMLInputElement;
 
-    firstNameInput.addEventListener('input', () => {
-      if (nameRegexp.test(firstNameInput.value) && /\p{L}+/u.test(firstNameInput.value)) {
-        firstNameInput.setCustomValidity('');
+    loginInput.addEventListener('input', () => {
+      if (loginRegexp.test(loginInput.value)) {
+        loginInput.setCustomValidity('');
       } else {
-        firstNameInput.setCustomValidity('Bad First Name');
+        loginInput.setCustomValidity('Wrong login');
       }
     });
 
-    lastNameInput.addEventListener('input', () => {
-      if (nameRegexp.test(lastNameInput.value) && /\p{L}+/u.test(lastNameInput.value)) {
-        lastNameInput.setCustomValidity('');
+    passwordInput.addEventListener('input', () => {
+      if (passwordRegexp.test(passwordInput.value)) {
+        passwordInput.setCustomValidity('');
       } else {
-        lastNameInput.setCustomValidity('Bad Last Name');
+        passwordInput.setCustomValidity('Wrong password');
       }
     });
 
     this.cancelBtn.element.addEventListener('click', () => {
       this.hidePopup();
-    })
+    });
+
+    this.loginBtn.element.addEventListener('click', (e) => {
+      if (loginInput.validity.valid && passwordInput.validity.valid) {
+        e.preventDefault();
+        app.store.dispatch(setAdminMode());
+        app.sidebar.showControlRoute();
+        app.sidebar.showLogOutBtn();
+        this.hidePopup();
+      }
+    });
   }
 
   showPopup() {
