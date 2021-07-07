@@ -7,7 +7,7 @@ export class CategoryCard extends BaseComponent {
     super('div', ['category-card']);
     this.element.setAttribute('id', `category-card-${category.id}`);
     this.element.innerHTML = `
-      <div class="category-card__main-view view-hidden">
+      <div class="category-card__main-view">
         <p class="category-card__title">${category.category}</p>
         <p class="category-card__words">Words: <span class="category-card__number">${category.cards.length}</span></p>
         <div class="category-card__btn-wrapper">
@@ -16,7 +16,7 @@ export class CategoryCard extends BaseComponent {
         </div>
         <div class="category-card__delete-btn" id="delete-${category.id}"></div>
       </div>
-      <div class="category-card__update-view ">
+      <div class="category-card__update-view view-hidden">
         <fieldset class="category-card__fieldset">
           <legend class="category-card__legend">Category name:</legend>
           <input class="category-card__input" type="text">

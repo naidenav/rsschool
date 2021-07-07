@@ -1,5 +1,3 @@
-import { Collection } from 'mongodb';
-
 export interface CardInfo {
   category: string,
   word: string,
@@ -12,8 +10,8 @@ export interface CardInfo {
   trueChoicesPer: number,
 }
 
-export interface CategoryInfo extends Collection {
-  _id: string,
+export interface CategoryInfo {
+  _id?: string,
   category: string,
   id: number,
   cards: CardInfo[],
