@@ -114,6 +114,18 @@ export const updateStatistics = (categoryIndex: string, word: string, count: str
   }
 };
 
+function declareWrongChoice(app: App) {
+  playAudio(ERROR_AUDIO_SRC);
+  app.progressBar.wrongChoice();
+  app.store.dispatch(addMistake());
+}
+
+function declareCorrectChoice(app: App, card: Card) {
+  playAudio(CORRECT_AUDIO_SRC);
+  app.progressBar.rightChoice();
+  card.setTrueCard();
+}
+
 export const cardsHandler = async (cards: Card[], app: App, play: boolean): Promise<void> => {
   const cardInfo = getCardInfo(cards[0]);
   let state: State = app.store.getState();
@@ -129,15 +141,11 @@ export const cardsHandler = async (cards: Card[], app: App, play: boolean): Prom
     }
     const target = (e.target as HTMLElement).closest('.card-container');
     if (target && target !== cards[0].element) {
-      playAudio(ERROR_AUDIO_SRC);
-      app.progressBar.wrongChoice();
+      declareWrongChoice(app);
       updateStatistics(state.page, cardInfo.word, FALSE_COUNT);
-      app.store.dispatch(addMistake());
       cardsHandler(cards, app, false);
     } else if (target && target === cards[0].element) {
-      playAudio(CORRECT_AUDIO_SRC);
-      app.progressBar.rightChoice();
-      cards[0].setTrueCard();
+      declareCorrectChoice(app, cards[0]);
       updateStatistics(state.page, cardInfo.word, TRUE_COUNT);
       if (cards.length > 1) {
         cards.shift();
@@ -188,13 +196,13 @@ export const getRandomDifficultWords = (): CardInfo[] | undefined => {
   if (cardsData !== null) {
     const cards: CardInfo[][] = JSON.parse(cardsData);
     const cardsList: CardInfo[] = [];
-    for (let i = 0; i < cards.length; i++) {
-      for (let j = 0; j < cards[i].length; j++) {
-        if (cards[i][j].trueChoicesPer > 0 && cards[i][j].trueChoicesPer < 100) {
-          cardsList.push(cards[i][j]);
+    cards.forEach((array) => {
+      array.forEach((card) => {
+        if (card.trueChoicesPer > 0 && card.trueChoicesPer < 100) {
+          cardsList.push(card);
         }
-      }
-    }
+      });
+    });
     cardsList.sort((a, b) => (a.trueChoicesPer > b.trueChoicesPer ? 1 : -1));
 
     return cardsList.length <= 8 ? cardsList : cardsList.slice(0, 8);

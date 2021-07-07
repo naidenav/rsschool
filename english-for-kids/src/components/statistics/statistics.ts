@@ -113,12 +113,10 @@ export class Statistics extends BaseComponent {
     if (categoryData !== null && cardsData !== null) {
       const categories: string[] = JSON.parse(categoryData);
       const cards: CardInfo[][] = JSON.parse(cardsData);
-      let index = 0;
-      for (let i = 0; i < categories.length; i++) {
-        for (let j = 0; j < cards[i].length; j++) {
-          this.addRecord(cards[i][j], categories[i], index++);
-        }
-      }
+      let position = 0;
+      categories.forEach((category, index) => {
+        cards[index].forEach((card) => this.addRecord(card, category, position++));
+      });
     }
   }
 }
