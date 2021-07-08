@@ -28,6 +28,16 @@ export const createCategory = async (name: string, ): Promise<CategoryInfo> => (
   body: JSON.stringify({ categoryName: name }),
 })).json();
 
+export const updateCategoryName = async (id:number, name: string): Promise<CategoryInfo> => {
+  const category = await getCategory(id);
+  category.category = name;
+  delete category._id;
+  const newCategory = await updateCategory(category);
+  console.log(newCategory)
+
+  return newCategory;
+}
+
 export const updateCategory = async (newCategory: CategoryInfo): Promise<CategoryInfo> => {
   const response = await fetch(`${BASE_URL}/${newCategory.id}`, {
     method: 'PUT',
@@ -36,6 +46,7 @@ export const updateCategory = async (newCategory: CategoryInfo): Promise<Categor
     },
     body: JSON.stringify(newCategory),
   });
+  console.log(response.status)
   const category = await response.json();
 
   return category;

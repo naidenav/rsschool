@@ -1,5 +1,16 @@
 import { State } from './interfaces';
 
+export const CLASS_NAMES = {
+  categoryCard: 'category-card',
+  updateBtn: 'category-card__update-btn',
+  addWordBtn: 'category-card__add-word-btn',
+  createBtn: 'category-card__create-btn',
+  cancelBtn: 'category-card__cancel-btn',
+  deleteBtn: 'category-card__delete-btn',
+  nameInput: 'category-card__input',
+  categoryName: 'category-card__title',
+}
+
 export const LOGIN = 'admin';
 
 export const PASSWORD = 'admin';
