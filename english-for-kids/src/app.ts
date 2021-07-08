@@ -15,7 +15,7 @@ import { Router } from './components/router';
 import { Sidebar } from './components/sidebar/sidebar';
 import { Statistics } from './components/statistics/statistics';
 import { Summary } from './components/summary/summary';
-import { highlightActiveRoute, updateMode } from './components/utils';
+import { highlightActiveRoute, initLocalStorage, updateMode } from './components/utils';
 import {
   INITIAL_STATE, MAIN_PAGE, PLAY_MODE, TRAIN_MODE,
 } from './constants';
@@ -68,6 +68,7 @@ export class App {
     this.cardModule = new CardModule(this);
     this.footer = new Footer();
     this.statistics = new Statistics(this);
+    initLocalStorage();
 
     this.rootElement.append(this.background.element, this.wrapper.element, this.sidebar.element,
       this.footer.element);
