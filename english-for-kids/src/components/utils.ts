@@ -6,6 +6,7 @@ import {
   MAIN_PAGE, PLAY_MODE, STATISTICS_PAGE, TRAIN_COUNT, TRAIN_MODE, TRUE_COUNT, TRUE_PER_COUNT,
 } from '../constants';
 import { CardInfo, CategoryInfo, State } from '../interfaces';
+import { getAllCategories } from '../REST-api';
 import { BaseComponent } from './base-component';
 import { Card } from './card/card';
 import { addMistake, breakGame, setCurrentCard } from './redux/actions';
@@ -46,10 +47,10 @@ export const renderTableIcon = (iconClass: string): string => `
     <div class="table-icon ${iconClass}-icon"></div>
   `;
 
-export const navigate = (content: HTMLElement, app: App): void => {
-  const currentChild = app.container.element.firstElementChild;
+export const navigate = (content: HTMLElement, container: HTMLElement): void => {
+  const currentChild = container.firstElementChild;
   if (currentChild) {
-    app.container.element.replaceChild(content, currentChild);
+    container.replaceChild(content, currentChild);
   }
 };
 
@@ -77,6 +78,19 @@ export const getNewCategory = (name: string, id: number): CategoryInfo => ({
   category: name,
   id,
   cards: [],
+});
+
+export const getNewWord = (category: CategoryInfo): CardInfo => ({
+  category: category.category,
+  categoryId: category.id,
+  word: 'Word',
+  translation: 'Слово',
+  image: 'https://res.cloudinary.com/naidenav/image/upload/v1625834746/efk-files/img/image-placeholder_yxuvx1.jpg',
+  audioSrc: 'https://res.cloudinary.com/naidenav/video/upload/v1625834476/efk-files/audio/word_lpfgpi.mp3',
+  trainModeTurns: 0,
+  falseChoices: 0,
+  trueChoices: 0,
+  trueChoicesPer: 0,
 });
 
 const calculatePercentage = (card: CardInfo) => {
@@ -118,6 +132,18 @@ export const updateStatistics = (categoryIndex: string, word: string, count: str
   }
 };
 
+function declareWrongChoice(app: App) {
+  playAudio(ERROR_AUDIO_SRC);
+  app.progressBar.wrongChoice();
+  app.store.dispatch(addMistake());
+}
+
+function declareCorrectChoice(app: App, card: Card) {
+  playAudio(CORRECT_AUDIO_SRC);
+  app.progressBar.rightChoice();
+  card.setTrueCard();
+}
+
 export const cardsHandler = async (cards: Card[], app: App, play: boolean): Promise<void> => {
   const cardInfo = getCardInfo(cards[0]);
   let state: State = app.store.getState();
@@ -133,15 +159,11 @@ export const cardsHandler = async (cards: Card[], app: App, play: boolean): Prom
     }
     const target = (e.target as HTMLElement).closest('.card-container');
     if (target && target !== cards[0].element) {
-      playAudio(ERROR_AUDIO_SRC);
-      app.progressBar.wrongChoice();
+      declareWrongChoice(app);
       updateStatistics(state.page, cardInfo.word, FALSE_COUNT);
-      app.store.dispatch(addMistake());
       cardsHandler(cards, app, false);
     } else if (target && target === cards[0].element) {
-      playAudio(CORRECT_AUDIO_SRC);
-      app.progressBar.rightChoice();
-      cards[0].setTrueCard();
+      declareCorrectChoice(app, cards[0]);
       updateStatistics(state.page, cardInfo.word, TRUE_COUNT);
       if (cards.length > 1) {
         cards.shift();
@@ -189,13 +211,13 @@ export const createRecord = (card: CardInfo, index: number): HTMLElement => {
 export const getRandomDifficultWords = (app: App): CardInfo[] | undefined => {
   const { categories } = app;
   const cardsList: CardInfo[] = [];
-  for (let i = 0; i < categories.length; i++) {
-    for (let j = 0; j < categories[i].cards.length; j++) {
-      if (categories[i].cards[j].trueChoicesPer > 0 && categories[i].cards[j].trueChoicesPer < 100) {
-        cardsList.push(categories[i].cards[j]);
+  categories.forEach(category => {
+    category.cards.forEach(card => {
+      if (card.trueChoicesPer > 0 && card.trueChoicesPer < 100) {
+        cardsList.push(card);
       }
-    }
-  }
+    })
+  })
   cardsList.sort((a, b) => (a.trueChoicesPer > b.trueChoicesPer ? 1 : -1));
 
   return cardsList.length <= 8 ? cardsList : cardsList.slice(0, 8);
@@ -212,7 +234,36 @@ export const trainDifficultWords = async (app: App): Promise<void> => {
       app.cardModule.clear();
       app.cardModule.clearCardList();
       app.cardModule.render(state.mode, undefined, cards);
-      navigate(app.cardModule.element, app);
+      navigate(app.cardModule.element, app.container.element);
     }
   }
 };
+
+export const updateCategoriesLists = async (app: App) => {
+  const categories = await getAllCategories();
+  app.sidebar.renderList(categories);
+  app.categoryModule.render(categories);
+}
+
+export const clear = (elem: HTMLElement) => {
+    elem.firstElementChild?.remove();
+    if (elem.firstElementChild) clear(elem);
+}
+
+export const setCategoryEditMode = (id: string) => {
+  const mainView = document.getElementById(`main-view-${id}`);
+  const updateView = document.getElementById(`update-view-${id}`);
+  if (!mainView?.classList.contains('show-update-view')) {
+    mainView?.classList.add('show-update-view');
+    updateView?.classList.add('show-update-view');
+  }
+}
+
+export const removeCategoryEditMode = (id: string) => {
+  const mainView = document.getElementById(`main-view-${id}`);
+  const updateView = document.getElementById(`update-view-${id}`);
+  if (mainView?.classList.contains('show-update-view')) {
+    updateView?.classList.remove('show-update-view');
+    mainView?.classList.remove('show-update-view');
+  }
+}

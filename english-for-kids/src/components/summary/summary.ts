@@ -23,7 +23,7 @@ export class Summary extends BaseComponent {
     this.clear();
     this.image.element.classList.add('success-image');
     this.title.element.innerHTML = 'Success!';
-    navigate(this.element, app);
+    navigate(this.element, app.container.element);
     playAudio(SUCCESS_AUDIO_SRC);
   }
 
@@ -31,7 +31,7 @@ export class Summary extends BaseComponent {
     this.clear();
     this.image.element.classList.add('failure-image');
     this.title.element.innerHTML = `You made <span class="mistakes">${mistakes}</span> mistakes`;
-    navigate(this.element, app);
+    navigate(this.element, app.container.element);
     playAudio(FAILURE_AUDIO_SRC);
     app.store.dispatch(removeMistakes());
   }

@@ -110,10 +110,10 @@ export class Statistics extends BaseComponent {
     const categories = await getAllCategories();
 
     let index = 0;
-    for (let i = 0; i < categories.length; i++) {
-      for (let j = 0; j < categories[i].cards.length; j++) {
-        this.addRecord(categories[i].cards[j], index++);
-      }
-    }
+    categories.forEach(category => {
+      category.cards.forEach(card => {
+        this.addRecord(card, index++);
+      })
+    })
   }
 }

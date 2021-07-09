@@ -1,0 +1,139 @@
+.word-card {
+  overflow: hidden;
+  position: relative;
+  margin: 15px;
+  height: 500px;
+  width: 300px;
+  background-color: white;
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  transition-duration: .3s;
+
+  &__main-view,
+  &__update-view {
+    position: relative;
+    top: 0;
+    left: 0;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    transform: translateY(0);
+    transition-duration: .3s;
+  }
+
+  &__title {
+    align-self: flex-start;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--bg-sidebar);
+  }
+
+  &__content {
+    margin-top: 30px;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--bg-sidebar);
+  }
+
+  &__audio {
+    height: 30px;
+    width: 30px;
+    background-image: url(../../assets/icons/volume.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__image {
+    margin-top: 10px;
+    min-height: 120px;
+    width: 200px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+
+
+  &__change-btn,
+  &__cancel-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 120px;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--bg-sidebar);
+    text-transform: uppercase;
+    border: 2px solid var(--bg-sidebar);
+    border-radius: 7px;
+    background: none;
+    transition-duration: .3s;
+    &:hover,
+    &:focus {
+      background-color: var(--bg-sidebar);
+      color: white;
+    }
+    &:active {
+      filter: brightness(1.2);
+    }
+  }
+
+  &__cancel-btn {
+    border-color: rgb(219, 69, 69);
+    color: rgb(219, 69, 69);
+    &:hover,
+    &:focus {
+      background-color: rgb(219, 69, 69);
+    }
+  }
+
+  &__delete-btn {
+    position: absolute;
+    top: 20px;
+    right: 22px;
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    background: url(../../assets/icons/delete.svg) no-repeat center;
+    &:hover {
+      cursor: pointer;
+      border: 2px solid rgb(230, 49, 49);
+    }
+  }
+
+  &__fieldset {
+    margin-top: 20px;
+  }
+
+  &__legend {
+    font-size: 10px;
+    font-weight: 700;
+    color: #555;
+  }
+
+  &__input {
+    height: 35px;
+    font-size: 20px;
+    color: #555;
+    border: none;
+    border-bottom: 1px solid #555;
+    background: transparent;
+  }
+}
+
+.view-hidden {
+  display: none;
+}
+
+.show-update-view {
+  transform: translateY(-100%);
+}

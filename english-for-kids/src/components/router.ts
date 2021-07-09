@@ -24,32 +24,40 @@ export class Router {
 
   async switchPage(app: App, routeName: string) {
     const state: State = app.store.getState();
-
     switch(routeName) {
       case MAIN_PAGE:
         if (state.mode === PLAY_MODE) app.header.hideGameBtn();
-        navigate(app.categoryModule.element, app);
+        navigate(app.categoryModule.element, app.container.element);
         break;
       case STATISTICS_PAGE:
         app.background.hide();
         app.statistics.render(app.categories);
-        navigate(app.statistics.element, app);
-        break;
-      case CONTROL_PAGE:
-        if (state.mode === PLAY_MODE) app.header.hideGameBtn();
-        // if (!state.isAdmin) {
-        //   window.location.hash = `#${MAIN_PAGE}`;
-        //   break;
-        // }
-        navigate(app.adminModule.element, app);
+        navigate(app.statistics.element, app.container.element);
         break;
       default:
-        if (state.mode === PLAY_MODE) app.header.showGameBtn();
-        app.cardModule.clear();
-        navigate(app.cardModule.element, app);
-        const id = Number(routeName);
-        const category = await getCategory(id);
-        app.cardModule.render(state.mode, category);
+        const adminWordsRoute = new RegExp(`^${CONTROL_PAGE}\/\\d+$`);
+        const adminCategoriesRoute = new RegExp(`^${CONTROL_PAGE}$`);
+        const cardsModuleRoute = new RegExp('^\\d+$');
+        if (cardsModuleRoute.test(routeName)) {
+          if (state.mode === PLAY_MODE) app.header.showGameBtn();
+          app.cardModule.clear();
+          navigate(app.cardModule.element, app.container.element);
+          const id = Number(routeName);
+          const category = await getCategory(id);
+          app.cardModule.render(state.mode, category);
+        } else if (adminWordsRoute.test(routeName)) {  // && state.isAdmin
+          const categoryId = Number(routeName.split('/')[1]);
+          navigate(app.adminModule.element, app.container.element);
+          navigate(app.adminModule.wordEditor.element, app.adminModule.container.element);
+          app.adminModule.wordEditor.render(categoryId);
+        } else if (adminCategoriesRoute.test(routeName)) {   // && state.isAdmin
+          navigate(app.adminModule.element, app.container.element);
+          navigate(app.adminModule.categoryEditor.element, app.adminModule.container.element);
+          app.adminModule.categoryEditor.render();
+        } else {
+        //   window.location.hash = `#${MAIN_PAGE}`;
+        //   break;
+        }
     }
   }
 }

@@ -59,6 +59,7 @@ export class Sidebar extends BaseComponent {
   }
 
   renderList(categories: CategoryInfo[]):void {
+    this.clearList();
     const mainLink = document.createElement('li');
     mainLink.innerHTML = `<a href="#${MAIN_PAGE}" id="main-route" class="sidebar__link main-link active-route">Main page</a>`;
     this.list.element.append(mainLink);
@@ -70,8 +71,13 @@ export class Sidebar extends BaseComponent {
     const statisticsLink = document.createElement('li');
     const controlPage = document.createElement('li');
     statisticsLink.innerHTML = `<a href="#${STATISTICS_PAGE}" id="statistics-route" class="sidebar__link statistics-link">Statistics</a>`;
-    controlPage.innerHTML = `<a href="#${CONTROL_PAGE}" id="control-route" class="sidebar__link wbtn-hidden">Control page</a>`;
+    controlPage.innerHTML = `<a href="#${CONTROL_PAGE}" id="categories-route" class="sidebar__link wbtn-hidden">Control page</a>`;
     this.list.element.append(statisticsLink, controlPage);
+  }
+
+  clearList(): void {
+    this.list.element.firstElementChild?.remove();
+    if (this.list.element.firstElementChild) this.clearList();
   }
 
   showSidebar(app: App): void {
