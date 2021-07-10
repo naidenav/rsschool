@@ -18,7 +18,6 @@ export class AdminModule extends BaseComponent {
     this.navPanel = new BaseComponent('div', ['admin-module__nav-panel']);
     this.container = new BaseComponent('div', ['admin-module__container']);
     this.categoryEditor = new CategoryEditor(app);
-    this.categoryEditor.render();
     this.wordEditor = new WordEditor(app);
 
     this.element.append(this.navPanel.element, this.container.element);

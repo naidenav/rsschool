@@ -10,6 +10,8 @@ import { App } from '../../app';
 export class CategoryEditor extends BaseComponent {
   addCategoryCard: BaseComponent;
 
+  categoriesList: CategoryInfo[] = [];
+
   constructor(app: App) {
     super('div', ['category-editor']);
     this.addCategoryCard = new BaseComponent('div', ['add-category-card']);
@@ -26,16 +28,30 @@ export class CategoryEditor extends BaseComponent {
       await this.addCategory();
       await updateCategoriesLists(app);
     });
+
+    this.element.addEventListener('scroll', (e) => {
+      if (this.element.scrollTop + this.element.clientHeight >= this.element.scrollHeight) {
+        this.increaseCategories(4);
+      }
+    })
   }
 
   async render() {
     clear(this.element);
-    const categories = await getAllCategories();
-    categories.forEach(category => {
-      const card = new CategoryCard(category);
-      this.element.append(card.element);
-    })
+    this.categoriesList = await getAllCategories();
     this.element.append(this.addCategoryCard.element);
+    this.increaseCategories(6);
+  }
+
+  increaseCategories(num: number) {
+    for (let i = 0; i < num; i++) {
+      const category = this.categoriesList.shift();
+      if (category) {
+        const card = new CategoryCard(category);
+        const addCard = document.querySelector('.add-category-card');
+        (addCard as HTMLElement).before(card.element);
+      } else break;
+    }
   }
 
   updateCategoryCard(category: CategoryInfo) {
