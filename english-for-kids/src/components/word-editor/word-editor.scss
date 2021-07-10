@@ -1,0 +1,44 @@
+.word-editor {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  transition-duration: .3s;
+
+  .add-word-card {
+    position: relative;
+    margin: 15px;
+    padding: 30px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 490px;
+    width: 300px;
+    background-color: white;
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    transition-duration: .8s;
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.04);
+      border: 1px solid #555;
+    }
+    &__title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #555;
+    }
+    &__plus-icon {
+      margin-top: 140px;
+      height: 100px;
+      width: 100px;
+      background: url(../../assets/icons/add.svg) no-repeat center;
+      background-size: cover;
+    }
+  }
+}

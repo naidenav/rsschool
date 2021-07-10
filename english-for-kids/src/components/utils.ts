@@ -80,10 +80,10 @@ export const getNewCategory = (name: string, id: number): CategoryInfo => ({
   cards: [],
 });
 
-export const getNewWord = (category: CategoryInfo): CardInfo => ({
+export const getNewWord = (category: CategoryInfo, num: number): CardInfo => ({
   category: category.category,
   categoryId: category.id,
-  word: 'Word',
+  word: `Word-${num}`,
   translation: 'Слово',
   image: 'https://res.cloudinary.com/naidenav/image/upload/v1625834746/efk-files/img/image-placeholder_yxuvx1.jpg',
   audioSrc: 'https://res.cloudinary.com/naidenav/video/upload/v1625834476/efk-files/audio/word_lpfgpi.mp3',
@@ -250,7 +250,7 @@ export const clear = (elem: HTMLElement) => {
     if (elem.firstElementChild) clear(elem);
 }
 
-export const setCategoryEditMode = (id: string) => {
+export const setCardEditMode = (id: string) => {
   const mainView = document.getElementById(`main-view-${id}`);
   const updateView = document.getElementById(`update-view-${id}`);
   if (!mainView?.classList.contains('show-update-view')) {
@@ -259,7 +259,7 @@ export const setCategoryEditMode = (id: string) => {
   }
 }
 
-export const removeCategoryEditMode = (id: string) => {
+export const removeCardEditMode = (id: string) => {
   const mainView = document.getElementById(`main-view-${id}`);
   const updateView = document.getElementById(`update-view-${id}`);
   if (mainView?.classList.contains('show-update-view')) {

@@ -1,10 +1,10 @@
 import './category-editor.scss';
-import { createCategory, deleteCategory, getAllCategories, updateCategory, updateCategoryName } from "../../REST-api";
+import { createCategory, deleteCategory, getAllCategories, updateCategoryName } from "../../REST-api";
 import { BaseComponent } from "../base-component";
 import { CategoryCard } from "../category-card/category-card";
-import { CLASS_NAMES } from '../../constants';
+import { CLASS_NAMES, CONTROL_PAGE } from '../../constants';
 import { CategoryInfo } from '../../interfaces';
-import { clear, getNewCategory, removeCategoryEditMode, setCategoryEditMode, updateCategoriesLists } from '../utils';
+import { clear, getNewCategory, removeCardEditMode, setCardEditMode, updateCategoriesLists } from '../utils';
 import { App } from '../../app';
 
 export class CategoryEditor extends BaseComponent {
@@ -67,9 +67,10 @@ export class CategoryEditor extends BaseComponent {
     if (id) {
       switch (target.className) {
         case CLASS_NAMES.addWordBtn:
+          window.location.hash = `#${CONTROL_PAGE}/${id}`;
           return;
         case CLASS_NAMES.cancelBtn:
-          removeCategoryEditMode(id);
+          removeCardEditMode(id);
           return;
         case CLASS_NAMES.createBtn:
           const nameInputValue = this.getNameInputValue(id);
@@ -84,7 +85,7 @@ export class CategoryEditor extends BaseComponent {
           await updateCategoriesLists(app);
           return;
         case CLASS_NAMES.updateBtn:
-          setCategoryEditMode(id);
+          setCardEditMode(id);
           return;
         default:
           return;

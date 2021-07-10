@@ -81,7 +81,27 @@ export const createCard = async (newCard: CardInfo ): Promise<CardInfo> => {
   return card;
 }
 
-export const updateCard = async (newCard: CardInfo): Promise<CardInfo> => {
+export const uploadImage = async (image: FormData): Promise<any> => {
+  const response = await fetch('https://alluring-glacier-28316.herokuapp.com/image', {
+    method: 'POST',
+    body: image,
+  });
+  const obj = await response.json();
+
+  return obj;
+}
+
+export const uploadAudio = async (audio: FormData): Promise<any> => {
+  const response = await fetch('https://alluring-glacier-28316.herokuapp.com/audio', {
+    method: 'POST',
+    body: audio,
+  });
+  const obj = await response.json();
+
+  return obj;
+}
+
+export const updateCard = async (newCard: CardInfo): Promise<void> => {
   const response = await fetch(`${BASE_URL}/${newCard.categoryId}/${newCard.word}`, {
     method: 'PUT',
     headers: {
@@ -89,16 +109,10 @@ export const updateCard = async (newCard: CardInfo): Promise<CardInfo> => {
     },
     body: JSON.stringify(newCard),
   });
-  const card = await response.json();
-
-  return card;
 }
 
 export const deleteCard = async (id: number, word: string): Promise<void> => {
   const response = await fetch(`${BASE_URL}/${id}/${word}`, {
     method: 'DELETE',
   });
-  const card = await response.json();
-
-  return card;
 };

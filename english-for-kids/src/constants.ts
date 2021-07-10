@@ -9,6 +9,15 @@ export const CLASS_NAMES = {
   deleteBtn: 'category-card__delete-btn',
   nameInput: 'category-card__input',
   categoryName: 'category-card__title',
+  wordCard: 'word-card',
+  audio: 'word-card__audio',
+  image: 'word-card__image',
+  word: 'word-card__word',
+  translation: 'word-card__translation',
+  changeBtn: 'word-card__change-btn',
+  wordCancelBtn: 'word-card__cancel-btn',
+  wordDeleteBtn: 'word-card__delete-btn',
+  saveBtn: 'word-card__save-btn',
 }
 
 export const LOGIN = 'admin';

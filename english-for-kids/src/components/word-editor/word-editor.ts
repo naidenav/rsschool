@@ -1,10 +1,9 @@
 import './word-editor.scss';
-import { createCard, createCategory, deleteCategory, getAllCategories, getCategory, updateCategory, updateCategoryName } from "../../REST-api";
+import { createCard, deleteCard, getCategory, updateCard, uploadAudio, uploadImage } from "../../REST-api";
 import { BaseComponent } from "../base-component";
-import { CategoryCard } from "../category-card/category-card";
 import { CLASS_NAMES } from '../../constants';
-import { CategoryInfo } from '../../interfaces';
-import { clear, getNewCategory, getNewWord, updateCategoriesLists } from '../utils';
+import { CardInfo, CategoryInfo } from '../../interfaces';
+import { clear, getNewWord, playAudio, removeCardEditMode, setCardEditMode } from '../utils';
 import { App } from '../../app';
 import { WordCard } from '../word-card/word-card';
 
@@ -41,14 +40,23 @@ export class WordEditor extends BaseComponent {
     this.element.append(this.addWordCard.element);
   }
 
-  updateCategoryCard(category: CategoryInfo) {
-    const categoryName = document.getElementById(`category-name-${category.id}`);
-    (categoryName as HTMLElement).innerHTML = `${category.category}`;
+  updateWordCard(card: CardInfo, prevWord: string) {
+    const wordCard = document.getElementById(`word-card-${prevWord}`);
+    const audio = wordCard?.querySelector(`.${CLASS_NAMES.audio}`);
+    const image = wordCard?.querySelector(`.${CLASS_NAMES.image}`);
+    const word = wordCard?.querySelector(`.${CLASS_NAMES.word}`);
+    const translation = wordCard?.querySelector(`.${CLASS_NAMES.translation}`);
+    console.log(wordCard, audio, image);
+    (audio as HTMLElement).dataset.src = card.audioSrc;
+    (image as HTMLElement).style.backgroundImage = `url('${card.image}')`;
+    (word as HTMLElement).innerHTML = card.word;
+    (translation as HTMLElement).innerHTML = card.translation;
   }
 
   async addWord() {
     if (this.currentCategory) {
-      const word = getNewWord(this.currentCategory)
+      const num = document.querySelectorAll(`.${CLASS_NAMES.wordCard}`).length;
+      const word = getNewWord(this.currentCategory, num)
       const newCard = await createCard(word);
       const wordCard = new WordCard(newCard);
       const addCard = document.querySelector('.add-word-card');
@@ -56,22 +64,74 @@ export class WordEditor extends BaseComponent {
     }
   }
 
-  async deleteCategory(id: string) {
-    await deleteCategory(Number(id));
-    const category = document.getElementById(`${CLASS_NAMES.categoryCard}-${id}`);
-    category?.remove();
+  async deleteWord(category: CategoryInfo, word: string) {
+    await deleteCard(category.id, word);
+    const wordCard = document.getElementById(`${CLASS_NAMES.wordCard}-${word}`);
+    wordCard?.remove();
   }
 
-  getNameInputValue(id: string) {
-    const nameInput = document.getElementById(`category-name-input-${id}`);
-    return (nameInput as HTMLInputElement).value;
+  async getUpdatedCardInfo(word: string): Promise<CardInfo | undefined> {
+    const wordInput = document.getElementById(`card-word-input-${word}`);
+    const translationInput = document.getElementById(`card-translation-input-${word}`);
+
+    const imageInput = document.getElementById(`image-input-${word}`);
+    const imageForm = new FormData();
+    const imageData = (imageInput as HTMLFormElement).files[0];
+    let imageSrc;
+    if (imageData) {
+      imageForm.append('image', imageData);
+      const imageResponse = await uploadImage(imageForm);
+      imageSrc = imageResponse.secure_url;
+    }
+
+    const audioInput = document.getElementById(`audio-input-${word}`);
+    const audioForm = new FormData();
+    const audioData = (audioInput as HTMLFormElement)?.files[0];
+    let audioSrc;
+    if (audioData) {
+      audioForm.append('audio', audioData)
+      const audioResponse = await uploadAudio(audioForm);
+      audioSrc = audioResponse.secure_url;
+    }
+
+    if (this.currentCategory !== null) {
+      const newWord = getNewWord(this.currentCategory, 1);
+      console.log(newWord)
+      if (audioSrc) newWord.audioSrc = audioSrc;
+      if (imageSrc) newWord.image = imageSrc;
+      if (wordInput) newWord.word = (wordInput as HTMLInputElement).value;
+      if (translationInput) newWord.translation = (translationInput as HTMLInputElement).value;
+      return newWord;
+    }
+
+    return undefined;
   }
 
   async eventHandler(e: Event, app: App) {
     const target = e.target as HTMLElement;
-    const id = target.dataset.id;
-    if (id) {
+    const word = target.dataset.word;
+    if (word) {
       switch (target.className) {
+        case CLASS_NAMES.saveBtn:
+          const card = await this.getUpdatedCardInfo(word);
+          if (card) {
+            this.updateWordCard(card, word);
+            await updateCard(card);
+          }
+          removeCardEditMode(word);
+          return;
+        case CLASS_NAMES.audio:
+          if (target.dataset.src) playAudio(target.dataset.src);
+          return;
+        case CLASS_NAMES.changeBtn:
+          setCardEditMode(word);
+          return;
+        case CLASS_NAMES.wordDeleteBtn:
+          if (this.currentCategory) await this.deleteWord(this.currentCategory, word);
+          return;
+        case CLASS_NAMES.wordCancelBtn:
+          removeCardEditMode(word);
+          return;
         default:
           return;
       }
