@@ -95,7 +95,7 @@ export class App {
       }
       const mode = (modeSwitcher as HTMLInputElement).checked ? PLAY_MODE : TRAIN_MODE;
       this.store.dispatch(switchMode(mode));
-      if (mode === PLAY_MODE && state.page !== MAIN_PAGE) this.header.showGameBtn();
+      if (mode === PLAY_MODE && Number(state.page) >= 0) this.header.showGameBtn();
       if (mode === TRAIN_MODE) {
         this.header.hideGameBtn();
         setTimeout(() => this.header.setStartGameBtn(), 300);

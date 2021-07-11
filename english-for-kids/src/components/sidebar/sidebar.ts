@@ -71,7 +71,7 @@ export class Sidebar extends BaseComponent {
     const statisticsLink = document.createElement('li');
     const controlPage = document.createElement('li');
     statisticsLink.innerHTML = `<a href="#${STATISTICS_PAGE}" id="statistics-route" class="sidebar__link statistics-link">Statistics</a>`;
-    controlPage.innerHTML = `<a href="#${CONTROL_PAGE}" id="categories-route" class="sidebar__link wbtn-hidden">Control page</a>`;
+    controlPage.innerHTML = `<a href="#${CONTROL_PAGE}" id="categories-route" class="sidebar__link control-link wbtn-hidden">Control page</a>`;
     this.list.element.append(statisticsLink, controlPage);
   }
 

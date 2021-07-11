@@ -158,8 +158,8 @@ select {
 }
 
 ::-webkit-scrollbar {
-  width: 0px;
-  background-color: #ffffff;
+  width: 10px;
+  background-color: #ffffff00;
 }
 ::-webkit-scrollbar-thumb {
   background-color: var(--bg-sidebar);

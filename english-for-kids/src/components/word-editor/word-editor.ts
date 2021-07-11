@@ -12,6 +12,8 @@ export class WordEditor extends BaseComponent {
 
   currentCategory: CategoryInfo | null = null;
 
+  wordsList: CardInfo[] = [];
+
   constructor(app: App) {
     super('div', ['word-editor']);
     this.addWordCard = new BaseComponent('div', ['add-word-card']);
@@ -27,17 +29,32 @@ export class WordEditor extends BaseComponent {
     this.addWordCard.element.addEventListener('click', async () => {
       await this.addWord();
     });
+
+    this.element.addEventListener('scroll', (e) => {
+      if (this.element.scrollTop + this.element.clientHeight >= this.element.scrollHeight) {
+        this.increaseWords(4);
+      }
+    })
   }
 
   async render(id: number) {
     clear(this.element);
     const category = await getCategory(id);
     this.currentCategory = category;
-    category.cards.forEach(card => {
-      const wordCard = new WordCard(card);
-      this.element.append(wordCard.element);
-    })
+    this.wordsList = category.cards;
     this.element.append(this.addWordCard.element);
+    this.increaseWords(4);
+  }
+
+  increaseWords(num: number) {
+    for (let i = 0; i < num; i++) {
+      const word = this.wordsList.shift();
+      if (word) {
+        const card = new WordCard(word);
+        const addCard = document.querySelector('.add-word-card');
+        (addCard as HTMLElement).before(card.element);
+      } else break;
+    }
   }
 
   updateWordCard(card: CardInfo, prevWord: string) {

@@ -1,10 +1,13 @@
 .word-editor {
+  margin-top: -40px;
+  overflow-x: hidden;
+  overflow-y: auto;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: calc(100vh - 245px);
   width: 100%;
   transition-duration: .3s;
 
@@ -40,5 +43,11 @@
       background: url(../../assets/icons/add.svg) no-repeat center;
       background-size: cover;
     }
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .word-editor {
+    height: calc(100vh - 175px);
   }
 }

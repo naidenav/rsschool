@@ -33,7 +33,7 @@ export class CategoryEditor extends BaseComponent {
       if (this.element.scrollTop + this.element.clientHeight >= this.element.scrollHeight) {
         this.increaseCategories(4);
       }
-    })
+    });
   }
 
   async render() {
