@@ -1,9 +1,16 @@
+require('dotenv').config();
 import console from 'console';
 import express from 'express';
-import { BSONType, MongoClient, MongoError } from 'mongodb';
+import { MongoClient, MongoError } from 'mongodb';
+import multer from 'multer';
 import { CardInfo, CategoryInfo } from './interfaces';
 import { getNewCategory } from './utils';
+const cloudinary = require('cloudinary').v2
+const path = require('path');
+const fs = require('fs/promises');
+const cors = require('cors');
 // import { ObjectId } from 'mongodb';
+const loader = multer({dest: path.join(__dirname, 'tmp')});
 
 const app = express();
 const jsonParser = express.json();
@@ -14,6 +21,7 @@ const mongoClient = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopo
 let dbClient: MongoClient;
 
 app.use(express.static(`${__dirname}/public`));
+app.use(cors());
 
 const PORT = process.env.PORT || 3000;
 
@@ -26,89 +34,108 @@ mongoClient.connect((err, client) => {
   });
 });
 
-app.get('/categories', (req: express.Request, res) => {
+app.get('/categories', async (req: express.Request, res) => {
   const origin = req.originalUrl;
-  console.log('origin is', origin);
   const { collection } = req.app.locals;
-  collection.find({}).toArray((err: MongoError, categories: CategoryInfo[]) => {
+  await collection.find({}).toArray((err: MongoError, categories: CategoryInfo[]) => {
     if (err) return console.log(err);
     res.send(categories);
   });
 });
 
-app.get('/categories/:id', (req, res) => {
+app.get('/categories/:id', async (req, res) => {
   const id = Number(req.params.id);
   const { collection } = req.app.locals;
-  collection.findOne({ id }, (err: MongoError, category: CategoryInfo) => {
+  await collection.findOne({ id }, (err: MongoError, category: CategoryInfo) => {
     if (err) return console.log(err);
     res.send(category);
   });
 });
 
-app.post('/categories', jsonParser, (req, res) => {
+app.post('/categories', jsonParser, async (req, res) => {
   if (!req.body) return res.sendStatus(400);
 
   const { collection } = req.app.locals;
   let newCategory: CategoryInfo;
 
-  collection.find({}).sort({_id: -1}).toArray((err: MongoError, categories: CategoryInfo[]) => {
+  await collection.find({}).sort({_id: -1}).toArray(async (err: MongoError, categories: CategoryInfo[]) => {
     if (err) return console.log(err);
     let id: number = categories[0].id + 1;
     const categoryName = req.body.categoryName;
     newCategory = getNewCategory(categoryName, id);
-    collection.insertOne(newCategory);
+    await collection.insertOne(newCategory);
     res.send(newCategory);
   });
 });
 
-app.put('/categories/:id', jsonParser, (req, res) => {
+app.put('/categories/:id', jsonParser, async (req, res) => {
   if (!req.body) return res.sendStatus(400);
 
   const id = Number(req.params.id);
   const { collection } = req.app.locals;
   const newCategory: CategoryInfo = req.body;
 
-  collection.findOneAndUpdate({id: id}, { $set: newCategory },
-    { returnOriginal: false }, function(err: Error, result: any) {     
+  await collection.findOneAndUpdate({id: id}, { $set: newCategory },
+    { returnOriginal: false }, function(err: Error, result: CategoryInfo) {     
       if(err) return console.log(err);     
-      res.send(result.value);
+      res.send(result);
   });
 });
 
-app.delete('/categories/:id', (req, res) => {
+app.delete('/categories/:id', async (req, res) => {
   const id = Number(req.params.id);
   const { collection } = req.app.locals;
 
-  collection.findOneAndDelete({id: id}, function(err: Error, result: any) {     
+  await collection.findOneAndDelete({id: id}, function(err: Error, result: CategoryInfo) {     
       if(err) return console.log(err);     
-      res.send(result.value);
+      res.send(result);
   });
 });
 
 
-app.get('/categories/:id/:word', (req, res) => {
+app.get('/categories/:id/:word', async (req, res) => {
   const id = Number(req.params.id);
   const word = req.params.word;
   const { collection } = req.app.locals;
-  collection.findOne({ id: id }, (err: MongoError, category: CategoryInfo) => {
+  await collection.findOne({ id: id }, (err: MongoError, category: CategoryInfo) => {
     if (err) return console.log(err);
     const card = category.cards.filter(card => card.word === word);
     res.send(card);
   });
 });
 
-app.put('/categories/:id/:word', jsonParser, (req, res) => {
+app.post('/image', loader.single('image'), async function (req, res) {
+  try {
+    const result = await cloudinary.uploader.upload(req.file?.path);
+    res.send(result);
+  } catch (error) {
+    res.send(error);
+  }
+  fs.unlink(req.file?.path);
+});
+
+app.post('/audio', loader.single('audio'), async function (req, res) {
+  try {
+    const result = await cloudinary.uploader.upload(req.file?.path, { resource_type: "video" });
+    res.send(result);
+  } catch (error) {
+    res.send(error);
+  }
+  fs.unlink(req.file?.path);
+});
+
+app.put('/categories/:id/:word', jsonParser, async (req, res) => {
   if (!req.body) return res.sendStatus(400);
 
   const newCard: CardInfo = req.body;
   const id = Number(req.params.id);
   const word = req.params.word;
   const { collection } = req.app.locals;
-  collection.findOne({ id: id }, (err: MongoError, category: CategoryInfo) => {
+  await collection.findOne({ id: id }, async (err: MongoError, category: CategoryInfo) => {
     if (err) return console.log(err);
     const index = category.cards.findIndex(card => card.word === word);
     category.cards.splice(index, 1, newCard);
-    collection.findOneAndUpdate({id: id}, { $set: category },
+    await collection.findOneAndUpdate({id: id}, { $set: category },
       { returnOriginal: false }, function(err: Error, result: any) {     
         if(err) return console.log(err);     
         res.send(category.cards[index]);
@@ -116,26 +143,26 @@ app.put('/categories/:id/:word', jsonParser, (req, res) => {
   });
 });
 
-app.post('/categories/:id', jsonParser, (req, res) => {
+app.post('/categories/:id', jsonParser, async (req, res) => {
   if (!req.body) return res.sendStatus(400);
 
   const newCard: CardInfo = req.body;
   const id = Number(req.params.id);
   const { collection } = req.app.locals;
-  collection.updateOne({ id: id }, { $push: { cards: newCard }}, (err: MongoError, result: any) => {
+  await collection.updateOne({ id: id }, { $push: { cards: newCard }}, (err: MongoError, result: CategoryInfo) => {
     if (err) return console.log(err);
     res.send(newCard)
   });
 });
 
-app.delete('/categories/:id/:word', (req, res) => {
+app.delete('/categories/:id/:word', async (req, res) => {
   const id = Number(req.params.id);
   const word = req.params.word;
   const { collection } = req.app.locals;
 
-  collection.updateOne({id: id}, { $pull: { cards: { word: word }}}, function(err: Error, result: any) {     
+  await collection.updateOne({id: id}, { $pull: { cards: { word: word }}}, function(err: Error, result: CategoryInfo) {     
     if(err) return console.log(err);     
-    res.send(result.value);
+    res.send(word);
   });
 });
 
