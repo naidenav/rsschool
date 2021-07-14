@@ -1,9 +1,13 @@
+/* eslint-disable import/no-cycle */
+
 import './popup.scss';
 import { BaseComponent } from '../base-component';
 import { Input } from '../input/input';
-import { LOGIN, PASSWORD } from '../../constants';
+import { ACCESS_TOKEN_KEY } from '../../constants';
 import { App } from '../../app';
 import { setAdminMode } from '../redux/actions';
+import { getAccessToken } from '../../REST-api';
+import { showControlRoute } from '../utils';
 
 export class Popup extends BaseComponent {
   readonly popup: BaseComponent;
@@ -45,58 +49,48 @@ export class Popup extends BaseComponent {
     this.inputWrapper.element.append(this.loginInput.element, this.passwordInput.element);
     this.buttonWrapper.element.append(this.loginBtn.element, this.cancelBtn.element);
 
-    const nameRegexp = /^[\p{L}+\d\s]{1,30}$/u;
-    const loginRegexp = new RegExp(`^${LOGIN}$`);
-    const passwordRegexp = new RegExp(`^${PASSWORD}$`);
-
     const loginInput = this.loginInput.input.element as HTMLInputElement;
     const passwordInput = this.passwordInput.input.element as HTMLInputElement;
-
-    loginInput.addEventListener('input', () => {
-      if (loginRegexp.test(loginInput.value)) {
-        loginInput.setCustomValidity('');
-      } else {
-        loginInput.setCustomValidity('Wrong login');
-      }
-    });
-
-    passwordInput.addEventListener('input', () => {
-      if (passwordRegexp.test(passwordInput.value)) {
-        passwordInput.setCustomValidity('');
-      } else {
-        passwordInput.setCustomValidity('Wrong password');
-      }
-    });
 
     this.cancelBtn.element.addEventListener('click', () => {
       this.hidePopup();
     });
 
-    this.loginBtn.element.addEventListener('click', (e) => {
-      if (loginInput.validity.valid && passwordInput.validity.valid) {
-        e.preventDefault();
-        app.store.dispatch(setAdminMode());
-        app.sidebar.showControlRoute();
-        app.sidebar.showLogOutBtn();
-        this.hidePopup();
+    this.loginBtn.element.addEventListener('click', async (e) => {
+      e.preventDefault();
+      if (loginInput.value && passwordInput.value) {
+        try {
+          const token = await getAccessToken({
+            username: loginInput.value,
+            password: passwordInput.value,
+          });
+          sessionStorage.setItem(ACCESS_TOKEN_KEY, token.accessToken);
+          app.store.dispatch(setAdminMode());
+          showControlRoute();
+          app.sidebar.showLogOutBtn();
+          this.hidePopup();
+        } catch (err) {
+          loginInput.setCustomValidity('Wrong login or password');
+          passwordInput.setCustomValidity('Wrong login or password');
+        }
       }
     });
   }
 
-  showPopup() {
+  showPopup(): void {
     this.element.classList.add('popup_opacity-up');
     this.element.classList.remove('cover_hidden');
     this.element.addEventListener('animationend', () => {
       this.element.classList.remove('popup_opacity-up');
       this.element.classList.remove('cover_hidden');
     });
-  };
+  }
 
-  hidePopup() {
+  hidePopup(): void {
     this.element.classList.add('popup_opacity-down');
     this.element.addEventListener('animationend', () => {
       this.element.classList.add('cover_hidden');
       this.element.classList.remove('popup_opacity-down');
     });
-  };
+  }
 }

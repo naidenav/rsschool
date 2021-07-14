@@ -11,15 +11,16 @@ import { Footer } from './components/footer/footer';
 import { Header } from './components/header/header';
 import { Popup } from './components/popup/popup';
 import { ProgressBar } from './components/progress-bar/progress-bar';
-import { breakGame, switchMode } from './components/redux/actions';
+import { breakGame, setAdminMode, switchMode } from './components/redux/actions';
 import { rootReducer } from './components/redux/rootReducer';
 import { Router } from './components/router';
 import { Sidebar } from './components/sidebar/sidebar';
 import { Statistics } from './components/statistics/statistics';
 import { Summary } from './components/summary/summary';
-import { highlightActiveRoute, updateMode } from './components/utils';
+import { highlightActiveRoute, showControlRoute, updateMode } from './components/utils';
 import {
-  INITIAL_STATE, MAIN_PAGE, PLAY_MODE, TRAIN_MODE,
+  ACCESS_TOKEN_KEY,
+  INITIAL_STATE, PLAY_MODE, STATISTICS_PAGE, TRAIN_MODE,
 } from './constants';
 import { CategoryInfo, State } from './interfaces';
 
@@ -85,6 +86,12 @@ export class App {
     this.container.element.append(this.categoryModule.element);
     this.wrapper.element.append(this.header.element, this.progressBar.element, this.container.element);
 
+    if (sessionStorage.getItem(ACCESS_TOKEN_KEY)) {
+      this.store.dispatch(setAdminMode());
+      showControlRoute();
+      this.sidebar.showLogOutBtn();
+    }
+
     const modeSwitcher = document.getElementById('mode-switcher__input');
 
     modeSwitcher?.addEventListener('change', () => {
@@ -95,7 +102,7 @@ export class App {
       }
       const mode = (modeSwitcher as HTMLInputElement).checked ? PLAY_MODE : TRAIN_MODE;
       this.store.dispatch(switchMode(mode));
-      if (mode === PLAY_MODE && Number(state.page) >= 0) this.header.showGameBtn();
+      if (mode === PLAY_MODE && (Number(state.page) >= 0 || state.page === STATISTICS_PAGE)) this.header.showGameBtn();
       if (mode === TRAIN_MODE) {
         this.header.hideGameBtn();
         setTimeout(() => this.header.setStartGameBtn(), 300);

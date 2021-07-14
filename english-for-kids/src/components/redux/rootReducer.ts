@@ -61,7 +61,7 @@ function mistakesReducer(state = INITIAL_STATE.mistakes, action: Action) {
 function adminReducer(state = INITIAL_STATE.isAdmin, action: Action) {
   if (action.type === SET_ADMIN_MODE) {
     return true;
-  } else if (action.type === REMOVE_ADMIN_MODE) {
+  } if (action.type === REMOVE_ADMIN_MODE) {
     return false;
   }
 

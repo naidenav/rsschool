@@ -1,6 +1,6 @@
 import './category-card.scss';
-import { CategoryInfo } from "../../interfaces";
-import { BaseComponent } from "../base-component";
+import { CategoryInfo } from '../../interfaces';
+import { BaseComponent } from '../base-component';
 
 export class CategoryCard extends BaseComponent {
   constructor(category: CategoryInfo) {

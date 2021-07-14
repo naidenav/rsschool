@@ -1,6 +1,6 @@
 import './word-card.scss';
-import { CardInfo } from "../../interfaces";
-import { BaseComponent } from "../base-component";
+import { CardInfo } from '../../interfaces';
+import { BaseComponent } from '../base-component';
 
 export class WordCard extends BaseComponent {
   constructor(card: CardInfo) {

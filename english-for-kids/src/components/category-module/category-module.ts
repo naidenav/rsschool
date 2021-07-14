@@ -1,3 +1,5 @@
+/* eslint-disable import/no-cycle */
+
 import { CategoryInfo } from '../../interfaces';
 import { BaseComponent } from '../base-component';
 import { CategoryIcon } from '../category-icon/category-icon';

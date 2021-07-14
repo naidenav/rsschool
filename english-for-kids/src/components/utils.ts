@@ -2,21 +2,26 @@
 
 import { App } from '../app';
 import {
-  CARDS_STORAGE, CATEGORIES_STORAGE, CORRECT_AUDIO_SRC, ERROR_AUDIO_SRC, FALSE_COUNT,
+  CARDS_STORAGE, CLASS_NAMES, CONTROL_PAGE, CORRECT_AUDIO_SRC, ERROR_AUDIO_SRC, FALSE_COUNT,
   MAIN_PAGE, PLAY_MODE, STATISTICS_PAGE, TRAIN_COUNT, TRAIN_MODE, TRUE_COUNT, TRUE_PER_COUNT,
 } from '../constants';
 import { CardInfo, CategoryInfo, State } from '../interfaces';
-import { getAllCategories } from '../REST-api';
+import {
+  createCategory, deleteCard, deleteCategory, getAllCategories, getCategory, updateCategoryInDB, updateCategoryName,
+} from '../REST-api';
 import { BaseComponent } from './base-component';
 import { Card } from './card/card';
+import { CategoryCard } from './category-card/category-card';
 import { addMistake, breakGame, setCurrentCard } from './redux/actions';
 
-// export const initLocalStorage = (categories: CategoryInfo[]): void => {
-//   if (!localStorage.getItem(CATEGORIES_STORAGE)) {
-//     const data = JSON.stringify(categories);
-//     localStorage.setItem(CATEGORIES_STORAGE, data);
-//   }
-// };
+export const getAllWords = async (): Promise<CardInfo[]> => {
+  const categories = await getAllCategories();
+  const words = categories
+    .map(category => category.cards)
+    .reduce((commonArray, currentArray) => commonArray.concat(currentArray), []);
+
+  return words;
+};
 
 export const updateMode = (state: State, app: App): void => {
   if (state.mode === PLAY_MODE) {
@@ -57,7 +62,9 @@ export const navigate = (content: HTMLElement, container: HTMLElement): void => 
 export const highlightActiveRoute = (state: string): void => {
   const prevRoute = document.querySelector('.active-route');
   prevRoute?.classList.remove('active-route');
-  const currentRoute = document.getElementById(`${state}-route`);
+  let page = state;
+  if (page.includes('/')) page = page.split('/')[0];
+  const currentRoute = document.getElementById(`${page}-route`);
   currentRoute?.classList.add('active-route');
 };
 
@@ -100,36 +107,37 @@ const calculatePercentage = (card: CardInfo) => {
   card.trueChoicesPer = Math.round((trueChoices / (trueChoices + falseChoices)) * 100);
 };
 
-export const updateStatistics = (categoryIndex: string, word: string, count: string): void => {
+export const updateStatistics = async (categoryIndex: string, word: string, count: string): Promise<void> => {
   if (categoryIndex === STATISTICS_PAGE) return;
-  const cardsData = localStorage.getItem(CARDS_STORAGE);
+  const index = Number(categoryIndex);
+  const category: CategoryInfo = await getCategory(index);
 
-  if (cardsData !== null) {
-    const cards: CardInfo[][] = JSON.parse(cardsData);
-    const index = Number(categoryIndex);
-    const card: CardInfo | undefined = cards[index].find((item) => item.word === word);
-    if (card) {
-      switch (count) {
-        case TRAIN_COUNT:
-          card.trainModeTurns += 1;
-          break;
-        case TRUE_COUNT:
-          card.trueChoices += 1;
-          calculatePercentage(card);
-          break;
-        case FALSE_COUNT:
-          card.falseChoices += 1;
-          break;
-        case TRUE_PER_COUNT:
-          card.trueChoicesPer += 1;
-          break;
-        default:
-          break;
-      }
+  const cards = category.cards;
+  const cardIndex = cards.findIndex((item) => item.word === word);
+    switch (count) {
+      case TRAIN_COUNT:
+        cards[cardIndex].trainModeTurns += 1;
+        break;
+      case TRUE_COUNT:
+        cards[cardIndex].trueChoices += 1;
+        calculatePercentage(cards[cardIndex]);
+        break;
+      case FALSE_COUNT:
+        cards[cardIndex].falseChoices += 1;
+        break;
+      case TRUE_PER_COUNT:
+        cards[cardIndex].trueChoicesPer += 1;
+        break;
+      default:
+        break;
     }
+  const catrgoryInfo: CategoryInfo = {
+    category: category.category,
+    id: category.id,
+    cards: category.cards,
+  };
 
-    localStorage.setItem(CARDS_STORAGE, JSON.stringify(cards));
-  }
+  await updateCategoryInDB(catrgoryInfo);
 };
 
 function declareWrongChoice(app: App) {
@@ -151,7 +159,7 @@ export const cardsHandler = async (cards: Card[], app: App, play: boolean): Prom
     app.store.dispatch(setCurrentCard(cardInfo));
     if (play) setTimeout(() => playAudio(cards[0].getAudioSrc()), 500);
   }
-  app.cardModule.element.addEventListener('click', (e) => {
+  app.cardModule.element.addEventListener('click', async (e) => {
     state = app.store.getState();
     if (state.isBreak) {
       app.store.dispatch(breakGame(false));
@@ -160,11 +168,11 @@ export const cardsHandler = async (cards: Card[], app: App, play: boolean): Prom
     const target = (e.target as HTMLElement).closest('.card-container');
     if (target && target !== cards[0].element) {
       declareWrongChoice(app);
-      updateStatistics(state.page, cardInfo.word, FALSE_COUNT);
+      await updateStatistics(state.page, cardInfo.word, FALSE_COUNT);
       cardsHandler(cards, app, false);
     } else if (target && target === cards[0].element) {
       declareCorrectChoice(app, cards[0]);
-      updateStatistics(state.page, cardInfo.word, TRUE_COUNT);
+      await updateStatistics(state.page, cardInfo.word, TRUE_COUNT);
       if (cards.length > 1) {
         cards.shift();
         cardsHandler(cards, app, true);
@@ -208,23 +216,21 @@ export const createRecord = (card: CardInfo, index: number): HTMLElement => {
   return tr.element;
 };
 
-export const getRandomDifficultWords = (app: App): CardInfo[] | undefined => {
-  const { categories } = app;
+export const getRandomDifficultWords = async (): Promise<CardInfo[]> => {
+  const words = await getAllWords();
   const cardsList: CardInfo[] = [];
-  categories.forEach(category => {
-    category.cards.forEach(card => {
-      if (card.trueChoicesPer > 0 && card.trueChoicesPer < 100) {
-        cardsList.push(card);
-      }
-    })
-  })
+  words.forEach((word) => {
+    if (word.trueChoicesPer > 0 && word.trueChoicesPer < 100) {
+      cardsList.push(word);
+    }
+  });
   cardsList.sort((a, b) => (a.trueChoicesPer > b.trueChoicesPer ? 1 : -1));
 
   return cardsList.length <= 8 ? cardsList : cardsList.slice(0, 8);
 };
 
 export const trainDifficultWords = async (app: App): Promise<void> => {
-  const cardsInfo = getRandomDifficultWords(app);
+  const cardsInfo = await getRandomDifficultWords();
 
   if (cardsInfo) {
     const cards = cardsInfo.map((item) => new Card(item.image, item.word, item.translation, item.audioSrc, item.category, item.categoryId));
@@ -239,31 +245,167 @@ export const trainDifficultWords = async (app: App): Promise<void> => {
   }
 };
 
-export const updateCategoriesLists = async (app: App) => {
+export const showControlRoute = (): void => {
+  const controlRoute = document.getElementById('categories-route');
+  if (controlRoute?.classList.contains('btn-hidden')) {
+    controlRoute.classList.remove('btn-hidden');
+  }
+};
+
+export const hideControlRoute = (): void => {
+  const controlRoute = document.getElementById('categories-route');
+  if (!controlRoute?.classList.contains('btn-hidden')) {
+    controlRoute?.classList.add('btn-hidden');
+  }
+};
+
+export const updateCategoriesLists = async (app: App): Promise<void> => {
   const categories = await getAllCategories();
   app.sidebar.renderList(categories);
+  showControlRoute();
   app.categoryModule.render(categories);
-}
+};
 
-export const clear = (elem: HTMLElement) => {
-    elem.firstElementChild?.remove();
-    if (elem.firstElementChild) clear(elem);
-}
+export const clear = (elem: HTMLElement): void => {
+  elem.firstElementChild?.remove();
+  if (elem.firstElementChild) clear(elem);
+};
 
-export const setCardEditMode = (id: string) => {
+export const setCardEditMode = (id: string): void => {
   const mainView = document.getElementById(`main-view-${id}`);
   const updateView = document.getElementById(`update-view-${id}`);
   if (!mainView?.classList.contains('show-update-view')) {
     mainView?.classList.add('show-update-view');
     updateView?.classList.add('show-update-view');
   }
-}
+};
 
-export const removeCardEditMode = (id: string) => {
+export const removeCardEditMode = (id: string): void => {
   const mainView = document.getElementById(`main-view-${id}`);
   const updateView = document.getElementById(`update-view-${id}`);
   if (mainView?.classList.contains('show-update-view')) {
     updateView?.classList.remove('show-update-view');
     mainView?.classList.remove('show-update-view');
   }
+};
+
+async function checkHash(app: App, routeName: string, state: State) {
+  const adminWordsRoute = new RegExp(`^${CONTROL_PAGE}/\\d+$`);
+  const adminCategoriesRoute = new RegExp(`^${CONTROL_PAGE}$`);
+  const cardsModuleRoute = new RegExp('^\\d+$');
+  if (cardsModuleRoute.test(routeName)) {
+    if (state.mode === PLAY_MODE) app.header.showGameBtn();
+    app.cardModule.clear();
+    navigate(app.cardModule.element, app.container.element);
+    const id = Number(routeName);
+    const category = await getCategory(id);
+    app.cardModule.render(state.mode, category);
+  } else if (adminWordsRoute.test(routeName) && state.isAdmin) {
+    const categoryId = Number(routeName.split('/')[1]);
+    navigate(app.adminModule.element, app.container.element);
+    navigate(app.adminModule.wordEditor.element, app.adminModule.container.element);
+    app.adminModule.wordEditor.render(categoryId);
+  } else if (adminCategoriesRoute.test(routeName) && state.isAdmin) {
+    navigate(app.adminModule.element, app.container.element);
+    navigate(app.adminModule.categoryEditor.element, app.adminModule.container.element);
+    app.adminModule.categoryEditor.render();
+  } else {
+    window.location.hash = `#${MAIN_PAGE}`;
+  }
 }
+
+export const switchPage = async (app: App, routeName: string): Promise<void> => {
+  const state: State = app.store.getState();
+  switch (routeName) {
+    case MAIN_PAGE:
+      if (state.mode === PLAY_MODE) app.header.hideGameBtn();
+      navigate(app.categoryModule.element, app.container.element);
+      break;
+    case STATISTICS_PAGE:
+      app.background.hide();
+      app.statistics.render();
+      navigate(app.statistics.element, app.container.element);
+      break;
+    default:
+      checkHash(app, routeName, state);
+      break;
+  }
+};
+
+export const updateWordCard = (card: CardInfo, prevWord: string): void => {
+  const wordCard = document.getElementById(`word-card-${prevWord}`);
+  const audio = wordCard?.querySelector(`.${CLASS_NAMES.audio}`);
+  const image = wordCard?.querySelector(`.${CLASS_NAMES.image}`);
+  const word = wordCard?.querySelector(`.${CLASS_NAMES.word}`);
+  const translation = wordCard?.querySelector(`.${CLASS_NAMES.translation}`);
+  (audio as HTMLElement).dataset.src = card.audioSrc;
+  (image as HTMLElement).style.backgroundImage = `url('${card.image}')`;
+  (word as HTMLElement).innerHTML = card.word;
+  (translation as HTMLElement).innerHTML = card.translation;
+};
+
+export const deleteWord = async (category: CategoryInfo, word: string): Promise<void> => {
+  await deleteCard(category.id, word);
+  const wordCard = document.getElementById(`${CLASS_NAMES.wordCard}-${word}`);
+  wordCard?.remove();
+};
+
+export const updateCategoryCard = (category: CategoryInfo): void => {
+  const categoryName = document.getElementById(`category-name-${category.id}`);
+  (categoryName as HTMLElement).innerHTML = `${category.category}`;
+};
+
+export const addCategory = async (): Promise<void> => {
+  const newCategory = await createCategory('New Category');
+  const category = new CategoryCard(getNewCategory('New Category', newCategory.id));
+  const addCard = document.querySelector('.add-category-card');
+  (addCard as HTMLElement).before(category.element);
+};
+
+export const removeCategory = async (id: string): Promise<void> => {
+  await deleteCategory(Number(id));
+  const category = document.getElementById(`${CLASS_NAMES.categoryCard}-${id}`);
+  category?.remove();
+};
+
+export const getNameInputValue = (id: string): string => {
+  const nameInput = document.getElementById(`category-name-input-${id}`);
+  return (nameInput as HTMLInputElement).value;
+};
+
+export const updateCategory = async (app: App, id: string): Promise<void> => {
+  const nameInputValue = getNameInputValue(id);
+  if (getNameInputValue(id)) {
+    const category = await updateCategoryName(Number(id), nameInputValue);
+    updateCategoryCard(category);
+    await updateCategoriesLists(app);
+  }
+};
+
+export const eventHandler = async (e: Event, app: App): Promise<void> => {
+  const target = e.target as HTMLElement;
+  const { id } = target.dataset;
+  if (id) {
+    switch (target.className) {
+      case CLASS_NAMES.addWordBtn:
+        window.location.hash = `#${CONTROL_PAGE}/${id}`;
+        return;
+      case CLASS_NAMES.cancelBtn:
+        removeCardEditMode(id);
+        return;
+      case CLASS_NAMES.createBtn:
+        await updateCategory(app, id);
+        removeCardEditMode(id);
+        return;
+      case CLASS_NAMES.deleteBtn:
+        await removeCategory(id);
+        await updateCategoriesLists(app);
+        return;
+      case CLASS_NAMES.updateBtn:
+        setCardEditMode(id);
+        break;
+      default:
+        break;
+    }
+  }
+};

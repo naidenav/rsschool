@@ -16,11 +16,11 @@ export class Background extends BaseComponent {
     `;
   }
 
-  hide() {
+  hide(): void {
     if (!this.element.classList.contains('hidden')) this.element.classList.add('hidden');
   }
 
-  show() {
+  show(): void {
     if (this.element.classList.contains('hidden')) this.element.classList.remove('hidden');
   }
 }

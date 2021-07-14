@@ -7,7 +7,7 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 245px);
+  height: calc(100vh - 215px);
   width: 100%;
   transition-duration: .3s;
 
@@ -35,6 +35,9 @@
       font-size: 24px;
       font-weight: 700;
       color: #555;
+      &:hover {
+        cursor: pointer;
+      }
     }
     &__plus-icon {
       margin-top: 140px;
@@ -42,12 +45,15 @@
       width: 100px;
       background: url(../../assets/icons/add.svg) no-repeat center;
       background-size: cover;
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 }
 
 @media screen and (min-width: 640px) {
   .word-editor {
-    height: calc(100vh - 175px);
+    height: calc(100vh - 145px);
   }
 }

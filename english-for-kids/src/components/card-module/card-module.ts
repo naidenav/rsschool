@@ -1,7 +1,7 @@
 /* eslint-disable import/no-cycle */
 
 import { App } from '../../app';
-import { PLAY_MODE, TRAIN_COUNT } from '../../constants';
+import { FLIPP_DELAY, PLAY_MODE, TRAIN_COUNT } from '../../constants';
 import { CategoryInfo, State } from '../../interfaces';
 import { BaseComponent } from '../base-component';
 import { Card } from '../card/card';
@@ -27,16 +27,14 @@ export class CardModule extends BaseComponent {
       }
     });
 
-    this.element.addEventListener('click', (e) => {
+    this.element.addEventListener('click', async (e) => {
       if ((e.target as HTMLElement).classList.contains('card__turn-btn')) {
         const card = (e.target as HTMLElement).closest('.card-container');
         const state: State = app.store.getState();
         const { word } = (card as HTMLElement).dataset;
-        if (word) updateStatistics(state.page, word, TRAIN_COUNT);
+        if (word) await updateStatistics(state.page, word, TRAIN_COUNT);
         card?.classList.add('flipped');
-        card?.addEventListener('mouseleave', () => {
-          card.classList.remove('flipped');
-        }, { once: true });
+        setTimeout(() => card?.classList.remove('flipped'), FLIPP_DELAY);
       }
     });
   }

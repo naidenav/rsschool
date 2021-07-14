@@ -1,7 +1,9 @@
+/* eslint-disable import/no-cycle */
+
 import './admin-module.scss';
-import { App } from "../../app";
-import { BaseComponent } from "../base-component";
-import { CategoryEditor } from "../category-editor/category-editor";
+import { App } from '../../app';
+import { BaseComponent } from '../base-component';
+import { CategoryEditor } from '../category-editor/category-editor';
 import { WordEditor } from '../word-editor/word-editor';
 
 export class AdminModule extends BaseComponent {
@@ -18,7 +20,7 @@ export class AdminModule extends BaseComponent {
     this.navPanel = new BaseComponent('div', ['admin-module__nav-panel']);
     this.container = new BaseComponent('div', ['admin-module__container']);
     this.categoryEditor = new CategoryEditor(app);
-    this.wordEditor = new WordEditor(app);
+    this.wordEditor = new WordEditor();
 
     this.element.append(this.navPanel.element, this.container.element);
     this.container.element.append(this.categoryEditor.element);

@@ -6,7 +6,7 @@ import { CARDS_STORAGE, CATEGORIES_STORAGE, SORT_ARROW } from '../../constants';
 import {
   createRecord, renderTableIcon, trainDifficultWords,
 } from '../utils';
-import { CardInfo, CategoryInfo } from '../../interfaces';
+import { CardInfo } from '../../interfaces';
 import { App } from '../../app';
 import { getAllCategories } from '../../REST-api';
 
@@ -86,7 +86,7 @@ export class Statistics extends BaseComponent {
     this.resetBtn.element.addEventListener('click', () => {
       localStorage.removeItem(CARDS_STORAGE);
       localStorage.removeItem(CATEGORIES_STORAGE);
-      app.statistics.render(app.categories);
+      app.statistics.render();
     });
 
     this.trainDifficultBtn.element.addEventListener('click', async () => {
@@ -105,15 +105,15 @@ export class Statistics extends BaseComponent {
     this.tBody.element.append(record);
   }
 
-  async render(categoriesData: CategoryInfo[]): Promise<void>{
+  async render(): Promise<void> {
     this.clear();
     const categories = await getAllCategories();
 
     let index = 0;
-    categories.forEach(category => {
-      category.cards.forEach(card => {
+    categories.forEach((category) => {
+      category.cards.forEach((card) => {
         this.addRecord(card, index++);
-      })
-    })
+      });
+    });
   }
 }
