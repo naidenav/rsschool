@@ -16,3 +16,9 @@ export interface CategoryInfo {
   id: number,
   cards: CardInfo[],
 }
+
+export interface User {
+  username: string,
+  password: string,
+  role: string,
+}
