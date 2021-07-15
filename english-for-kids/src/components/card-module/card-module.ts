@@ -32,9 +32,11 @@ export class CardModule extends BaseComponent {
         const card = (e.target as HTMLElement).closest('.card-container');
         const state: State = app.store.getState();
         const { word } = (card as HTMLElement).dataset;
-        if (word) await updateStatistics(state.page, word, TRAIN_COUNT);
         card?.classList.add('flipped');
-        setTimeout(() => card?.classList.remove('flipped'), FLIPP_DELAY);
+        card?.addEventListener('mouseleave', () => {
+          card.classList.remove('flipped');
+        }, { once: true });
+        if (word) await updateStatistics(state.page, word, TRAIN_COUNT);
       }
     });
   }

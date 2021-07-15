@@ -17,7 +17,7 @@ import { addMistake, breakGame, setCurrentCard } from './redux/actions';
 export const getAllWords = async (): Promise<CardInfo[]> => {
   const categories = await getAllCategories();
   const words = categories
-    .map(category => category.cards)
+    .map((category) => category.cards)
     .reduce((commonArray, currentArray) => commonArray.concat(currentArray), []);
 
   return words;
@@ -63,7 +63,7 @@ export const highlightActiveRoute = (state: string): void => {
   const prevRoute = document.querySelector('.active-route');
   prevRoute?.classList.remove('active-route');
   let page = state;
-  if (page.includes('/')) page = page.split('/')[0];
+  if (page.includes('/')) [page] = page.split('/');
   const currentRoute = document.getElementById(`${page}-route`);
   currentRoute?.classList.add('active-route');
 };
@@ -112,25 +112,25 @@ export const updateStatistics = async (categoryIndex: string, word: string, coun
   const index = Number(categoryIndex);
   const category: CategoryInfo = await getCategory(index);
 
-  const cards = category.cards;
+  const { cards } = category;
   const cardIndex = cards.findIndex((item) => item.word === word);
-    switch (count) {
-      case TRAIN_COUNT:
-        cards[cardIndex].trainModeTurns += 1;
-        break;
-      case TRUE_COUNT:
-        cards[cardIndex].trueChoices += 1;
-        calculatePercentage(cards[cardIndex]);
-        break;
-      case FALSE_COUNT:
-        cards[cardIndex].falseChoices += 1;
-        break;
-      case TRUE_PER_COUNT:
-        cards[cardIndex].trueChoicesPer += 1;
-        break;
-      default:
-        break;
-    }
+  switch (count) {
+    case TRAIN_COUNT:
+      cards[cardIndex].trainModeTurns += 1;
+      break;
+    case TRUE_COUNT:
+      cards[cardIndex].trueChoices += 1;
+      calculatePercentage(cards[cardIndex]);
+      break;
+    case FALSE_COUNT:
+      cards[cardIndex].falseChoices += 1;
+      break;
+    case TRUE_PER_COUNT:
+      cards[cardIndex].trueChoicesPer += 1;
+      break;
+    default:
+      break;
+  }
   const catrgoryInfo: CategoryInfo = {
     category: category.category,
     id: category.id,

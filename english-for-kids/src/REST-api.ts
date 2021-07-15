@@ -29,6 +29,15 @@ export const getAllCategories = async (queryParams: QueryParam[] = []): Promise<
   return categories;
 };
 
+export const resetStatistics = async (): Promise<CategoryInfo[]> => {
+  const response = await fetch(`${BASE_URL}/reset`, {
+    method: 'PUT',
+  });
+  const categories: CategoryInfo[] = await response.json();
+
+  return categories;
+};
+
 export const getCategory = async (id: number): Promise<CategoryInfo> => {
   const response = await fetch(`${BASE_URL}/categories/${id}`);
   const category: CategoryInfo = await response.json();
