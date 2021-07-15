@@ -54,10 +54,31 @@ app.post('/login', (req, res) => {
   }
 });
 
-app.get('/categories', async (req: express.Request, res): Promise<void> => {
+app.get('/categories', async (req, res): Promise<void> => {
   const { collection } = req.app.locals;
   await collection.find({}).toArray((err: MongoError, categories: CategoryInfo[]) => {
     if (err) console.log(err);
+    res.send(categories);
+  });
+});
+
+app.put('/reset', async (req, res): Promise<void> => {
+  const { collection } = req.app.locals;
+  await collection.find({}).toArray((err: MongoError, categories: CategoryInfo[]) => {
+    if (err) console.log(err);
+    categories.forEach(async (category) => {
+      category.cards.forEach((card) => {
+        card.trainModeTurns = 0;
+        card.falseChoices = 0;
+        card.trueChoices = 0;
+        card.trueChoicesPer = 0;
+      });
+      await collection.findOneAndUpdate({ id: category.id }, { $set: category },
+        { returnOriginal: false }, (error: Error) => {
+          if (error) console.log(error);
+        });
+    });
+
     res.send(categories);
   });
 });
