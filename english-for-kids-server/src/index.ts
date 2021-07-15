@@ -92,16 +92,7 @@ app.get('/categories/:id', async (req, res): Promise<void> => {
   });
 });
 
-app.post('/categories', authenticateJWT, jsonParser, async (req, res): Promise<void> => {
-  let role;
-  if (req.user) {
-    role = (req.user as User).role;
-  }
-
-  if (role !== 'admin') {
-    res.sendStatus(403);
-  }
-
+app.post('/categories', jsonParser, async (req, res): Promise<void> => {
   if (!req.body) res.sendStatus(400);
 
   const { collection } = req.app.locals;

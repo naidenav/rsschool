@@ -20,8 +20,6 @@ export const CLASS_NAMES = {
   saveBtn: 'word-card__save-btn',
 };
 
-export const FLIPP_DELAY = 3000;
-
 export const ACCESS_TOKEN_KEY = 'accessToken';
 
 export const LOGIN = 'admin';

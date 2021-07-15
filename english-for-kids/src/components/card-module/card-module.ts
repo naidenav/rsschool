@@ -1,7 +1,7 @@
 /* eslint-disable import/no-cycle */
 
 import { App } from '../../app';
-import { FLIPP_DELAY, PLAY_MODE, TRAIN_COUNT } from '../../constants';
+import { PLAY_MODE, TRAIN_COUNT } from '../../constants';
 import { CategoryInfo, State } from '../../interfaces';
 import { BaseComponent } from '../base-component';
 import { Card } from '../card/card';

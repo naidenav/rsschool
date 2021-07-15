@@ -59,7 +59,6 @@ export const updateCategoryInDB = async (newCategory: CategoryInfo): Promise<Cat
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
     },
     body: JSON.stringify(newCategory),
   });

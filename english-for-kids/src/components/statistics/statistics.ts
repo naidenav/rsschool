@@ -2,7 +2,7 @@
 
 import './statistics.scss';
 import { BaseComponent } from '../base-component';
-import { CARDS_STORAGE, CATEGORIES_STORAGE, SORT_ARROW } from '../../constants';
+import { SORT_ARROW } from '../../constants';
 import {
   createRecord, renderTableIcon, trainDifficultWords,
 } from '../utils';
