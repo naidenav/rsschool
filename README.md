@@ -1,2 +1,2 @@
-# naidenav-JSFE2021Q1
-Private repository for @naidenav
+# Deploy:
+https://rolling-scopes-school.github.io/naidenav-JSFE2021Q1/wildlife/
